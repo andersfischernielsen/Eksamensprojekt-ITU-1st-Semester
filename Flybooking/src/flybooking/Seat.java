@@ -2,7 +2,7 @@ package flybooking;
 
 /**
  * A plane seat.
- * @author nders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
+ * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Seat
 {
