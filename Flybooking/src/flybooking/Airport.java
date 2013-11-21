@@ -9,7 +9,6 @@ public class Airport {
     private final String name;
     private final String country;
     private final String city;
-    private final String forup;
 
     /**
      * 
