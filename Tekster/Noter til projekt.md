@@ -22,3 +22,5 @@ Mht. test - det er ikke sikkert at vi kan nå at teste alt, så vælg centrale k
 - Lav interfaces så komponenter let kan udskiftes.
 - Lav javadoc!
 - Brug illustrationer! ikke ting som: “Så rykkede vi klassen over i bla. bla.”. Tegn en pil!
+- Rapporten skal være velskrevet. 
+- Aflever hele opgaven på et USB-medie, med rapporten i PDF-format samt en readme.txt. Derudover en .jar-fil og sourcekoden. Vi får ikke USB’et igen!
