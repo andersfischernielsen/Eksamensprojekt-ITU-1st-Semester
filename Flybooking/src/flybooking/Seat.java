@@ -1,7 +1,7 @@
 package flybooking;
 
 /**
- * A plane seat.
+ * A plane seat. HEJEHEJEHEJ
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Seat
