@@ -1,4 +1,4 @@
-#Udbygninger til flybooking system
+﻿#Udbygninger til flybooking system
 ==================================
 
 ##Features:
@@ -17,6 +17,8 @@
 - Availability
     - Boolean True eller false vha. GUI. Evt. rød farve ved optaget og grøn ved ledig.
 
+- Booking datoer/uge system
+    - find rejser ud fra ugenr. Hvis dato opgives omregnes denne til ugenr. Dette gør det hurtigere og lettere at søge efter flyafgange.
 
 ##Bugs:
 - 
