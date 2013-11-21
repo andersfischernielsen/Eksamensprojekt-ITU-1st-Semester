@@ -2,7 +2,7 @@
 package flybooking;
 
 /**
- * An airport with a naem and location. 
+ * An airport with a name and location. 
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Airport {
