@@ -16,8 +16,9 @@ Forkert input, evt. usability.
 Mht. test - det er ikke sikkert at vi kan nå at teste alt, så vælg centrale klasser ud og test dem for de forskellige cases! Så længe de kan se at vi godt kan finde ud af at teste, gør det ikke noget, at der er et par klasser, vi ikke har nået at teste. JUnit test.
 - Konklusion/Perspektivering - Konklusion på projektet. Hvad fungerede, hvad kunne gøres bedre, hvordan kunne vi udvide i fremtiden? Vigtigt at man giver overblik over: det er hvad vi har tænkt, hvad vi har gjort og hvad vi har afprøvet.
 
-## Andre noter:
+##Andre noter:
 - Hold koden på engelsk, men skriv rapporten på dansk. 
 - Lad være med at skrive kode i selve rapporten! Brug kun tekst og figurer! Koden vedlægges i appendix!
 - Lav interfaces så komponenter let kan udskiftes.
 - Lav javadoc!
+- Brug illustrationer! ikke ting som: “Så rykkede vi klassen over i bla. bla.”. Tegn en pil!
