@@ -2,3 +2,7 @@
 /Flybooking/build
 /Flybooking/nbproject/private
 /Flybooking/dist/
+
+# Filtyper til at ignorere #
+.DS_Store
+.db
