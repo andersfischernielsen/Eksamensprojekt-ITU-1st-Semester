@@ -3,6 +3,7 @@ package flybooking;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Create a reservation for a booking.
@@ -19,6 +20,28 @@ public class Reservation implements ReservationInterface {
     private Date endDate;
     private int CPR;
     private boolean paid;
+    private Random randomGen;
+
+    /**
+     * Create a reservation, containing details about the journey, the plane and
+     * the people on board.
+     */
+    public Reservation()
+    {
+        //RESERVATIONEN SKULLE IKKE OPRETTES MED NOGLE PARAMETRE, SÅ VIDT 
+        //VI SNAKKEDE OM, VEL?
+        //DEN SKULLE BARE HAVE SETTERS TIL ALLE FELTERNE, SÅ VI KAN OPRETTE EN 
+        //TOM RESERVATION FØRST. 
+
+        paid = false;
+        randomGen = new Random();
+        ID = randomGen.nextInt();
+        //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM
+        //TIL AT GENERERE ID'S. DE SKAL LIGGE I KRONOLOGISK ORDEN, GÅR JEG UD FRA, 
+        //SÅ VI SKAL HAVE FAT I DATABASEN OG FINDE DE TIDLIGERE RESERVATIONERS 
+        //ID, OG SÅ LÆGGE EN TIL DET HØJESTE. EN SEPARAT "ID"-KLASSE VILLE MÅSKE
+        //VÆRE EN RIGTIG GOD IDE.
+    }
 
     @Override
     public ArrayList<Person> getPersons()
@@ -67,5 +90,4 @@ public class Reservation implements ReservationInterface {
     {
         return paid;
     }
-
 }

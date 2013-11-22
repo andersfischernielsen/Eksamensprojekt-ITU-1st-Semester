@@ -33,19 +33,6 @@ public interface ReservationInterface {
      * @return A Date object for the creation of the reservation.
      */
     Date getReservationDate();
-
-    /**
-     * Return the date the journey begins.
-     * @return A Date object for the beginning of the journey.
-     */
-    Date getStartDate();
-
-    /**
-     * Return the date the journey ends.
-     * @return A Date object for the end of the journey.
-     */
-    Date getEndDate();
-        
     
     /**
      * Return the CPR number of the person that's made the reservation.
@@ -58,4 +45,33 @@ public interface ReservationInterface {
      * @return Whether the reservation is paid for.
      */
     boolean isPaid();
+    
+    /**
+     * Set the people in the reservation. 
+     * @param person The person to add to the reservation.
+     */
+    public void setPersons(Person person);
+
+    /**
+     * Set the flight for the reservation
+     * @param flight The flight to fly on/with.
+     */
+    public void setFlight(Flight flight);
+
+    /**
+     * Set the date the reservation was made to the current date.
+     */
+    public void setReservationDate();
+
+    /**
+     * Set the CPR number for the person paying for the reservation.
+     * @param CPR The CPR of the paying person.
+     */
+    public void setCPR(int CPR);
+
+    /**
+     * Set whether the reservation has been paid for or not. 
+     * @param paid Whether the reservation has been paid for. 
+     */
+    public void setPaid(boolean paid);
 }
