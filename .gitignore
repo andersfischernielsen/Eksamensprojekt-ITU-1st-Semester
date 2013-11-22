@@ -1,3 +1,4 @@
 # NetBeans filer til at ignorere #
 Flybooking/build
 Flybooking/nbproject/private
+/Flybooking/dist/
