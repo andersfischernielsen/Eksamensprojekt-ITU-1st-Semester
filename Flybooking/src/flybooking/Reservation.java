@@ -33,6 +33,7 @@ public class Reservation implements ReservationInterface {
         //DEN SKULLE BARE HAVE SETTERS TIL ALLE FELTERNE, SÅ VI KAN OPRETTE EN 
         //TOM RESERVATION FØRST. 
 
+        //We haven't paid yet. 
         paid = false;
         randomGen = new Random();
         ID = randomGen.nextInt();
@@ -68,18 +69,6 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public Date getStartDate()
-    {
-        return startDate;
-    }
-
-    @Override
-    public Date getEndDate()
-    {
-        return endDate;
-    }
-
-    @Override
     public int getCPR()
     {
         return CPR;
@@ -90,4 +79,43 @@ public class Reservation implements ReservationInterface {
     {
         return paid;
     }
+
+    @Override
+    public void addPerson(Person person)
+    {
+        persons.add(person);
+    }
+
+    @Override
+    public void removePerson(Person person)
+    {
+        for (Person p : persons) {
+            p.equals(person);
+        }
+    }
+
+    @Override
+    public void setFlight(Flight flight)
+    {
+        this.flight = flight;
+    }
+
+    @Override
+    public void setReservationDate()
+    {
+        reservationDate = new Date();
+    }
+
+    @Override
+    public void setCPR(int CPR)
+    {
+        this.CPR = CPR;
+    }
+
+    @Override
+    public void setPaid(boolean paid)
+    {
+        this.paid = paid;
+    }
+
 }

@@ -50,8 +50,14 @@ public interface ReservationInterface {
      * Set the people in the reservation. 
      * @param person The person to add to the reservation.
      */
-    public void setPersons(Person person);
+    public void addPerson(Person person);
 
+    /**
+     * Remove a person from the reservation.
+     * @param person The person to remove from the reservation.
+     */
+    public void removePerson(Person person);
+    
     /**
      * Set the flight for the reservation
      * @param flight The flight to fly on/with.
