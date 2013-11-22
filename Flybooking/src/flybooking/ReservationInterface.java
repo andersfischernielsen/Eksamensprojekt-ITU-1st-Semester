@@ -1,6 +1,7 @@
 
 package flybooking;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,13 +14,13 @@ public interface ReservationInterface {
      * 
      * @return the persons on this reservation
      */
-    Person[] getPersons();
+    ArrayList<Person> getPersons();
     
     /**
      * Returns all the journeys of this travel.
      * @return the journeys of this travel.
      */
-    FlightInterface[] getJourney();
+    Flight getFlight();
     
     /**
      * Return the ID of the reservation.
