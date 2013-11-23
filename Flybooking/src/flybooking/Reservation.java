@@ -37,6 +37,7 @@ public class Reservation implements ReservationInterface {
         paid = false;
         randomGen = new Random();
         ID = randomGen.nextInt();
+        
         //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM
         //TIL AT GENERERE ID'S. DE SKAL LIGGE I KRONOLOGISK ORDEN, GÅR JEG UD FRA, 
         //SÅ VI SKAL HAVE FAT I DATABASEN OG FINDE DE TIDLIGERE RESERVATIONERS 
