@@ -41,6 +41,18 @@ public interface ReservationInterface {
     int getCPR(); 
     
     /**
+     * Get the person that has paid for the reservation.
+     * @return The person that has paid for the reservation.
+     */
+    Person getPayer();
+    
+    /**
+     * Set the person that has paid for the reservation
+     * @param payer The person that has paid for the reservation.
+     */
+    void setPayer(Person payer);
+    
+    /**
      * Return whether the reservation is paid (and therefore valid).
      * @return Whether the reservation is paid for.
      */
