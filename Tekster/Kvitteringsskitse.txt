@@ -1,0 +1,14 @@
+-------------------------------------------------------------
+
+Departure:  14:59      06-05-14       Copenhagen        
+Arrival:    19:39      07-05-14       Dubai         
+
+Seats:      13/12      Economy        Anders Fischer-Nielsen
+            22/03      Bussiness      Anders Wind Steffensen
+		    34/02      First          Christoffer Forup
+
+Plane:      C394
+
+Payer:      060593-XXXX               Anders Fischer-Nielsen
+
+-------------------------------------------------------------
