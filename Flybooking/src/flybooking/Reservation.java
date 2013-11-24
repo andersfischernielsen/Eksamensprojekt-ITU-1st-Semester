@@ -21,6 +21,7 @@ public class Reservation implements ReservationInterface {
     private int CPR;
     private boolean paid;
     private Random randomGen;
+    private Person payer;
 
     /**
      * Create a reservation, containing details about the journey, the plane and
@@ -37,7 +38,7 @@ public class Reservation implements ReservationInterface {
         paid = false;
         randomGen = new Random();
         ID = randomGen.nextInt(1000000);
-        
+
         //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM TIL AT GENERERE ID'S. 
         //DE SKAL LIGGE I KRONOLOGISK ORDEN, GÅR JEG UD FRA, 
         //SÅ VI SKAL HAVE FAT I DATABASEN OG FINDE DE TIDLIGERE RESERVATIONERS 
@@ -117,6 +118,18 @@ public class Reservation implements ReservationInterface {
     public void setPaid(boolean paid)
     {
         this.paid = paid;
+    }
+
+    @Override
+    public Person getPayer()
+    {
+        return payer;
+    }
+
+    @Override
+    public void setPayer(Person payer)
+    {
+        this.payer = payer;
     }
 
 }
