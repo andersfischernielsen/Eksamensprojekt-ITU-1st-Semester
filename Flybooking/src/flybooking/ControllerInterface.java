@@ -16,36 +16,45 @@ public interface ControllerInterface {
      * Begin the process of creating a new reservation.
      */
     void createReservation();
+    //HER SKAL VI NOK HAVE FLERE METODER. JEG VED BARE IKKE LIGE HELT PRÆCIST
+    //HVORDAN VI TACKLER HELE DATABASEN OSV. 
+    //VI TA'R DEN MANDAG. 
 
     /**
      * Save the reservation when finished.
+     * @param database The database to save the reservation to.
      */
-    void saveReservation();
+    void saveReservation(DatabaseInterface database);
 
     /**
      * Get a specific reservation.
+     * @param database The database to get the reservation from.
      */
-    void getReservation();
+    void getReservation(DatabaseInterface database);
 
     /**
      * Delete a reservation.
+     * @param database The database to delete the reservation from. 
      */
-    void deleteReservation();
+    void deleteReservation(DatabaseInterface database);
 
     /**
      * Print the receipt of the reservation.
+     * @param reservation The reservation to print.
+     * @param printer The printer to use to print.
      */
-    void printReceipt();
+    void printReceipt(ReservationInterface reservation, ReceiptPrinter printer);
 
     /**
      * Get the total price of the reservation.
      */
-    void getPrice();
+    int getPrice();
 
     /**
-     * Find a flight.
+     * Find something.
+     * @param database The database to search in.
      */
-    void search(); //SEARCH BLIVER MERE AVANCERET AT LAVE, SÅ VI SKAL SIKKERT HAVE EN DEL ANDRE SØGEMETODER.
+    void search(DatabaseInterface database); //SEARCH BLIVER MERE AVANCERET AT LAVE, SÅ VI SKAL SIKKERT HAVE EN DEL ANDRE SØGEMETODER.
 
     /**
      * Checks to see if anyone is next to the specified person.
