@@ -1,6 +1,8 @@
 
 package flybooking;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
@@ -22,7 +24,7 @@ public interface ReceiptPrinter {
      * Create the details about the people in the reservation and the seats they're on. 
      * @return A string with details about the people in the reservation.
      */
-    String createPeopleDetails();
+    String createPeopleDetails(); 
 
     /**
      * Create the details about the plane in the reservation.

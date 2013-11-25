@@ -2,6 +2,7 @@
 package flybooking;
 
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -10,10 +11,13 @@ import java.util.ArrayList;
 public class Printer implements ReceiptPrinter {
 
     private Reservation reservation;
+    private SimpleDateFormat simpleDate;
 
     public Printer(Reservation reservation)
     {
         this.reservation = reservation;
+        simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        
     }
 
     @Override
@@ -27,7 +31,7 @@ public class Printer implements ReceiptPrinter {
         System.out.println("");
         System.out.println(createPlaneDetails());
         System.out.println("");
-        System.out.println(createPlaneDetails());
+        System.out.println(createPayerDetails());
         System.out.println("-------------------------------------------------");
     }
 
@@ -36,11 +40,11 @@ public class Printer implements ReceiptPrinter {
     {
         String finalString;
         finalString = "Departure:  "
-                + reservation.getFlight().getStartDate().toString()
-                + reservation.getFlight().getStartAirport().toString();
-        finalString += "\n Arrival:    "
-                + reservation.getFlight().getStartDate().toString()
-                + reservation.getFlight().getStartAirport().toString();
+                + simpleDate.format(reservation.getFlight().getStartDate())
+                + " " + reservation.getFlight().getStartAirport().getName();
+        finalString += "\nArrival:    "
+                + simpleDate.format(reservation.getFlight().getEndDate())
+                + " " + reservation.getFlight().getEndAirport().getName();
 
         return finalString;
     }
@@ -48,9 +52,9 @@ public class Printer implements ReceiptPrinter {
     @Override
     public String createPeopleDetails()
     {
-        String finalString = "Seats:       ";
+        String finalString = "Seats:      ";
         for (Person p : reservation.getPersons()) {
-            finalString += " \n            " + p.getFirstName() + p.getLastName();
+            finalString += p.getFirstName() + " " + p.getLastName() + "\n            ";
         }
 
         return finalString;
@@ -60,7 +64,7 @@ public class Printer implements ReceiptPrinter {
     public String createPlaneDetails()
     {
         String finalString;
-        finalString = "Plane:      " + reservation.getFlight().getPlane().toString();
+        finalString = "Plane:      " + reservation.getFlight().getPlane().getID();
         return finalString;
     }
 
@@ -69,7 +73,8 @@ public class Printer implements ReceiptPrinter {
     {
         String finalString;
         finalString = "Payer:      " + reservation.getCPR() + "        " + 
-                      reservation.getPayer().toString();
+                      reservation.getPayer().getFirstName() + " " + 
+                      reservation.getPayer().getLastName();
         return finalString;
     }
 
