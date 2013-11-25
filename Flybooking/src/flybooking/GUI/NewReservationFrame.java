@@ -55,13 +55,17 @@ public class NewReservationFrame extends JFrame {
     {
         setDefaultCloseOperation(NewReservationFrame.EXIT_ON_CLOSE);
         setTitle("New Reservation");
+        setResizable(false);
+        
+        
         content = getContentPane();
         topContainers = new ArrayList<>();
 
         drawTopContent();
         drawBottomContent();
 
-        pack();
+        content.repaint();
+        setSize(new Dimension(540, 500));
         setVisible(true);
     }
 
@@ -118,10 +122,12 @@ public class NewReservationFrame extends JFrame {
 
         //Go through all of the grid containers and set their layout, size and
         //finally add them to the topContainer.
-        for (Container cont : topContainers) {
-            cont.setLayout(new FlowLayout());
-            cont.setPreferredSize(new Dimension(150, 100));
-            topContainer.add(cont);
+        for (Container c : topContainers) {
+            c.setLayout(new FlowLayout());
+            c.add(Box.createVerticalGlue());
+            c.add(Box.createHorizontalGlue());
+            c.setPreferredSize(new Dimension(100, 60));
+            topContainer.add(c);
         }
         
         //Add the finished Container to the frame.
@@ -135,11 +141,6 @@ public class NewReservationFrame extends JFrame {
     {
         bottomContainer = new Container();
         
-        JButton testButton = new JButton("Testing!") ;
-        Container tempCont = new Container();
-        tempCont.add(testButton);
-        tempCont.setSize(new Dimension(400, 300));
-        bottomContainer.add(tempCont);
         content.add(bottomContainer, BorderLayout.SOUTH);
     }
 }
