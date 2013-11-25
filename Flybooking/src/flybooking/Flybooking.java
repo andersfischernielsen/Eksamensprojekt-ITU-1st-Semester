@@ -14,7 +14,7 @@ public class Flybooking
     {
         Date date1 = new Date(2013-1900, 12, 12);
         Date date2 = new Date(2013-1900, 12, 12);
-        Plane plane = new Plane("C2034X", 2, 1, 2);
+        Plane plane = new Plane("C2034X", 1, 2);
         Airport a1 = new Airport("CPH", "Denmark", "Copenhagen");
         Airport a2 = new Airport("BER", "Germany", "Berlin");
         Flight flight = new Flight(2000, 1, plane, date1, date2, a1, a2);

@@ -7,7 +7,7 @@ package flybooking;
 public class Seat
 {
 
-    private final int ID;
+    private final String ID;
     private boolean available;
     //What class the seat is. 0 = economy, 1 = business , 2 = firstclass. 
     private final int group;
@@ -17,14 +17,13 @@ public class Seat
      * depending on the parameter group.
      *
      * @param ID        The ID of the seat, used for finding specific seats.
-     * @param available Describes whether the seat is available.
      * @param group     The group this seat belongs to. 0 = economy, 1 =
      *                  business , 2 = first class.
      */
-    public Seat(int ID, boolean available, int group)
+    public Seat(String ID, int group)
     {
         this.ID = ID;
-        this.available = available;
+        available = true;
         this.group = group; // CHECK AT DEN ER 0, 1 ELLER 2.
     }
 
@@ -60,7 +59,7 @@ public class Seat
      * Return the ID of the seat.
      * @return The ID of the seat.
      */
-    public int getID()
+    public String getID()
     {
         return ID;
     }

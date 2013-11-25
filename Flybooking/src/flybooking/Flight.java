@@ -79,13 +79,13 @@ public class Flight implements FlightInterface {
     }
 
     @Override
-    public boolean getSeatAvailability(int seatID)
+    public boolean getSeatAvailability(String seatID)
     {
         return plane.getSeatAvailability(seatID);
     }
 
     @Override
-    public void setSeatAvailability(int seatID, boolean availability)
+    public void setSeatAvailability(String seatID, boolean availability)
     {
         plane.setSeatAvailability(seatID, availability);
     }
