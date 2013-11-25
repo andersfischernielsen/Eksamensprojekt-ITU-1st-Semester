@@ -13,10 +13,9 @@ public class Plane
     public final int rows, columns;
     private final Seat[][] seats;
 
-    public Plane(String ID, int numberOfSeats, int rows, int columns)
+    public Plane(String ID, int rows, int columns)
     {
         this.ID = ID;
-        this.numberOfSeats = numberOfSeats;
         this.rows = rows;
         this.columns = columns;
         seats = new Seat[columns][rows];

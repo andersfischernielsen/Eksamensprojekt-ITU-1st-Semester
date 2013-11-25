@@ -1,5 +1,6 @@
 package flybooking.GUI;
 
+import flybooking.Plane;
 import java.awt.*;
 import javax.swing.*;
 
@@ -10,6 +11,9 @@ import javax.swing.*;
 public class PersonAndSeatFrame extends JFrame
 {
 
+    // denne er bare til test.
+    Plane planeToDraw = new Plane("5eerrg2", 6, 20);
+    
     private int amtOfPersons;
     private JComboBox personComboBox, ageGroupComboBox;
 
@@ -59,7 +63,7 @@ public class PersonAndSeatFrame extends JFrame
         updatePersonComboBox();
 
         // the plane drawing
-        Canvas PlaneDrawing;
+        PlaneGraphicsComponent PlaneDrawing = new PlaneGraphicsComponent(planeToDraw);
 
         pack();
         setVisible(true);

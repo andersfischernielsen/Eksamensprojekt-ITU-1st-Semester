@@ -37,14 +37,14 @@ public interface FlightInterface
      * Gets the seat availability of the seat with ID "seatID"
      * @param seatID the seatID to return the availability of.
      */
-    public boolean getSeatAvailability(int seatID);
+    public boolean getSeatAvailability(String seatID);
     
     /**
      * Set the availability of the seat "seatID" to "availability" 
      * @param seatID the seatID which needs to change to.
      * @param availability the availability to which the seat needs to be set to.
      */
-    public void setSeatAvailability(int seatID, boolean availability);
+    public void setSeatAvailability(String seatID, boolean availability);
     
     /**
      * 
