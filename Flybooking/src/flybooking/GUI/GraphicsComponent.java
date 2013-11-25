@@ -125,7 +125,7 @@ public class GraphicsComponent
             Font headerFont = new Font("Monospaced", Font.BOLD, 16);
             g.setColor(Color.BLACK);
             g.setFont(headerFont);
-            g.drawString("AND AND OG FORUP FLY", width-300, 35);
+            g.drawString("AND AND & FORUP PLANE BOOKING", width-350, 35);
         }
 
         @Override
