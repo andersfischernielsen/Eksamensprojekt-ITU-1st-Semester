@@ -66,12 +66,26 @@ public class GraphicsComponent
         @Override
         public void paint(Graphics g)
         {
-            g.drawRect(0, 0, cols * unit + 49, rows * unit + 49);
+            int fixdistanceX = 25;
+            int fixdistanceY = 25;
+            g.drawRect(0, 0, cols * unit + 79, rows * unit + 74);
 
             for (int i = 0; i < cols; i++)
             {
+                if (i == cols/10)
+                {
+                    fixdistanceY = 40;
+                }
+                if (i == cols/4)
+                {
+                    fixdistanceY = 55;
+                }
                 for (int j = 0; j < rows; j++)
                 {
+                    if (j == rows/2)
+                    {
+                        fixdistanceX = 40;
+                    }
                     if (planeToDraw.getSeatAvailability(planeToDraw.SeatIDGenerator(i, j)))
                     {
                         g.setColor(Color.GREEN);
@@ -81,17 +95,19 @@ public class GraphicsComponent
                         g.setColor(Color.RED);
                     }
 
-                    g.fillRect((i * unit) + padding + 25, (j * unit) + padding + 25, unit - padding, unit - padding);
+                    g.fillRect((i * unit) + padding + fixdistanceY, (j * unit) + padding + fixdistanceX, unit - padding, unit - padding);
                     g.setColor(Color.BLACK);
-                    g.drawRect((i * unit) + padding + 25, (j * unit) + padding + 25, unit - padding, unit - padding);
+                    g.drawRect((i * unit) + padding + fixdistanceY, (j * unit) + padding + fixdistanceX, unit - padding, unit - padding);
                 }
+                fixdistanceX = 25;
             }
+            fixdistanceY = 25;
         }
 
         @Override
         public Dimension getPreferredSize()
         {
-            return new Dimension(cols * unit + 50, rows * unit + 50);
+            return new Dimension(cols * unit + 80, rows * unit + 75);
         }
 
         @Override
@@ -121,17 +137,17 @@ public class GraphicsComponent
             g.setColor(Color.BLUE);
             g.fillRect(0, 0, width, height);
             g.setColor(Color.GRAY);
-            g.drawRect(0, 0, width, height+20);
+            g.drawRect(0, 0, width, height + 20);
             Font headerFont = new Font("Monospaced", Font.BOLD, 16);
             g.setColor(Color.BLACK);
             g.setFont(headerFont);
-            g.drawString("AND AND & FORUP PLANE BOOKING", width-350, 35);
+            g.drawString("AND AND & FORUP PLANE BOOKING", width - 350, 35);
         }
 
         @Override
         public Dimension getPreferredSize()
         {
-            return new Dimension(width+1, height+21);
+            return new Dimension(width + 1, height + 21);
         }
 
         @Override
