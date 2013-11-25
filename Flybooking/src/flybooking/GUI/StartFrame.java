@@ -19,6 +19,7 @@ public class StartFrame extends JFrame {
     public StartFrame() throws HeadlessException
     {
         setTitle("Flybooking");
+        this.setDefaultCloseOperation(StartFrame.EXIT_ON_CLOSE);
         content = this.getContentPane();
         innerCont = new Container();
         empty = new Container();
@@ -29,7 +30,7 @@ public class StartFrame extends JFrame {
         innerCont.add(newBookingButton);
         innerCont.add(editBookingButton);
 
-        this.pack();
-        this.setVisible(true);
+        pack();
+        setVisible(true);
     }
 }
