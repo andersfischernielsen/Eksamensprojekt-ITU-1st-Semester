@@ -1,3 +1,4 @@
+
 package flybooking.GUI;
 
 import java.awt.*;
@@ -6,47 +7,87 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Anders
+ * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class EditReservationFrame extends JFrame {
 
-    Container content;
-    Container innerCont;
-    Container innerRes;
-    JButton searchButton;
-    JLabel label;
-    JLabel label2;
-    JTextField textField;
-    JTextField textField2;
+    private Container content, topContent, bottomContent, topLeft, topRight, bottomLeft, bottomRight, filler;
+    private JButton searchButton;
+    private JLabel resLabel, CPRLabel;
+    private JTextField resField, CPRField;
+    private static EditReservationFrame instance = null;
 
-    public EditReservationFrame() throws HeadlessException {
-        setTitle("Rediger Reservation");
-        content = this.getContentPane();
-        innerCont = new Container();
-        innerRes = new Container();
-        content.add(innerRes);
-        content.add(innerCont);
-        
-        innerCont.setLayout(new FlowLayout());
-        
-        label = new JLabel("Reservation ID:");
-        innerCont.add(label);
-        label2 = new JLabel("CPR #:");
-        innerCont.add(label2);
-        
-        searchButton = new JButton("Search");
-        innerCont.add(searchButton);
-        
-        textField = new JTextField("Reservation ID:", 10);
-        innerCont.add(textField);
-        textField2 = new JTextField("CPR #:", 10);
-        innerCont.add(textField2);
-                
-        this.pack();
-        this.setVisible(true);
+    public static EditReservationFrame getInstance()
+    {
+        if (instance == null) {
+            instance = new EditReservationFrame();
+        }
+        return instance;
     }
 
-    public static void main(String[] args) {
-        new EditReservationFrame();
+    private EditReservationFrame() throws HeadlessException
+    {
+        setTitle("Edit Reservation");
+        content = getContentPane();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        createTopContent();
+        createBottomContent();
+
+        getRootPane().setDefaultButton(searchButton);
+        pack();
+        setVisible(true);
+    }
+
+    private void createTopContent()
+    {
+        topContent = new Container();
+        topContent.setLayout(new GridLayout(2, 2));
+
+        topLeft = new Container();
+        resLabel = new JLabel("Reservation ID: ");
+        resField = new JTextField(10);
+        topLeft.add(resLabel);
+        topLeft.add(resField);
+        topLeft.setLayout(new FlowLayout());
+
+        topRight = new Container();
+        CPRLabel = new JLabel("CPR #: ");
+        CPRField = new JTextField(10);
+        topRight.add(CPRLabel);
+        topRight.add(CPRField);
+        topRight.setLayout(new FlowLayout());
+
+        bottomLeft = new Container();
+
+        bottomRight = new Container();
+        filler = new Container();
+        filler.setPreferredSize(new Dimension(100, 30));
+        searchButton = new JButton("Search");
+        searchButton.setDefaultCapable(true);
+        searchButton.setAlignmentX(RIGHT_ALIGNMENT);
+        bottomRight.add(filler);
+        bottomRight.add(searchButton);
+        bottomRight.setLayout(new FlowLayout());
+
+        topContent.add(topLeft);
+        topContent.add(topRight);
+        topContent.add(bottomLeft);
+        topContent.add(bottomRight);
+
+        content.add(topContent, BorderLayout.NORTH);
+    }
+
+    private void createBottomContent()
+    {
+        bottomContent = new Container();
+        bottomContent.setPreferredSize(new Dimension(300, 400));
+
+        content.add(bottomContent, BorderLayout.SOUTH);
+    }
+
+    public static void main(String[] args)
+    {
+        EditReservationFrame.getInstance();
     }
 }
