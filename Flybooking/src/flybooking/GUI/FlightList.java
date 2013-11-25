@@ -45,15 +45,12 @@ public class FlightList extends JList {
      * @param flights The array to add to the list.
      */
     public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
-        
         //Go through the list of flights, adding each one as a string.
         for (Flight f : flights) {
             listModel.addElement(convertToString(f));
         }
         
         this.setModel(listModel);
-        this.repaint();
     }
     
     /**

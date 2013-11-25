@@ -2,7 +2,10 @@
 package flybooking.GUI;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import flybooking.*;
+import java.util.Date;
 
 /**
  *
@@ -27,7 +30,6 @@ public class NewReservationFrame extends JFrame {
         topContainer.setPreferredSize(new Dimension(400, 300));
         topContainer.setLayout(new GridLayout(3, 3));
         bottomContainer = new Container();
-        //bottomContainer.add(flightList);
         content.add(topContainer, BorderLayout.NORTH);
         filler = new Container();
         
