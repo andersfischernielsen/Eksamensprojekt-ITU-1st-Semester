@@ -1,7 +1,8 @@
 
 package flybooking.GUI;
 
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
@@ -9,4 +10,9 @@ import javax.swing.JFrame;
  */
 public class PersonAndSeatFrame extends JFrame {
 
+    public PersonAndSeatFrame() throws HeadlessException
+    {
+        setTitle("Pick seats and passengers");
+        
+    }
 }
