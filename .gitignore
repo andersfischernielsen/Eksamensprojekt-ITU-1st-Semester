@@ -6,3 +6,4 @@
 # Filtyper til at ignorere #
 .DS_Store
 .db
+.class
