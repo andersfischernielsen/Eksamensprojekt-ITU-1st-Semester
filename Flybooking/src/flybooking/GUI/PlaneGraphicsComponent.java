@@ -4,6 +4,7 @@ import flybooking.Plane;
 import flybooking.Seat;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 
@@ -18,7 +19,6 @@ public class PlaneGraphicsComponent extends JComponent
     private final int unit = 12, padding = 4;
     private final Plane planeToDraw;
     private int rows, cols;
-    
 
     public PlaneGraphicsComponent(Plane planeToDraw)
     {
@@ -32,21 +32,39 @@ public class PlaneGraphicsComponent extends JComponent
     {
         return seat.getAvailability();
     }
-    
+
     @Override
     public void paint(Graphics g)
     {
-        for (int i = 0 ; i<cols ; i++)
+        g.drawRect(0, 0, cols * unit + 49, rows * unit + 49);
+
+        for (int i = 0; i < cols; i++)
         {
-            for (int j = 0 ; j<rows ; j++)
+            for (int j = 0; j < rows; j++)
             {
-                g.setColor(Color.RED);
-                if (planeToDraw.getSeatAvailability(planeToDraw.SeatIDGenerator(i,j)))
+                if (planeToDraw.getSeatAvailability(planeToDraw.SeatIDGenerator(i, j)))
                 {
                     g.setColor(Color.GREEN);
                 }
-                g.drawRect((i*unit)+padding, (j*unit)+padding, unit, unit);
+                else
+                {
+                    g.setColor(Color.RED);
+                }
+
+                g.fillRect((i * unit) + padding + 25, (j * unit) + padding + 25, unit - padding, unit - padding);
             }
         }
+    }
+
+    @Override
+    public Dimension getPreferredSize()
+    {
+        return new Dimension(cols * unit + 50, rows * unit + 50);
+    }
+
+    @Override
+    public Dimension getMinimumSize()
+    {
+        return getPreferredSize();
     }
 }
