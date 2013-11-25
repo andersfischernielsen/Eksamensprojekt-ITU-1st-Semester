@@ -78,20 +78,24 @@ public class PersonAndSeatFrame extends JFrame
         // FirstName text
         JTextField firstNameText = new JTextField("First name");
         firstNameText.setEditable(false);
+        firstNameText.setBorder(BorderFactory.createEmptyBorder());
         topLeftEastPanel.add(firstNameText);
         // FirstName textField
         JTextField firstNameTextField = new JTextField("Put last name here...");
         firstNameTextField.setForeground(Color.gray);
+        firstNameTextField.setPreferredSize( new Dimension(0, 22));
         topLeftEastPanel.add(firstNameTextField);
         topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         // LastName text
         JTextField lastNameText = new JTextField("Last name");
         lastNameText.setEditable(false);
+        lastNameText.setBorder(BorderFactory.createEmptyBorder());
         topLeftEastPanel.add(lastNameText);
         // LastName textField
         JTextField lastNameTextField = new JTextField("Put last name here...");
         lastNameTextField.setForeground(Color.gray);
+        lastNameTextField.setPreferredSize( new Dimension(0, 22));
         topLeftEastPanel.add(lastNameTextField);
 
         // AgeGroup combobox
@@ -115,17 +119,24 @@ public class PersonAndSeatFrame extends JFrame
         // Address text
         JTextField AddressText = new JTextField("Address");
         AddressText.setEditable(false);
+        AddressText.setBorder(BorderFactory.createEmptyBorder());
         topRightWestPanel.add(AddressText);
         // Street textField
         JTextField streetTextField = new JTextField("Street...");
         streetTextField.setForeground(Color.gray);
+        streetTextField.setPreferredSize(new Dimension(100,22));
         topRightWestPanel.add(streetTextField);
         topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         // City textField
         JTextField cityTextField = new JTextField("ZIP, City, Country");
         cityTextField.setForeground(Color.gray);
+        cityTextField.setPreferredSize(new Dimension(100,22));
         topRightWestPanel.add(cityTextField);
-        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 90)));
+        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 60)));
+        //save Person Button
+        JButton savePersonButton = new JButton("Save Person");
+        topRightWestPanel.add(savePersonButton);
+        
 
         // -------------------- CONTENT TOP TOP ----------------------
         pack();
@@ -162,6 +173,6 @@ public class PersonAndSeatFrame extends JFrame
 
     public static void main(String[] args)
     {
-        new PersonAndSeatFrame(3);
+        new PersonAndSeatFrame(5);
     }
 }
