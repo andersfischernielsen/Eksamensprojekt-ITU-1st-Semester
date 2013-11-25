@@ -30,16 +30,29 @@ public class Plane
     {
         for (int i = 0; i < columns; i++)
         {
+
             for (int j = 0; j < rows; j++)
             {
-                seats[i][j] = new Seat(SeatIDGenerator(i, j), 0);
+                
+                if (i == columns / 10)
+                {
+                    seats[i][j] = new Seat(SeatIDGenerator(i, j), 2);
+                }
+                else if (i == columns / 4)
+                {
+                    seats[i][j] = new Seat(SeatIDGenerator(i, j), 1);
+                }
+                else
+                {
+                    seats[i][j] = new Seat(SeatIDGenerator(i, j), 0);
+                }
             }
         }
     }
 
     public String SeatIDGenerator(int col, int row)
     {
-        int theCol = col+1;
+        int theCol = col + 1;
         String seatIDString = "" + theCol;
         switch (row)
         {
