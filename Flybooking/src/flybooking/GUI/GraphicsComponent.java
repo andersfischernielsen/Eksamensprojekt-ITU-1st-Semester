@@ -101,7 +101,10 @@ public class GraphicsComponent
                 }
                 fixdistanceX = 25;
             }
-            fixdistanceY = 25;
+            g.setColor(Color.BLACK);
+            g.drawString("First class     Business class                              Economy class", 20, 20);
+            
+            
         }
 
         @Override
