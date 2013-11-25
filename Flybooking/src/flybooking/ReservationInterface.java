@@ -38,7 +38,7 @@ public interface ReservationInterface {
      * Return the CPR number of the person that's made the reservation.
      * @return The CPR number of the person that's made the reservation.
      */
-    int getCPR(); 
+    long getCPR(); 
     
     /**
      * Get the person that has paid for the reservation.
@@ -85,7 +85,7 @@ public interface ReservationInterface {
      * Set the CPR number for the person paying for the reservation.
      * @param CPR The CPR of the paying person.
      */
-    public void setCPR(int CPR);
+    public void setCPR(long CPR);
 
     /**
      * Set whether the reservation has been paid for or not. 

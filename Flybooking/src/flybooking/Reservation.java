@@ -18,7 +18,7 @@ public class Reservation implements ReservationInterface {
     private Date reservationDate;
     private Date startDate;
     private Date endDate;
-    private int CPR;
+    private long CPR;
     private boolean paid;
     private Random randomGen;
     private Person payer;
@@ -38,6 +38,7 @@ public class Reservation implements ReservationInterface {
         paid = false;
         randomGen = new Random();
         ID = randomGen.nextInt(1000000);
+        persons = new ArrayList<>();
 
         //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM TIL AT GENERERE ID'S. 
         //DE SKAL LIGGE I KRONOLOGISK ORDEN, GÅR JEG UD FRA, 
@@ -71,7 +72,7 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public int getCPR()
+    public long getCPR()
     {
         return CPR;
     }
@@ -109,7 +110,7 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public void setCPR(int CPR)
+    public void setCPR(long CPR)
     {
         this.CPR = CPR;
     }
