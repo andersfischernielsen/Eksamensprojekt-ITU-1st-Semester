@@ -30,7 +30,7 @@ public class StartFrame extends JFrame {
         innerCont.add(newBookingButton);
         innerCont.add(editBookingButton);
 
-        this.pack();
-        this.setVisible(true);
+        pack();
+        setVisible(true);
     }
 }
