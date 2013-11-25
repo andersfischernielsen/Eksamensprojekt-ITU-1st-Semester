@@ -1,5 +1,5 @@
 
-package flybooking;
+package flybooking.GUI;
 
 /**
  * An interface for creating a GUI.

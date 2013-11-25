@@ -1,5 +1,5 @@
 
-package flybooking;
+package flybooking.GUI;
 
 import javax.swing.JFrame;
 
@@ -7,6 +7,6 @@ import javax.swing.JFrame;
  *
  * @author Anders
  */
-public class ReservationFrame extends JFrame {
+public class NewReservationFrame extends JFrame {
 
 }

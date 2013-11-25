@@ -1,5 +1,5 @@
 
-package flybooking;
+package flybooking.GUI;
 
 import javax.swing.JFrame;
 

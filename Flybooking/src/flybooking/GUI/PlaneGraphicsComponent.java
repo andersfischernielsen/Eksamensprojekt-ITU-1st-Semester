@@ -1,6 +1,8 @@
 
-package flybooking;
+package flybooking.GUI;
 
+import flybooking.Plane;
+import flybooking.Seat;
 import java.awt.Component;
 
 /**
