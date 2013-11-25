@@ -66,8 +66,9 @@ public interface ControllerInterface {
     /**
      * Get the person next to the specified person.
      * @param person The person to check for neighbors.
+     * @return The person next to the specified person.
      */
-    void personNextTo(Person person);
+    Person personNextTo(Person person);
 
     //JEG VED IKKE HELT OM VI SKAL OPFATTE CONTROLLER-KLASSEN SOM EN DER STYRER ALTING, 
     //ELLER VI GODT KAN KALDE F.EKS. addPerson() PÅ RESERVATIONEN ISTEDET. 
