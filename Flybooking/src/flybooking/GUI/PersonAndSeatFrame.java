@@ -42,12 +42,27 @@ public class PersonAndSeatFrame extends JFrame
         // TOP PANEL's Panels
         // top left panel
         JPanel topLeftPanel = new JPanel();
-        topLeftPanel.setLayout(new BoxLayout(topLeftPanel, BoxLayout.PAGE_AXIS));
+        topLeftPanel.setLayout(new BorderLayout());
         topPanel.add(topLeftPanel, BorderLayout.WEST);
+        //
+        JPanel topLeftWestPanel = new JPanel();
+        JPanel topLeftEastPanel = new JPanel();
+        topLeftPanel.add(topLeftEastPanel, BorderLayout.EAST);
+        topLeftPanel.add(topLeftWestPanel, BorderLayout.WEST);
+        topLeftWestPanel.add(Box.createRigidArea(new Dimension(200, 0)));
+        topLeftEastPanel.setLayout(new BoxLayout(topLeftEastPanel, BoxLayout.PAGE_AXIS));
         // top right panel
         JPanel topRightPanel = new JPanel();
-        topRightPanel.setLayout(new BoxLayout(topRightPanel, BoxLayout.PAGE_AXIS));
         topPanel.add(topRightPanel, BorderLayout.EAST);
+        topRightPanel.setLayout(new BorderLayout());
+        //
+        JPanel topRightEastPanel = new JPanel();
+        topRightEastPanel.add(Box.createRigidArea(new Dimension(200, 0)));
+        topRightPanel.add(topRightEastPanel, BorderLayout.EAST);
+        //
+        JPanel topRightWestPanel = new JPanel();
+        topRightWestPanel.setLayout(new BoxLayout(topRightWestPanel, BoxLayout.PAGE_AXIS));
+        topRightPanel.add(topRightWestPanel, BorderLayout.WEST);
         // top bot panel
         JPanel topBotPanel = new JPanel();
         topPanel.add(topBotPanel, BorderLayout.SOUTH);
@@ -63,54 +78,54 @@ public class PersonAndSeatFrame extends JFrame
         // FirstName text
         JTextField firstNameText = new JTextField("First name");
         firstNameText.setEditable(false);
-        topLeftPanel.add(firstNameText);
+        topLeftEastPanel.add(firstNameText);
         // FirstName textField
         JTextField firstNameTextField = new JTextField("Put last name here...");
         firstNameTextField.setForeground(Color.gray);
-        topLeftPanel.add(firstNameTextField);
-        topLeftPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        topLeftEastPanel.add(firstNameTextField);
+        topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         // LastName text
         JTextField lastNameText = new JTextField("Last name");
         lastNameText.setEditable(false);
-        topLeftPanel.add(lastNameText);
+        topLeftEastPanel.add(lastNameText);
         // LastName textField
         JTextField lastNameTextField = new JTextField("Put last name here...");
         lastNameTextField.setForeground(Color.gray);
-        topLeftPanel.add(lastNameTextField);
+        topLeftEastPanel.add(lastNameTextField);
 
         // AgeGroup combobox
         String[] ageGroups =
         {
-            "Children",
+            "Child",
             "Adult",
             "Elder"
         };
         ageGroupComboBox = new JComboBox(ageGroups);
-        topLeftPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        topLeftPanel.add(ageGroupComboBox);
+        topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        topLeftEastPanel.add(ageGroupComboBox);
 
         // Persons ComboBox
         personComboBox = new JComboBox();
         updatePersonComboBox();
-        topLeftPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        topLeftPanel.add(personComboBox);
+        topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        topLeftEastPanel.add(personComboBox);
 
         // -------------------- CONTENT HØJRE DEL TOP ----------------------
         // Address text
         JTextField AddressText = new JTextField("Address");
         AddressText.setEditable(false);
-        topRightPanel.add(AddressText);
+        topRightWestPanel.add(AddressText);
         // Street textField
         JTextField streetTextField = new JTextField("Street...");
         streetTextField.setForeground(Color.gray);
-        topRightPanel.add(streetTextField);
-        topRightPanel.add(Box.createRigidArea(new Dimension(0, 25)));
+        topRightWestPanel.add(streetTextField);
+        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         // City textField
         JTextField cityTextField = new JTextField("ZIP, City, Country");
         cityTextField.setForeground(Color.gray);
-        topRightPanel.add(cityTextField);
-        topRightPanel.add(Box.createRigidArea(new Dimension(0, 90)));
+        topRightWestPanel.add(cityTextField);
+        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 90)));
 
         // -------------------- CONTENT TOP TOP ----------------------
         pack();
@@ -121,6 +136,10 @@ public class PersonAndSeatFrame extends JFrame
         // -------------------- CONTENT TOP BUND ----------------------
         
         topBotPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        JButton deletePersonButton = new JButton("Delete Person");
+        topBotPanel.add(deletePersonButton);
+        JButton bookButton = new JButton("> Book");
+        topBotPanel.add(bookButton);
         
         // -------------------- CONTENT BUNDEN ----------------------
        // the plane drawing
