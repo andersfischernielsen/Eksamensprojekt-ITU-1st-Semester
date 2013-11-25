@@ -8,13 +8,13 @@ package flybooking;
 public class Plane
 {
 
-    private final int ID;
+    private final String ID;
     private final int numberOfSeats;
     public final int rows;
     public final int columns;
     private final Seat[][] seats;
 
-    public Plane(int ID, int numberOfSeats, int rows, int columns)
+    public Plane(String ID, int numberOfSeats, int rows, int columns)
     {
         this.ID = ID;
         this.numberOfSeats = numberOfSeats;
@@ -28,7 +28,7 @@ public class Plane
      *
      * @return the ID of the plane
      */
-    public int getID()
+    public String getID()
     {
         return ID;
     }

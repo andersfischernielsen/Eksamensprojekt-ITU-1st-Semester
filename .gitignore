@@ -1,3 +1,8 @@
 # NetBeans filer til at ignorere #
-Flybooking/build/
-Flybooking/nbproject/private/
+/Flybooking/build
+/Flybooking/nbproject/private
+/Flybooking/dist/
+
+# Filtyper til at ignorere #
+.DS_Store
+.db

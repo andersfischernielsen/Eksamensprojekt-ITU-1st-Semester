@@ -19,13 +19,15 @@ public class Flight implements FlightInterface {
     private Airport startAirport;
     private Airport endAirport;
 
-    public Flight(double price, int ID, Plane plane, Date startDate, Date endDate)
+    public Flight(double price, int ID, Plane plane, Date startDate, Date endDate, Airport startAirport, Airport endAirport)
     {
         this.price = price;
         this.ID = ID;
         this.plane = plane;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.startAirport = startAirport;
+        this.endAirport = endAirport;
     }
 
     @Override
