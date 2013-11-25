@@ -24,6 +24,7 @@ public class NewReservationFrame extends JFrame {
     private ArrayList<Container> topContainers;
     private JLabel departureLabel, peopleLabel, startLabel, endLabel;
     private DatabaseInterface flightDatabase;
+    private static NewReservationFrame instance = null;
 
     /**
      * Get an instance of the Frame. (Singleton)
@@ -32,8 +33,6 @@ public class NewReservationFrame extends JFrame {
      */
     public static NewReservationFrame getInstance()
     {
-        NewReservationFrame instance = null;
-
         if (instance == null) {
             instance = new NewReservationFrame();
         }
@@ -56,8 +55,7 @@ public class NewReservationFrame extends JFrame {
         setDefaultCloseOperation(NewReservationFrame.EXIT_ON_CLOSE);
         setTitle("New Reservation");
         setResizable(false);
-        
-        
+
         content = getContentPane();
         topContainers = new ArrayList<>();
 
@@ -79,7 +77,7 @@ public class NewReservationFrame extends JFrame {
         //Create an empty container and set the layout to a GridLayout.
         topContainer = new Container();
         topContainer.setLayout(new GridLayout(3, 3));
-        
+
         //Add all of the containers for each grid to an ArrayList and initialize
         //them.
         topContainers.add(top1x1Container = new Container());
@@ -129,7 +127,7 @@ public class NewReservationFrame extends JFrame {
             c.setPreferredSize(new Dimension(100, 60));
             topContainer.add(c);
         }
-        
+
         //Add the finished Container to the frame.
         content.add(topContainer, BorderLayout.NORTH);
     }
@@ -140,7 +138,7 @@ public class NewReservationFrame extends JFrame {
     private void drawBottomContent()
     {
         bottomContainer = new Container();
-        
+
         content.add(bottomContainer, BorderLayout.SOUTH);
     }
 }
