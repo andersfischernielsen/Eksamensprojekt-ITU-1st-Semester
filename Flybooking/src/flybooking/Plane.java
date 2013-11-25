@@ -20,6 +20,7 @@ public class Plane
         this.columns = columns;
         seats = new Seat[columns][rows];
         numberOfSeats = columns * rows;
+        initiate();
     }
 
     /**
@@ -111,7 +112,7 @@ public class Plane
     {
         for (int i = 0; i < columns; i++)
         {
-            for (int j = 0; i < rows; j++)
+            for (int j = 0; j < rows; j++)
             {
                 if (seats[i][j] != null && seats[i][j].getID().equals(seatID))
                 {
@@ -137,7 +138,7 @@ public class Plane
     {
         for (int i = 0; i < columns; i++)
         {
-            for (int j = 0; i < rows; j++)
+            for (int j = 0; j < rows; j++)
             {
                 if (seats[i][j] != null && seats[i][j].getID().equals(seatID))
                 {
@@ -158,7 +159,7 @@ public class Plane
     {
         for (int i = 0; i < columns; i++)
         {
-            for (int j = 0; i < rows; j++)
+            for (int j = 0; j < rows; j++)
             {
                 if (seats[i][j] != null && seats[i][j].getID().equals(seatID))
                 {
