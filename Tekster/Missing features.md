@@ -1,5 +1,8 @@
-﻿#Udbygninger til flybooking system
+#Udbygninger til flybooking system
 ==================================
+
+##Need-To-Do’s:
+ - Alle ID’s skal ændres til String’s i alle klasser.
 
 ##Features:
 - ID-klasse:
