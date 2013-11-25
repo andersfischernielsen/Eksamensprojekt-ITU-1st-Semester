@@ -29,7 +29,7 @@ public class PersonAndSeatFrame extends JFrame
         planeToDraw.setSeatAvailability("6C", false);
 
         this.amtOfPersons = amtOfPersons;
-        setTitle("Pick seats and passengers");
+        setTitle("Seats and Passengers");
         setPreferredSize(new Dimension(800, 600));
         setDefaultCloseOperation(EXIT_ON_CLOSE); // ved godt det ikke skal være sådan.
         JPanel mainPanel = new JPanel();
@@ -81,7 +81,7 @@ public class PersonAndSeatFrame extends JFrame
         firstNameText.setBorder(BorderFactory.createEmptyBorder());
         topLeftEastPanel.add(firstNameText);
         // FirstName textField
-        JTextField firstNameTextField = new JTextField("Put last name here...");
+        JTextField firstNameTextField = new JTextField("Put first name here...");
         firstNameTextField.setForeground(Color.gray);
         firstNameTextField.setPreferredSize( new Dimension(0, 22));
         topLeftEastPanel.add(firstNameTextField);
@@ -126,13 +126,13 @@ public class PersonAndSeatFrame extends JFrame
         streetTextField.setForeground(Color.gray);
         streetTextField.setPreferredSize(new Dimension(100,22));
         topRightWestPanel.add(streetTextField);
-        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 25)));
+        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         // City textField
         JTextField cityTextField = new JTextField("ZIP, City, Country");
         cityTextField.setForeground(Color.gray);
         cityTextField.setPreferredSize(new Dimension(100,22));
         topRightWestPanel.add(cityTextField);
-        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 60)));
+        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 70)));
         //save Person Button
         JButton savePersonButton = new JButton("Save Person");
         topRightWestPanel.add(savePersonButton);
@@ -141,7 +141,7 @@ public class PersonAndSeatFrame extends JFrame
         // -------------------- CONTENT TOP TOP ----------------------
         pack();
         topTopPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        topTopPanel.add(graphics.paintHeader(20, 760));
+        topTopPanel.add(graphics.paintHeader(20, getWidth()-40));
         topTopPanel.add(Box.createRigidArea(new Dimension(0, 50)));
 
         // -------------------- CONTENT TOP BUND ----------------------
