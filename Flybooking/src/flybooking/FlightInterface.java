@@ -9,6 +9,11 @@ import java.util.Date;
  */
 public interface FlightInterface
 {
+    /**
+     * Return the price of the journey.
+     * @return The price of the journey.
+     */
+    public double getPrice();
     
     /**
      * Return the ID of the journey.
