@@ -1,6 +1,8 @@
 
 package flybooking;
 
+import flybooking.GUI.*;
+
 /**
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
@@ -10,6 +12,6 @@ public class Flybooking
 {
     public static void main(String[] args)
     {
-        //Code to run everything here.
+        StartFrame.getInstance();
     }
 }
