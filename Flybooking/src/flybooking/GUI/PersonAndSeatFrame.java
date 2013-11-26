@@ -12,14 +12,15 @@ public class PersonAndSeatFrame extends JFrame
 {
 
     // denne er bare til test.
-    private Plane planeToDraw = new Plane("5eerrg2", 6, 20);
+    private Plane planeToDraw;
 
     GraphicsComponent graphics;
     private int amtOfPersons;
     private JComboBox personComboBox, ageGroupComboBox;
 
-    public PersonAndSeatFrame(int amtOfPersons) throws HeadlessException
+    public PersonAndSeatFrame(int amtOfPersons, Plane planeToDraw) throws HeadlessException
     {
+        this.planeToDraw = planeToDraw;
         graphics = new GraphicsComponent();
 
         planeToDraw.setSeatAvailability("5A", false);
@@ -27,10 +28,12 @@ public class PersonAndSeatFrame extends JFrame
         planeToDraw.setSeatAvailability("6F", false);
         planeToDraw.setSeatAvailability("6E", false);
         planeToDraw.setSeatAvailability("6C", false);
+        planeToDraw.setSeatAvailability("2A", false);
 
         this.amtOfPersons = amtOfPersons;
         setTitle("Seats and Passengers");
         setPreferredSize(new Dimension(800, 600));
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE); // ved godt det ikke skal være sådan.
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -155,7 +158,7 @@ public class PersonAndSeatFrame extends JFrame
         // -------------------- CONTENT BUNDEN ----------------------
        // the plane drawing
         botPanel.add(graphics.paintPlaneSeats(planeToDraw));
-        //PlaneDrawing.paintPlaneSeats(planeToDraw);
+
 
         pack();
         setVisible(true);
@@ -173,6 +176,6 @@ public class PersonAndSeatFrame extends JFrame
 
     public static void main(String[] args)
     {
-        new PersonAndSeatFrame(5);
+        new PersonAndSeatFrame(5, new Plane("5eerrg2", 6, 20));
     }
 }
