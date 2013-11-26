@@ -17,7 +17,6 @@ public class Reservation implements ReservationInterface {
     private String ID;
     private Date reservationDate;
     private String CPR;
-    private boolean paid;
     private Person payer;
 
     /**
