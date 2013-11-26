@@ -74,15 +74,14 @@ public class FlightList extends JList {
             convertedString = flight.getStartDate().getHours()
                     + ":" + flight.getStartDate().getMinutes()
                     + "             "
-                    + flight.getStartAirport().getName() + " > "
-                    + flight.getEndAirport().getName()
+                    + flight.getStartAirport().getID() + " > "
+                    + flight.getEndAirport().getID()
                     + "             " + flight.getPlane().getID()
                     + "\n" + flight.getEndDate().getHours()
                     + ":" + flight.getEndDate().getMinutes()
                     + "             " + flight.getStartDate().getMonth() + "/"
                     + flight.getStartDate().getDay() + "-"
-                    + flight.getStartDate().getYear()
-                    + "             " + flight.getPrice() + ",-";
+                    + flight.getStartDate().getYear();
         }
 
         return convertedString;
