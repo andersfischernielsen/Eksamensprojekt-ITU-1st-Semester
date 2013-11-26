@@ -33,4 +33,10 @@ public interface DatabaseInterface
     
     // adds a person to a reservation.
     void addPerson(String reservationID, Person personToAdd);
+    
+    /**
+     * Get all the available flights as an ArrayList.
+     * @return An ArrayList of all the available flights.
+     */
+    ArrayList<Flight> getFlights();
 }
