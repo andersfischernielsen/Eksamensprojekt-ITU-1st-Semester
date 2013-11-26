@@ -16,49 +16,54 @@ public class Controller implements ControllerInterface {
     @Override
     public void saveReservation(DatabaseInterface database)
     {
-        database.newEntry();
+        //Do nothing.
     }
 
     @Override
     public void getReservation(DatabaseInterface database)
     {
-        database.getEntry();
+        //Do nothing.    
     }
 
     @Override
-    public void deleteReservation(DatabaseInterface database)
+    public void deleteReservation(DatabaseInterface database
+    )
     {
-        database.removeEntry();
+        //Do nothing.    
     }
 
     @Override
     public void printReceipt(ReservationInterface reservation, ReceiptPrinter printer)
     {
-        
+        //Do nothing.
     }
 
     @Override
-    public int getPrice()
+    public int getPrice(CalculatorInterface calculator, Reservation reservation)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Do nothing.    
+        return -1;
     }
 
     @Override
-    public void search(DatabaseInterface database)
+    public void search(DatabaseInterface database
+    )
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Do nothing.    
     }
 
     @Override
     public boolean hasPersonNextTo(Person person)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Do nothing.    
+        return false;
     }
 
     @Override
     public Person personNextTo(Person person)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Do nothing.    
+        return null;
     }
 
 }
