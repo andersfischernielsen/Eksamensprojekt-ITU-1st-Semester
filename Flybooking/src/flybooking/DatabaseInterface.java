@@ -30,4 +30,7 @@ public interface DatabaseInterface
 
     // remove the reservation with ID reservationID
     void removeReservation(String reservationID);
+    
+    // adds a person to a reservation.
+    void addPerson(String reservationID, Person personToAdd);
 }
