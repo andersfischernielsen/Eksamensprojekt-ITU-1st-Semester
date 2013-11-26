@@ -31,6 +31,7 @@ public class NewReservationFrame extends JFrame{
     /**
      * Get an instance of the Frame. (Singleton)
      *
+     * @param controller The controller to get information from for the user interface.
      * @return An instance of the frame.
      */
     public static NewReservationFrame getInstance(ControllerInterface controller)
@@ -101,7 +102,7 @@ public class NewReservationFrame extends JFrame{
         top1x2Container.add(peopleDropdown);
 
         startLabel = new JLabel("Start destination:");
-        startDestDropdown = new JComboBox(drawDestinations(controller));
+        startDestDropdown = new JComboBox(drawDestinations());
         top1x3Container.add(startLabel);
         top1x3Container.add(startDestDropdown);
 
@@ -110,7 +111,7 @@ public class NewReservationFrame extends JFrame{
         top2x2Container.add(checkbox);
 
         endLabel = new JLabel("End destination:");
-        endDestDropdown = new JComboBox(drawDestinations(controller));
+        endDestDropdown = new JComboBox(drawDestinations());
         top2x3Container.add(endLabel);
         top2x3Container.add(endDestDropdown);
 
@@ -151,8 +152,7 @@ public class NewReservationFrame extends JFrame{
     }
     
     /**
-     * Get the possible destinations from a controller as a string array.
-     * @param controller The controller to get the dates from.
+     * Get the possible destinations from the controller as a string array.
      * @return A string array of possible destinations.
      */
     private String[] drawDestinations() {
