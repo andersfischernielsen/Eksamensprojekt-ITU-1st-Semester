@@ -16,8 +16,6 @@ public class Reservation implements ReservationInterface {
     private Flight flight;
     private int ID;
     private Date reservationDate;
-    private Date startDate;
-    private Date endDate;
     private long CPR;
     private boolean paid;
     private Random randomGen;
