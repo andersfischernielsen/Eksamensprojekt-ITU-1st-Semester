@@ -25,7 +25,6 @@ public class NewReservationFrame extends JFrame {
             top3x1Container, top3x2Container, top3x3Container;
     private ArrayList<Container> topContainers;
     private JLabel departureLabel, peopleLabel, startLabel, endLabel;
-    private DatabaseInterface flightDatabase;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private String[] people = {"1", "2", "3", "4", "5"};
