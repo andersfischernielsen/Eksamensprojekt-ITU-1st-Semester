@@ -1,6 +1,7 @@
 
 package flybooking.GUI;
 
+import flybooking.ControllerInterface;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
@@ -16,17 +17,19 @@ public class EditReservationFrame extends JFrame {
     private JLabel resLabel, CPRLabel;
     private JTextField resField, CPRField;
     private static EditReservationFrame instance = null;
+    private ControllerInterface controller;
 
-    public static EditReservationFrame getInstance()
+    public static EditReservationFrame getInstance(ControllerInterface controller)
     {
         if (instance == null) {
-            instance = new EditReservationFrame();
+            instance = new EditReservationFrame(controller);
         }
         return instance;
     }
 
-    private EditReservationFrame() throws HeadlessException
+    private EditReservationFrame(ControllerInterface controller) throws HeadlessException
     {
+        this.controller = controller;
         setTitle("Edit Reservation");
         content = getContentPane();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -88,6 +91,6 @@ public class EditReservationFrame extends JFrame {
 
     public static void main(String[] args)
     {
-        EditReservationFrame.getInstance();
+        EditReservationFrame.getInstance(null);
     }
 }
