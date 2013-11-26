@@ -63,7 +63,6 @@ public class NewReservationFrame extends JFrame {
 
     public final void drawFrame()
     {
-        setDefaultCloseOperation(NewReservationFrame.EXIT_ON_CLOSE);
         setTitle("New Reservation");
         setResizable(false);
         

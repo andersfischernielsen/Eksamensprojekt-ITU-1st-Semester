@@ -32,7 +32,6 @@ public class EditReservationFrame extends JFrame {
         this.controller = controller;
         setTitle("Edit Reservation");
         content = getContentPane();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         createTopContent();
         createBottomContent();
