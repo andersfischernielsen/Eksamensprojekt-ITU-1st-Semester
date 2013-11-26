@@ -18,7 +18,6 @@ public interface ControllerInterface {
     void createReservation();
     //HER SKAL VI NOK HAVE FLERE METODER. JEG VED BARE IKKE LIGE HELT PRÆCIST
     //HVORDAN VI TACKLER HELE DATABASEN OSV. 
-    //VI TA'R DEN MANDAG. 
 
     /**
      * Save the reservation when finished.
