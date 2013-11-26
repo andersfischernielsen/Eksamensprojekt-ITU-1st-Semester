@@ -122,8 +122,6 @@ public class NewReservationFrame extends JFrame {
         //finally add them to the topContainer.
         for (Container c : topContainers) {
             c.setLayout(new FlowLayout());
-            c.add(Box.createVerticalGlue());
-            c.add(Box.createHorizontalGlue());
             c.setPreferredSize(new Dimension(100, 60));
             topContainer.add(c);
         }
