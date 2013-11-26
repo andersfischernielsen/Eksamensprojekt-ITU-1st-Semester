@@ -5,13 +5,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import flybooking.*;
-import java.util.Date;
+import java.sql.*;
 
 /**
  *
  * @author Anders
  */
-public class NewReservationFrame extends JFrame {
+public class NewReservationFrame extends JFrame{ 
 
     private JComboBox dateDropdown, peopleDropdown, startDestDropdown, endDestDropdown;
     private JButton searchButton;
@@ -24,25 +24,22 @@ public class NewReservationFrame extends JFrame {
     private ArrayList<Container> topContainers;
     private JLabel departureLabel, peopleLabel, startLabel, endLabel;
     private DatabaseInterface flightDatabase;
+    private ControllerInterface controller;
     private static NewReservationFrame instance = null;
+    private String[] people = {"1", "2", "3", "4", "5"};
 
     /**
      * Get an instance of the Frame. (Singleton)
      *
      * @return An instance of the frame.
      */
-    public static NewReservationFrame getInstance()
+    public static NewReservationFrame getInstance(ControllerInterface controller)
     {
         if (instance == null) {
-            instance = new NewReservationFrame();
+            instance = new NewReservationFrame(controller);
         }
 
         return instance;
-    }
-
-    public static void main(String[] args)
-    {
-        NewReservationFrame.getInstance();
     }
 
     /**
@@ -50,8 +47,13 @@ public class NewReservationFrame extends JFrame {
      *
      * @throws HeadlessException
      */
-    private NewReservationFrame() throws HeadlessException
+    private NewReservationFrame(ControllerInterface controller) throws HeadlessException
     {
+        drawFrame();
+        this.controller = controller;
+    }
+
+    public void drawFrame() {
         setDefaultCloseOperation(NewReservationFrame.EXIT_ON_CLOSE);
         setTitle("New Reservation");
         setResizable(false);
@@ -66,14 +68,11 @@ public class NewReservationFrame extends JFrame {
         setSize(new Dimension(540, 500));
         setVisible(true);
     }
-
     /**
      * Draw the top part of the window, containing input and search buttons.
      */
     private void drawTopContent()
     {
-        String[] testStrings = {"One, two", "three, testing", "Is this on?", "Copenhagen"};
-
         //Create an empty container and set the layout to a GridLayout.
         topContainer = new Container();
         topContainer.setLayout(new GridLayout(3, 3));
@@ -92,17 +91,17 @@ public class NewReservationFrame extends JFrame {
 
         //Add all of the labels to each grid container.
         departureLabel = new JLabel("Departure date:");
-        dateDropdown = new JComboBox(testStrings);
+        dateDropdown = new JComboBox(drawDates());
         top1x1Container.add(departureLabel);
         top1x1Container.add(dateDropdown);
 
         peopleLabel = new JLabel("People:");
-        peopleDropdown = new JComboBox(testStrings);
+        peopleDropdown = new JComboBox(people);
         top1x2Container.add(peopleLabel);
         top1x2Container.add(peopleDropdown);
 
         startLabel = new JLabel("Start destination:");
-        startDestDropdown = new JComboBox(testStrings);
+        startDestDropdown = new JComboBox(drawDestinations(controller));
         top1x3Container.add(startLabel);
         top1x3Container.add(startDestDropdown);
 
@@ -111,7 +110,7 @@ public class NewReservationFrame extends JFrame {
         top2x2Container.add(checkbox);
 
         endLabel = new JLabel("End destination:");
-        endDestDropdown = new JComboBox(testStrings);
+        endDestDropdown = new JComboBox(drawDestinations(controller));
         top2x3Container.add(endLabel);
         top2x3Container.add(endDestDropdown);
 
@@ -138,5 +137,27 @@ public class NewReservationFrame extends JFrame {
         bottomContainer = new Container();
 
         content.add(bottomContainer, BorderLayout.SOUTH);
+    }
+    
+    /**
+     * Get the dates as a String array between a week ago and a week 
+     * forward from the current date.
+     * @return A string array of the dates a week ago and up until a week from now.
+     */
+    private String[] drawDates() {
+        String[] array = {};
+        
+        return array;
+    }
+    
+    /**
+     * Get the possible destinations from a controller as a string array.
+     * @param controller The controller to get the dates from.
+     * @return A string array of possible destinations.
+     */
+    private String[] drawDestinations() {
+        String[] array = {};
+        
+        return array;
     }
 }
