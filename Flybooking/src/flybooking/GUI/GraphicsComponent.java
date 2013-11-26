@@ -7,6 +7,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 
 /**
@@ -37,6 +39,13 @@ public class GraphicsComponent
         return new PlaneGraphicsComponent(planeToDraw);
     }
 
+    public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw, int X, int Y)
+    {
+        PlaneGraphicsComponent planeToWork = new PlaneGraphicsComponent(planeToDraw);
+        planeToWork.setSeatAvailability(X, Y);
+        return planeToWork;
+    }
+
     /**
      * Paints a blue header with a height and width.
      *
@@ -53,8 +62,11 @@ public class GraphicsComponent
      */
     private class PlaneGraphicsComponent extends JComponent
     {
+
         private Plane planeToDraw;
         private int rows, cols;
+        int fixdistanceX = 25;
+        int fixdistanceY = 25;
 
         public PlaneGraphicsComponent(Plane planeToDraw)
         {
@@ -129,7 +141,6 @@ public class GraphicsComponent
             g.setColor(Color.BLACK);
             g.drawString("First class     Business class                              Economy class", 20, 20);
 
-
         }
 
         @Override
@@ -142,6 +153,11 @@ public class GraphicsComponent
         public Dimension getMinimumSize()
         {
             return getPreferredSize();
+        }
+
+        public void setSeatAvailability(int x, int y)
+        {
+            System.out.println("x: " + x + " - y: " + y);
         }
     }
 

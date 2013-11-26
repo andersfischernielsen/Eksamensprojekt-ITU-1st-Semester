@@ -2,6 +2,10 @@ package flybooking.GUI;
 
 import flybooking.Plane;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
@@ -17,8 +21,9 @@ public class PersonAndSeatFrame extends JFrame
     GraphicsComponent graphics;
     private int amtOfPersons;
     private JComboBox personComboBox, ageGroupComboBox;
+    private JComponent planeDrawingComp;
 
-    public PersonAndSeatFrame(int amtOfPersons, Plane planeToDraw) throws HeadlessException
+    public PersonAndSeatFrame(int amtOfPersons, final Plane planeToDraw) throws HeadlessException
     {
         this.planeToDraw = planeToDraw;
         graphics = new GraphicsComponent();
@@ -86,7 +91,7 @@ public class PersonAndSeatFrame extends JFrame
         // FirstName textField
         JTextField firstNameTextField = new JTextField("Put first name here...");
         firstNameTextField.setForeground(Color.gray);
-        firstNameTextField.setPreferredSize( new Dimension(0, 22));
+        firstNameTextField.setPreferredSize(new Dimension(0, 22));
         topLeftEastPanel.add(firstNameTextField);
         topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
@@ -98,7 +103,7 @@ public class PersonAndSeatFrame extends JFrame
         // LastName textField
         JTextField lastNameTextField = new JTextField("Put last name here...");
         lastNameTextField.setForeground(Color.gray);
-        lastNameTextField.setPreferredSize( new Dimension(0, 22));
+        lastNameTextField.setPreferredSize(new Dimension(0, 22));
         topLeftEastPanel.add(lastNameTextField);
 
         // AgeGroup combobox
@@ -127,38 +132,105 @@ public class PersonAndSeatFrame extends JFrame
         // Street textField
         JTextField streetTextField = new JTextField("Street...");
         streetTextField.setForeground(Color.gray);
-        streetTextField.setPreferredSize(new Dimension(100,22));
+        streetTextField.setPreferredSize(new Dimension(100, 22));
         topRightWestPanel.add(streetTextField);
         topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         // City textField
         JTextField cityTextField = new JTextField("ZIP, City, Country");
         cityTextField.setForeground(Color.gray);
-        cityTextField.setPreferredSize(new Dimension(100,22));
+        cityTextField.setPreferredSize(new Dimension(100, 22));
         topRightWestPanel.add(cityTextField);
-        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 70)));
+        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 25)));
+        // delete person button
+        JButton deletePersonButton = new JButton("Delete Person");
+        deletePersonButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent pressed)
+            {
+                deletePerson();
+            }
+        });
+        topRightWestPanel.add(deletePersonButton);
+        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         //save Person Button
         JButton savePersonButton = new JButton("Save Person");
+        savePersonButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent pressed)
+            {
+                savePerson();
+            }
+        });
         topRightWestPanel.add(savePersonButton);
-        
 
         // -------------------- CONTENT TOP TOP ----------------------
         pack();
         topTopPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        topTopPanel.add(graphics.paintHeader(20, getWidth()-40));
+        topTopPanel.add(graphics.paintHeader(20, getWidth() - 40));
         topTopPanel.add(Box.createRigidArea(new Dimension(0, 50)));
 
         // -------------------- CONTENT TOP BUND ----------------------
-        
+        // back button
         topBotPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-        JButton deletePersonButton = new JButton("Delete Person");
-        topBotPanel.add(deletePersonButton);
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent pressed)
+            {
+                back();
+            }
+        });
+        topBotPanel.add(backButton);
+        // book button
         JButton bookButton = new JButton("> Book");
+        bookButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent pressed)
+            {
+                confirmBooking();
+            }
+        });
         topBotPanel.add(bookButton);
-        
-        // -------------------- CONTENT BUNDEN ----------------------
-       // the plane drawing
-        botPanel.add(graphics.paintPlaneSeats(planeToDraw));
 
+        // -------------------- CONTENT BUNDEN ----------------------
+        // the plane drawing
+        planeDrawingComp = graphics.paintPlaneSeats(planeToDraw);
+        planeDrawingComp.addMouseListener(new MouseListener()
+        {
+
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                System.out.println("Mus inde");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                System.out.println("Mus ude");
+            }
+        });
+        botPanel.add(planeDrawingComp);
 
         pack();
         setVisible(true);
@@ -172,6 +244,34 @@ public class PersonAndSeatFrame extends JFrame
         }
         personComboBox.addItem("Add another person");
 
+    }
+
+    /**
+    private void changeSeatAvailability(int x, int y)
+    {
+        planeDrawingComp
+    }
+    */
+    
+
+    private void savePerson()
+    {
+        System.out.println("Save person");
+    }
+
+    private void deletePerson()
+    {
+        System.out.println("Delete person");
+    }
+
+    private void confirmBooking()
+    {
+        System.out.println(">Book");
+    }
+
+    private void back()
+    {
+        System.out.println("Back");
     }
 
     public static void main(String[] args)
