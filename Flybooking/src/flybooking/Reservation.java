@@ -16,7 +16,7 @@ public class Reservation implements ReservationInterface {
     private Flight flight;
     private String ID;
     private Date reservationDate;
-    private long CPR;
+    private String CPR;
     private boolean paid;
     private Random randomGen;
     private Person payer;
@@ -69,7 +69,7 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public long getCPR()
+    public String getCPR()
     {
         return CPR;
     }
@@ -107,7 +107,7 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public void setCPR(long CPR)
+    public void setCPR(String CPR)
     {
         this.CPR = CPR;
     }
