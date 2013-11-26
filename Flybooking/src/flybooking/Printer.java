@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 
 /**
- *
+ * Print a receipt for a given reservation.
  * @author Anders
  */
 public class Printer implements ReceiptPrinter {
@@ -41,10 +41,10 @@ public class Printer implements ReceiptPrinter {
         String finalString;
         finalString = "Departure:  "
                 + simpleDate.format(reservation.getFlight().getStartDate())
-                + " " + reservation.getFlight().getStartAirport().getName();
+                + " " + reservation.getFlight().getStartAirport().getID();
         finalString += "\nArrival:    "
                 + simpleDate.format(reservation.getFlight().getEndDate())
-                + " " + reservation.getFlight().getEndAirport().getName();
+                + " " + reservation.getFlight().getEndAirport().getID();
 
         return finalString;
     }
