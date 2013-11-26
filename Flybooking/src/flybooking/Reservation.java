@@ -3,12 +3,10 @@ package flybooking;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * Create a reservation for a booking.
- *
- * @author Anders
+ * @author Anders Wind Steffenson, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Reservation implements ReservationInterface {
 
