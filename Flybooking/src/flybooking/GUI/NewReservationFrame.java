@@ -2,16 +2,15 @@
 package flybooking.GUI;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import javax.swing.*;
 import flybooking.*;
-import java.sql.*;
 
 /**
  *
  * @author Anders
  */
-public class NewReservationFrame extends JFrame{ 
+public class NewReservationFrame extends JFrame {
 
     private JComboBox dateDropdown, peopleDropdown, startDestDropdown, endDestDropdown;
     private JButton searchButton;
@@ -27,11 +26,12 @@ public class NewReservationFrame extends JFrame{
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private String[] people = {"1", "2", "3", "4", "5"};
-
+    
     /**
      * Get an instance of the Frame. (Singleton)
      *
-     * @param controller The controller to get information from for the user interface.
+     * @param controller The controller to get information from for the user
+     * interface.
      * @return An instance of the frame.
      */
     public static NewReservationFrame getInstance(ControllerInterface controller)
@@ -54,7 +54,8 @@ public class NewReservationFrame extends JFrame{
         this.controller = controller;
     }
 
-    public void drawFrame() {
+    public final void drawFrame()
+    {
         setDefaultCloseOperation(NewReservationFrame.EXIT_ON_CLOSE);
         setTitle("New Reservation");
         setResizable(false);
@@ -69,6 +70,7 @@ public class NewReservationFrame extends JFrame{
         setSize(new Dimension(540, 500));
         setVisible(true);
     }
+
     /**
      * Draw the top part of the window, containing input and search buttons.
      */
@@ -93,6 +95,7 @@ public class NewReservationFrame extends JFrame{
         //Add all of the labels to each grid container.
         departureLabel = new JLabel("Departure date:");
         dateDropdown = new JComboBox(drawDates());
+        dateDropdown.setSelectedIndex(7);
         top1x1Container.add(departureLabel);
         top1x1Container.add(dateDropdown);
 
@@ -102,7 +105,7 @@ public class NewReservationFrame extends JFrame{
         top1x2Container.add(peopleDropdown);
 
         startLabel = new JLabel("Start destination:");
-        startDestDropdown = new JComboBox(drawDestinations());
+        startDestDropdown = new JComboBox(drawStartDestinations());
         top1x3Container.add(startLabel);
         top1x3Container.add(startDestDropdown);
 
@@ -111,7 +114,7 @@ public class NewReservationFrame extends JFrame{
         top2x2Container.add(checkbox);
 
         endLabel = new JLabel("End destination:");
-        endDestDropdown = new JComboBox(drawDestinations());
+        endDestDropdown = new JComboBox(drawEndDestinations());
         top2x3Container.add(endLabel);
         top2x3Container.add(endDestDropdown);
 
@@ -139,24 +142,72 @@ public class NewReservationFrame extends JFrame{
 
         content.add(bottomContainer, BorderLayout.SOUTH);
     }
-    
+
     /**
-     * Get the dates as a String array between a week ago and a week 
-     * forward from the current date.
-     * @return A string array of the dates a week ago and up until a week from now.
+     * Get the dates as a String array between a week ago and a week forward
+     * from the current date.
+     *
+     * @return A string array of the dates a week ago and up until a week from
+     * now.
      */
-    private String[] drawDates() {
-        String[] array = {};
+    private String[] drawDates()
+    {
+        //Initialize an empty string to return.
+        String[] array = new String[14];
+        //Get the current date.
+        Date today = new Date();
+
+        //Go through the array, adding the dates a week before and after today.
+        int j = 0;
+        for (int i = 7; i > 0; i--) {
+            //today is in milliseconds, so we calculate the date a week from now
+            //(7 * milliseconds on a day, subtracting one day for each loop.)
+            array[j] = Calculator.convertDate(new Date(today.getTime() - i * 24 * 60 * 60 * 1000));
+            //Then increase the position in the array by one, so the dates are
+            //in proper order.
+            j++;
+        }
+        
+        for (int i = 0; i < 7; i++) {
+            //We do the same here, just the other way around. 
+            array[j] = Calculator.convertDate(new Date(today.getTime() + i * 24 * 60 * 60 * 1000));
+            j++;
+        }
+
+        //Then when the array has been made, we return it.
+        return array;
+    }
+
+    /**
+     * Get the possible destinations from the controller as a string array.
+     *
+     * @return A string array of possible destinations.
+     */
+    private String[] drawStartDestinations()
+    {
+        String[] array = new String[controller.getNumberOfFlights()];
+        Flight[] flights = controller.getAllFlights();
+        
+        for (int i = 0; i < array.length; i++) {
+            array[i] = flights[i].getStartAirport().getID();
+        }
         
         return array;
     }
     
     /**
      * Get the possible destinations from the controller as a string array.
+     *
      * @return A string array of possible destinations.
      */
-    private String[] drawDestinations() {
-        String[] array = {};
+    private String[] drawEndDestinations()
+    {
+        String[] array = new String[controller.getNumberOfFlights()];
+        Flight[] flights = controller.getAllFlights();
+        
+        for (int i = 0; i < array.length; i++) {
+            array[i] = flights[i].getEndAirport().getID();
+        }
         
         return array;
     }
