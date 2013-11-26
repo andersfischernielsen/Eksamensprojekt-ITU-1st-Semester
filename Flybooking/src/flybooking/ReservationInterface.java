@@ -26,7 +26,7 @@ public interface ReservationInterface {
      * Return the ID of the reservation.
      * @return The ID of the reservation.
      */
-    int getID();
+    String getID();
     
     /**
      * Return the creation date of the reservation.

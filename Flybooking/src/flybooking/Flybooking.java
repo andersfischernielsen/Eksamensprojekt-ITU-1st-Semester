@@ -17,7 +17,7 @@ public class Flybooking
         Plane plane = new Plane("C2034X", 1, 2);
         Airport a1 = new Airport("CPH", "Denmark", "Copenhagen");
         Airport a2 = new Airport("BER", "Germany", "Berlin");
-        Flight flight = new Flight(1, plane, date1, date2, a1, a2);
+        Flight flight = new Flight(2000, 1, plane, date1, date2, a1, a2);
         Person payer = new Person("Anders", "Wind", 1, "ITU", 0);
         Person p1 = new Person("Anders", "Fischer", 2, "ITU", 0);
         Reservation r = new Reservation();

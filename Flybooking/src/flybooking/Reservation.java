@@ -14,7 +14,7 @@ public class Reservation implements ReservationInterface {
 
     private ArrayList<Person> persons;
     private Flight flight;
-    private int ID;
+    private String ID;
     private Date reservationDate;
     private long CPR;
     private boolean paid;
@@ -35,7 +35,6 @@ public class Reservation implements ReservationInterface {
         //We haven't paid yet. 
         paid = false;
         randomGen = new Random();
-        ID = randomGen.nextInt(1000000);
         persons = new ArrayList<>();
 
         //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM TIL AT GENERERE ID'S. 
@@ -58,7 +57,7 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public int getID()
+    public String getID()
     {
         return ID;
     }
