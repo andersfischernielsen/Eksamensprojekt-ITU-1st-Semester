@@ -2,7 +2,10 @@
 package flybooking.GUI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import flybooking.*;
 
 /**
  *
@@ -15,8 +18,32 @@ public class StartFrame extends JFrame {
     Container innerCont;
     JButton newBookingButton;
     JButton editBookingButton;
+    private static DatabaseInterface database;
+    private static ControllerInterface controller;
+    private static StartFrame instance;
 
-    public StartFrame() throws HeadlessException
+    public static void main(String[] args)
+    {
+         database = new Database("AACBookingDB", "AACBooking", "AACDB");
+         controller = new Controller(database);
+         instance = null;
+    }
+    
+    private StartFrame() throws HeadlessException
+    {
+        drawFrame();
+        addActionListeners();
+    }
+
+    public static StartFrame getInstance() {
+        if (instance == null) {
+            instance = new StartFrame();
+        }
+        
+        return instance;
+    }
+    
+    private void drawFrame()
     {
         setTitle("Flybooking");
         this.setDefaultCloseOperation(StartFrame.EXIT_ON_CLOSE);
@@ -32,5 +59,24 @@ public class StartFrame extends JFrame {
 
         pack();
         setVisible(true);
+    }
+
+    private void addActionListeners()
+    {
+        newBookingButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                NewReservationFrame.getInstance(controller);
+            }
+        });
+
+        editBookingButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                EditReservationFrame.getInstance(controller);
+            }
+        });
     }
 }
