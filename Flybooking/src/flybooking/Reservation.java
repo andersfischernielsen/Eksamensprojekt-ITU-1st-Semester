@@ -18,7 +18,6 @@ public class Reservation implements ReservationInterface {
     private Date reservationDate;
     private String CPR;
     private boolean paid;
-    private Random randomGen;
     private Person payer;
 
     /**
@@ -34,7 +33,6 @@ public class Reservation implements ReservationInterface {
 
         //We haven't paid yet. 
         paid = false;
-        randomGen = new Random();
         persons = new ArrayList<>();
 
         //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM TIL AT GENERERE ID'S. 
