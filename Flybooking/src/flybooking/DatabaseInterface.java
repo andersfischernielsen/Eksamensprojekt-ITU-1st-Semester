@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public interface DatabaseInterface
 {
-
+    
     // returns the plane with ID PlaneID (needs to implement something with seats)
     Plane getPlane(String PlaneID);
 
