@@ -25,10 +25,12 @@ public class GraphicsComponent
     }
 
     /**
+     * The paintPlaneSeats() method constructs and returns a new
+     * PlaneGraphicsComponent, which is an inner class in graphics component.
      *
      * @param planeToDraw
      *
-     * @return
+     * @return a component who draws planeToDraw
      */
     public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw)
     {
@@ -51,9 +53,8 @@ public class GraphicsComponent
      */
     private class PlaneGraphicsComponent extends JComponent
     {
-
-        private int rows, cols;
         private Plane planeToDraw;
+        private int rows, cols;
 
         public PlaneGraphicsComponent(Plane planeToDraw)
         {
@@ -63,29 +64,52 @@ public class GraphicsComponent
 
         }
 
+        /**
+         * paints the plane.
+         *
+         * @param g
+         */
         @Override
         public void paint(Graphics g)
         {
             int fixdistanceX = 25;
             int fixdistanceY = 25;
-            g.drawRect(0, 0, cols * unit + 79, rows * unit + 74);
+            // draws a rect around the seats.
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, cols * unit + 79, rows * unit + 64);
+            g.setColor(Color.BLACK);
+            g.drawRect(0, 0, cols * unit + 79, rows * unit + 64);
 
             for (int i = 0; i < cols; i++)
             {
-                if (i == cols/10)
+                /**
+                 * If the seat is after the first 1/10 seats then add more
+                 * distance to the rest of the seats (making a visual indicator
+                 * of where the firstclass seats are.)
+                 */
+                if (i == cols / 10)
                 {
                     fixdistanceY = 40;
                 }
-                if (i == cols/4)
+                /**
+                 * same as before just for the business class which is between
+                 * 1/10 and 1/4.
+                 */
+                if (i == cols / 4)
                 {
                     fixdistanceY = 55;
                 }
                 for (int j = 0; j < rows; j++)
                 {
-                    if (j == rows/2)
+                    /**
+                     * Creates the illusion of a isle in the middle of the
+                     * plane.
+                     */
+                    if (j == rows / 2)
                     {
                         fixdistanceX = 40;
                     }
+                    // checks the availability of the seat. and change the color
                     if (planeToDraw.getSeatAvailability(planeToDraw.SeatIDGenerator(i, j)))
                     {
                         g.setColor(Color.GREEN);
@@ -95,6 +119,7 @@ public class GraphicsComponent
                         g.setColor(Color.RED);
                     }
 
+                    // Draw the seats.
                     g.fillRect((i * unit) + padding + fixdistanceY, (j * unit) + padding + fixdistanceX, unit - padding, unit - padding);
                     g.setColor(Color.BLACK);
                     g.drawRect((i * unit) + padding + fixdistanceY, (j * unit) + padding + fixdistanceX, unit - padding, unit - padding);
@@ -103,14 +128,14 @@ public class GraphicsComponent
             }
             g.setColor(Color.BLACK);
             g.drawString("First class     Business class                              Economy class", 20, 20);
-            
-            
+
+
         }
 
         @Override
         public Dimension getPreferredSize()
         {
-            return new Dimension(cols * unit + 80, rows * unit + 75);
+            return new Dimension(cols * unit + 80, rows * unit + 65);
         }
 
         @Override
@@ -159,5 +184,4 @@ public class GraphicsComponent
             return getPreferredSize();
         }
     }
-
 }
