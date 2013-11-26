@@ -18,6 +18,7 @@ public class Reservation implements ReservationInterface {
     private Date reservationDate;
     private String CPR;
     private Person payer;
+    private double price;
 
     /**
      * Create a reservation, containing details about the journey, the plane and
@@ -29,9 +30,7 @@ public class Reservation implements ReservationInterface {
         //VI SNAKKEDE OM, VEL?
         //DEN SKULLE BARE HAVE SETTERS TIL ALLE FELTERNE, SÅ VI KAN OPRETTE EN 
         //TOM RESERVATION FØRST. 
-
-        //We haven't paid yet. 
-        paid = false;
+        
         persons = new ArrayList<>();
 
         //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM TIL AT GENERERE ID'S. 
@@ -72,12 +71,6 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public boolean isPaid()
-    {
-        return paid;
-    }
-
-    @Override
     public void addPerson(Person person)
     {
         persons.add(person);
@@ -110,12 +103,6 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public void setPaid(boolean paid)
-    {
-        this.paid = paid;
-    }
-
-    @Override
     public Person getPayer()
     {
         return payer;
@@ -125,6 +112,18 @@ public class Reservation implements ReservationInterface {
     public void setPayer(Person payer)
     {
         this.payer = payer;
+    }
+
+    @Override
+    public void setPrice(double price)
+    {
+        this.price = price;
+    }
+
+    @Override
+    public double getPrice()
+    {
+        return price;
     }
 
 }

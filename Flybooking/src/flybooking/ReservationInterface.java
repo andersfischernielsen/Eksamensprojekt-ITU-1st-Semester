@@ -53,12 +53,6 @@ public interface ReservationInterface {
     void setPayer(Person payer);
     
     /**
-     * Return whether the reservation is paid (and therefore valid).
-     * @return Whether the reservation is paid for.
-     */
-    boolean isPaid();
-    
-    /**
      * Set the people in the reservation. 
      * @param person The person to add to the reservation.
      */
@@ -88,8 +82,14 @@ public interface ReservationInterface {
     public void setCPR(String CPR);
 
     /**
-     * Set whether the reservation has been paid for or not. 
-     * @param paid Whether the reservation has been paid for. 
+     * Set the price for the reservation.
+     * @param price The price for the reservation.
      */
-    public void setPaid(boolean paid);
+    public void setPrice(double price);
+    
+    /**
+     * Get the price for the reservation.
+     * @return The price for the reservation.
+     */
+    public double getPrice();
 }
