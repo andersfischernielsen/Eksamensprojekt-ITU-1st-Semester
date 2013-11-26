@@ -40,6 +40,7 @@ public class TestDB implements ActionListener
     public void createFrame()
     {
         JFrame frame = new JFrame("Databasetester");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container content = frame.getContentPane();
         Container topContainer, centerContainer, bottomContainer, westContainer, eastContainer, connContainer;
 

@@ -6,7 +6,7 @@ package flybooking;
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Airport {
-    private final String name;
+    private final String id;
     private final String country;
     private final String city;
 
@@ -16,9 +16,9 @@ public class Airport {
      * @param country The name of the country
      * @param city The name of the city
      */
-    public Airport(String name, String country, String city)
+    public Airport(String id, String country, String city)
     {
-        this.name = name;
+        this.id = id;
         this.country = country;
         this.city = city;
     }
@@ -28,8 +28,8 @@ public class Airport {
      * Return the name of the airport.
      * @return name The name of the airport.
      */
-    public String getName() {
-        return name;
+    public String getID() {
+        return id;
     }
     
     /**
