@@ -4,7 +4,7 @@ package flybooking;
 import java.util.Date;
 
 /**
- * Create a journey.
+ * Create a Flight.
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
