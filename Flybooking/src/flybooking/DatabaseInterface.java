@@ -1,17 +1,33 @@
-
 package flybooking;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author Anders Wind Steffensen, Chistoffer Forup & Anders Fischer-Nielsen
  */
-public interface DatabaseInterface {
+public interface DatabaseInterface
+{
 
-    void getEntry();
+    // returns the plane with ID PlaneID (needs to implement something with seats)
+    Plane getPlane(String PlaneID);
 
-    void editEntry();
+    // returns an array of seats which are not available.
+    ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons);
 
-    void newEntry();
+    // returns an arraylist flight which respects the parameters. used in searching.
+    ArrayList<FlightInterface> getFlight(Date DepartureDate, int amtOfPeople, Airport startDestination, Airport endDestination, boolean nextTo);
 
-    void removeEntry();
+    // Returns an arrayList of reservations which respects the parameters.
+    ArrayList<ReservationInterface> getReservation(String ReservationID, String CPR);
+
+    // Enten den her
+    void newReservation(Flight flight, Person[] persons, String CPR, double Price);
+
+    // eller den 
+    void newReservation(Reservation reservationToMake);
+
+    // remove the reservation with ID reservationID
+    void removeReservation(String reservationID);
 }
