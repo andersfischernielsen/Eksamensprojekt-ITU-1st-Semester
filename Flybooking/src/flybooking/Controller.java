@@ -1,11 +1,20 @@
 
 package flybooking;
 
+import java.util.*;
+
 /**
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Controller implements ControllerInterface {
+
+    private DatabaseInterface database;
+
+    public Controller(DatabaseInterface database)
+    {
+        this.database = database;
+    }
 
     @Override
     public void createReservation()
@@ -64,6 +73,33 @@ public class Controller implements ControllerInterface {
     {
         //Do nothing.    
         return null;
+    }
+
+    @Override
+    public int getNumberOfFlights()
+    {
+        ArrayList<Flight> flights = database.getFlights();
+        int number = 0;
+
+        for (Flight f : flights) {
+            number++;
+        }
+
+        return number;
+    }
+
+    @Override
+    public Flight[] getAllFlights()
+    {
+        Flight[] flights = new Flight[getNumberOfFlights()];
+        int i = 0;
+        
+        for (Flight f : database.getFlights()) {
+            flights[i] = f;
+            i++;
+        }
+       
+        return flights;
     }
 
 }
