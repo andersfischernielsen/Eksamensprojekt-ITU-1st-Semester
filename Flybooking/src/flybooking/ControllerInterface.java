@@ -47,8 +47,11 @@ public interface ControllerInterface {
 
     /**
      * Get the total price of the reservation.
+     * @param calculator The calculator to use
+     * @param reservation The reservation to calculate the price for.
+     * @return The price for the reservation
      */
-    int getPrice();
+    int getPrice(CalculatorInterface calculator, Reservation reservation);
 
     /**
      * Find something.
