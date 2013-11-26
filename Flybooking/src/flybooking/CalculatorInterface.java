@@ -1,9 +1,12 @@
 
 package flybooking;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
- * An interface for creating a basic calculator.
- * @author Anders
+ * An interface for creating a converter and calculator.
+ * @author Anders Fischer-Nielsen
  */
 public interface CalculatorInterface {
 
@@ -30,4 +33,11 @@ public interface CalculatorInterface {
      * @return The sum of the two numbers.
      */
     int multiply(int n1, int n2);
+    
+    /**
+     * Convert a given date into a string.
+     * @param date The date to parse.
+     * @return The parsed Date as a string.
+     */
+    String convertDate(Date date);
 }
