@@ -30,6 +30,7 @@ public class NewReservationFrame extends JFrame {
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private String[] people = {"1", "2", "3", "4", "5"};
+    private ArrayList<Flight> searchResults;
 
     private Date chosenDate;
     private int chosenPeople;
@@ -44,6 +45,7 @@ public class NewReservationFrame extends JFrame {
      */
     private NewReservationFrame() throws HeadlessException, SQLException
     {
+        searchResults = new ArrayList<>();
         controller = Controller.getInstance(Database.getInstance());
         drawFrame();
     }
@@ -68,7 +70,9 @@ public class NewReservationFrame extends JFrame {
         setTitle("New Reservation");
         setResizable(false);
 
-        content = getContentPane();
+        Container c = getContentPane();
+        content = new JPanel();
+        c.add(content);
         topContainers = new ArrayList<>();
 
         drawTopContent();
@@ -119,6 +123,7 @@ public class NewReservationFrame extends JFrame {
 
         startLabel = new JLabel("Start destination:");
         startDestDropdown = new JComboBox(drawDestinations());
+        startDestDropdown.setPreferredSize(new Dimension(130, 25));
         top1x3Container.add(startLabel);
         top1x3Container.add(startDestDropdown);
 
@@ -128,6 +133,7 @@ public class NewReservationFrame extends JFrame {
 
         endLabel = new JLabel("End destination:");
         endDestDropdown = new JComboBox(drawDestinations());
+        endDestDropdown.setPreferredSize(new Dimension(130, 25));
         top2x3Container.add(endLabel);
         top2x3Container.add(endDestDropdown);
 
@@ -138,7 +144,7 @@ public class NewReservationFrame extends JFrame {
         //finally add them to the topContainer.
         for (Container c : topContainers) {
             c.setLayout(new FlowLayout());
-            c.setPreferredSize(new Dimension(100, 60));
+            c.setPreferredSize(new Dimension(150, 60));
             topContainer.add(c);
         }
 
@@ -152,8 +158,12 @@ public class NewReservationFrame extends JFrame {
      */
     private void drawBottomContent()
     {
-        bottomContainer = new Container();
-
+        bottomContainer = new JPanel();
+        flightList = new FlightList(searchResults);
+        flightList.setPreferredSize(new Dimension(350, 300));
+        
+        bottomContainer.add(flightList);
+        
         content.add(bottomContainer, BorderLayout.SOUTH);
     }
 
@@ -254,7 +264,10 @@ public class NewReservationFrame extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                performSearch();
+                try { performSearch();
+                } catch (SQLException ex) {
+                    System.out.println("SQLException when searching.");
+                }
             }
         });
 
@@ -270,17 +283,8 @@ public class NewReservationFrame extends JFrame {
     /**
      * Perform a search for flights with the specified search options.
      */
-    private void performSearch()
+    private void performSearch() throws SQLException
     {
-        System.out.print("Chosen date:           ");
-        System.out.print(Calculator.convertDateToString(chosenDate) + "\n");
-        System.out.println("Chosen amt. of people: " + chosenPeople);
-        System.out.println("Chosen start dest.:    " + chosenStartDestination);
-        System.out.println("Chosen end dest.:      " + chosenEndDestination);
-        System.out.println("Next to each other:    " + nextTo);
-        System.out.println("");
-        
-        Plane testPlane = new Plane("2", 2, 8);
-        new PersonAndSeatFrame(5, testPlane);
+        searchResults = Database.getInstance().getFlight(chosenDate, chosenStartDestination, chosenEndDestination);
     }
 }
