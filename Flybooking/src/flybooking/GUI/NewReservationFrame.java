@@ -224,30 +224,31 @@ public class NewReservationFrame extends JFrame {
         startDestDropdown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { JComboBox cb = (JComboBox) e.getSource();
                 //Creates a temporary Airport and get it's ID. Assigns this to chosenStartDest.
-                Airport temp = (Airport) cb.getSelectedItem();
-                chosenStartDestination = temp.getID();
+                chosenStartDestination = (String) cb.getSelectedItem();
             }});
         
         //Same as above.
         endDestDropdown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { JComboBox cb = (JComboBox) e.getSource();
-                Airport temp = (Airport) cb.getSelectedItem();
-                chosenEndDestination = temp.getID();
+                chosenEndDestination = (String) cb.getSelectedItem();
             }});
         
         //Add an ActionListener that runs a search when the button is clicked.
         searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { performSearch(); }});
+            public void actionPerformed(ActionEvent e) { 
+                performSearch(); 
+            }});
     }
     
     /**
      * Perform a search for flights with the specified search options.
      */
     private void performSearch() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Searching.");
-            System.out.println("Searching..");
-            System.out.println("Searching...");
-        }
+        System.out.print("Chosen date:           ");
+        System.out.print(Calculator.convertDateToString(chosenDate) + "\n");
+        System.out.println("Chosen amt. of people: " + chosenPeople);
+        System.out.println("Chosen start dest.:    " + chosenStartDestination);
+        System.out.println("Chosen end dest.:      " + chosenEndDestination);
+        System.out.println("");
     }
 }
