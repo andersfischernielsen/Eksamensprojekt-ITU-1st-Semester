@@ -12,7 +12,13 @@ import java.util.Random;
  */
 public class Calculator
 {
-
+    public static void main(String[] args) throws SQLException
+    {
+        System.out.println("Hi!");
+        System.out.println(Calculator.createPersonID());
+        System.out.println(Calculator.createReservationID());
+    }
+    
     private static Random randomGen = new Random();
 
     /**
@@ -58,7 +64,6 @@ public class Calculator
      * Convert a given date into a string.
      *
      * @param date The date to parse.
-     *
      * @return The parsed Date as a string.
      */
     public static String convertDateToString(Date date)
@@ -66,12 +71,23 @@ public class Calculator
         return new SimpleDateFormat("dd/MM-yyyy").format(date);
     }
 
+    /**
+     * Convert a string into a date.
+     * @param string The string to convert
+     * @return The given string as a Date.
+     * @throws ParseException 
+     */
     public static Date convertStringToDate(String string) throws ParseException
     {
         return new SimpleDateFormat("dd/MM-yyyy").parse(string);
     }
 
-    String createPersonID() throws SQLException
+    /**
+     * Generate a person ID for creating a new Person.
+     * @return A new ID.
+     * @throws SQLException 
+     */
+    public static String createPersonID() throws SQLException
     {
         while (true)
         {
@@ -83,7 +99,12 @@ public class Calculator
         }
     }
 
-    String createReservationID() throws SQLException
+    /**
+     * Generate a reservation ID for creating a new Reservation.
+     * @return A new ID.
+     * @throws SQLException 
+     */
+    public static String createReservationID() throws SQLException
     {
         while (true)
         {
