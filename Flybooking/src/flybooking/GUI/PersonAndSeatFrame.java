@@ -32,7 +32,7 @@ public class PersonAndSeatFrame extends JFrame
         setTitle("Seats and Passengers");
         setPreferredSize(new Dimension(800, 600));
         setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE); // ved godt det ikke skal være sådan.
+        // setDefaultCloseOperation(EXIT_ON_CLOSE); // ved godt det ikke skal være sådan.
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         add(mainPanel);
@@ -272,6 +272,6 @@ public class PersonAndSeatFrame extends JFrame
 
     public static void main(String[] args)
     {
-        new PersonAndSeatFrame(5, new Plane("5eerrg2", 6, 20));
+        new PersonAndSeatFrame(5, new Plane("5eerrg2", 6, 29));
     }
 }
