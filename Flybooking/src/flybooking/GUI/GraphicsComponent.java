@@ -65,8 +65,7 @@ public class GraphicsComponent
 
         private Plane planeToDraw;
         private int rows, cols;
-        int fixdistanceX = 25;
-        int fixdistanceY = 25;
+        int fixdistanceX = 25, fixdistanceY = 25;
 
         public PlaneGraphicsComponent(Plane planeToDraw)
         {
@@ -155,9 +154,56 @@ public class GraphicsComponent
             return getPreferredSize();
         }
 
-        public void setSeatAvailability(int x, int y)
+        public void setSeatAvailability(int mouseX, int mouseY)
         {
-            System.out.println("x: " + x + " - y: " + y);
+            System.out.println("x: " + mouseX + " - y: " + mouseY);
+            int firstCol, firstRow;
+            int mouseCol, mouseRow;
+            //Start of the column
+            firstCol = (mouseX - 35) / (24);
+            mouseCol = firstCol;
+            if (firstCol >= cols / 10)
+            {
+                // after the first class
+                mouseCol = (mouseX - 50) / (24);
+                int fixdistanceX = 40;
+            }
+            if (firstCol >= cols / 4)
+            {
+                // after the business class
+                mouseCol = (mouseX - 65) / (24);
+                int fixdistanceX = 55;
+            }
+
+            // start of the row
+            firstRow = (mouseY - 35) / (24);
+            mouseRow = firstRow;
+            if (firstRow >= rows / 2)
+            {
+                // after the isle
+                mouseRow = (mouseY - 50) / (24);
+                int fixdistanceY = 40;
+            }
+
+            // checks if it returns a valid seat position.
+            if (mouseCol < 0 || mouseCol > cols || mouseRow < 0 || mouseRow > rows)
+            {
+                return;
+            }
+
+            // checks if the click is within the seat boxes.
+            if (mouseY >= (mouseRow * unit) + padding + fixdistanceY && mouseY <= (mouseRow * unit) + padding + fixdistanceY + unit - padding)
+            {
+                if (mouseX >= (mouseCol * unit) + padding + fixdistanceX && mouseY <= (mouseCol * unit) + padding + fixdistanceX + unit - padding)
+                {
+                    System.out.println("mouseclicked row: " + mouseRow);
+                    System.out.println("mouseclicked Col: " + mouseCol);
+                }
+            }
+            
+            // return the fixdistances to the original state.
+            int fixdistanceX = 25;
+            int fixdistanceY = 25;
         }
     }
 

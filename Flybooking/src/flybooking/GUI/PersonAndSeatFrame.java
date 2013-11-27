@@ -34,6 +34,7 @@ public class PersonAndSeatFrame extends JFrame
         planeToDraw.setSeatAvailability("6E", false);
         planeToDraw.setSeatAvailability("6C", false);
         planeToDraw.setSeatAvailability("2A", false);
+        planeToDraw.setSeatAvailability("1A", false);
 
         this.amtOfPersons = amtOfPersons;
         setTitle("Seats and Passengers");
