@@ -3,6 +3,7 @@ package flybooking;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -10,6 +11,8 @@ import java.util.Date;
  */
 public class Calculator
 {
+
+    private static Random randomGen = new Random();
 
     /**
      * Add two numbers and get the result.
@@ -69,11 +72,25 @@ public class Calculator
 
     String createPersonID()
     {
-        return "";
+        while (true)
+        {
+            String personID = "" + randomGen.nextInt(99999);
+            if (Database.getInstance().checkForID(personID))
+            {
+                return personID;
+            }
+        }
     }
 
     String createReservationID()
     {
-        return "";
+        while (true)
+        {
+            String personID = "" + randomGen.nextInt(9999);
+            if (Database.getInstance().checkForID(personID))
+            {
+                return personID;
+            }
+        }
     }
 }

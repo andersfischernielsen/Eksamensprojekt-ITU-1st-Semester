@@ -32,9 +32,11 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public Plane getPlane(String PlaneID)
+    public Plane getPlane(String PlaneID) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = statement.executeQuery("SELECT * FROM Plane WHERE Plane.id == "+ PlaneID);
+        System.out.println("id " + rs.getString("id"));
+        return new Plane(rs.getString("id"),rs.getInt("rows"), rs.getInt("columns"));
     }
 
     @Override
