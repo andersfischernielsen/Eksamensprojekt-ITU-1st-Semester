@@ -115,18 +115,18 @@ public class Database implements DatabaseInterface {
         if (ID.length() <= 4) {
             ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
             if (matchingIDs.next()) {
-                return true;
+                return false;
             }
         }
         
         if (ID.length() > 4) {
             ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
             if (matchingIDs.next()) {
-                return true;
+                return false;
             }
         }
         
-        return false;
+        return true;
     }
 
 }
