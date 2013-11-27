@@ -39,6 +39,17 @@ public class GraphicsComponent
         return new PlaneGraphicsComponent(planeToDraw);
     }
 
+    /**
+     * Returns a planegrahicscomponent on which a seat now has changed
+     * availability. This method is used for mouseListeners event.
+     *
+     * @param planeToDraw the plane to which the seat availability needs to
+     *                    change.
+     * @param X           the x coordinat that the mouse pressed
+     * @param Y           the y coordinat that the mouse pressed
+     *
+     * @return
+     */
     public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw, int X, int Y)
     {
         PlaneGraphicsComponent planeToWork = new PlaneGraphicsComponent(planeToDraw);
@@ -201,9 +212,9 @@ public class GraphicsComponent
                         + fixdistanceX && mouseX < (mouseCol * unit) + padding
                         + fixdistanceX + unit - padding)
                 {
-                    planeToDraw.setSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol,mouseRow));
-                    System.out.println(Plane.SeatIDGenerator(mouseCol,mouseRow));
-                    
+                    planeToDraw.setSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol, mouseRow));
+                    System.out.println(Plane.SeatIDGenerator(mouseCol, mouseRow));
+
                 }
             }
 
