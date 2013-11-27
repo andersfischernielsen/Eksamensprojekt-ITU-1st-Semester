@@ -4,6 +4,7 @@ package flybooking;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
+import java.util.Calendar;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -46,16 +47,15 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<FlightInterface> getFlight(Date departureDate, 
-            int amtOfPeople, String startDestination, String endDestination, 
-            boolean nextTo) throws SQLException
+    public ArrayList<Flight> getFlight(Date departureDate, 
+            String startDestination, String endDestination) throws SQLException
     {
-        ArrayList<FlightInterface> flights = new ArrayList<>();
+        ArrayList<Flight> flights = new ArrayList<>();
         //HER SKAL SKAL KODE TIL AT FINDE FLIGHTS DER OPFYLDER OVENSTÅENDE SKRIVES!
-        ResultSet rs = statement.executeQuery("HER!!!");
+        ResultSet rs = statement.executeQuery("SELECT * FROM Flight WHERE startDate = " + departureDate + " AND startAirport = " + startDestination + " AND endAirport = " + endDestination + "");
         
         while (rs.next()) {
-            flights.add(new Flight(amtOfPeople, amtOfPeople, null, departureDate, departureDate, null, null));
+            flights.add(new Flight(rs.getDouble("price"), rs.getInt("ID"), new Plane(rs.getString("plane"), 0, 0), rs.getDate("startDate"), rs.getDate("endDate"), new Airport(rs.getString("startAirport"), "", ""), new Airport(rs.getString("endAirport"), "", "")));
         }
         return flights;
     }

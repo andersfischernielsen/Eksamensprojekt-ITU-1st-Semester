@@ -30,14 +30,12 @@ public interface DatabaseInterface
     /** 
      * Returns an ArrayList of flights that match the specified search terms.
      * @param departureDate The date to depart.
-     * @param amtOfPeople The amount of people wishing to fly.
      * @param startDestination The start destination for the flight.
      * @param endDestination The end destination for the flight.
-     * @param nextTo Whether the people on the flight want to sit next to each other.
      * @return An array of flights that match the specified parameters.
      */
-    ArrayList<FlightInterface> getFlight(Date departureDate, int amtOfPeople, 
-                String startDestination, String endDestination, boolean nextTo)
+    ArrayList<Flight> getFlight(Date departureDate, 
+                String startDestination, String endDestination)
                 throws SQLException;
 
     /**
