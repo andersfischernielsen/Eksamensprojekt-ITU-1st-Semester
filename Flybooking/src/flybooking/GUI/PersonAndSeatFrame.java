@@ -28,13 +28,13 @@ public class PersonAndSeatFrame extends JFrame
         this.planeToDraw = planeToDraw;
         graphics = new GraphicsComponent();
 
-        planeToDraw.setSeatAvailability("5A", false);
-        planeToDraw.setSeatAvailability("10B", false);
-        planeToDraw.setSeatAvailability("6F", false);
-        planeToDraw.setSeatAvailability("6E", false);
-        planeToDraw.setSeatAvailability("6C", false);
-        planeToDraw.setSeatAvailability("2A", false);
-        planeToDraw.setSeatAvailability("1A", false);
+        planeToDraw.setSeatAvailability("5A");
+        planeToDraw.setSeatAvailability("10B");
+        planeToDraw.setSeatAvailability("6F");
+        planeToDraw.setSeatAvailability("6E");
+        planeToDraw.setSeatAvailability("6C");
+        planeToDraw.setSeatAvailability("2A");
+        planeToDraw.setSeatAvailability("1A");
 
         this.amtOfPersons = amtOfPersons;
         setTitle("Seats and Passengers");
@@ -207,6 +207,9 @@ public class PersonAndSeatFrame extends JFrame
             public void mouseClicked(MouseEvent e)
             {
                 planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY());
+                repaint();
+                pack();
+                
             }
 
             @Override
@@ -222,13 +225,13 @@ public class PersonAndSeatFrame extends JFrame
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                System.out.println("Mus inde");
+                //
             }
 
             @Override
             public void mouseExited(MouseEvent e)
             {
-                System.out.println("Mus ude");
+                //
             }
         });
         botPanel.add(planeDrawingComp);

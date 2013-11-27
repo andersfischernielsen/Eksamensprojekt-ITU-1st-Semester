@@ -49,7 +49,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public int getPrice(CalculatorInterface calculator, Reservation reservation)
+    public int getPrice(Calculator calculator, Reservation reservation)
     {
         //Do nothing.    
         return -1;

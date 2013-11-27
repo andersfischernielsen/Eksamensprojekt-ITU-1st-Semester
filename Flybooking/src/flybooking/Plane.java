@@ -50,7 +50,7 @@ public class Plane
         }
     }
 
-    public String SeatIDGenerator(int col, int row)
+    public static String SeatIDGenerator(int col, int row)
     {
         int theCol = col + 1;
         String seatIDString = "" + theCol;
@@ -168,7 +168,7 @@ public class Plane
      * @param seatID       The seat ID to change
      * @param availability Whether the seat is available or not.
      */
-    public void setSeatAvailability(String seatID, boolean availability)
+    public void setSeatAvailability(String seatID)
     {
         for (int i = 0; i < columns; i++)
         {
@@ -176,7 +176,7 @@ public class Plane
             {
                 if (seats[i][j] != null && seats[i][j].getID().equals(seatID))
                 {
-                    seats[i][j].setAvailability(availability);
+                    seats[i][j].setAvailability(!getSeatAvailability(SeatIDGenerator(i,j)));
                 }
             }
         }
