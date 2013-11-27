@@ -14,6 +14,7 @@ public class Database implements DatabaseInterface {
 
     private String name, login, password;
     private Connection con;
+    Statement statement;
     private static Database instance = null;
 
     private Database(String name, String login, String password)
@@ -24,6 +25,7 @@ public class Database implements DatabaseInterface {
 
         try {
             con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name, login, password);
+            statement = con.createStatement();
         } catch (SQLException e) {
             showMessageDialog(null, "Couldn't connect to the database!");
         }
@@ -72,15 +74,20 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public void addPerson(String reservationID, Person personToAdd)
+    public void addPerson(String reservationID, Person person, String reservationSpot) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        statement.executeQuery("INSERT INTO " + name + ".People (ID, firstName, lastName, address, groupID) VALUES ('" +
+                                person.getID() +                  "', '" + 
+                                person.getFirstName() +           "', '" +
+                                person.getLastName() +            "', '" +
+                                person.getAdress() +              "', '" + 
+                                person.getGroupID() +             "')");
+        statement.executeQuery("UPDATE " + name + ".Reservation SET " + reservationSpot + "PersonID = " + person.getID() + " WHERE  Reservation.ID = " + reservationID + "");
     }
 
     @Override
     public ArrayList<String> getAirportCitiesAsStrings() throws SQLException
     {
-        Statement statement = con.createStatement();
         ResultSet rs = statement.executeQuery("SELECT * FROM Airport");
         ArrayList<String> airports = new ArrayList<>();
 
@@ -98,6 +105,12 @@ public class Database implements DatabaseInterface {
         }
         
         return instance;
+    }
+
+    @Override
+    public boolean checkForID(String ID)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -32,8 +32,14 @@ public interface DatabaseInterface
     // remove the reservation with ID reservationID
     void removeReservation(String reservationID);
     
-    // adds a person to a reservation.
-    void addPerson(String reservationID, Person personToAdd);
+    /**
+     * Adds a person to a reservation.
+     * @param reservationID The reservation in the database to add to.
+     * @param personToAdd The person to add to the reservation.
+     * @param reservationSpot The spot in the reservation to add the person (first, second etc.)
+     * @throws java.sql.SQLException
+     */
+    void addPerson(String reservationID, Person personToAdd, String reservationSpot) throws SQLException;
     
     /**
      * Get all the available flights as an ArrayList.
@@ -41,4 +47,10 @@ public interface DatabaseInterface
      * @throws java.sql.SQLException An SQLException if something went wrong.
      */
     ArrayList<String> getAirportCitiesAsStrings() throws SQLException;
+    
+    /**
+     * Check whether a given ID already exists. 
+     * @return Whether the ID exists or not. 
+     */
+    boolean checkForID(String ID);
 }
