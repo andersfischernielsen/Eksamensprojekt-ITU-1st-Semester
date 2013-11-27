@@ -111,14 +111,14 @@ public class Database implements DatabaseInterface {
     public boolean checkForID(String ID) throws SQLException
     {
         if (ID.length() <= 4) {
-            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID);");
+            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
             if (matchingIDs.next()) {
                 return true;
             }
         }
         
         if (ID.length() > 4) {
-            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID);");
+            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
             if (matchingIDs.next()) {
                 return true;
             }

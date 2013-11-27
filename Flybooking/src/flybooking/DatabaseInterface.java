@@ -51,7 +51,7 @@ public interface DatabaseInterface
     /**
      * Check whether a given ID already exists. 
      * @param ID
-     * @return Whether the ID exists or not. 
+     * @return true if the ID exists.
      * @throws java.sql.SQLException 
      */
     boolean checkForID(String ID) throws SQLException;
