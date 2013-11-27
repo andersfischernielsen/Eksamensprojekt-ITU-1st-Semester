@@ -28,15 +28,17 @@ public interface DatabaseInterface
     ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons);
 
     /** 
-     * returns an arraylist flight which respects the parameters. used in searching.
-     * @param DepartureDate
-     * @param amtOfPeople
-     * @param startDestination
-     * @param endDestination
-     * @param nextTo
-     * @return 
+     * Returns an ArrayList of flights that match the specified search terms.
+     * @param departureDate The date to depart.
+     * @param amtOfPeople The amount of people wishing to fly.
+     * @param startDestination The start destination for the flight.
+     * @param endDestination The end destination for the flight.
+     * @param nextTo Whether the people on the flight want to sit next to each other.
+     * @return An array of flights that match the specified parameters.
      */
-    ArrayList<FlightInterface> getFlight(Date DepartureDate, int amtOfPeople, Airport startDestination, Airport endDestination, boolean nextTo);
+    ArrayList<FlightInterface> getFlight(Date departureDate, int amtOfPeople, 
+                String startDestination, String endDestination, boolean nextTo)
+                throws SQLException;
 
     /**
      * Returns an arrayList of reservations which respects the parameters.
@@ -65,7 +67,7 @@ public interface DatabaseInterface
      * remove the reservation with ID reservationID
      * @param reservationID
      */
-    void removeReservation(String reservationID);
+    void removeReservation(String reservationID) throws SQLException;
     
     /**
      * Adds a person to a reservation.

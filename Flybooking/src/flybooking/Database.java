@@ -7,8 +7,8 @@ import java.sql.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
- *
- * @author Anders
+ * Create a database handler that connects to a database and does stuff.
+ * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Database implements DatabaseInterface {
 
@@ -46,9 +46,18 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<FlightInterface> getFlight(Date DepartureDate, int amtOfPeople, Airport startDestination, Airport endDestination, boolean nextTo)
+    public ArrayList<FlightInterface> getFlight(Date departureDate, 
+            int amtOfPeople, String startDestination, String endDestination, 
+            boolean nextTo) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<FlightInterface> flights = new ArrayList<>();
+        //HER SKAL SKAL KODE TIL AT FINDE FLIGHTS DER OPFYLDER OVENSTÅENDE SKRIVES!
+        ResultSet rs = statement.executeQuery("HER!!!");
+        
+        while (rs.next()) {
+            flights.add(new Flight(amtOfPeople, amtOfPeople, null, departureDate, departureDate, null, null));
+        }
+        return flights;
     }
 
     @Override
@@ -64,15 +73,15 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public void newReservation(Reservation reservationToMake)
+    public void newReservation(Reservation r)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
-    public void removeReservation(String reservationID)
+    public void removeReservation(String reservationID) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        statement.executeQuery("DELETE FROM " + name + ".Reservation WHERE Reservation.ID = " + reservationID);
     }
 
     @Override
