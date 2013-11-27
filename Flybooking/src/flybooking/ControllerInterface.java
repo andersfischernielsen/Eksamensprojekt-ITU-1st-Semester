@@ -99,6 +99,12 @@ public interface ControllerInterface {
      * @return A string array of cities in the database.
      * @throws java.sql.SQLException
      */
-    String[] getDestinationsAsStrings() throws SQLException ;
+    String[] getDestinationsAsStrings() throws SQLException;
     
+    /**
+     * Check whether an ID already exists in the database. 
+     * @return Whether the ID exists in the database.
+     * @throws SQLException 
+     */
+    boolean checkForID(String ID) throws SQLException;
 }

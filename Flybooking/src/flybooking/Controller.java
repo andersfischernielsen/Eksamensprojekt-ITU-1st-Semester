@@ -111,4 +111,12 @@ public class Controller implements ControllerInterface {
         return instance;
     }
 
+    @Override
+    public boolean checkForID(String ID) throws SQLException
+    {
+        database.checkForID(ID);
+        
+        return false;
+    }
+
 }
