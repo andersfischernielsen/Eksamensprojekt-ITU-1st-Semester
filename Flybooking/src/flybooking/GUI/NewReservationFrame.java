@@ -11,8 +11,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
+ * Create a frame for finding and creating reservations
  *
- * @author Anders
+ * @author Anders Fischer-Nielsen
  */
 public class NewReservationFrame extends JFrame {
 
@@ -29,13 +30,13 @@ public class NewReservationFrame extends JFrame {
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private String[] people = {"1", "2", "3", "4", "5"};
-    
+
     private Date chosenDate;
     private int chosenPeople;
     private String chosenStartDestination;
     private String chosenEndDestination;
     private boolean nextTo;
-    
+
     /**
      * Create a frame for finding and creating reservations.
      *
@@ -46,7 +47,7 @@ public class NewReservationFrame extends JFrame {
         controller = Controller.getInstance(Database.getInstance());
         drawFrame();
     }
-    
+
     /**
      * Get an instance of the Frame. (Singleton)
      *
@@ -57,7 +58,7 @@ public class NewReservationFrame extends JFrame {
         if (instance == null) {
             instance = new NewReservationFrame();
         }
-        
+
         instance.setVisible(true);
         return instance;
     }
@@ -66,18 +67,18 @@ public class NewReservationFrame extends JFrame {
     {
         setTitle("New Reservation");
         setResizable(false);
-        
+
         content = getContentPane();
         topContainers = new ArrayList<>();
-        
+
         drawTopContent();
         drawBottomContent();
-        
+
         chosenStartDestination = (String) startDestDropdown.getSelectedItem();
         chosenEndDestination = (String) endDestDropdown.getSelectedItem();
         chosenPeople = 1;
         chosenDate = new Date();
-        
+
         content.repaint();
         setSize(new Dimension(500, 500));
         setVisible(true);
@@ -140,7 +141,7 @@ public class NewReservationFrame extends JFrame {
             c.setPreferredSize(new Dimension(100, 60));
             topContainer.add(c);
         }
-        
+
         addActionListeners();
         //Add the finished Container to the frame.
         content.add(topContainer, BorderLayout.NORTH);
@@ -180,7 +181,7 @@ public class NewReservationFrame extends JFrame {
             //in proper order.
             j++;
         }
-        
+
         for (int i = 0; i < 7; i++) {
             //We do the same here, just the other way around. 
             array[j] = Calculator.convertDateToString(new Date(today.getTime() + i * 24 * 60 * 60 * 1000));
@@ -196,60 +197,81 @@ public class NewReservationFrame extends JFrame {
      *
      * @return A string array of possible destinations.
      */
-    private String[] drawDestinations() throws SQLException 
+    private String[] drawDestinations() throws SQLException
     {
-       return controller.getDestinationsAsStrings();
+        return controller.getDestinationsAsStrings();
     }
-    
+
     /**
-     * Add all of the ugly ActionListener code to the ComboBoxes and Buttons. 
+     * Add all of the ugly ActionListener code to the ComboBoxes and Buttons.
      */
-    private void addActionListeners() {
+    private void addActionListeners()
+    {
         //Adds an ActionListener that changes chosenDate to the date chosen when clicked.
         dateDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { 
+            public void actionPerformed(ActionEvent e)
+            {
                 //Creates a temporary ComboBox, that contains the click source.
                 JComboBox cb = (JComboBox) e.getSource();
-                try { 
+                try {
                     //Then convert the ComboBox into a date using the Calculator.
                     chosenDate = Calculator.convertStringToDate(cb.getSelectedItem().toString());
-                } catch (ParseException ex) {}}});
-        
+                } catch (ParseException ex) {
+                }
+            }
+        });
+
         //Add an ActionListener that changes the chosenPeople to the value chosen when clicked.
         peopleDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { JComboBox cb = (JComboBox) e.getSource();
-            //Same as above just with an integer.
+            public void actionPerformed(ActionEvent e)
+            {
+                JComboBox cb = (JComboBox) e.getSource();
+                //Same as above just with an integer.
                 chosenPeople = Integer.parseInt(cb.getSelectedItem().toString());
-            }});
-        
+            }
+        });
+
         //Adds an ActionListener that changes chosenStartDestination to the value chosen when clicked.
         startDestDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { JComboBox cb = (JComboBox) e.getSource();
+            public void actionPerformed(ActionEvent e)
+            {
+                JComboBox cb = (JComboBox) e.getSource();
                 //Creates a temporary Airport and get it's ID. Assigns this to chosenStartDest.
                 chosenStartDestination = (String) cb.getSelectedItem();
-            }});
-        
+            }
+        });
+
         //Same as above.
         endDestDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { JComboBox cb = (JComboBox) e.getSource();
+            public void actionPerformed(ActionEvent e)
+            {
+                JComboBox cb = (JComboBox) e.getSource();
                 chosenEndDestination = (String) cb.getSelectedItem();
-            }});
-        
+            }
+        });
+
         //Add an ActionListener that runs a search when the button is clicked.
         searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { 
-                performSearch(); 
-            }});
-        
+            public void actionPerformed(ActionEvent e)
+            {
+                performSearch();
+            }
+        });
+
         //Add an ActionListener that changes the boolean nextTo when clicked.
         checkbox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { nextTo = !nextTo; }});
+            public void actionPerformed(ActionEvent e)
+            {
+                nextTo = !nextTo;
+            }
+        });
     }
-    
+
     /**
      * Perform a search for flights with the specified search options.
      */
-    private void performSearch() {
+    private void performSearch()
+    {
         System.out.print("Chosen date:           ");
         System.out.print(Calculator.convertDateToString(chosenDate) + "\n");
         System.out.println("Chosen amt. of people: " + chosenPeople);
