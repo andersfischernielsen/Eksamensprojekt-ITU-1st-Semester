@@ -1,5 +1,6 @@
 package flybooking;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,6 +38,7 @@ public interface DatabaseInterface
     /**
      * Get all the available flights as an ArrayList.
      * @return An ArrayList of all the available flights.
+     * @throws java.sql.SQLException An SQLException if something went wrong.
      */
-    ArrayList<Flight> getFlights();
+    ArrayList<String> getAirportCitiesAsStrings() throws SQLException;
 }
