@@ -279,5 +279,8 @@ public class NewReservationFrame extends JFrame {
         System.out.println("Chosen end dest.:      " + chosenEndDestination);
         System.out.println("Next to each other:    " + nextTo);
         System.out.println("");
+        
+        Plane testPlane = new Plane("2", 6, 12);
+        new PersonAndSeatFrame(5, testPlane);
     }
 }
