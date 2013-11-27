@@ -1,6 +1,7 @@
 
 package flybooking;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -10,8 +11,9 @@ import java.util.*;
 public class Controller implements ControllerInterface {
 
     private DatabaseInterface database;
+    private static Controller instance = null;
 
-    public Controller(DatabaseInterface database)
+    private Controller(DatabaseInterface database)
     {
         this.database = database;
     }
@@ -35,8 +37,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void deleteReservation(DatabaseInterface database
-    )
+    public void deleteReservation(DatabaseInterface database)
     {
         //Do nothing.    
     }
@@ -76,12 +77,12 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public int getNumberOfFlights()
+    public int getNumberOfDestinations() throws SQLException
     {
-        ArrayList<Flight> flights = database.getFlights();
+        ArrayList<String> destinations = database.getAirportCitiesAsStrings();
         int number = 0;
 
-        for (Flight f : flights) {
+        for (String d : destinations) {
             number++;
         }
 
@@ -89,17 +90,25 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public Flight[] getAllFlights()
+    public String[] getDestinationsAsStrings() throws SQLException 
     {
-        Flight[] flights = new Flight[getNumberOfFlights()];
-        int i = 0;
+        String[] destinations = new String[getNumberOfDestinations()];
+        ArrayList<String> strings = database.getAirportCitiesAsStrings();
         
-        for (Flight f : database.getFlights()) {
-            flights[i] = f;
-            i++;
+        for (int i = 0; i < destinations.length; i++ ) {
+            destinations[i] = strings.get(i);
         }
-       
-        return flights;
+        
+        return destinations;
+    }
+
+    public static Controller getInstance(DatabaseInterface database)
+    {
+        if (instance == null) {
+            instance = new Controller(database);
+        }
+        
+        return instance;
     }
 
 }

@@ -1,6 +1,8 @@
 
 package flybooking;
 
+import java.sql.SQLException;
+
 /**
  * An interface for creating reservations and controlling the booking system in
  * general.
@@ -85,16 +87,18 @@ public interface ControllerInterface {
     //DER BARE KALDER EN TILSVARENDE METODE PÅ ET ANDET OBJEKT (F.EKS. addPerson()).
     
     /**
-     * Get the number of flights available from the database.
+     * Get the number of destinations from the database.
      *
-     * @param database The database to use.
-     * @return The number of available flights.
+     * @return The number of destinations in the database.
+     * @throws java.sql.SQLException If something went wrong.
      */
-    int getNumberOfFlights();
+    int getNumberOfDestinations() throws SQLException;
     
     /**
-     * Get all flights from the database.
-     * @return An array of flights.
+     * Get all destination cities from the database as strings.
+     * @return A string array of cities in the database.
+     * @throws java.sql.SQLException
      */
-    Flight[] getAllFlights();
+    String[] getDestinationsAsStrings() throws SQLException ;
+    
 }

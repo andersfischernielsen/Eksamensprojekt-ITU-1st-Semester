@@ -1,11 +1,13 @@
 
 package flybooking.GUI;
 
+import com.mysql.jdbc.SQLError;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import flybooking.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -24,8 +26,8 @@ public class StartFrame extends JFrame {
 
     public static void main(String[] args)
     {
-         database = new Database("AACBookingDB", "AACBooking", "AACDB");
-         controller = new Controller(database);
+         database = Database.getInstance();
+         controller = Controller.getInstance(database);
          StartFrame.getInstance();
     }
     
@@ -68,7 +70,9 @@ public class StartFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                NewReservationFrame.getInstance(controller);
+                try {
+                    NewReservationFrame.getInstance();
+                } catch (SQLException ex) {}
             }
         });
 

@@ -7,6 +7,7 @@ import javax.swing.*;
 import flybooking.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
@@ -39,30 +40,28 @@ public class NewReservationFrame extends JFrame {
      *
      * @throws HeadlessException
      */
-    private NewReservationFrame(ControllerInterface controller) throws HeadlessException
+    private NewReservationFrame() throws HeadlessException, SQLException
     {
+        controller = Controller.getInstance(Database.getInstance());
         drawFrame();
-        this.controller = controller;
     }
     
     /**
      * Get an instance of the Frame. (Singleton)
      *
-     * @param controller The controller to get information from for the user
-     * interface.
      * @return An instance of the frame.
      */
-    public static NewReservationFrame getInstance(ControllerInterface controller)
+    public static NewReservationFrame getInstance() throws SQLException
     {
         if (instance == null) {
-            instance = new NewReservationFrame(controller);
+            instance = new NewReservationFrame();
         }
         
         instance.setVisible(true);
         return instance;
     }
 
-    public final void drawFrame()
+    public final void drawFrame() throws SQLException
     {
         setTitle("New Reservation");
         setResizable(false);
@@ -71,8 +70,8 @@ public class NewReservationFrame extends JFrame {
         topContainers = new ArrayList<>();
 
         chosenPeople = 1;
-        Airport tempDest = (Airport) startDestDropdown.getSelectedItem();
-        chosenStartDestination = tempDest.getID();
+        chosenDate = new Date();
+        chosenStartDestination = "";
         
         drawTopContent();
         drawBottomContent();
@@ -85,7 +84,7 @@ public class NewReservationFrame extends JFrame {
     /**
      * Draw the top part of the window, containing input and search buttons.
      */
-    private void drawTopContent()
+    private void drawTopContent() throws SQLException
     {
         //Create an empty container and set the layout to a GridLayout.
         topContainer = new Container();
@@ -116,7 +115,7 @@ public class NewReservationFrame extends JFrame {
         top1x2Container.add(peopleDropdown);
 
         startLabel = new JLabel("Start destination:");
-        startDestDropdown = new JComboBox(drawStartDestinations());
+        startDestDropdown = new JComboBox(drawDestinations());
         top1x3Container.add(startLabel);
         top1x3Container.add(startDestDropdown);
 
@@ -125,7 +124,7 @@ public class NewReservationFrame extends JFrame {
         top2x2Container.add(checkbox);
 
         endLabel = new JLabel("End destination:");
-        endDestDropdown = new JComboBox(drawEndDestinations());
+        endDestDropdown = new JComboBox(drawDestinations());
         top2x3Container.add(endLabel);
         top2x3Container.add(endDestDropdown);
 
@@ -195,33 +194,9 @@ public class NewReservationFrame extends JFrame {
      *
      * @return A string array of possible destinations.
      */
-    private String[] drawStartDestinations()
+    private String[] drawDestinations() throws SQLException 
     {
-        String[] array = new String[controller.getNumberOfFlights()];
-        Flight[] flights = controller.getAllFlights();
-        
-        for (int i = 0; i < array.length; i++) {
-            array[i] = flights[i].getStartAirport().getID();
-        }
-        
-        return array;
-    }
-    
-    /**
-     * Get the possible destinations from the controller as a string array.
-     *
-     * @return A string array of possible destinations.
-     */
-    private String[] drawEndDestinations()
-    {
-        String[] array = new String[controller.getNumberOfFlights()];
-        Flight[] flights = controller.getAllFlights();
-        
-        for (int i = 0; i < array.length; i++) {
-            array[i] = flights[i].getEndAirport().getID();
-        }
-        
-        return array;
+       return controller.getDestinationsAsStrings();
     }
     
     /**

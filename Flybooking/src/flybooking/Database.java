@@ -4,26 +4,28 @@ package flybooking;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
  * @author Anders
  */
 public class Database implements DatabaseInterface {
+
     private String name, login, password;
-    
-    public Database(String name, String login, String password)
+    private Connection con;
+    private static Database instance = null;
+
+    private Database(String name, String login, String password)
     {
         this.name = name;
         this.login = login;
         this.password = password;
-        
-        try
-        {
-            Connection con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name, login, password);
-        } catch (SQLException e)
-        {
-            System.out.println("Ingen forbindelse!");
+
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name, login, password);
+        } catch (SQLException e) {
+            showMessageDialog(null, "Couldn't connect to the database!");
         }
     }
 
@@ -76,9 +78,26 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<Flight> getFlights()
+    public ArrayList<String> getAirportCitiesAsStrings() throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Statement statement = con.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT * FROM Airport");
+        ArrayList<String> airports = new ArrayList<>();
+
+        while (rs.next()) {
+            airports.add(rs.getString("city"));
+        }
+
+        return airports;
+    }
+
+    public static Database getInstance()
+    {
+        if (instance == null) {
+            instance = new Database("AACBookingDB", "AACBooking", "AACDB");
+        }
+        
+        return instance;
     }
 
 }
