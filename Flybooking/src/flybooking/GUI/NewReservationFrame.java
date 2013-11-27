@@ -57,7 +57,8 @@ public class NewReservationFrame extends JFrame {
         if (instance == null) {
             instance = new NewReservationFrame(controller);
         }
-
+        
+        instance.setVisible(true);
         return instance;
     }
 

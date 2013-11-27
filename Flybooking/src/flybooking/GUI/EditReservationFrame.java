@@ -24,6 +24,8 @@ public class EditReservationFrame extends JFrame {
         if (instance == null) {
             instance = new EditReservationFrame(controller);
         }
+        
+        instance.setVisible(true);
         return instance;
     }
 

@@ -20,13 +20,13 @@ public class StartFrame extends JFrame {
     JButton editBookingButton;
     private static DatabaseInterface database;
     private static ControllerInterface controller;
-    private static StartFrame instance;
+    private static StartFrame instance = null;
 
     public static void main(String[] args)
     {
          database = new Database("AACBookingDB", "AACBooking", "AACDB");
          controller = new Controller(database);
-         instance = null;
+         StartFrame.getInstance();
     }
     
     private StartFrame() throws HeadlessException
@@ -40,6 +40,7 @@ public class StartFrame extends JFrame {
             instance = new StartFrame();
         }
         
+        instance.setVisible(true);
         return instance;
     }
     
