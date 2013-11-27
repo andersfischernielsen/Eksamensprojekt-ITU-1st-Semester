@@ -76,14 +76,14 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public void addPerson(String reservationID, Person person, String reservationSpot) throws SQLException
+    public void addPersonToReservation(String reservationID, Person person, String reservationSpot) throws SQLException
     {
-        statement.executeQuery("INSERT INTO " + name + ".People (ID, firstName, lastName, address, groupID) VALUES ('" +
-                                person.getID() +                  "', '" + 
-                                person.getFirstName() +           "', '" +
-                                person.getLastName() +            "', '" +
-                                person.getAdress() +              "', '" + 
-                                person.getGroupID() +             "')");
+        statement.executeQuery("INSERT INTO " + name + ".People (ID, firstName, lastName, address, groupID) VALUES ('"
+                + person.getID() + "', '"
+                + person.getFirstName() + "', '"
+                + person.getLastName() + "', '"
+                + person.getAdress() + "', '"
+                + person.getGroupID() + "')");
         statement.executeQuery("UPDATE " + name + ".Reservation SET " + reservationSpot + "PersonID = " + person.getID() + " WHERE  Reservation.ID = " + reservationID + "");
     }
 
@@ -105,14 +105,28 @@ public class Database implements DatabaseInterface {
         if (instance == null) {
             instance = new Database("AACBookingDB", "AACBooking", "AACDB");
         }
-        
+
         return instance;
     }
 
     @Override
-    public boolean checkForID(String ID)
+    public boolean checkForID(String ID) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (ID.length() <= 4) {
+            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID);");
+            if (matchingIDs.next()) {
+                return true;
+            }
+        }
+        
+        if (ID.length() > 4) {
+            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID);");
+            if (matchingIDs.next()) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
 }

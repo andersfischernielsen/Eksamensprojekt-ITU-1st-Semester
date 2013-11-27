@@ -39,7 +39,7 @@ public interface DatabaseInterface
      * @param reservationSpot The spot in the reservation to add the person (first, second etc.)
      * @throws java.sql.SQLException
      */
-    void addPerson(String reservationID, Person personToAdd, String reservationSpot) throws SQLException;
+    void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot) throws SQLException;
     
     /**
      * Get all the available flights as an ArrayList.
@@ -50,7 +50,9 @@ public interface DatabaseInterface
     
     /**
      * Check whether a given ID already exists. 
+     * @param ID
      * @return Whether the ID exists or not. 
+     * @throws java.sql.SQLException 
      */
-    boolean checkForID(String ID);
+    boolean checkForID(String ID) throws SQLException;
 }
