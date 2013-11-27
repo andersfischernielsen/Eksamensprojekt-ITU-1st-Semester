@@ -1,5 +1,6 @@
 package flybooking;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,7 +71,7 @@ public class Calculator
         return new SimpleDateFormat("dd/MM-yyyy").parse(string);
     }
 
-    String createPersonID()
+    String createPersonID() throws SQLException
     {
         while (true)
         {
@@ -82,7 +83,7 @@ public class Calculator
         }
     }
 
-    String createReservationID()
+    String createReservationID() throws SQLException
     {
         while (true)
         {
