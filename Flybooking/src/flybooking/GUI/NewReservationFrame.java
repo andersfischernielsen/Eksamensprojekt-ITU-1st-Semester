@@ -34,6 +34,7 @@ public class NewReservationFrame extends JFrame {
     private int chosenPeople;
     private String chosenStartDestination;
     private String chosenEndDestination;
+    private boolean nextTo;
     
     /**
      * Create a frame for finding and creating reservations.
@@ -68,16 +69,17 @@ public class NewReservationFrame extends JFrame {
         
         content = getContentPane();
         topContainers = new ArrayList<>();
-
-        chosenPeople = 1;
-        chosenDate = new Date();
-        chosenStartDestination = "";
         
         drawTopContent();
         drawBottomContent();
-
+        
+        chosenStartDestination = (String) startDestDropdown.getSelectedItem();
+        chosenEndDestination = (String) endDestDropdown.getSelectedItem();
+        chosenPeople = 1;
+        chosenDate = new Date();
+        
         content.repaint();
-        setSize(new Dimension(540, 500));
+        setSize(new Dimension(500, 500));
         setVisible(true);
     }
 
@@ -138,7 +140,7 @@ public class NewReservationFrame extends JFrame {
             c.setPreferredSize(new Dimension(100, 60));
             topContainer.add(c);
         }
-
+        
         addActionListeners();
         //Add the finished Container to the frame.
         content.add(topContainer, BorderLayout.NORTH);
@@ -238,6 +240,10 @@ public class NewReservationFrame extends JFrame {
             public void actionPerformed(ActionEvent e) { 
                 performSearch(); 
             }});
+        
+        //Add an ActionListener that changes the boolean nextTo when clicked.
+        checkbox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { nextTo = !nextTo; }});
     }
     
     /**
@@ -249,6 +255,7 @@ public class NewReservationFrame extends JFrame {
         System.out.println("Chosen amt. of people: " + chosenPeople);
         System.out.println("Chosen start dest.:    " + chosenStartDestination);
         System.out.println("Chosen end dest.:      " + chosenEndDestination);
+        System.out.println("Next to each other:    " + nextTo);
         System.out.println("");
     }
 }
