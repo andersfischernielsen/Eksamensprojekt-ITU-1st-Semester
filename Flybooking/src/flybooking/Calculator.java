@@ -11,14 +11,7 @@ import java.util.Random;
  * @author Anders Fischer-Nielsen
  */
 public class Calculator
-{
-    public static void main(String[] args) throws SQLException
-    {
-        System.out.println("Hi!");
-        System.out.println(Calculator.createPersonID());
-        System.out.println(Calculator.createReservationID());
-    }
-    
+{   
     private static Random randomGen = new Random();
 
     /**
@@ -71,6 +64,15 @@ public class Calculator
         return new SimpleDateFormat("dd/MM-yyyy").format(date);
     }
 
+    /**
+     * Convert the time of the date into a string.
+     * @param date The date to convert.
+     * @return The hour of the date as a string.
+     */
+    public static String convertDateToHourString(Date date) {
+        return new SimpleDateFormat("kk:mm").format(date);
+    }
+    
     /**
      * Convert a string into a date.
      * @param string The string to convert
