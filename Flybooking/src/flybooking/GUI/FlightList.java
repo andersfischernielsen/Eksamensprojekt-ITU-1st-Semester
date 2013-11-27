@@ -2,9 +2,10 @@
 package flybooking.GUI;
 
 import flybooking.*;
+import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Create a custom list of flights as strings.
@@ -15,8 +16,7 @@ public class FlightList extends JList {
 
     //The array of flights to show in the list.
     private ArrayList<Flight> flights;
-    //The listmodel to show in the list.
-    private DefaultListModel listModel;
+    private DefaultListModel model;
 
     /**
      * Create a new flight list, containing a given array of flights.
@@ -25,65 +25,104 @@ public class FlightList extends JList {
      */
     public FlightList(ArrayList<Flight> flights)
     {
+        setBackground(new Color(238, 238, 238));
         this.flights = flights;
-        listModel = new DefaultListModel();
-        setFlights(flights);
-        drawList();
-    }
+        model = new DefaultListModel();
 
-    /**
-     * Draw the list.
-     */
-    public void drawList()
-    {
-        this.setVisibleRowCount(4);
-        this.setFixedCellHeight(50);
-        this.setFixedCellWidth(400);
-        this.repaint();
-    }
-
-    /**
-     * Put the flights in the array, adding each one to the list as a string.
-     *
-     * @param flights The array to add to the list.
-     */
-    public void setFlights(ArrayList<Flight> flights)
-    {
-        //Go through the list of flights, adding each one as a string.
+        //Add all the flights to the list model.
         for (Flight f : flights) {
-            listModel.addElement(convertToString(f));
+            model.addElement(f);
         }
 
-        this.setModel(listModel);
+        //Set the custom cell renderer.
+        setCellRenderer(new FlightCellRenderer());
+        //Set the model to show the flights.
+        setModel(model);
+        //Repaint the list.
+        repaint();
     }
 
-    /**
-     * Convert a Plane object to a string to put in the list. (GRIM KODE. SKAL
-     * BRUGE VORES DATE-CONVERTER ISTEDET).
-     * @param flight The plane object to convert.
-     * @return A string with the relevant data for the list.
-     */
-    public String convertToString(Flight flight)
-    {
-        String convertedString;
-        if (flight == null) {
-            convertedString = "Nonexistent flight";
-        } 
-        
-        else {
-            convertedString = flight.getStartDate().getHours()
-                    + ":" + flight.getStartDate().getMinutes()
-                    + "             "
-                    + flight.getStartAirport().getID() + " > "
-                    + flight.getEndAirport().getID()
-                    + "             " + flight.getPlane().getID()
-                    + "\n" + flight.getEndDate().getHours()
-                    + ":" + flight.getEndDate().getMinutes()
-                    + "             " + flight.getStartDate().getMonth() + "/"
-                    + flight.getStartDate().getDay() + "-"
-                    + flight.getStartDate().getYear();
-        }
+    private class FlightCellRenderer extends DefaultListCellRenderer {
 
-        return convertedString;
+        @Override
+        public Component getListCellRendererComponent(final JList list, final Object value, final int index, final boolean isSelected, final boolean hasFocus)
+        {
+            Flight flight = (Flight) value;
+
+            //All the panels and textfields to create the cell.
+            final JPanel panel, topCellContent, bottomCellContent;
+            JTextField topCellTextLeft, topCellTextMiddle, topCellTextRight;
+            JTextField bottomCellTextLeft, bottomCellTextMiddle, bottomCellTextRight;
+
+            //Instantiate the panels and textfields.
+            panel = new JPanel();
+            topCellContent = new JPanel();
+            bottomCellContent = new JPanel();
+            
+            //Set their layout.
+            topCellContent.setLayout(new BorderLayout());
+            bottomCellContent.setLayout(new BorderLayout());
+            panel.setLayout(new BorderLayout());
+
+            //Fill the top part of the cell with flight information and lay it out.
+            topCellTextLeft = new JTextField(
+                    Calculator.convertDateToHourString(flight.getStartDate()));
+            topCellTextLeft.setEditable(false);
+            topCellTextLeft.setBorder(null);
+            topCellTextLeft.setOpaque(false);
+
+            topCellTextMiddle = new JTextField(
+                    flight.getStartAirport().getID() + " > "
+                    + flight.getEndAirport().getID());
+            topCellTextMiddle.setEditable(false);
+            topCellTextMiddle.setHorizontalAlignment(JTextField.CENTER);
+            topCellTextMiddle.setBorder(null);
+            topCellTextMiddle.setOpaque(false);
+
+            topCellTextRight = new JTextField(
+                    flight.getPlane().getID());
+            topCellTextRight.setEditable(false);
+            topCellTextRight.setBorder(null);
+            topCellTextRight.setOpaque(false);
+
+            //Then the bottom part.
+            bottomCellTextLeft = new JTextField(
+                    Calculator.convertDateToHourString(flight.getEndDate()));
+            bottomCellTextLeft.setEditable(false);
+            bottomCellTextLeft.setBorder(null);
+            bottomCellTextLeft.setOpaque(false);
+
+            bottomCellTextMiddle = new JTextField(
+                    Calculator.convertDateToString(flight.getStartDate()));
+            bottomCellTextMiddle.setEditable(false);
+            bottomCellTextMiddle.setHorizontalAlignment(JTextField.CENTER);
+            bottomCellTextMiddle.setBorder(null);
+            bottomCellTextMiddle.setOpaque(false);
+
+            bottomCellTextRight = new JTextField(
+                    flight.getPrice() + ",-");
+            bottomCellTextRight.setEditable(false);
+            bottomCellTextRight.setBorder(null);
+            bottomCellTextRight.setOpaque(false);
+
+            //Add all of the information to the top and bottom aprt of the cell.
+            topCellContent.add(topCellTextLeft, BorderLayout.LINE_START);
+            topCellContent.add(topCellTextMiddle, BorderLayout.CENTER);
+            topCellContent.add(topCellTextRight, BorderLayout.LINE_END);
+            bottomCellContent.add(bottomCellTextLeft, BorderLayout.LINE_START);
+            bottomCellContent.add(bottomCellTextMiddle, BorderLayout.CENTER);
+            bottomCellContent.add(bottomCellTextRight, BorderLayout.LINE_END);
+
+            //Make a bit of padding.
+            bottomCellContent.setBorder(new EmptyBorder(0, 0, 5, 0));
+            topCellContent.setBorder(new EmptyBorder(5, 0, 0, 0));
+
+            //Add the top and bottom part to the main panel in the cell.
+            panel.add(topCellContent, BorderLayout.NORTH);
+            panel.add(bottomCellContent, BorderLayout.SOUTH);
+
+            //Return the finished panel.
+            return panel;
+        }
     }
 }
