@@ -12,7 +12,7 @@ public interface DatabaseInterface
 {
     
     // returns the plane with ID PlaneID (needs to implement something with seats)
-    Plane getPlane(String PlaneID);
+    Plane getPlane(String PlaneID)throws SQLException; 
 
     // returns an array of seats which are not available.
     ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons);
