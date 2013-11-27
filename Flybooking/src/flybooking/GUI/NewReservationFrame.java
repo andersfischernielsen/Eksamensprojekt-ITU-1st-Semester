@@ -280,7 +280,7 @@ public class NewReservationFrame extends JFrame {
         System.out.println("Next to each other:    " + nextTo);
         System.out.println("");
         
-        Plane testPlane = new Plane("2", 6, 12);
+        Plane testPlane = new Plane("2", 2, 8);
         new PersonAndSeatFrame(5, testPlane);
     }
 }

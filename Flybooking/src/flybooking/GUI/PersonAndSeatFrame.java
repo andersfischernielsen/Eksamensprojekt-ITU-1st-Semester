@@ -27,16 +27,8 @@ public class PersonAndSeatFrame extends JFrame
     {
         this.planeToDraw = planeToDraw;
         graphics = new GraphicsComponent();
-
-        planeToDraw.setSeatAvailability("5A");
-        planeToDraw.setSeatAvailability("10B");
-        planeToDraw.setSeatAvailability("6F");
-        planeToDraw.setSeatAvailability("6E");
-        planeToDraw.setSeatAvailability("6C");
-        planeToDraw.setSeatAvailability("2A");
-        planeToDraw.setSeatAvailability("1A");
-
         this.amtOfPersons = amtOfPersons;
+        
         setTitle("Seats and Passengers");
         setPreferredSize(new Dimension(800, 600));
         setResizable(false);
