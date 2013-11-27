@@ -11,25 +11,60 @@ import java.util.Date;
 public interface DatabaseInterface
 {
     
-    // returns the plane with ID PlaneID (needs to implement something with seats)
+    /**
+     * returns the plane with ID PlaneID (needs to implement something with seats)
+     * @param PlaneID
+     * @return 
+     * @throws java.sql.SQLException 
+     */
     Plane getPlane(String PlaneID)throws SQLException; 
 
-    // returns an array of seats which are not available.
+    /**
+     * returns an array of seats which are not available.
+     * @param flight
+     * @param persons
+     * @return 
+     */
     ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons);
 
-    // returns an arraylist flight which respects the parameters. used in searching.
+    /** 
+     * returns an arraylist flight which respects the parameters. used in searching.
+     * @param DepartureDate
+     * @param amtOfPeople
+     * @param startDestination
+     * @param endDestination
+     * @param nextTo
+     * @return 
+     */
     ArrayList<FlightInterface> getFlight(Date DepartureDate, int amtOfPeople, Airport startDestination, Airport endDestination, boolean nextTo);
 
-    // Returns an arrayList of reservations which respects the parameters.
+    /**
+     * Returns an arrayList of reservations which respects the parameters.
+     * @param ReservationID
+     * @param CPR
+     * @return 
+     */
     ArrayList<ReservationInterface> getReservation(String ReservationID, String CPR);
 
-    // Enten den her
+    /**
+     * Enten den her
+     * @param flight
+     * @param persons
+     * @param Price
+     * @param CPR
+     */
     void newReservation(Flight flight, Person[] persons, String CPR, double Price);
 
-    // eller den 
+    /**
+     * eller den 
+     * @param reservationToMake
+     */
     void newReservation(Reservation reservationToMake);
 
-    // remove the reservation with ID reservationID
+    /**
+     * remove the reservation with ID reservationID
+     * @param reservationID
+     */
     void removeReservation(String reservationID);
     
     /**
