@@ -131,4 +131,18 @@ public class Controller implements ControllerInterface
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public ReservationInterface getWorkingOnreservation()
+    {
+        return workingOnReservation;
+    }
+
+    @Override
+    public void setWorkingOnReservation(ReservationInterface reservation)
+    {
+        workingOnReservation = reservation;
+    }
+    
+    
 }

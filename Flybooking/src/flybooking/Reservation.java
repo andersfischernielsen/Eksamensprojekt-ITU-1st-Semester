@@ -149,5 +149,4 @@ public class Reservation implements ReservationInterface {
     {
         return persons;
     }
-
 }

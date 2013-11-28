@@ -134,4 +134,5 @@ public interface ReservationInterface
      * @return the arrayList of booked Persons on this reservation
      */
     public ArrayList<Person> getBookedPersons();
+    
 }

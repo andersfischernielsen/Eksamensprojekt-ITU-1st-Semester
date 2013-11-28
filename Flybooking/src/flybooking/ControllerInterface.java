@@ -114,4 +114,15 @@ public interface ControllerInterface {
      * @param seatIDs the seatIds to book on this reservation
      */
     void bookSeats(ArrayList<String> seatIDs);
+    
+    /**
+     * Get the reservation the system is currently working on. 
+     * @return A Reservation object.
+     */
+    ReservationInterface getWorkingOnreservation();
+    
+    /**
+     * Set the Reservation we're currently working on.
+     */
+    void setWorkingOnReservation(ReservationInterface reservation);
 }
