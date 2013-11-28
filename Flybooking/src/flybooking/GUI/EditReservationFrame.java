@@ -5,6 +5,7 @@ import flybooking.ControllerInterface;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
+import java.awt.event.*;
 
 /**
  *
@@ -68,6 +69,16 @@ public class EditReservationFrame extends JFrame {
         filler = new Container();
         filler.setPreferredSize(new Dimension(100, 30));
         searchButton = new JButton("Search");
+        
+        searchButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                System.out.println("Search Button Pressed");
+            }
+        });
+        
         searchButton.setDefaultCapable(true);
         searchButton.setAlignmentX(RIGHT_ALIGNMENT);
         bottomRight.add(filler);
@@ -89,7 +100,7 @@ public class EditReservationFrame extends JFrame {
 
         content.add(bottomContent, BorderLayout.SOUTH);
     }
-
+    
     public static void main(String[] args)
     {
         EditReservationFrame.getInstance(null);
