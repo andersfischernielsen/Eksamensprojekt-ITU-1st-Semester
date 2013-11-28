@@ -41,6 +41,11 @@ public class Database implements DatabaseInterface {
         return new Plane(rs.getString("id"), rs.getInt("rows"), rs.getInt("columns"));
     }
 
+    @Override
+    public ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public ArrayList<Flight> getFlight(Date departureDate,
@@ -202,17 +207,5 @@ public class Database implements DatabaseInterface {
     public static void main(String[] args)
     {
         Database.getInstance().getReservations("1", null);
-    }
-
-    @Override
-    public void getAllBookedSeats(String flightID)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getBookedSeatsOnReservation(String reservationID)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

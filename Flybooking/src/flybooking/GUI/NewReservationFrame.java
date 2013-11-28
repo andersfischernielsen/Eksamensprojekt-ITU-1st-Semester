@@ -32,21 +32,20 @@ public class NewReservationFrame extends JFrame {
     private static NewReservationFrame instance = null;
     private String[] people = {"1", "2", "3", "4", "5"};
     private ArrayList<Flight> searchResults;
-    
 
     private Date chosenDate;
     private int chosenPeople;
     private String chosenStartDestination;
     private String chosenEndDestination;
     private boolean nextTo;
-    
+
     /**
      * Create a frame for finding and creating reservations.
      *
      * @throws HeadlessException
      */
     private NewReservationFrame() throws HeadlessException, SQLException
-    {        
+    {
         searchResults = new ArrayList<>();
         controller = Controller.getInstance(ProgramStorage.getInstance());
         drawFrame();
@@ -161,21 +160,29 @@ public class NewReservationFrame extends JFrame {
      */
     private void drawBottomContent()
     {
-        bottomContainer = new JPanel();
-        bottomContainer.setLayout(new FlowLayout());
-        flightList = new FlightList(searchResults);
-        flightList.setPreferredSize(new Dimension(490, 290));
-        
-        padding = new JPanel();
-        padding.setPreferredSize(new Dimension(20, 500));
-        
-        bottomContainer.add(flightList);
-        bottomContainer.setVisible(true);
-        
-        content.add(bottomContainer, BorderLayout.LINE_START);
-        content.add(bottomContainer, BorderLayout.LINE_END);
-        content.add(bottomContainer, BorderLayout.CENTER);
-        content.setVisible(true);
+        {
+            bottomContainer = new JPanel();
+            bottomContainer.setLayout(new FlowLayout());
+            flightList = new FlightList(searchResults);
+            flightList.setPreferredSize(new Dimension(490, 290));
+            JScrollPane scrollpane = new JScrollPane();
+            scrollpane.setPreferredSize(new Dimension(490, 290));
+
+            padding = new JPanel();
+            padding.setPreferredSize(new Dimension(20, 500));
+            flightList = new FlightList(searchResults);
+            flightList.setSize(new Dimension(490, 240));
+
+            bottomContainer.add(flightList);
+            scrollpane.setViewportView(flightList);
+            bottomContainer.add(scrollpane);
+            bottomContainer.setVisible(true);
+
+            content.add(bottomContainer, BorderLayout.LINE_START);
+            content.add(bottomContainer, BorderLayout.LINE_END);
+            content.add(bottomContainer, BorderLayout.CENTER);
+            content.setVisible(true);
+        }
     }
 
     /**
@@ -275,8 +282,10 @@ public class NewReservationFrame extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                try { performSearch();
-                } catch (SQLException ex) { }
+                try {
+                    performSearch();
+                } catch (SQLException ex) {
+                }
             }
         });
 
@@ -296,13 +305,13 @@ public class NewReservationFrame extends JFrame {
     {
         searchResults = ProgramStorage.getInstance().getFlight(chosenDate, chosenStartDestination, chosenEndDestination);
         Flight[] convertedArray = new Flight[searchResults.size()];
-        
+
         int i = 0;
         for (Flight f : searchResults) {
             convertedArray[i] = f;
             i++;
         }
-        
+
         flightList.setListData(convertedArray);
     }
 }

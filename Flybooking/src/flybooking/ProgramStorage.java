@@ -56,10 +56,12 @@ public class ProgramStorage implements DatabaseInterface
         flightList.add(new Flight(750, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
         flightList.add(new Flight(800, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
         flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(600, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(500, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(750, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(800, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
         flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+
         // København til Moscow
         flightList.add(new Flight(1200, 1, planeList.get(0), new Timestamp(new Long("1386000000000")), new Timestamp(new Long("1388650000000")), airportList.get(0), airportList.get(3)));
         // København til Los Angelos
@@ -78,6 +80,13 @@ public class ProgramStorage implements DatabaseInterface
             }
         }
         return null; // Normally casts an exception here
+    }
+
+    @Override
+    public ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons)
+    {
+        // måske ikke nødvendig
+        return null;
     }
 
     @Override
@@ -221,18 +230,6 @@ public class ProgramStorage implements DatabaseInterface
             }
         }
         return true;
-    }
-
-    @Override
-    public void getAllBookedSeats(String flightID)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getBookedSeatsOnReservation(String reservationID)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
