@@ -76,6 +76,7 @@ public class NewReservationFrame extends JFrame {
 
         Container c = getContentPane();
         content = new JPanel();
+        content.setLayout(new BorderLayout());
         c.add(content);
         topContainers = new ArrayList<>();
 
@@ -163,12 +164,13 @@ public class NewReservationFrame extends JFrame {
     private void drawBottomContent()
     {
         bottomContainer = new JPanel();
+        bottomContainer.setLayout(new FlowLayout());
         flightList = new FlightList(searchResults);
-        flightList.setPreferredSize(new Dimension(480, 300));
+        flightList.setPreferredSize(new Dimension(470, 300));
         
         bottomContainer.add(flightList);
         
-        content.add(bottomContainer, BorderLayout.PAGE_END);
+        content.add(bottomContainer, BorderLayout.CENTER);
     }
 
     /**
