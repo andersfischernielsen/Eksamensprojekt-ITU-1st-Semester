@@ -1,7 +1,6 @@
 
 package flybooking.GUI;
 
-import flybooking.*;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
@@ -17,6 +16,7 @@ import java.text.ParseException;
  */
 public class NewReservationFrame extends JFrame {
 
+    //All of the Swing components needed to draw the interface.
     private JComboBox dateDropdown, peopleDropdown, startDestDropdown, endDestDropdown;
     private JButton searchButton, doneButton;
     private JCheckBox checkbox;
@@ -29,10 +29,11 @@ public class NewReservationFrame extends JFrame {
     private JLabel departureLabel, peopleLabel, startLabel, endLabel;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
-    JScrollPane scrollpane;
+    private JScrollPane scrollpane;
     private String[] people = {"1", "2", "3", "4", "5"};
+    
+    //All of the search variables in the interface.
     private ArrayList<Flight> searchResults;
-
     private Date chosenDate;
     private int chosenPeople;
     private String chosenStartDestination;
@@ -47,13 +48,16 @@ public class NewReservationFrame extends JFrame {
      */
     private NewReservationFrame() throws HeadlessException, SQLException
     {
+        //Create a new Array ready to receive search results.
         searchResults = new ArrayList<>();
+        //Get an instance of teh controller to be able to search and save results.
         controller = Controller.getInstance(ProgramStorage.getInstance());
+        //Draw the GUI.
         drawFrame();
     }
 
     /**
-     * Get an instance of the Frame. (Singleton)
+     * Get an instance of the Frame.
      *
      * @return An instance of the frame.
      */
@@ -67,25 +71,36 @@ public class NewReservationFrame extends JFrame {
         return instance;
     }
 
-    public final void drawFrame() throws SQLException
+    /**
+     * Draw the GUI. 
+     * 
+     * @throws SQLException 
+     */
+    private void drawFrame() throws SQLException
     {
+        //Set up the main frame.
         setTitle("New Reservation");
         setResizable(false);
 
+        //Get the contentpane to add components to and set it up.
         Container c = getContentPane();
         content = new JPanel();
         content.setLayout(new BorderLayout());
         c.add(content);
 
+        //Draw the top and bottom part of the GUI.
         drawTopContent();
         drawBottomContent();
 
+        //Get the default values from the GUI, so we won't get an exception 
+        //if nothing is clicked before searching.
         chosenStartDestination = (String) startDestDropdown.getSelectedItem();
         chosenEndDestination = (String) endDestDropdown.getSelectedItem();
         chosenPeople = 1;
         chosenDate = new Date();
 
-        content.repaint();
+        //Pack everything and show the frame.
+        pack();
         setSize(new Dimension(500, 500));
         setVisible(true);
     }
@@ -306,8 +321,8 @@ public class NewReservationFrame extends JFrame {
             {
                 try {
                     NewReservationFrame.getInstance().sendOnData();
-                } catch (ParseException ex) { 
-                } catch (SQLException exq) {}
+                } catch (ParseException | SQLException ex) { 
+                }
             }
         });
     }
@@ -331,7 +346,7 @@ public class NewReservationFrame extends JFrame {
 
     /**
      * Send the data to the controller, and open the next window in the
-     * workflow.
+     * booking work flow.
      *
      * @throws ParseException
      */
