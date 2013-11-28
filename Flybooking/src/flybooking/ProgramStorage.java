@@ -85,7 +85,7 @@ public class ProgramStorage implements DatabaseInterface
     }
 
     @Override
-    public ArrayList<ReservationInterface> getReservation(String ReservationID, String CPR)
+    public ArrayList<ReservationInterface> getReservations(String ReservationID, String CPR)
     {
         ArrayList<ReservationInterface> reservationsToReturnList = new ArrayList<ReservationInterface>();
         /**
