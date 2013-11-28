@@ -61,7 +61,7 @@ public class NewReservationFrame extends JFrame {
      *
      * @return An instance of the frame.
      */
-    public static NewReservationFrame getInstance() throws SQLException
+    public static NewReservationFrame getInstance() throws SQLException, ParseException
     {
         if (instance == null) {
             instance = new NewReservationFrame();
