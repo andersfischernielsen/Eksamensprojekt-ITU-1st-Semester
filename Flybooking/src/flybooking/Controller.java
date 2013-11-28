@@ -143,6 +143,4 @@ public class Controller implements ControllerInterface
     {
         workingOnReservation = reservation;
     }
-    
-    
 }

@@ -8,6 +8,8 @@ import javax.swing.*;
 import flybooking.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -30,6 +32,7 @@ public class NewReservationFrame extends JFrame {
     private JLabel departureLabel, peopleLabel, startLabel, endLabel;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
+    JScrollPane scrollpane;
     private String[] people = {"1", "2", "3", "4", "5"};
     private ArrayList<Flight> searchResults;
 
@@ -38,17 +41,19 @@ public class NewReservationFrame extends JFrame {
     private String chosenStartDestination;
     private String chosenEndDestination;
     private boolean nextTo;
+    private double chosenPrice;
 
     /**
      * Create a frame for finding and creating reservations.
      *
      * @throws HeadlessException
      */
-    private NewReservationFrame() throws HeadlessException, SQLException
+    private NewReservationFrame() throws HeadlessException, SQLException, ParseException
     {
         searchResults = new ArrayList<>();
         controller = Controller.getInstance(ProgramStorage.getInstance());
         drawFrame();
+        sendOnData();
     }
 
     /**
@@ -164,14 +169,15 @@ public class NewReservationFrame extends JFrame {
             bottomContainer = new JPanel();
             bottomContainer.setLayout(new FlowLayout());
             flightList = new FlightList(searchResults);
+            scrollpane = new JScrollPane();
             flightList.setPreferredSize(new Dimension(490, 290));
-            JScrollPane scrollpane = new JScrollPane();
             scrollpane.setPreferredSize(new Dimension(490, 290));
 
             padding = new JPanel();
             padding.setPreferredSize(new Dimension(20, 500));
             flightList = new FlightList(searchResults);
             flightList.setSize(new Dimension(490, 240));
+            addMouseListeners();
 
             scrollpane.setViewportView(flightList);
             bottomContainer.add(scrollpane);
@@ -183,13 +189,57 @@ public class NewReservationFrame extends JFrame {
     }
 
     /**
-     * Get the dates as a String array between a week ago and a week forward
-     * from the current date.
-     *
-     * @return A string array of the dates a week ago and up until a week from
-     * now.
+     * Add the ActionListeners needed to the scroll pane.
      */
-    private String[] drawDates()
+    private void addMouseListeners()
+    {
+        scrollpane.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                if (e.getClickCount() == 2 && !e.isConsumed()) {
+                    e.consume();
+                    try { 
+                        sendOnData();
+                    } catch (ParseException ex)  { }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                //Do nothing.
+            }
+        });
+    }
+
+
+/**
+ * Get the dates as a String array between a week ago and a week forward from
+ * the current date.
+ *
+ * @return A string array of the dates a week ago and up until a week from now.
+ */
+private String[] drawDates()
     {
         //Initialize an empty string to return.
         String[] array = new String[14];
@@ -310,5 +360,16 @@ public class NewReservationFrame extends JFrame {
         }
 
         flightList.setListData(convertedArray);
+    }
+    
+    private void sendOnData() throws ParseException {
+        ReservationInterface reservation = new Reservation();
+        reservation.setReservationDate(new Date());
+        reservation.setFlight(flightList.getChosenFlight());
+        
+        //FOR TESTING ONLY!
+        reservation.setFlight(new Flight(2000.0, 1, new Plane("C28463", 4, 12), Calculator.convertStringToDate("12-12-2013"), Calculator.convertStringToDate("13-12-2013"), new Airport("BER", "Germany", "Berlin"), new Airport("CPH", "Denmark", "Copenhagen")));
+        
+        controller.setWorkingOnReservation(reservation);
     }
 }

@@ -74,7 +74,7 @@ public class Calculator
     }
     
     /**
-     * Convert a string into a date.
+     * Convert a string (with the format "dd/MM-yyyy") into a date.
      * @param string The string to convert
      * @return The given string as a Date.
      * @throws ParseException 

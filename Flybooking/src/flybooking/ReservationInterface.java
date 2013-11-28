@@ -81,9 +81,9 @@ public interface ReservationInterface
     public void setFlight(Flight flight);
 
     /**
-     * Set the date the reservation was made to the current date. SLET DENNE????
+     * Set the date the reservation was made to the current date.
      */
-    public void setReservationDate();
+    public void setReservationDate(Date date);
 
     /**
      * Set the CPR number for the person paying for the reservation.

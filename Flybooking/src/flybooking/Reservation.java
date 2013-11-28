@@ -90,7 +90,7 @@ public class Reservation implements ReservationInterface {
     }
 
     @Override
-    public void setReservationDate()
+    public void setReservationDate(Date date)
     {
         reservationDate = new Date();
     }

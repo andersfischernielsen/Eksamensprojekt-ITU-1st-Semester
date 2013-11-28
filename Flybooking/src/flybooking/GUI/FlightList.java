@@ -43,6 +43,10 @@ public class FlightList extends JList {
         //Repaint the list.
         repaint();
     }
+    
+    public Flight getChosenFlight() {
+        return (Flight) getSelectedValue();
+    }
 
     private class FlightCellRenderer extends DefaultListCellRenderer {
         
