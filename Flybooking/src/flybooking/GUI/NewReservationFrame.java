@@ -37,7 +37,7 @@ public class NewReservationFrame extends JFrame {
     private String chosenStartDestination;
     private String chosenEndDestination;
     private boolean nextTo;
-
+    
     /**
      * Create a frame for finding and creating reservations.
      *
@@ -46,7 +46,7 @@ public class NewReservationFrame extends JFrame {
     private NewReservationFrame() throws HeadlessException, SQLException
     {
         searchResults = new ArrayList<>();
-        controller = Controller.getInstance(Database.getInstance());
+        controller = Controller.getInstance(ProgramStorage.getInstance());
         drawFrame();
     }
 
