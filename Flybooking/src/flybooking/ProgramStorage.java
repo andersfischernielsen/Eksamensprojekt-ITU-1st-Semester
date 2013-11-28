@@ -24,9 +24,9 @@ public class ProgramStorage implements DatabaseInterface
     ArrayList<Person> personList = new ArrayList<Person>();
     ArrayList<String> takenSeatsList = new ArrayList<String>();
     
-    private ProgramStorage instance = null;
+    private static ProgramStorage instance = null;
 
-    public ProgramStorage getInstance() {
+    public static ProgramStorage getInstance() {
         if (instance == null) {
             instance = new ProgramStorage();
         }

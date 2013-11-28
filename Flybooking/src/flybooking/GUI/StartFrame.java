@@ -26,7 +26,7 @@ public class StartFrame extends JFrame {
 
     public static void main(String[] args)
     {
-         database = Database.getInstance();
+         database = ProgramStorage.getInstance();
          controller = Controller.getInstance(database);
          StartFrame.getInstance();
     }

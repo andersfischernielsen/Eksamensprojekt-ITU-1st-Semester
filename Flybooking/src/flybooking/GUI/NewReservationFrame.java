@@ -283,6 +283,6 @@ public class NewReservationFrame extends JFrame {
      */
     private void performSearch() throws SQLException
     {
-        searchResults = Database.getInstance().getFlight(chosenDate, chosenStartDestination, chosenEndDestination);
+        searchResults = ProgramStorage.getInstance().getFlight(chosenDate, chosenStartDestination, chosenEndDestination);
     }
 }
