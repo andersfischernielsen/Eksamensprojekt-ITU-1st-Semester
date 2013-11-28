@@ -11,6 +11,7 @@ import java.util.Date;
 public class Reservation implements ReservationInterface {
 
     private ArrayList<Person> persons;
+    private ArrayList<String> seatIDs;
     private Flight flight;
     private String ID;
     private Date reservationDate;
@@ -122,6 +123,13 @@ public class Reservation implements ReservationInterface {
     public double getPrice()
     {
         return price;
+    }
+
+    @Override
+    public void bookSeats(ArrayList<String> seatIDs)
+    {
+        // skal måske ændres til at den ligger den til.
+        this.seatIDs = seatIDs;
     }
 
 }

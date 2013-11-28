@@ -93,4 +93,10 @@ public interface ReservationInterface {
      * @return The price for the reservation.
      */
     public double getPrice();
+    
+    /**
+     * Book the seatIDs on this reservation.
+     * @param seatIDs the seats to book on this reservation
+     */
+    public void bookSeats(ArrayList<String> seatIDs);
 }
