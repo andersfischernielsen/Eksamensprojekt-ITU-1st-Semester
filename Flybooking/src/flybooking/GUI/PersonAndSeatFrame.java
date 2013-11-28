@@ -285,11 +285,15 @@ public class PersonAndSeatFrame extends JFrame
     {
         reservation.bookSeats(seatIDsThisRes);
         controller.setWorkingOnReservation(reservation);
+        controller.saveReservation(ProgramStorage.getInstance());
         System.out.println(">Book");
+        this.setVisible(false); 
+        this.dispose();
     }
 
     private void back()
     {
+        new PersonAndSeatFrame();
         System.out.println("Back");
     }
 }

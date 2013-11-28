@@ -130,6 +130,7 @@ public class Reservation implements ReservationInterface {
     {
         // skal måske ændres til at den ligger den til.
         this.seatIDs = seatIDs;
+        flight.getPlane().bookTakenSeats(seatIDs);
     }
 
     @Override
