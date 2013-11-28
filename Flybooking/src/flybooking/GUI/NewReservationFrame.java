@@ -66,8 +66,8 @@ public class NewReservationFrame extends JFrame {
             instance = new NewReservationFrame();
         }
 
-        instance.setVisible(true);
         instance.sendOnData();
+        instance.setVisible(true);
         return instance;
     }
 
@@ -373,5 +373,6 @@ private String[] drawDates()
         
         controller.setWorkingOnReservation(reservation);
         setVisible(false);
+        new PersonAndSeatFrame();
     }
 }
