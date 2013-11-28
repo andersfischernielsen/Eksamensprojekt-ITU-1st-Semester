@@ -23,11 +23,21 @@ public class ProgramStorage implements DatabaseInterface
     ArrayList<Airport> airportList = new ArrayList<Airport>();
     ArrayList<Person> personList = new ArrayList<Person>();
     ArrayList<String> takenSeatsList = new ArrayList<String>();
+    
+    private ProgramStorage instance = null;
 
+    public ProgramStorage getInstance() {
+        if (instance == null) {
+            instance = new ProgramStorage();
+        }
+        
+        return instance;
+    }
+    
     /**
      * The constructor adds data to all the ArrayLists.
      */
-    public ProgramStorage()
+    private ProgramStorage()
     {
         planeList.add(new Plane("Y312432", 6, 20));
         planeList.add(new Plane("H99342", 5, 25));
