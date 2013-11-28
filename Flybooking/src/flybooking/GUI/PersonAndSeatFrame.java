@@ -1,6 +1,8 @@
 package flybooking.GUI;
 
+import flybooking.Controller;
 import flybooking.Plane;
+import flybooking.ProgramStorage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +30,7 @@ public class PersonAndSeatFrame extends JFrame
         this.planeToDraw = planeToDraw;
         graphics = new GraphicsComponent();
         this.amtOfPersons = amtOfPersons;
+        Controller controller = Controller.getInstance(ProgramStorage.getInstance());
         
         setTitle("Seats and Passengers");
         setPreferredSize(new Dimension(800, 600));
