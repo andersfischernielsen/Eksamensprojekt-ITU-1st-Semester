@@ -6,10 +6,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import flybooking.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -79,7 +76,6 @@ public class NewReservationFrame extends JFrame {
         content = new JPanel();
         content.setLayout(new BorderLayout());
         c.add(content);
-        topContainers = new ArrayList<>();
 
         drawTopContent();
         drawBottomContent();
@@ -102,6 +98,7 @@ public class NewReservationFrame extends JFrame {
         //Create an empty container and set the layout to a GridLayout.
         topContainer = new Container();
         topContainer.setLayout(new GridLayout(3, 3));
+        topContainers = new ArrayList<>();
 
         //Add all of the containers for each grid to an ArrayList and initialize
         //them.
