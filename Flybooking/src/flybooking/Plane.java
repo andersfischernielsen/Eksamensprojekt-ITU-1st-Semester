@@ -190,17 +190,31 @@ public class Plane
 
     /**
      * Takes a string ArrayList (with seatID strings) as parameter that it goes
-     * through and calls the coresponding seat's setAvailability method...
-     * NOTE KAN GIVE PROBLEMER DA DEN SÆTTER SÆDER TIL DET MODSATTE AF HVAD DE
-     * ER I FOREVEJEN. UNDERSØG DETTE
+     * through and calls the coresponding seat's setAvailability method... NOTE
+     * KAN GIVE PROBLEMER DA DEN SÆTTER SÆDER TIL DET MODSATTE AF HVAD DE ER I
+     * FOREVEJEN. UNDERSØG DETTE
      *
      * @param seatIDs the ArrayList to run through for seatIDs
      */
     public void bookTakenSeats(ArrayList<String> seatIDs)
     {
-        for (String seatID : seatIDs)
+        if (!(seatIDs.isEmpty()&& seatIDs!=null))
         {
-            setSeatAvailability(seatID);
+            for (String seatID : seatIDs)
+            {
+                setSeatAvailability(seatID);
+            }
+        }
+    }
+
+    public void resetSeats()
+    {
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                seats[i][j].setAvailability(true);
+            }
         }
     }
 }
