@@ -46,7 +46,7 @@ public class ProgramStorage implements DatabaseInterface
         planeList.add(new Plane("A41376", 6, 20));
 
         airportList.add(new Airport("CPH", "Danmark", "Copenhagen"));
-        airportList.add(new Airport("LAX", "USA", "Los Angelos"));
+        airportList.add(new Airport("LAX", "USA", "Los Angeles"));
         airportList.add(new Airport("OSL", "Norway", "Oslo"));
         airportList.add(new Airport("MOW", "Russia", "Moscow"));
         airportList.add(new Airport("BER", "Germany", "Berlin"));
