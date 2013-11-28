@@ -232,4 +232,16 @@ public class ProgramStorage implements DatabaseInterface
         return true;
     }
 
+    @Override
+    public ArrayList<String> getAllBookedSeats(String flightID)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> getBookedSeatsOnReservation(String reservationID)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
