@@ -53,7 +53,6 @@ public class NewReservationFrame extends JFrame {
         searchResults = new ArrayList<>();
         controller = Controller.getInstance(ProgramStorage.getInstance());
         drawFrame();
-        sendOnData();
     }
 
     /**
@@ -68,6 +67,7 @@ public class NewReservationFrame extends JFrame {
         }
 
         instance.setVisible(true);
+        instance.sendOnData();
         return instance;
     }
 
@@ -208,6 +208,7 @@ public class NewReservationFrame extends JFrame {
                     e.consume();
                     try { 
                         sendOnData();
+                        new PersonAndSeatFrame();
                     } catch (ParseException ex)  { }
                 }
             }
@@ -365,11 +366,12 @@ private String[] drawDates()
     private void sendOnData() throws ParseException {
         ReservationInterface reservation = new Reservation();
         reservation.setReservationDate(new Date());
-        reservation.setFlight(flightList.getChosenFlight());
+        //reservation.setFlight(flightList.getChosenFlight());
         
         //FOR TESTING ONLY!
         reservation.setFlight(new Flight(2000.0, 1, new Plane("C28463", 4, 12), Calculator.convertStringToDate("12-12-2013"), Calculator.convertStringToDate("13-12-2013"), new Airport("BER", "Germany", "Berlin"), new Airport("CPH", "Denmark", "Copenhagen")));
         
         controller.setWorkingOnReservation(reservation);
+        setVisible(false);
     }
 }
