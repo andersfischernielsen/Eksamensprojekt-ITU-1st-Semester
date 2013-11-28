@@ -31,6 +31,7 @@ public class NewReservationFrame extends JFrame {
     private static NewReservationFrame instance = null;
     private String[] people = {"1", "2", "3", "4", "5"};
     private ArrayList<Flight> searchResults;
+    
 
     private Date chosenDate;
     private int chosenPeople;
@@ -46,6 +47,9 @@ public class NewReservationFrame extends JFrame {
     private NewReservationFrame() throws HeadlessException, SQLException
     {
         searchResults = new ArrayList<>();
+        searchResults.add(new Flight(200, 2, new Plane("C21231", 2, 2), new Date(), new Date(), new Airport("CPH", "Denmark", "Copenhagen"), new Airport("BER", "Germany", "Berlin")));
+        searchResults.add(new Flight(400, 2, new Plane("J29439", 4, 20), new Date(), new Date(), new Airport("MOW", "Russia", "Moscow"), new Airport("BER", "Germany", "Berlin")));
+        
         controller = Controller.getInstance(ProgramStorage.getInstance());
         drawFrame();
     }
@@ -150,7 +154,7 @@ public class NewReservationFrame extends JFrame {
 
         addActionListeners();
         //Add the finished Container to the frame.
-        content.add(topContainer, BorderLayout.NORTH);
+        content.add(topContainer, BorderLayout.PAGE_START);
     }
 
     /**
@@ -160,11 +164,11 @@ public class NewReservationFrame extends JFrame {
     {
         bottomContainer = new JPanel();
         flightList = new FlightList(searchResults);
-        flightList.setPreferredSize(new Dimension(350, 300));
+        flightList.setPreferredSize(new Dimension(480, 300));
         
         bottomContainer.add(flightList);
         
-        content.add(bottomContainer, BorderLayout.SOUTH);
+        content.add(bottomContainer, BorderLayout.PAGE_END);
     }
 
     /**
@@ -283,6 +287,9 @@ public class NewReservationFrame extends JFrame {
      */
     private void performSearch() throws SQLException
     {
-        searchResults = ProgramStorage.getInstance().getFlight(chosenDate, chosenStartDestination, chosenEndDestination);
+        //searchResults = ProgramStorage.getInstance().getFlight(chosenDate, chosenStartDestination, chosenEndDestination);
+        flightList.revalidate();
+        flightList.repaint();
+        pack();
     }
 }
