@@ -50,7 +50,7 @@ public interface DatabaseInterface
      * Enten den her
      * @param flight
      * @param persons
-     * @param Price
+     * @param Price HUSK AT ÆNDRE DEN TIL LILLE SKRIFT!
      * @param CPR
      */
     void newReservation(Flight flight, Person[] persons, String CPR, double Price);

@@ -72,6 +72,7 @@ public interface ReservationInterface {
 
     /**
      * Set the date the reservation was made to the current date.
+     * SLET DENNE????
      */
     public void setReservationDate();
 
