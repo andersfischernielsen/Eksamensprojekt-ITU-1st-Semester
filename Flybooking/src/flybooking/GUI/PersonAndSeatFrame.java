@@ -212,7 +212,7 @@ public class PersonAndSeatFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY());
+                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
                 
