@@ -28,7 +28,8 @@ public class Controller implements ControllerInterface
     @Override
     public void saveReservation(DatabaseInterface database)
     {
-        //Do nothing.
+        database.newReservation(workingOnReservation);
+        workingOnReservation = null;
     }
 
     @Override
