@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.*;
 
 /**
@@ -212,9 +213,15 @@ public class PersonAndSeatFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+                seatIDsThisRes = graphics.getSeatIDsThisRes();
                 planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
+                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();)
+                {
+                    String s = it.next();
+                    System.out.println(s);
+                }
                 
             }
 
@@ -282,10 +289,5 @@ public class PersonAndSeatFrame extends JFrame
     private void back()
     {
         System.out.println("Back");
-    }
-
-    public static void main(String[] args)
-    {
-        new PersonAndSeatFrame();
     }
 }

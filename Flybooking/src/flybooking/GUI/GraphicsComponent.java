@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JComponent;
 
 /**
@@ -20,6 +21,7 @@ import javax.swing.JComponent;
 public class GraphicsComponent
 {
 
+    private PlaneGraphicsComponent currentPlaneGraphics;
     private final int unit = 24, padding = 10; // for seats.
 
     public GraphicsComponent()
@@ -37,7 +39,8 @@ public class GraphicsComponent
      */
     public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw)
     {
-        return new PlaneGraphicsComponent(planeToDraw);
+        currentPlaneGraphics = new PlaneGraphicsComponent(planeToDraw);
+        return currentPlaneGraphics;
     }
 
     /**
@@ -54,14 +57,15 @@ public class GraphicsComponent
     public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw, int X, int Y, ArrayList<String> seatIDsThisRes)
     {
         PlaneGraphicsComponent planeToWork = new PlaneGraphicsComponent(planeToDraw);
-        planeToWork.setSeatAvailability(X, Y);
         planeToWork.setSeatIDsThisRes(seatIDsThisRes);
+        planeToWork.setSeatAvailability(X, Y);
+        currentPlaneGraphics = planeToWork;
         return planeToWork;
     }
-    
+
     public ArrayList<String> getSeatIDsThisRes()
     {
-        return getSeatIDsThisRes();
+        return currentPlaneGraphics.getSeatIDsThisRes();
     }
 
     /**
@@ -184,10 +188,12 @@ public class GraphicsComponent
         {
             this.seatIDsThisRes = seatIDsThisRes;
         }
+
         public ArrayList<String> getSeatIDsThisRes()
         {
             return seatIDsThisRes;
         }
+
         public void setSeatAvailability(int mouseX, int mouseY)
         {
             int firstCol, firstRow;
@@ -235,8 +241,31 @@ public class GraphicsComponent
                         + fixdistanceX && mouseX < (mouseCol * unit) + padding
                         + fixdistanceX + unit - padding)
                 {
-                    //planeToDraw.setSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol, mouseRow));
-                    seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
+                    if (!(seatIDsThisRes.isEmpty()))
+                    {
+                        int i = 1;
+                        for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();)
+                        {
+                            String seatID = it.next();
+                            if (seatID.equals(Plane.SeatIDGenerator(mouseCol, mouseRow)))
+                            {
+                                seatIDsThisRes.remove(Plane.SeatIDGenerator(mouseCol, mouseRow));
+                                break;
+                            }
+                            if (i == seatIDsThisRes.size())
+                            {
+                                seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
+                                break;
+                            }
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
+                    }
+
+                    planeToDraw.setSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol, mouseRow));
                 }
             }
 
