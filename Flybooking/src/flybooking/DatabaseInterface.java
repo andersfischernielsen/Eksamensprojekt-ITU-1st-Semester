@@ -111,7 +111,7 @@ public interface DatabaseInterface
      *
      * @return an arrayList of seatId strings.
      */
-    ArrayList<String> getAllBookedSeats(String flightID);
+    ArrayList<String> getAllBookedSeats(int flightID);
 
     /**
      * Find the booked seats on a specific reservation.

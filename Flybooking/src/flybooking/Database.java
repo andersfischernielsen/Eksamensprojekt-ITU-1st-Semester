@@ -205,7 +205,7 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<String> getAllBookedSeats(String flightID)
+    public ArrayList<String> getAllBookedSeats(int flightID)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

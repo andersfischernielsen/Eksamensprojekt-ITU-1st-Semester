@@ -23,17 +23,18 @@ public class ProgramStorage implements DatabaseInterface
     ArrayList<Airport> airportList = new ArrayList<Airport>();
     ArrayList<Person> personList = new ArrayList<Person>();
     ArrayList<String> takenSeatsList = new ArrayList<String>();
-    
     private static ProgramStorage instance = null;
 
-    public static ProgramStorage getInstance() {
-        if (instance == null) {
+    public static ProgramStorage getInstance()
+    {
+        if (instance == null)
+        {
             instance = new ProgramStorage();
         }
-        
+
         return instance;
     }
-    
+
     /**
      * The constructor adds data to all the ArrayLists.
      */
@@ -66,7 +67,7 @@ public class ProgramStorage implements DatabaseInterface
         flightList.add(new Flight(1200, 1, planeList.get(0), new Timestamp(new Long("1386000000000")), new Timestamp(new Long("1388650000000")), airportList.get(0), airportList.get(3)));
         // København til Los Angelos
         flightList.add(new Flight(2000, 1, planeList.get(0), new Timestamp(new Long("1388000000000")), new Timestamp(new Long("1388500000000")), airportList.get(0), airportList.get(1)));
-        
+
     }
 
     @Override
@@ -81,7 +82,6 @@ public class ProgramStorage implements DatabaseInterface
         }
         return null; // Normally casts an exception here
     }
-
 
     @Override
     public ArrayList<Flight> getFlight(Date departureDate, String startDestination, String endDestination) throws SQLException
@@ -218,7 +218,7 @@ public class ProgramStorage implements DatabaseInterface
         }
         for (Person person : personList)
         {
-            if ((""+person.getID()).equals(ID))
+            if (("" + person.getID()).equals(ID))
             {
                 return false;
             }
@@ -227,15 +227,35 @@ public class ProgramStorage implements DatabaseInterface
     }
 
     @Override
-    public ArrayList<String> getAllBookedSeats(String flightID)
+    public ArrayList<String> getAllBookedSeats(int flightID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> seatIDsToReturn = new ArrayList<String>();
+        for (ReservationInterface reservation : reservationList)
+        {
+            if (reservation.getFlight().getID() == (flightID))
+            {
+                for (String seatIDs : reservation.getBookedSeats())
+                {
+                    seatIDsToReturn.add(seatIDs);
+                }
+                return seatIDsToReturn;
+            }
+        }
+        System.out.println("Found no reservation with that flight");
+        return null;
     }
 
     @Override
     public ArrayList<String> getBookedSeatsOnReservation(String reservationID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (ReservationInterface reservation : reservationList)
+        {
+            if (reservation.getID().equals(reservationID))
+            {
+                return reservation.getBookedSeats();
+            }
+        }
+        System.out.println("Found no reservation with that ID");
+        return null;
     }
-
 }
