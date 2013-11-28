@@ -164,7 +164,7 @@ public class ProgramStorage implements DatabaseInterface
     }
 
     @Override
-    public void newReservation(Reservation reservationToMake)
+    public void newReservation(ReservationInterface reservationToMake)
     {
         reservationList.add(reservationToMake);
     }

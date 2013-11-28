@@ -62,7 +62,7 @@ public interface DatabaseInterface
      *
      * @param reservationToMake
      */
-    void newReservation(Reservation reservationToMake);
+    void newReservation(ReservationInterface reservationToMake);
 
     /**
      * remove the reservation with ID reservationID

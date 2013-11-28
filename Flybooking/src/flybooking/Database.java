@@ -134,7 +134,7 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public void newReservation(Reservation r)
+    public void newReservation(ReservationInterface reservationToMake)
     {
 
     }
@@ -199,10 +199,6 @@ public class Database implements DatabaseInterface {
         return true;
     }
     
-    public static void main(String[] args)
-    {
-        Database.getInstance().getReservations("1", null);
-    }
 
     @Override
     public ArrayList<String> getAllBookedSeats(int flightID)
