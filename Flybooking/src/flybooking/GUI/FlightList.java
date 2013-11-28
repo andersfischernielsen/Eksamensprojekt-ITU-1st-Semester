@@ -16,7 +16,8 @@ public class FlightList extends JList {
 
     //The array of flights to show in the list.
     private ArrayList<Flight> flights;
-    private DefaultListModel model;
+    private DefaultListModel<Flight> model;
+    private Flight selectedFlight;
 
     /**
      * Create a new flight list, containing a given array of flights.
@@ -25,9 +26,9 @@ public class FlightList extends JList {
      */
     public FlightList(ArrayList<Flight> flights)
     {
-        setBackground(new Color(238, 238, 238));
         this.flights = flights;
-        model = new DefaultListModel();
+        model = new DefaultListModel<>();
+        selectedFlight = new Flight(0, 0, null, null, null, null, null);
 
         //Add all the flights to the list model.
         for (Flight f : flights) {
@@ -44,8 +45,12 @@ public class FlightList extends JList {
         repaint();
     }
     
-    public Flight getChosenFlight() {
-        return (Flight) getSelectedValue();
+    /**
+     * Get the currently selected Flight.
+     * @return The currently selected flight.
+     */
+    public Flight getSelectedFlight() {
+        return selectedFlight;
     }
 
     private class FlightCellRenderer extends DefaultListCellRenderer {
@@ -54,6 +59,8 @@ public class FlightList extends JList {
         public Component getListCellRendererComponent(final JList list, final Object value, final int index, final boolean isSelected, final boolean hasFocus)
         {
             Flight flight = (Flight) value;
+            
+            setFocusable(true);
             
             //All the panels and textfields to create the cell.
             final JPanel panel, topCellContent, bottomCellContent;
@@ -108,6 +115,13 @@ public class FlightList extends JList {
             //Add the top and bottom part to the main panel in the cell.
             panel.add(topCellContent, BorderLayout.NORTH);
             panel.add(bottomCellContent, BorderLayout.SOUTH);
+            
+            //Color the selected cell, and set is as the currently selected.
+            if (isSelected) {
+                topCellContent.setBackground(new Color(135, 206, 250));
+                bottomCellContent.setBackground(new Color(135, 206, 250));
+                selectedFlight = flight;
+            }
             
             //Return the finished panel.
             return panel;
