@@ -1,7 +1,6 @@
 
 package flybooking.GUI;
 
-import com.mysql.jdbc.SQLError;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
