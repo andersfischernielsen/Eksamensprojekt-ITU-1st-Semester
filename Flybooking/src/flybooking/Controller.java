@@ -1,4 +1,3 @@
-
 package flybooking;
 
 import java.sql.SQLException;
@@ -8,10 +7,12 @@ import java.util.*;
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
-public class Controller implements ControllerInterface {
+public class Controller implements ControllerInterface
+{
 
     private DatabaseInterface database;
     private static Controller instance = null;
+    private ReservationInterface workingOnReservation;
 
     private Controller(DatabaseInterface database)
     {
@@ -21,7 +22,7 @@ public class Controller implements ControllerInterface {
     @Override
     public void createReservation()
     {
-        //WHAT TO DO? 
+        workingOnReservation = new Reservation();
     }
 
     @Override
@@ -31,21 +32,25 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void getReservation(DatabaseInterface database)
+    public void getReservation(DatabaseInterface database, String reservationID, String CPR)
     {
-        //Do nothing.    
+        database.getReservations(reservationID, CPR);
     }
 
     @Override
-    public void deleteReservation(DatabaseInterface database)
+    public void deleteReservation(DatabaseInterface database, String reservationID) throws SQLException
     {
-        //Do nothing.    
+        database.removeReservation(reservationID);
     }
 
     @Override
     public void printReceipt(ReservationInterface reservation, ReceiptPrinter printer)
     {
-        //Do nothing.
+        /**
+         * We need to be sure that the printer has been constructed with the
+         * right reservation.
+         */
+        printer.print();
     }
 
     @Override
@@ -56,8 +61,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void search(DatabaseInterface database
-    )
+    public void search(DatabaseInterface database)
     {
         //Do nothing.    
     }
@@ -82,7 +86,8 @@ public class Controller implements ControllerInterface {
         ArrayList<String> destinations = database.getAirportCitiesAsStrings();
         int number = 0;
 
-        for (String d : destinations) {
+        for (String d : destinations)
+        {
             number++;
         }
 
@@ -90,24 +95,26 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public String[] getDestinationsAsStrings() throws SQLException 
+    public String[] getDestinationsAsStrings() throws SQLException
     {
         String[] destinations = new String[getNumberOfDestinations()];
         ArrayList<String> strings = database.getAirportCitiesAsStrings();
-        
-        for (int i = 0; i < destinations.length; i++ ) {
+
+        for (int i = 0; i < destinations.length; i++)
+        {
             destinations[i] = strings.get(i);
         }
-        
+
         return destinations;
     }
 
     public static Controller getInstance(DatabaseInterface database)
     {
-        if (instance == null) {
+        if (instance == null)
+        {
             instance = new Controller(database);
         }
-        
+
         return instance;
     }
 
@@ -115,8 +122,7 @@ public class Controller implements ControllerInterface {
     public boolean checkForID(String ID) throws SQLException
     {
         database.checkForID(ID);
-        
+
         return false;
     }
-
 }
