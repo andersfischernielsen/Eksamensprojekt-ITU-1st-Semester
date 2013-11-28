@@ -1,5 +1,7 @@
 package flybooking;
 
+import java.util.ArrayList;
+
 /**
  * Create a plane with an ID and a number of seats, rows and columns.
  *
@@ -33,7 +35,7 @@ public class Plane
 
             for (int j = 0; j < rows; j++)
             {
-                
+
                 if (i == columns / 10)
                 {
                     seats[i][j] = new Seat(SeatIDGenerator(i, j), 2);
@@ -176,7 +178,7 @@ public class Plane
             {
                 if (seats[i][j] != null && seats[i][j].getID().equals(seatID))
                 {
-                    seats[i][j].setAvailability(!getSeatAvailability(SeatIDGenerator(i,j)));
+                    seats[i][j].setAvailability(!getSeatAvailability(SeatIDGenerator(i, j)));
                 }
             }
         }
@@ -184,5 +186,21 @@ public class Plane
         //VI SKAL LAVE ERROR-HANDLING HER:
         //Hvis vi ikke kan finde seat ID, 
         //eller vi af en eller anden grund ikke ku' ændre sædet.
+    }
+
+    /**
+     * Takes a string ArrayList (with seatID strings) as parameter that it goes
+     * through and calls the coresponding seat's setAvailability method...
+     * NOTE KAN GIVE PROBLEMER DA DEN SÆTTER SÆDER TIL DET MODSATTE AF HVAD DE
+     * ER I FOREVEJEN. UNDERSØG DETTE
+     *
+     * @param seatIDs the ArrayList to run through for seatIDs
+     */
+    public void bookTakenSeats(ArrayList<String> seatIDs)
+    {
+        for (String seatID : seatIDs)
+        {
+            setSeatAvailability(seatID);
+        }
     }
 }
