@@ -121,4 +121,18 @@ public interface DatabaseInterface
      * @return an ArrayList of seatID strings
      */
     ArrayList<String> getBookedSeatsOnReservation(String reservationID);
+    
+    /**
+     * Get all matching Reservations from a CPR number.
+     * @param CPR The CPR to search with.
+     * @return An ArrayList of matching Reservations.
+     */
+    ArrayList<ReservationInterface> getReservationsFromCPR(String CPR);
+    
+    /**
+     * Get all matching Reservations from an reservation ID.
+     * @param ID The ID to search with.
+     * @return An ArrayList of matching Reservations.
+     */
+    ArrayList<ReservationInterface> getReservationsFromID(String ID);
 }
