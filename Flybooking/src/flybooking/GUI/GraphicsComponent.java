@@ -51,11 +51,17 @@ public class GraphicsComponent
      *
      * @return
      */
-    public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw, int X, int Y)
+    public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw, int X, int Y, ArrayList<String> seatIDsThisRes)
     {
         PlaneGraphicsComponent planeToWork = new PlaneGraphicsComponent(planeToDraw);
         planeToWork.setSeatAvailability(X, Y);
+        planeToWork.setSeatIDsThisRes(seatIDsThisRes);
         return planeToWork;
+    }
+    
+    public ArrayList<String> getSeatIDsThisRes()
+    {
+        return getSeatIDsThisRes();
     }
 
     /**
@@ -174,6 +180,14 @@ public class GraphicsComponent
             return getPreferredSize();
         }
 
+        public void setSeatIDsThisRes(ArrayList<String> seatIDsThisRes)
+        {
+            this.seatIDsThisRes = seatIDsThisRes;
+        }
+        public ArrayList<String> getSeatIDsThisRes()
+        {
+            return seatIDsThisRes;
+        }
         public void setSeatAvailability(int mouseX, int mouseY)
         {
             int firstCol, firstRow;
