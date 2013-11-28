@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 
 /**
@@ -76,14 +77,15 @@ public class GraphicsComponent
 
         private Plane planeToDraw;
         private int rows, cols;
-        int fixdistanceX = 25, fixdistanceY = 25;
+        private int fixdistanceX = 25, fixdistanceY = 25;
+        private ArrayList<String> seatIDsThisRes;
 
         public PlaneGraphicsComponent(Plane planeToDraw)
         {
             this.planeToDraw = planeToDraw;
             rows = planeToDraw.getRows();
             cols = planeToDraw.getColumns();
-
+            seatIDsThisRes = new ArrayList<String>();
         }
 
         /**
@@ -132,13 +134,20 @@ public class GraphicsComponent
                         fixdistanceX = 40;
                     }
                     // checks the availability of the seat. and change the color
-                    if (planeToDraw.getSeatAvailability(planeToDraw.SeatIDGenerator(i, j)))
+                    if (planeToDraw.getSeatAvailability(Plane.SeatIDGenerator(i, j)))
                     {
                         g.setColor(Color.GREEN);
                     }
                     else
                     {
                         g.setColor(Color.RED);
+                    }
+                    for (String seatID : seatIDsThisRes)
+                    {
+                        if (seatID.equals(Plane.SeatIDGenerator(i, j)))
+                        {
+                            g.setColor(Color.BLUE);
+                        }
                     }
 
                     // Draw the seats.
@@ -212,9 +221,8 @@ public class GraphicsComponent
                         + fixdistanceX && mouseX < (mouseCol * unit) + padding
                         + fixdistanceX + unit - padding)
                 {
-                    planeToDraw.setSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol, mouseRow));
-                    System.out.println(Plane.SeatIDGenerator(mouseCol, mouseRow));
-
+                    //planeToDraw.setSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol, mouseRow));
+                    seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
                 }
             }
 
