@@ -99,4 +99,10 @@ public interface ReservationInterface {
      * @param seatIDs the seats to book on this reservation
      */
     public void bookSeats(ArrayList<String> seatIDs);
+    
+    /**
+     * returns the SeatIDs arrayList in reservation.
+     * @return an arrayList of seatID strings
+     */
+    public ArrayList<String> getBookedSeats();
 }

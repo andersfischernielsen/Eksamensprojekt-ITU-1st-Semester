@@ -132,4 +132,10 @@ public class Reservation implements ReservationInterface {
         this.seatIDs = seatIDs;
     }
 
+    @Override
+    public ArrayList<String> getBookedSeats()
+    {
+        return seatIDs;
+    }
+
 }
