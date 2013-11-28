@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Create a custom list of flights as strings.
+ * Create a custom list of flights.
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
@@ -20,7 +20,7 @@ public class FlightList extends JList {
     private Flight selectedFlight;
 
     /**
-     * Create a new flight list, containing a given array of flights.
+     * Create a new FlightList, containing a given ArrayList of flights.
      *
      * @param flights The flights to show in the list.
      */
