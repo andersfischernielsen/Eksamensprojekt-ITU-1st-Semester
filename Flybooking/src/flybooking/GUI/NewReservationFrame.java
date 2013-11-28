@@ -369,7 +369,7 @@ private String[] drawDates()
         //reservation.setFlight(flightList.getChosenFlight());
         
         //FOR TESTING ONLY!
-        reservation.setFlight(new Flight(2000.0, 1, new Plane("C28463", 4, 12), Calculator.convertStringToDate("12-12-2013"), Calculator.convertStringToDate("13-12-2013"), new Airport("BER", "Germany", "Berlin"), new Airport("CPH", "Denmark", "Copenhagen")));
+        reservation.setFlight(new Flight(2000.0, 1, new Plane("C28463", 4, 12), Calculator.convertStringToDate("01/11-2013"), Calculator.convertStringToDate("02/11-2013"), new Airport("BER", "Germany", "Berlin"), new Airport("CPH", "Denmark", "Copenhagen")));
         
         controller.setWorkingOnReservation(reservation);
         setVisible(false);
