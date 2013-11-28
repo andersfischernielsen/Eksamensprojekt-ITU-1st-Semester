@@ -119,7 +119,7 @@ public interface ControllerInterface {
      * Get the reservation the system is currently working on. 
      * @return A Reservation object.
      */
-    ReservationInterface getWorkingOnreservation();
+    ReservationInterface getWorkingOnReservation();
     
     /**
      * Set the Reservation we're currently working on.
