@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -22,7 +23,10 @@ public class PersonAndSeatFrame extends JFrame
     // denne er bare til test.
     private Plane planeToDraw;
 
-    GraphicsComponent graphics;
+    private GraphicsComponent graphics;
+    private Controller controller;
+    private ReservationInterface reservation;
+    private ArrayList<String> seatIDsThisRes;
     private int amtOfPersons;
     private JComboBox personComboBox, ageGroupComboBox;
     private JComponent planeDrawingComp;
@@ -30,9 +34,10 @@ public class PersonAndSeatFrame extends JFrame
     public PersonAndSeatFrame() throws HeadlessException
     {
         graphics = new GraphicsComponent();
-        Controller controller = Controller.getInstance(ProgramStorage.getInstance());
-        ReservationInterface reservation = controller.getWorkingOnReservation();
+        controller = Controller.getInstance(ProgramStorage.getInstance());
+        reservation = controller.getWorkingOnReservation();
         planeToDraw = reservation.getFlight().getPlane();
+        seatIDsThisRes = new ArrayList<String>();
         for (Person person : reservation.getPersons())
         {
             amtOfPersons++;
