@@ -38,6 +38,7 @@ public class PersonAndSeatFrame extends JFrame
         controller = Controller.getInstance(ProgramStorage.getInstance());
         reservation = controller.getWorkingOnReservation();
         planeToDraw = reservation.getFlight().getPlane();
+        planeToDraw.bookTakenSeats(controller.getBookedSeats());
         seatIDsThisRes = new ArrayList<String>();
         for (Person person : reservation.getPersons())
         {
@@ -286,14 +287,13 @@ public class PersonAndSeatFrame extends JFrame
         reservation.bookSeats(seatIDsThisRes);
         controller.setWorkingOnReservation(reservation);
         controller.saveReservation(ProgramStorage.getInstance());
-        System.out.println(">Book");
+        reservation.getFlight().getPlane().resetSeats();
         this.setVisible(false); 
         this.dispose();
     }
 
     private void back()
     {
-        new PersonAndSeatFrame();
         System.out.println("Back");
     }
 }
