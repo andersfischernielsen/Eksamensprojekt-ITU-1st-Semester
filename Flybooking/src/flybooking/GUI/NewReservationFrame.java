@@ -265,9 +265,7 @@ public class NewReservationFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 try { performSearch();
-                } catch (SQLException ex) {
-                    System.out.println("SQLException when searching.");
-                }
+                } catch (SQLException ex) { }
             }
         });
 

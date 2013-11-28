@@ -75,7 +75,10 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Search Button Pressed");
+                if (CPRField.getText() != null) {
+                    performSearch(CPRField.getText());
+                }
+                    
             }
         });
         
@@ -99,6 +102,10 @@ public class EditReservationFrame extends JFrame {
         bottomContent.setPreferredSize(new Dimension(300, 400));
 
         content.add(bottomContent, BorderLayout.SOUTH);
+    }
+    
+    private void performSearch(String text) {
+        
     }
     
     public static void main(String[] args)

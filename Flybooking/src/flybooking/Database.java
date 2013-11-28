@@ -9,6 +9,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Create a database handler that connects to a database and does stuff.
+ *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Database implements DatabaseInterface {
@@ -35,9 +36,9 @@ public class Database implements DatabaseInterface {
     @Override
     public Plane getPlane(String PlaneID) throws SQLException
     {
-        ResultSet rs = statement.executeQuery("SELECT * FROM Plane WHERE Plane.id == "+ PlaneID);
+        ResultSet rs = statement.executeQuery("SELECT * FROM Plane WHERE Plane.id == " + PlaneID);
         System.out.println("id " + rs.getString("id"));
-        return new Plane(rs.getString("id"),rs.getInt("rows"), rs.getInt("columns"));
+        return new Plane(rs.getString("id"), rs.getInt("rows"), rs.getInt("columns"));
     }
 
     @Override
@@ -47,13 +48,12 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<Flight> getFlight(Date departureDate, 
+    public ArrayList<Flight> getFlight(Date departureDate,
             String startDestination, String endDestination) throws SQLException
     {
         ArrayList<Flight> flights = new ArrayList<>();
-        //HER SKAL SKAL KODE TIL AT FINDE FLIGHTS DER OPFYLDER OVENSTÅENDE SKRIVES!
         ResultSet rs = statement.executeQuery("SELECT * FROM Flight WHERE startDate = " + departureDate + " AND startAirport = " + startDestination + " AND endAirport = " + endDestination + "");
-        
+
         while (rs.next()) {
             flights.add(new Flight(rs.getDouble("price"), rs.getInt("ID"), new Plane(rs.getString("plane"), 0, 0), rs.getDate("startDate"), rs.getDate("endDate"), new Airport(rs.getString("startAirport"), "", ""), new Airport(rs.getString("endAirport"), "", "")));
         }
@@ -61,9 +61,75 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<ReservationInterface> getReservation(String ReservationID, String CPR)
+    public ArrayList<ReservationInterface> getReservations(String reservationID, String CPR)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<ReservationInterface> reservations = new ArrayList<>();
+        Airport a1;
+        Airport a2;
+        Plane plane;
+        ArrayList<Person> persons = new ArrayList<>();
+        FlightInterface flight;
+        ReservationInterface res;
+
+        if (reservationID != null) {
+            try {
+                con.setAutoCommit(false);
+                PreparedStatement s = con.prepareStatement("SELECT * FROM Reservation WHERE ID = ?");
+                s.setString(1, reservationID);
+                ResultSet rs = s.executeQuery();
+
+                while (rs.next()) {
+                    s = con.prepareStatement("SELECT * FROM Flight WHERE ID = ?");
+                    s.setString(1, rs.getString("flight"));
+                    ResultSet fs = s.executeQuery();
+
+                    while (fs.next()) {
+                        s = con.prepareStatement("SELECT * FROM Plane WHERE ID = ?");
+                        s.setString(1, rs.getString("plane"));
+                        ResultSet ps = s.executeQuery();
+                        
+                        while (ps.next()) {
+                            plane = new Plane(ps.getString("ID"), ps.getInt("rows"), ps.getInt("columns"));
+                        }
+                    }
+                    
+                    s = con.prepareStatement("SELECT * FROM Flight WHERE ID = ?");
+                    s.setString(1, "startAirport");
+                    ResultSet a1s = s.executeQuery();
+                    
+                    while (a1s.next()) {
+                        s = con.prepareStatement("SELECT * FROM Airport WHERE ID = ?");
+                        s.setString(1, "ID");
+                        ResultSet a1ss = s.executeQuery();
+                        
+                        while (a1ss.next()) {
+                            a1 = new Airport(a1ss.getString("ID"), a1ss.getString("country"), a1ss.getString("city"));
+                        }
+                    }
+                    
+                    s = con.prepareStatement("SELECT * FROM Flight WHERE ID = ?");
+                    s.setString(1, "endAirport");
+                    ResultSet a2s = s.executeQuery();
+                    
+                    while (a2s.next()) {
+                        s = con.prepareStatement("SELECT * FROM Airport WHERE ID = ?");
+                        s.setString(1, "ID");
+                        ResultSet a2ss = s.executeQuery();
+                        
+                        while (a2ss.next()) {
+                            a2 = new Airport(a2ss.getString("ID"), a2ss.getString("country"), a2ss.getString("city"));
+                        }
+                    }
+                    
+                }
+                con.setAutoCommit(true);
+
+            } catch (SQLException ex) {
+            }
+        }
+
+        return reservations;
+
     }
 
     @Override
@@ -75,7 +141,7 @@ public class Database implements DatabaseInterface {
     @Override
     public void newReservation(Reservation r)
     {
-        
+
     }
 
     @Override
@@ -127,15 +193,19 @@ public class Database implements DatabaseInterface {
                 return false;
             }
         }
-        
+
         if (ID.length() > 4) {
             ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
             if (matchingIDs.next()) {
                 return false;
             }
         }
-        
+
         return true;
     }
-
+    
+    public static void main(String[] args)
+    {
+        Database.getInstance().getReservations("1", null);
+    }
 }

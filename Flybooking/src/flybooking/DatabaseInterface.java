@@ -44,7 +44,7 @@ public interface DatabaseInterface
      * @param CPR
      * @return 
      */
-    ArrayList<ReservationInterface> getReservation(String ReservationID, String CPR);
+    ArrayList<ReservationInterface> getReservations(String reservationID, String CPR);
 
     /**
      * Enten den her
