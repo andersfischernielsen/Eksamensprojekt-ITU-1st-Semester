@@ -1,5 +1,6 @@
 package flybooking;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
@@ -9,6 +10,7 @@ import javax.swing.*;
  * A test to see if the database is working.
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
+ /**
 public class TestDB implements ActionListener
 {
 
@@ -20,8 +22,7 @@ public class TestDB implements ActionListener
 
     public static void main(String[] args) throws SQLException
     {
-        TestDB tester = new TestDB();
-        tester.createFrame();
+
     }
 
     public static void testDB(String databaseName, String databaseLogin, String databasePassword)
@@ -101,3 +102,4 @@ public class TestDB implements ActionListener
         testDB(nameField.getText(), loginField.getText(), passField.getText());
     }
 }
+ */
