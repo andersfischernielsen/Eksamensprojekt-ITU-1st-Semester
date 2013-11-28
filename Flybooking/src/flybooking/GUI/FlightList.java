@@ -51,8 +51,8 @@ public class FlightList extends JList {
 
             //All the panels and textfields to create the cell.
             final JPanel panel, topCellContent, bottomCellContent;
-            JTextField topCellTextLeft, topCellTextMiddle, topCellTextRight;
-            JTextField bottomCellTextLeft, bottomCellTextMiddle, bottomCellTextRight;
+            JLabel topCellTextLeft, topCellTextMiddle, topCellTextRight;
+            JLabel bottomCellTextLeft, bottomCellTextMiddle, bottomCellTextRight;
 
             //Instantiate the panels and textfields.
             panel = new JPanel();
@@ -65,43 +65,37 @@ public class FlightList extends JList {
             panel.setLayout(new BorderLayout());
 
             //Fill the top part of the cell with flight information and lay it out.
-            topCellTextLeft = new JTextField(
+            topCellTextLeft = new JLabel(
                     Calculator.convertDateToHourString(flight.getStartDate()));
-            topCellTextLeft.setEditable(false);
             topCellTextLeft.setBorder(null);
             topCellTextLeft.setOpaque(false);
 
-            topCellTextMiddle = new JTextField(
+            topCellTextMiddle = new JLabel(
                     flight.getStartAirport().getID() + " > "
                     + flight.getEndAirport().getID());
-            topCellTextMiddle.setEditable(false);
-            topCellTextMiddle.setHorizontalAlignment(JTextField.CENTER);
+            topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
             topCellTextMiddle.setBorder(null);
             topCellTextMiddle.setOpaque(false);
 
-            topCellTextRight = new JTextField(
+            topCellTextRight = new JLabel(
                     flight.getPlane().getID());
-            topCellTextRight.setEditable(false);
             topCellTextRight.setBorder(null);
             topCellTextRight.setOpaque(false);
 
             //Then the bottom part.
-            bottomCellTextLeft = new JTextField(
+            bottomCellTextLeft = new JLabel(
                     Calculator.convertDateToHourString(flight.getEndDate()));
-            bottomCellTextLeft.setEditable(false);
             bottomCellTextLeft.setBorder(null);
             bottomCellTextLeft.setOpaque(false);
 
-            bottomCellTextMiddle = new JTextField(
+            bottomCellTextMiddle = new JLabel(
                     Calculator.convertDateToString(flight.getStartDate()));
-            bottomCellTextMiddle.setEditable(false);
-            bottomCellTextMiddle.setHorizontalAlignment(JTextField.CENTER);
+            bottomCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
             bottomCellTextMiddle.setBorder(null);
             bottomCellTextMiddle.setOpaque(false);
 
-            bottomCellTextRight = new JTextField(
+            bottomCellTextRight = new JLabel(
                     flight.getPrice() + ",-");
-            bottomCellTextRight.setEditable(false);
             bottomCellTextRight.setBorder(null);
             bottomCellTextRight.setOpaque(false);
 
