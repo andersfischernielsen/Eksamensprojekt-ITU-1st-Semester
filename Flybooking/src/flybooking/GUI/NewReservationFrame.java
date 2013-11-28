@@ -173,15 +173,12 @@ public class NewReservationFrame extends JFrame {
             flightList = new FlightList(searchResults);
             flightList.setSize(new Dimension(490, 240));
 
-            bottomContainer.add(flightList);
             scrollpane.setViewportView(flightList);
             bottomContainer.add(scrollpane);
-            bottomContainer.setVisible(true);
 
             content.add(bottomContainer, BorderLayout.LINE_START);
             content.add(bottomContainer, BorderLayout.LINE_END);
             content.add(bottomContainer, BorderLayout.CENTER);
-            content.setVisible(true);
         }
     }
 

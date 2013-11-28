@@ -36,19 +36,21 @@ public class FlightList extends JList {
 
         //Set the custom cell renderer.
         setCellRenderer(new FlightCellRenderer());
+        
         //Set the model to show the flights.
         setModel(model);
+        
         //Repaint the list.
         repaint();
     }
 
     private class FlightCellRenderer extends DefaultListCellRenderer {
-
+        
         @Override
         public Component getListCellRendererComponent(final JList list, final Object value, final int index, final boolean isSelected, final boolean hasFocus)
         {
             Flight flight = (Flight) value;
-
+            
             //All the panels and textfields to create the cell.
             final JPanel panel, topCellContent, bottomCellContent;
             JLabel topCellTextLeft, topCellTextMiddle, topCellTextRight;
@@ -58,7 +60,7 @@ public class FlightList extends JList {
             panel = new JPanel();
             topCellContent = new JPanel();
             bottomCellContent = new JPanel();
-            
+
             //Set their layout.
             topCellContent.setLayout(new BorderLayout());
             bottomCellContent.setLayout(new BorderLayout());
@@ -67,37 +69,25 @@ public class FlightList extends JList {
             //Fill the top part of the cell with flight information and lay it out.
             topCellTextLeft = new JLabel(
                     Calculator.convertDateToHourString(flight.getStartDate()));
-            topCellTextLeft.setBorder(null);
-            topCellTextLeft.setOpaque(false);
 
             topCellTextMiddle = new JLabel(
                     flight.getStartAirport().getID() + " > "
                     + flight.getEndAirport().getID());
             topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
-            topCellTextMiddle.setBorder(null);
-            topCellTextMiddle.setOpaque(false);
 
             topCellTextRight = new JLabel(
                     flight.getPlane().getID());
-            topCellTextRight.setBorder(null);
-            topCellTextRight.setOpaque(false);
 
             //Then the bottom part.
             bottomCellTextLeft = new JLabel(
                     Calculator.convertDateToHourString(flight.getEndDate()));
-            bottomCellTextLeft.setBorder(null);
-            bottomCellTextLeft.setOpaque(false);
 
             bottomCellTextMiddle = new JLabel(
                     Calculator.convertDateToString(flight.getStartDate()));
             bottomCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
-            bottomCellTextMiddle.setBorder(null);
-            bottomCellTextMiddle.setOpaque(false);
 
             bottomCellTextRight = new JLabel(
                     flight.getPrice() + ",-");
-            bottomCellTextRight.setBorder(null);
-            bottomCellTextRight.setOpaque(false);
 
             //Add all of the information to the top and bottom aprt of the cell.
             topCellContent.add(topCellTextLeft, BorderLayout.LINE_START);
@@ -114,7 +104,7 @@ public class FlightList extends JList {
             //Add the top and bottom part to the main panel in the cell.
             panel.add(topCellContent, BorderLayout.NORTH);
             panel.add(bottomCellContent, BorderLayout.SOUTH);
-
+            
             //Return the finished panel.
             return panel;
         }
