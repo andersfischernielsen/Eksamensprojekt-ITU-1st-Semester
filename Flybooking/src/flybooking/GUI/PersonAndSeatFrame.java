@@ -283,6 +283,8 @@ public class PersonAndSeatFrame extends JFrame
 
     private void confirmBooking()
     {
+        reservation.bookSeats(seatIDsThisRes);
+        controller.setWorkingOnReservation(reservation);
         System.out.println(">Book");
     }
 

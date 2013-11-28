@@ -129,7 +129,7 @@ public class Controller implements ControllerInterface
     @Override
     public void bookSeats(ArrayList<String> seatIDs)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        workingOnReservation.bookSeats(seatIDs);
     }
 
     @Override
