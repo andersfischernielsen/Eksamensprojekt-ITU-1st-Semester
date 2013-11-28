@@ -41,11 +41,6 @@ public class Database implements DatabaseInterface {
         return new Plane(rs.getString("id"), rs.getInt("rows"), rs.getInt("columns"));
     }
 
-    @Override
-    public ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public ArrayList<Flight> getFlight(Date departureDate,

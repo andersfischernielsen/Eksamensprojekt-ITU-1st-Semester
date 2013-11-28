@@ -23,15 +23,6 @@ public interface DatabaseInterface
      */
     Plane getPlane(String PlaneID) throws SQLException;
 
-    /**
-     * returns an array of seats which are not available.
-     *
-     * @param flight
-     * @param persons
-     *
-     * @return
-     */
-    ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons);
 
     /**
      * Returns an ArrayList of flights that match the specified search terms.

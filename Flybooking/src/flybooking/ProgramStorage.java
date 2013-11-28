@@ -82,12 +82,6 @@ public class ProgramStorage implements DatabaseInterface
         return null; // Normally casts an exception here
     }
 
-    @Override
-    public ArrayList<Seat> getTakenSeats(Flight flight, Person[] persons)
-    {
-        // måske ikke nødvendig
-        return null;
-    }
 
     @Override
     public ArrayList<Flight> getFlight(Date departureDate, String startDestination, String endDestination) throws SQLException
