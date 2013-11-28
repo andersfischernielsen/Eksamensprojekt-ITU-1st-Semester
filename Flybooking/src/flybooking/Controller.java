@@ -29,7 +29,7 @@ public class Controller implements ControllerInterface
     public void saveReservation(DatabaseInterface database)
     {
         database.newReservation(workingOnReservation);
-        workingOnReservation = null;
+        resetController();
     }
 
     @Override
@@ -143,5 +143,25 @@ public class Controller implements ControllerInterface
     public void setWorkingOnReservation(ReservationInterface reservation)
     {
         workingOnReservation = reservation;
+    }
+
+    @Override
+    public ArrayList<String> getBookedSeats()
+    {
+        System.out.println(workingOnReservation.getFlight().getID());
+        if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null)
+        {
+            return database.getAllBookedSeats(workingOnReservation.getFlight().getID());
+        }
+        else
+        {
+            return new ArrayList<String>();
+        }
+    }
+    
+    @Override
+    public void resetController()
+    {
+        workingOnReservation = new Reservation();
     }
 }
