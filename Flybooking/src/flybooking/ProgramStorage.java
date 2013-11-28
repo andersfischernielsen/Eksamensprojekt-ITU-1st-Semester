@@ -53,20 +53,20 @@ public class ProgramStorage implements DatabaseInterface
 
         // København til Berlin
         flightList.add(new Flight(600, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(500, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(750, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(800, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(600, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(500, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(750, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(800, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(500, 2, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(750, 3, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(800, 4, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(400, 5, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(600, 6, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(500, 7, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(750, 8, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(800, 9, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(400, 10, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
 
         // København til Moscow
-        flightList.add(new Flight(1200, 1, planeList.get(0), new Timestamp(new Long("1386000000000")), new Timestamp(new Long("1388650000000")), airportList.get(0), airportList.get(3)));
+        flightList.add(new Flight(1200, 11, planeList.get(1), new Timestamp(new Long("1386000000000")), new Timestamp(new Long("1388650000000")), airportList.get(0), airportList.get(3)));
         // København til Los Angelos
-        flightList.add(new Flight(2000, 1, planeList.get(0), new Timestamp(new Long("1388000000000")), new Timestamp(new Long("1388500000000")), airportList.get(0), airportList.get(1)));
+        flightList.add(new Flight(2000, 12, planeList.get(2), new Timestamp(new Long("1388000000000")), new Timestamp(new Long("1388500000000")), airportList.get(0), airportList.get(1)));
 
     }
 
@@ -238,11 +238,9 @@ public class ProgramStorage implements DatabaseInterface
                 {
                     seatIDsToReturn.add(seatIDs);
                 }
-                return seatIDsToReturn;
             }
         }
-        System.out.println("Found no reservation with that flight");
-        return null;
+        return seatIDsToReturn;
     }
 
     @Override
