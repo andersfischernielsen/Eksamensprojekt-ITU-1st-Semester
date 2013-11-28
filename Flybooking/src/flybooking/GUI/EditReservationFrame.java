@@ -78,7 +78,9 @@ public class EditReservationFrame extends JFrame {
                 if (CPRField.getText() != null) {
                     performSearch(CPRField.getText());
                 }
-                    
+                if (resField.getText() != null) {
+                    performSearch(resField.getText());
+                }
             }
         });
         
