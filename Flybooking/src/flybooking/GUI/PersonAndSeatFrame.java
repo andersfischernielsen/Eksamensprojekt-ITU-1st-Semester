@@ -1,17 +1,9 @@
 package flybooking.GUI;
 
-import flybooking.Controller;
-import flybooking.Person;
-import flybooking.Plane;
-import flybooking.ProgramStorage;
-import flybooking.ReservationInterface;
+import flybooking.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 
 /**
