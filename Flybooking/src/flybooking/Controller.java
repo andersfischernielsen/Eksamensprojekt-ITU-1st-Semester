@@ -125,4 +125,10 @@ public class Controller implements ControllerInterface
 
         return false;
     }
+
+    @Override
+    public void bookSeats(ArrayList<String> seatIDs)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

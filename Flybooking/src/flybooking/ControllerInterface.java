@@ -2,6 +2,7 @@
 package flybooking;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * An interface for creating reservations and controlling the booking system in
@@ -107,4 +108,10 @@ public interface ControllerInterface {
      * @throws SQLException 
      */
     boolean checkForID(String ID) throws SQLException;
+    
+    /**
+     * Saves the seatIDs which are booked on this reservation.
+     * @param seatIDs the seatIds to book on this reservation
+     */
+    void bookSeats(ArrayList<String> seatIDs);
 }
