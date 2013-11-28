@@ -1,11 +1,12 @@
 
 package flybooking.GUI;
 
-import flybooking.ControllerInterface;
+import flybooking.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
+import java.util.*;
 
 /**
  *
@@ -19,7 +20,9 @@ public class EditReservationFrame extends JFrame {
     private JTextField resField, CPRField;
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
-
+    private ReservationList reservationList;
+    private ArrayList<Reservation> searchResults;
+    
     public static EditReservationFrame getInstance(ControllerInterface controller)
     {
         if (instance == null) {
@@ -34,6 +37,9 @@ public class EditReservationFrame extends JFrame {
     {
         this.controller = controller;
         setTitle("Edit Reservation");
+        
+        searchResults = new ArrayList<>();
+        
         content = getContentPane();
 
         createTopContent();
@@ -70,20 +76,6 @@ public class EditReservationFrame extends JFrame {
         filler.setPreferredSize(new Dimension(100, 30));
         searchButton = new JButton("Search");
         
-        searchButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                if (CPRField.getText() != null) {
-                    performSearch(CPRField.getText());
-                }
-                if (resField.getText() != null) {
-                    performSearch(resField.getText());
-                }
-            }
-        });
-        
         searchButton.setDefaultCapable(true);
         searchButton.setAlignmentX(RIGHT_ALIGNMENT);
         bottomRight.add(filler);
@@ -94,24 +86,41 @@ public class EditReservationFrame extends JFrame {
         topContent.add(topRight);
         topContent.add(bottomLeft);
         topContent.add(bottomRight);
+        
+        searchButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (CPRField.getText() == "") {
+                    performIDSearch(resField.getText());
+                }
+                
+                if (resField.getText() == "") {
+                    performCPRSearch(CPRField.getText());
+                }
+            }
+        });
 
         content.add(topContent, BorderLayout.NORTH);
     }
 
     private void createBottomContent()
     {
-        bottomContent = new Container();
-        bottomContent.setPreferredSize(new Dimension(300, 400));
+        bottomContent = new JPanel();
+        bottomContent.setPreferredSize(new Dimension(500, 300));
+        reservationList = new ReservationList(searchResults);
+        reservationList.setPreferredSize(new Dimension(500, 300));
+        bottomContent.add(reservationList);
 
         content.add(bottomContent, BorderLayout.SOUTH);
     }
     
-    private void performSearch(String text) {
-        
+    private void performCPRSearch(String CPR) {
+        ProgramStorage.getInstance().getReservationsFromCPR(CPR);
     }
     
-    public static void main(String[] args)
-    {
-        EditReservationFrame.getInstance(null);
+    private void performIDSearch(String ID) {
+        ProgramStorage.getInstance().getReservationsFromID(ID);
     }
 }
