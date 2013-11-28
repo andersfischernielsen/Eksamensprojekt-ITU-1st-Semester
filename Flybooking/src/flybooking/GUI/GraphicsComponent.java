@@ -241,31 +241,37 @@ public class GraphicsComponent
                         + fixdistanceX && mouseX < (mouseCol * unit) + padding
                         + fixdistanceX + unit - padding)
                 {
-                    if (!(seatIDsThisRes.isEmpty()))
+                    if (planeToDraw.getSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol, mouseRow)) == true)
                     {
-                        int i = 1;
-                        for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();)
+                        if (!(seatIDsThisRes.isEmpty()))
                         {
-                            String seatID = it.next();
-                            if (seatID.equals(Plane.SeatIDGenerator(mouseCol, mouseRow)))
+                            int i = 1;
+                            for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();)
                             {
-                                seatIDsThisRes.remove(Plane.SeatIDGenerator(mouseCol, mouseRow));
-                                break;
+                                String seatID = it.next();
+                                if (seatID.equals(Plane.SeatIDGenerator(mouseCol, mouseRow)))
+                                {
+                                    seatIDsThisRes.remove(Plane.SeatIDGenerator(mouseCol, mouseRow));
+
+                                    break;
+                                }
+                                if (i == seatIDsThisRes.size())
+                                {
+                                    seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
+                                    break;
+                                }
+                                i++;
                             }
-                            if (i == seatIDsThisRes.size())
-                            {
-                                seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
-                                break;
-                            }
-                            i++;
+                        }
+                        else
+                        {
+                            seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
                         }
                     }
                     else
                     {
-                        seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
+                        System.out.println("Not available");
                     }
-
-                    planeToDraw.setSeatAvailability(planeToDraw.SeatIDGenerator(mouseCol, mouseRow));
                 }
             }
 
