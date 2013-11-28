@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package flybooking;
 
 import java.sql.SQLException;
@@ -14,8 +15,7 @@ import java.util.Date;
  *
  * @author Anders Wind Steffensen - awis@itu.dk
  */
-public class ProgramStorage implements DatabaseInterface
-{
+public class ProgramStorage implements DatabaseInterface {
 
     ArrayList<Flight> flightList = new ArrayList<Flight>();
     ArrayList<ReservationInterface> reservationList = new ArrayList<ReservationInterface>();
@@ -27,8 +27,7 @@ public class ProgramStorage implements DatabaseInterface
 
     public static ProgramStorage getInstance()
     {
-        if (instance == null)
-        {
+        if (instance == null) {
             instance = new ProgramStorage();
         }
 
@@ -68,15 +67,21 @@ public class ProgramStorage implements DatabaseInterface
         // København til Los Angelos
         flightList.add(new Flight(2000, 12, planeList.get(2), new Timestamp(new Long("1388000000000")), new Timestamp(new Long("1388500000000")), airportList.get(0), airportList.get(1)));
 
+        Reservation res1 = new Reservation();
+        res1.setCPR("060606-0606");
+        res1.setFlight(new Flight(600, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        res1.setPayer(new Person("John", "Johnsen", 2, "Johnvej 1", 0));
+        res1.setPrice(18000);
+        res1.setReservationDate(new Date());
+        reservationList.add(res1);
+
     }
 
     @Override
     public Plane getPlane(String PlaneID) throws SQLException
     {
-        for (Plane plane : planeList)
-        {
-            if (plane.getID() == PlaneID)
-            {
+        for (Plane plane : planeList) {
+            if (plane.getID().equals(PlaneID)) {
                 return plane;
             }
         }
@@ -86,16 +91,13 @@ public class ProgramStorage implements DatabaseInterface
     @Override
     public ArrayList<Flight> getFlight(Date departureDate, String startDestination, String endDestination) throws SQLException
     {
-        ArrayList<Flight> flightsToReturn = new ArrayList<Flight>();
+        ArrayList<Flight> flightsToReturn = new ArrayList<>();
         /**
          * DOES NOT TAKE DATE INTO ACCOUNT YET
          */
-        if (departureDate != null && startDestination != null && endDestination != null)
-        {
-            for (Flight flight : flightList)
-            {
-                if (flight.getEndAirport().getCity().equals(endDestination) && flight.getStartAirport().getCity().equals(startDestination))
-                {
+        if (departureDate != null && startDestination != null && endDestination != null) {
+            for (Flight flight : flightList) {
+                if (flight.getEndAirport().getCity().equals(endDestination) && flight.getStartAirport().getCity().equals(startDestination)) {
                     flightsToReturn.add(flight);
                 }
             }
@@ -106,42 +108,29 @@ public class ProgramStorage implements DatabaseInterface
     @Override
     public ArrayList<ReservationInterface> getReservations(String ReservationID, String CPR)
     {
-        ArrayList<ReservationInterface> reservationsToReturnList = new ArrayList<ReservationInterface>();
+        ArrayList<ReservationInterface> reservationsToReturnList = new ArrayList<>();
         /**
          * Does not take date into account yet
          */
-        if (ReservationID != null)
-        {
-            if (CPR != null)
-            {
-                for (ReservationInterface reservation : reservationsToReturnList)
-                {
-                    if (reservation.getID().equals(ReservationID) && reservation.getCPR().equals(CPR))
-                    {
+        if (ReservationID != null) {
+            if (CPR != null) {
+                for (ReservationInterface reservation : reservationsToReturnList) {
+                    if (reservation.getID().equals(ReservationID) && reservation.getCPR().equals(CPR)) {
                         reservationsToReturnList.add(reservation);
                     }
                 }
-            }
-            else
-            {
-                for (ReservationInterface reservation : reservationsToReturnList)
-                {
-                    if (reservation.getID().equals(ReservationID))
-                    {
+            } else {
+                for (ReservationInterface reservation : reservationsToReturnList) {
+                    if (reservation.getID().equals(ReservationID)) {
                         reservationsToReturnList.add(reservation);
                     }
                 }
             }
 
-        }
-        else
-        {
-            if (CPR != null)
-            {
-                for (ReservationInterface reservation : reservationsToReturnList)
-                {
-                    if (reservation.getCPR().equals(CPR))
-                    {
+        } else {
+            if (CPR != null) {
+                for (ReservationInterface reservation : reservationsToReturnList) {
+                    if (reservation.getCPR().equals(CPR)) {
                         reservationsToReturnList.add(reservation);
                     }
                 }
@@ -172,10 +161,8 @@ public class ProgramStorage implements DatabaseInterface
     @Override
     public void removeReservation(String reservationID) throws SQLException
     {
-        for (ReservationInterface reservation : reservationList)
-        {
-            if (reservation.getID().equals(reservationID))
-            {
+        for (ReservationInterface reservation : reservationList) {
+            if (reservation.getID().equals(reservationID)) {
                 reservationList.remove(reservation);
             }
         }
@@ -184,10 +171,8 @@ public class ProgramStorage implements DatabaseInterface
     @Override
     public void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot) throws SQLException
     {
-        for (ReservationInterface reservation : reservationList)
-        {
-            if (reservation.getID().equals(reservationID))
-            {
+        for (ReservationInterface reservation : reservationList) {
+            if (reservation.getID().equals(reservationID)) {
                 reservation.addPerson(personToAdd);
                 // something with reservationSpot.
             }
@@ -197,9 +182,8 @@ public class ProgramStorage implements DatabaseInterface
     @Override
     public ArrayList<String> getAirportCitiesAsStrings() throws SQLException
     {
-        ArrayList<String> stringListToReturn = new ArrayList<String>();
-        for (Airport airport : airportList)
-        {
+        ArrayList<String> stringListToReturn = new ArrayList<>();
+        for (Airport airport : airportList) {
             stringListToReturn.add(airport.getCity());
         }
         return stringListToReturn;
@@ -209,17 +193,13 @@ public class ProgramStorage implements DatabaseInterface
     public boolean checkForID(String ID) throws SQLException
     {
         // maybe not neccesary
-        for (ReservationInterface reservation : reservationList)
-        {
-            if (reservation.getID().equals(reservation))
-            {
+        for (ReservationInterface reservation : reservationList) {
+            if (reservation.getID().equals(reservation)) {
                 return false;
             }
         }
-        for (Person person : personList)
-        {
-            if (("" + person.getID()).equals(ID))
-            {
+        for (Person person : personList) {
+            if (("" + person.getID()).equals(ID)) {
                 return false;
             }
         }
@@ -229,13 +209,10 @@ public class ProgramStorage implements DatabaseInterface
     @Override
     public ArrayList<String> getAllBookedSeats(int flightID)
     {
-        ArrayList<String> seatIDsToReturn = new ArrayList<String>();
-        for (ReservationInterface reservation : reservationList)
-        {
-            if (reservation.getFlight().getID() == (flightID))
-            {
-                for (String seatIDs : reservation.getBookedSeats())
-                {
+        ArrayList<String> seatIDsToReturn = new ArrayList<>();
+        for (ReservationInterface reservation : reservationList) {
+            if (reservation.getFlight().getID() == (flightID)) {
+                for (String seatIDs : reservation.getBookedSeats()) {
                     seatIDsToReturn.add(seatIDs);
                 }
             }
@@ -246,14 +223,44 @@ public class ProgramStorage implements DatabaseInterface
     @Override
     public ArrayList<String> getBookedSeatsOnReservation(String reservationID)
     {
-        for (ReservationInterface reservation : reservationList)
-        {
-            if (reservation.getID().equals(reservationID))
-            {
+        for (ReservationInterface reservation : reservationList) {
+            if (reservation.getID().equals(reservationID)) {
                 return reservation.getBookedSeats();
             }
         }
         System.out.println("Found no reservation with that ID");
         return null;
+    }
+
+    @Override
+    public ArrayList<ReservationInterface> getReservationsFromCPR(String CPR)
+    {
+        ArrayList results = new ArrayList<>();
+
+        for (ReservationInterface r : reservationList) {
+            if (r.getCPR().equals(CPR)) {
+                results.add(r);
+            }
+        }
+
+        return results;
+    }
+
+    @Override
+    public ArrayList<ReservationInterface> getReservationsFromID(String ID)
+    {
+        if (ID == null) {
+            return new ArrayList<>();
+        } else {
+            ArrayList results = new ArrayList<>();
+
+            for (ReservationInterface r : reservationList) {
+                if (r.getID().equals(ID)) {
+                    results.add(r);
+                }
+            }
+
+            return results;
+        }
     }
 }
