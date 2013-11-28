@@ -21,7 +21,7 @@ import java.text.ParseException;
 public class NewReservationFrame extends JFrame {
 
     private JComboBox dateDropdown, peopleDropdown, startDestDropdown, endDestDropdown;
-    private JButton searchButton;
+    private JButton searchButton, doneButton;
     private JCheckBox checkbox;
     private FlightList flightList;
     private Container content, topContainer, bottomContainer,
@@ -48,7 +48,7 @@ public class NewReservationFrame extends JFrame {
      *
      * @throws HeadlessException
      */
-    private NewReservationFrame() throws HeadlessException, SQLException, ParseException
+    private NewReservationFrame() throws HeadlessException, SQLException
     {
         searchResults = new ArrayList<>();
         controller = Controller.getInstance(ProgramStorage.getInstance());
@@ -60,13 +60,12 @@ public class NewReservationFrame extends JFrame {
      *
      * @return An instance of the frame.
      */
-    public static NewReservationFrame getInstance() throws SQLException, ParseException
+    public static NewReservationFrame getInstance() throws SQLException
     {
         if (instance == null) {
             instance = new NewReservationFrame();
         }
 
-        instance.sendOnData();
         instance.setVisible(true);
         return instance;
     }
@@ -154,8 +153,7 @@ public class NewReservationFrame extends JFrame {
             c.setPreferredSize(new Dimension(150, 60));
             topContainer.add(c);
         }
-
-        addActionListeners();
+        
         //Add the finished Container to the frame.
         content.add(topContainer, BorderLayout.PAGE_START);
     }
@@ -177,70 +175,30 @@ public class NewReservationFrame extends JFrame {
             padding.setPreferredSize(new Dimension(20, 500));
             flightList = new FlightList(searchResults);
             flightList.setSize(new Dimension(490, 240));
-            addMouseListeners();
 
+            doneButton = new JButton("I WANT THIS FLIGHT!");
+            doneButton.setMaximumSize(new Dimension(300, 100));
+            
             scrollpane.setViewportView(flightList);
             bottomContainer.add(scrollpane);
 
             content.add(bottomContainer, BorderLayout.LINE_START);
             content.add(bottomContainer, BorderLayout.LINE_END);
             content.add(bottomContainer, BorderLayout.CENTER);
+            content.add(doneButton, BorderLayout.PAGE_END);
+            
+            addActionListeners();
         }
     }
 
     /**
-     * Add the ActionListeners needed to the scroll pane.
+     * Get the dates as a String array between a week ago and a week forward
+     * from the current date.
+     *
+     * @return A string array of the dates a week ago and up until a week from
+     * now.
      */
-    private void addMouseListeners()
-    {
-        scrollpane.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                //Do nothing.
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e)
-            {
-                if (e.getClickCount() == 2 && !e.isConsumed()) {
-                    e.consume();
-                    try { 
-                        sendOnData();
-                        new PersonAndSeatFrame();
-                    } catch (ParseException ex)  { }
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e)
-            {
-                //Do nothing.
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e)
-            {
-                //Do nothing.
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e)
-            {
-                //Do nothing.
-            }
-        });
-    }
-
-
-/**
- * Get the dates as a String array between a week ago and a week forward from
- * the current date.
- *
- * @return A string array of the dates a week ago and up until a week from now.
- */
-private String[] drawDates()
+    private String[] drawDates()
     {
         //Initialize an empty string to return.
         String[] array = new String[14];
@@ -344,6 +302,17 @@ private String[] drawDates()
                 nextTo = !nextTo;
             }
         });
+
+        //Add an ActionListener that sends the data to the next window in the system.
+        doneButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                try {
+                    NewReservationFrame.getInstance().sendOnData();
+                } catch (ParseException ex) { 
+                } catch (SQLException exq) {}
+            }
+        });
     }
 
     /**
@@ -362,17 +331,24 @@ private String[] drawDates()
 
         flightList.setListData(convertedArray);
     }
-    
-    private void sendOnData() throws ParseException {
+
+    /**
+     * Send the data to the controller, and open the next window in the
+     * workflow.
+     *
+     * @throws ParseException
+     */
+    private void sendOnData() throws ParseException
+    {
         ReservationInterface reservation = new Reservation();
         reservation.setReservationDate(new Date());
-        //reservation.setFlight(flightList.getChosenFlight());
-        
-        //FOR TESTING ONLY!
-        reservation.setFlight(new Flight(2000.0, 1, new Plane("C28463", 4, 12), Calculator.convertStringToDate("01/11-2013"), Calculator.convertStringToDate("02/11-2013"), new Airport("BER", "Germany", "Berlin"), new Airport("CPH", "Denmark", "Copenhagen")));
-        
-        controller.setWorkingOnReservation(reservation);
-        setVisible(false);
-        new PersonAndSeatFrame();
+        reservation.setFlight(flightList.getSelectedFlight());
+
+        if (reservation.getFlight().getPlane() != null) {
+            controller.setWorkingOnReservation(reservation);
+            setVisible(false);
+
+            new PersonAndSeatFrame();
+        }
     }
 }
