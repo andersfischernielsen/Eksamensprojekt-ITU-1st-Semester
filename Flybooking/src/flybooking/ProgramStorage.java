@@ -56,6 +56,10 @@ public class ProgramStorage implements DatabaseInterface
         flightList.add(new Flight(750, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
         flightList.add(new Flight(800, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
         flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
+        flightList.add(new Flight(400, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
         // København til Moscow
         flightList.add(new Flight(1200, 1, planeList.get(0), new Timestamp(new Long("1386000000000")), new Timestamp(new Long("1388650000000")), airportList.get(0), airportList.get(3)));
         // København til Los Angelos
