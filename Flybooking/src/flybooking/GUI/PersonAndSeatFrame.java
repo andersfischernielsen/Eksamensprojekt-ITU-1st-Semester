@@ -1,8 +1,10 @@
 package flybooking.GUI;
 
 import flybooking.Controller;
+import flybooking.Person;
 import flybooking.Plane;
 import flybooking.ProgramStorage;
+import flybooking.ReservationInterface;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,12 +27,16 @@ public class PersonAndSeatFrame extends JFrame
     private JComboBox personComboBox, ageGroupComboBox;
     private JComponent planeDrawingComp;
 
-    public PersonAndSeatFrame(int amtOfPersons, final Plane planeToDraw) throws HeadlessException
+    public PersonAndSeatFrame() throws HeadlessException
     {
-        this.planeToDraw = planeToDraw;
         graphics = new GraphicsComponent();
-        this.amtOfPersons = amtOfPersons;
         Controller controller = Controller.getInstance(ProgramStorage.getInstance());
+        ReservationInterface reservation = controller.getWorkingOnReservation();
+        planeToDraw = reservation.getFlight().getPlane();
+        for (Person person : reservation.getPersons())
+        {
+            amtOfPersons++;
+        }
         
         setTitle("Seats and Passengers");
         setPreferredSize(new Dimension(800, 600));
@@ -275,6 +281,6 @@ public class PersonAndSeatFrame extends JFrame
 
     public static void main(String[] args)
     {
-        new PersonAndSeatFrame(5, new Plane("5eerrg2", 6, 29));
+        new PersonAndSeatFrame();
     }
 }
