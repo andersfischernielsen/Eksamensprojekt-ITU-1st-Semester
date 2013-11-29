@@ -101,7 +101,7 @@ public class NewReservationFrame extends JFrame {
 
         //Pack everything and show the frame.
         pack();
-        setSize(new Dimension(500, 500));
+        setSize(new Dimension(560, 480));
         setVisible(true);
     }
 
