@@ -188,7 +188,7 @@ public class NewReservationFrame extends JFrame {
             flightList = new FlightList(searchResults);
             flightList.setSize(new Dimension(490, 240));
 
-            doneButton = new JButton("I WANT THIS FLIGHT!");
+            doneButton = new JButton("Book Flight");
             doneButton.setMaximumSize(new Dimension(300, 100));
             
             scrollpane.setViewportView(flightList);
@@ -234,6 +234,7 @@ public class NewReservationFrame extends JFrame {
             j++;
         }
 
+        
         //Then when the array has been made, we return it.
         return array;
     }
@@ -267,6 +268,7 @@ public class NewReservationFrame extends JFrame {
             }
         });
 
+        
         //Add an ActionListener that changes the chosenPeople to the value chosen when clicked.
         peopleDropdown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
