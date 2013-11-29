@@ -8,6 +8,8 @@ import flybooking.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.text.ParseException;
+import javax.swing.border.EmptyBorder;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Create a frame for finding and creating reservations
@@ -21,17 +23,13 @@ public class NewReservationFrame extends JFrame {
     private JButton searchButton, doneButton;
     private JCheckBox checkbox;
     private FlightList flightList;
-    private Container content, topContainer, bottomContainer,
-            top1x1Container, top1x2Container, top1x3Container,
-            top2x1Container, top2x2Container, top2x3Container,
-            top3x1Container, top3x2Container, top3x3Container, padding;
-    private ArrayList<Container> topContainers;
-    private JLabel departureLabel, peopleLabel, startLabel, endLabel;
+    private JPanel topContent, bottomContent, topLeft, topMiddle, topMiddleContent, topRight, topRightContent, topRightTopContent, topRightBottomContent;
+    private JLabel dateLabel, peopleLabel, startLabel, endLabel;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private JScrollPane scrollpane;
     private String[] people = {"1", "2", "3", "4", "5"};
-    
+
     //All of the search variables in the interface.
     private ArrayList<Flight> searchResults;
     private Date chosenDate;
@@ -40,6 +38,11 @@ public class NewReservationFrame extends JFrame {
     private String chosenEndDestination;
     private boolean nextTo;
     private double chosenPrice;
+
+    public static void main(String[] args) throws SQLException
+    {
+        NewReservationFrame.getInstance();
+    }
 
     /**
      * Create a frame for finding and creating reservations.
@@ -72,9 +75,9 @@ public class NewReservationFrame extends JFrame {
     }
 
     /**
-     * Draw the GUI. 
-     * 
-     * @throws SQLException 
+     * Draw the GUI.
+     *
+     * @throws SQLException
      */
     private void drawFrame() throws SQLException
     {
@@ -82,23 +85,17 @@ public class NewReservationFrame extends JFrame {
         setTitle("New Reservation");
         setResizable(false);
 
-        //Get the contentpane to add components to and set it up.
-        Container c = getContentPane();
-        content = new JPanel();
-        content.setLayout(new BorderLayout());
-        c.add(content);
-
         //Draw the top and bottom part of the GUI.
         drawTopContent();
         drawBottomContent();
+        //addActionListeners();
 
         //Get the default values from the GUI, so we won't get an exception 
         //if nothing is clicked before searching.
-        chosenStartDestination = (String) startDestDropdown.getSelectedItem();
-        chosenEndDestination = (String) endDestDropdown.getSelectedItem();
-        chosenPeople = 1;
-        chosenDate = new Date();
-
+        //chosenStartDestination = (String) startDestDropdown.getSelectedItem();
+        //chosenEndDestination = (String) endDestDropdown.getSelectedItem();
+        //chosenPeople = 1;
+        //chosenDate = new Date();
         //Pack everything and show the frame.
         pack();
         setSize(new Dimension(560, 480));
@@ -110,64 +107,69 @@ public class NewReservationFrame extends JFrame {
      */
     private void drawTopContent() throws SQLException
     {
-        //Create an empty container and set the layout to a GridLayout.
-        topContainer = new Container();
-        topContainer.setLayout(new GridLayout(3, 3));
-        topContainers = new ArrayList<>();
+        //Create the three top panels and the comboboxes.
+        topContent = new JPanel();
+        topLeft = new JPanel();
+        topMiddleContent = new JPanel();
+        topMiddle = new JPanel();
+        topRightTopContent = new JPanel();
+        topRightBottomContent = new JPanel();
+        topRightContent = new JPanel();        
+        topRight = new JPanel();
 
-        //Add all of the containers for each grid to an ArrayList and initialize
-        //them.
-        topContainers.add(top1x1Container = new Container());
-        topContainers.add(top1x2Container = new Container());
-        topContainers.add(top1x3Container = new Container());
-        topContainers.add(top2x1Container = new Container());
-        topContainers.add(top2x2Container = new Container());
-        topContainers.add(top2x3Container = new Container());
-        topContainers.add(top3x1Container = new Container());
-        topContainers.add(top3x2Container = new Container());
-        topContainers.add(top3x3Container = new Container());
-
-        //Add all of the labels to each grid container.
-        departureLabel = new JLabel("Departure date:");
+        //Create all of the components.
         dateDropdown = new JComboBox(drawDates());
-        dateDropdown.setSelectedIndex(7);
-        top1x1Container.add(departureLabel);
-        top1x1Container.add(dateDropdown);
-
-        peopleLabel = new JLabel("People:");
         peopleDropdown = new JComboBox(people);
-        top1x2Container.add(peopleLabel);
-        top1x2Container.add(peopleDropdown);
-
-        startLabel = new JLabel("Start destination:");
         startDestDropdown = new JComboBox(drawDestinations());
-        startDestDropdown.setPreferredSize(new Dimension(130, 25));
-        top1x3Container.add(startLabel);
-        top1x3Container.add(startDestDropdown);
-
-        checkbox = new JCheckBox("Next to: ");
-        checkbox.setHorizontalTextPosition(SwingConstants.LEFT);
-        top2x2Container.add(checkbox);
-
-        endLabel = new JLabel("End destination:");
         endDestDropdown = new JComboBox(drawDestinations());
-        endDestDropdown.setPreferredSize(new Dimension(130, 25));
-        top2x3Container.add(endLabel);
-        top2x3Container.add(endDestDropdown);
-
-        searchButton = new JButton("Search");
-        top3x3Container.add(searchButton);
-
-        //Go through all of the grid containers and set their layout, size and
-        //finally add them to the topContainer.
-        for (Container c : topContainers) {
-            c.setLayout(new FlowLayout());
-            c.setPreferredSize(new Dimension(150, 60));
-            topContainer.add(c);
-        }
+        dateLabel = new JLabel("Departure date: ");
+        peopleLabel = new JLabel("Passengers: ");
+        startLabel = new JLabel("Start destination: ");
+        endLabel = new JLabel("End destination: ");
+        doneButton = new JButton("Search");
         
-        //Add the finished Container to the frame.
-        content.add(topContainer, BorderLayout.PAGE_START);
+        //Set the layouts for the top panels.
+        topLeft.setPreferredSize(new Dimension(150, 60));
+        topMiddleContent.setLayout(new MigLayout());
+        topMiddleContent.setPreferredSize(new Dimension(80, 50));
+        peopleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        topMiddle.setPreferredSize(new Dimension(150, 60));
+        topRightTopContent.setLayout(new BorderLayout());
+        topRightBottomContent.setLayout(new BorderLayout());
+        topRightContent.setLayout(new BorderLayout());
+        endDestDropdown.setBorder(new EmptyBorder(0, 0, 20, 0));
+
+        //Add the components to the top panels
+        topLeft.add(dateLabel);
+        topLeft.add(dateDropdown);
+        
+        //Add middle content panel, and add components to it.
+        topMiddleContent.add(peopleLabel, BorderLayout.PAGE_START);
+        topMiddleContent.add(peopleDropdown, BorderLayout.PAGE_END);
+        topMiddle.add(topMiddleContent);
+
+        
+        //ALLE SKAL LAVES PÅ NEDENSTÅENDE MÅDE!
+        
+        //Add top content panel, topTop panel and topBottom panel.
+        //Then add components to them.
+        topRightContent.add(topRightTopContent);
+        topRightContent.add(topRightBottomContent);
+        topRightTopContent.add(startLabel, BorderLayout.PAGE_START);
+        topRightTopContent.add(startDestDropdown, BorderLayout.PAGE_END);
+        topRightBottomContent.add(endLabel, BorderLayout.PAGE_START);
+        topRightBottomContent.add(endDestDropdown, BorderLayout.PAGE_END);
+        topRightContent.add(topRightTopContent, BorderLayout.PAGE_START);
+        topRightContent.add(topRightBottomContent, BorderLayout.PAGE_END);
+        topRight.add(topRightContent);
+
+
+        //Add the panels to the top part of the window.
+        topContent.add(topLeft, BorderLayout.LINE_START);
+        topContent.add(topMiddle, BorderLayout.CENTER);
+        topContent.add(topRight, BorderLayout.LINE_END);
+        
+        add(topContent, BorderLayout.PAGE_START);
     }
 
     /**
@@ -176,30 +178,18 @@ public class NewReservationFrame extends JFrame {
     private void drawBottomContent()
     {
         {
-            bottomContainer = new JPanel();
-            bottomContainer.setLayout(new FlowLayout());
-            flightList = new FlightList(searchResults);
-            scrollpane = new JScrollPane();
-            flightList.setPreferredSize(new Dimension(490, 290));
-            scrollpane.setPreferredSize(new Dimension(490, 290));
+            bottomContent = new JPanel();
 
-            padding = new JPanel();
-            padding.setPreferredSize(new Dimension(20, 500));
             flightList = new FlightList(searchResults);
             flightList.setSize(new Dimension(490, 240));
 
             doneButton = new JButton("Book Flight");
             doneButton.setMaximumSize(new Dimension(300, 100));
-            
-            scrollpane.setViewportView(flightList);
-            bottomContainer.add(scrollpane);
 
-            content.add(bottomContainer, BorderLayout.LINE_START);
-            content.add(bottomContainer, BorderLayout.LINE_END);
-            content.add(bottomContainer, BorderLayout.CENTER);
-            content.add(doneButton, BorderLayout.PAGE_END);
-            
-            addActionListeners();
+            scrollpane = new JScrollPane();
+            scrollpane.setViewportView(flightList);
+
+            add(bottomContent, BorderLayout.PAGE_END);
         }
     }
 
@@ -234,7 +224,6 @@ public class NewReservationFrame extends JFrame {
             j++;
         }
 
-        
         //Then when the array has been made, we return it.
         return array;
     }
@@ -268,7 +257,6 @@ public class NewReservationFrame extends JFrame {
             }
         });
 
-        
         //Add an ActionListener that changes the chosenPeople to the value chosen when clicked.
         peopleDropdown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -323,7 +311,7 @@ public class NewReservationFrame extends JFrame {
             {
                 try {
                     NewReservationFrame.getInstance().sendOnData();
-                } catch (ParseException | SQLException ex) { 
+                } catch (ParseException | SQLException ex) {
                 }
             }
         });
@@ -347,8 +335,8 @@ public class NewReservationFrame extends JFrame {
     }
 
     /**
-     * Send the data to the controller, and open the next window in the
-     * booking work flow.
+     * Send the data to the controller, and open the next window in the booking
+     * work flow.
      *
      * @throws ParseException
      */
