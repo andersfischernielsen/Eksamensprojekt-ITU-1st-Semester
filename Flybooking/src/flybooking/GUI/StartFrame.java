@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import flybooking.*;
+import java.net.URL;
 import java.sql.SQLException;
 
 /**
@@ -17,6 +18,7 @@ public class StartFrame extends JFrame {
     Container content;
     Container empty;
     Container innerCont;
+    JPanel buttonPanel;
     JButton newBookingButton;
     JButton editBookingButton;
     private static DatabaseInterface database;
@@ -47,17 +49,21 @@ public class StartFrame extends JFrame {
     
     private void drawFrame()
     {
-        setTitle("Flybooking");
-        this.setDefaultCloseOperation(StartFrame.EXIT_ON_CLOSE);
-        content = this.getContentPane();
-        innerCont = new Container();
-        empty = new Container();
-        content.add(innerCont);
-        innerCont.setLayout(new FlowLayout());
-        newBookingButton = new JButton("New booking");
-        editBookingButton = new JButton("Edit booking");
-        innerCont.add(newBookingButton);
-        innerCont.add(editBookingButton);
+        setTitle("Flight Booking");
+        setDefaultCloseOperation(StartFrame.EXIT_ON_CLOSE);
+        
+        URL resource = ClassLoader.getSystemResource("Splash.png");
+	JLabel background = new JLabel(new ImageIcon(resource));
+	add(background);
+	background.setLayout(new BorderLayout());
+        
+        buttonPanel = new JPanel();
+        newBookingButton = new JButton("New Booking");
+        editBookingButton = new JButton("Edit Booking");
+        
+        buttonPanel.add(newBookingButton);
+        buttonPanel.add(editBookingButton);
+	background.add(buttonPanel, BorderLayout.PAGE_END);
 
         pack();
         setVisible(true);
