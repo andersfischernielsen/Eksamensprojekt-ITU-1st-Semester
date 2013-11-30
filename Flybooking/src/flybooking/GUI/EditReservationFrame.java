@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
 import java.util.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
  *
@@ -14,21 +15,23 @@ import java.util.*;
  */
 public class EditReservationFrame extends JFrame {
 
-    private Container content, topContent, bottomContent, topLeft, topRight, bottomLeft, bottomRight, filler;
-    private JButton searchButton;
+    private Container content, top, topContent, filler, filler2, filler3;
+    private JButton searchButton, doneButton;
     private JLabel resLabel, CPRLabel;
     private JTextField resField, CPRField;
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
     private ReservationList reservationList;
     private ArrayList<Reservation> searchResults;
-    
+    private JScrollPane scrollpane;
+
+
     public static EditReservationFrame getInstance(ControllerInterface controller)
     {
         if (instance == null) {
             instance = new EditReservationFrame(controller);
         }
-        
+
         instance.setVisible(true);
         return instance;
     }
@@ -37,90 +40,87 @@ public class EditReservationFrame extends JFrame {
     {
         this.controller = controller;
         setTitle("Edit Reservation");
-        
+
         searchResults = new ArrayList<>();
-        
         content = getContentPane();
 
         createTopContent();
         createBottomContent();
 
         getRootPane().setDefaultButton(searchButton);
+        setMinimumSize(new Dimension(560, 480));
         pack();
         setVisible(true);
     }
 
     private void createTopContent()
     {
-        topContent = new Container();
-        topContent.setLayout(new GridLayout(2, 2));
+        top = new JPanel();
+        topContent = new JPanel();
+        topContent.setLayout(new MigLayout("",
+                "[] 120 []",
+                "5 [] 0 [] 70 [] 5"));
 
-        topLeft = new Container();
         resLabel = new JLabel("Reservation ID: ");
         resField = new JTextField(10);
-        topLeft.add(resLabel);
-        topLeft.add(resField);
-        topLeft.setLayout(new FlowLayout());
 
-        topRight = new Container();
         CPRLabel = new JLabel("CPR #: ");
         CPRField = new JTextField(10);
-        topRight.add(CPRLabel);
-        topRight.add(CPRField);
-        topRight.setLayout(new FlowLayout());
 
-        bottomLeft = new Container();
-
-        bottomRight = new Container();
-        filler = new Container();
-        filler.setPreferredSize(new Dimension(100, 30));
         searchButton = new JButton("Search");
-        
         searchButton.setDefaultCapable(true);
-        searchButton.setAlignmentX(RIGHT_ALIGNMENT);
-        bottomRight.add(filler);
-        bottomRight.add(searchButton);
-        bottomRight.setLayout(new FlowLayout());
+        searchButton.setMinimumSize(new Dimension(133, 20));
 
-        topContent.add(topLeft);
-        topContent.add(topRight);
-        topContent.add(bottomLeft);
-        topContent.add(bottomRight);
-        
-        searchButton.addActionListener(new ActionListener()
-        {
+        filler = new JPanel();
+        filler2 = new JPanel();
+        filler3 = new JPanel();
+
+        topContent.add(resLabel);
+        topContent.add(filler);
+        topContent.add(CPRLabel, "wrap");
+        topContent.add(resField);
+        topContent.add(filler2);
+        topContent.add(CPRField, "wrap");
+        topContent.add(filler3, "span 2");
+        topContent.add(searchButton);
+
+        top.add(topContent);
+        content.add(top, BorderLayout.NORTH);
+
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 if (CPRField.getText() == "") {
                     performIDSearch(resField.getText());
                 }
-                
+
                 if (resField.getText() == "") {
                     performCPRSearch(CPRField.getText());
                 }
             }
         });
-
-        content.add(topContent, BorderLayout.NORTH);
     }
 
     private void createBottomContent()
     {
-        bottomContent = new JPanel();
-        bottomContent.setPreferredSize(new Dimension(500, 300));
         reservationList = new ReservationList(searchResults);
-        reservationList.setPreferredSize(new Dimension(500, 300));
-        bottomContent.add(reservationList);
+        doneButton = new JButton("Edit this flight");
 
-        content.add(bottomContent, BorderLayout.SOUTH);
+        scrollpane = new JScrollPane();
+        scrollpane.setViewportView(reservationList);
+
+        content.add(scrollpane, BorderLayout.CENTER);
+        content.add(doneButton, BorderLayout.PAGE_END);
     }
-    
-    private void performCPRSearch(String CPR) {
+
+    private void performCPRSearch(String CPR)
+    {
         ProgramStorage.getInstance().getReservationsFromCPR(CPR);
     }
-    
-    private void performIDSearch(String ID) {
+
+    private void performIDSearch(String ID)
+    {
         ProgramStorage.getInstance().getReservationsFromID(ID);
     }
 }

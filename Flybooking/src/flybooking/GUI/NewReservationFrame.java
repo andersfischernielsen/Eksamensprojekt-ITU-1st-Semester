@@ -90,6 +90,9 @@ public class NewReservationFrame extends JFrame {
         chosenPeople = 1;
         chosenDate = new Date();
         
+        //Set the default button.
+        getRootPane().setDefaultButton(searchButton);
+        
         //Pack everything and show the frame.
         pack();
         setMinimumSize(new Dimension(560, 480));
@@ -107,8 +110,7 @@ public class NewReservationFrame extends JFrame {
         topContent.setLayout(new MigLayout(
                 "", 
                 "[] 90 [] 90 []",
-                "[] 0  [] 10 [] 0 [] 30 []"));
-        topContent.setPreferredSize(new Dimension(560, 200));
+                "0 [] 0  [] 5 [] 0 [] 20 [] 5"));
         filler = new JPanel();
         filler2 = new JPanel();
         filler3 = new JPanel();
@@ -163,7 +165,6 @@ public class NewReservationFrame extends JFrame {
             
             getContentPane().add(scrollpane, BorderLayout.CENTER);
             getContentPane().add(doneButton, BorderLayout.PAGE_END);
-            setVisible(true);
         }
     }
 

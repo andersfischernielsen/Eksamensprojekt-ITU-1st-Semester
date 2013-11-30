@@ -8,6 +8,7 @@ import javax.swing.*;
 import flybooking.*;
 import java.net.URL;
 import java.sql.SQLException;
+import net.miginfocom.swing.*;
 
 /**
  *
@@ -27,44 +28,50 @@ public class StartFrame extends JFrame {
 
     public static void main(String[] args)
     {
-         database = ProgramStorage.getInstance();
-         controller = Controller.getInstance(database);
-         StartFrame.getInstance();
+        database = ProgramStorage.getInstance();
+        controller = Controller.getInstance(database);
+        StartFrame.getInstance();
     }
-    
+
     private StartFrame() throws HeadlessException
     {
         drawFrame();
         addActionListeners();
     }
 
-    public static StartFrame getInstance() {
+    public static StartFrame getInstance()
+    {
         if (instance == null) {
             instance = new StartFrame();
         }
-        
+
         instance.setVisible(true);
         return instance;
     }
-    
+
     private void drawFrame()
     {
         setTitle("Flight Booking");
         setDefaultCloseOperation(StartFrame.EXIT_ON_CLOSE);
-        
+
         URL resource = ClassLoader.getSystemResource("Splash.png");
-	JLabel background = new JLabel(new ImageIcon(resource));
-	add(background);
-	background.setLayout(new BorderLayout());
-        
+        JLabel background = new JLabel(new ImageIcon(resource));
+        add(background);
+        background.setLayout(new BorderLayout());
+
+        JPanel buttonPanelCont = new JPanel();
         buttonPanel = new JPanel();
+        buttonPanel.setLayout(new MigLayout("", "[] 50", ""));
+
         newBookingButton = new JButton("New Booking");
         editBookingButton = new JButton("Edit Booking");
-        
+
         buttonPanel.add(newBookingButton);
         buttonPanel.add(editBookingButton);
-	background.add(buttonPanel, BorderLayout.PAGE_END);
+        buttonPanelCont.add(buttonPanel);
+	background.add(buttonPanelCont, BorderLayout.SOUTH);
 
+        setResizable(false);
         pack();
         setVisible(true);
     }
@@ -77,7 +84,8 @@ public class StartFrame extends JFrame {
             {
                 try {
                     NewReservationFrame.getInstance();
-                } catch (SQLException ex) {}
+                } catch (SQLException ex) {
+                }
             }
         });
 
