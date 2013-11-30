@@ -37,11 +37,6 @@ public class NewReservationFrame extends JFrame {
     private boolean nextTo;
     private double chosenPrice;
 
-    public static void main(String[] args) throws SQLException
-    {
-        NewReservationFrame.getInstance();
-    }
-
     /**
      * Create a frame for finding and creating reservations.
      *
