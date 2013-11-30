@@ -1,208 +1,150 @@
+
 package flybooking.GUI;
 
 import flybooking.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.*;
 import javax.swing.*;
+import net.miginfocom.swing.MigLayout;
 
 /**
+ * Create a frame for editing passengers and booking seats.
  *
- * @author Anders
+ * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
-public class PersonAndSeatFrame extends JFrame
-{
-
-    // denne er bare til test.
+public class PersonAndSeatFrame extends JFrame {
+    
     private Plane planeToDraw;
-
+    
     private GraphicsComponent graphics;
     private Controller controller;
     private ReservationInterface reservation;
     private ArrayList<String> seatIDsThisRes;
     private int amtOfPersons;
+    private ArrayList<Person> persons;
     private JComboBox personComboBox, ageGroupComboBox;
     private JComponent planeDrawingComp;
-
+    private JLabel firstNameLabel, lastNameLabel, addressLabel, zipLabel;
+    private JTextField firstNameField, lastNameField, addressField, zipField;
+    private JButton bookButton, addButton, deleteButton;
+    private JPanel top, topContent, filler, filler2, filler3, graphicsPanel;
+    private JScrollPane scrollpane;
+    
     public PersonAndSeatFrame() throws HeadlessException
     {
+        //initialize the controller, database and get the current reservation and its plane.
         graphics = new GraphicsComponent();
         controller = Controller.getInstance(ProgramStorage.getInstance());
         reservation = controller.getWorkingOnReservation();
         planeToDraw = reservation.getFlight().getPlane();
         planeToDraw.bookTakenSeats(controller.getBookedSeats());
-        seatIDsThisRes = new ArrayList<String>();
-        for (Person person : reservation.getPersons())
-        {
-            amtOfPersons++;
-        }
         
-        setTitle("Seats and Passengers");
-        setPreferredSize(new Dimension(800, 600));
-        setResizable(false);
-        // setDefaultCloseOperation(EXIT_ON_CLOSE); // ved godt det ikke skal være sådan.
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        add(mainPanel);
-        // laver første opdeling
-        JPanel botPanel = new JPanel();
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BorderLayout());
-        // TOP PANEL's Panels
-        // top left panel
-        JPanel topLeftPanel = new JPanel();
-        topLeftPanel.setLayout(new BorderLayout());
-        topPanel.add(topLeftPanel, BorderLayout.WEST);
-        //
-        JPanel topLeftWestPanel = new JPanel();
-        JPanel topLeftEastPanel = new JPanel();
-        topLeftPanel.add(topLeftEastPanel, BorderLayout.EAST);
-        topLeftPanel.add(topLeftWestPanel, BorderLayout.WEST);
-        topLeftWestPanel.add(Box.createRigidArea(new Dimension(200, 0)));
-        topLeftEastPanel.setLayout(new BoxLayout(topLeftEastPanel, BoxLayout.PAGE_AXIS));
-        // top right panel
-        JPanel topRightPanel = new JPanel();
-        topPanel.add(topRightPanel, BorderLayout.EAST);
-        topRightPanel.setLayout(new BorderLayout());
-        //
-        JPanel topRightEastPanel = new JPanel();
-        topRightEastPanel.add(Box.createRigidArea(new Dimension(200, 0)));
-        topRightPanel.add(topRightEastPanel, BorderLayout.EAST);
-        //
-        JPanel topRightWestPanel = new JPanel();
-        topRightWestPanel.setLayout(new BoxLayout(topRightWestPanel, BoxLayout.PAGE_AXIS));
-        topRightPanel.add(topRightWestPanel, BorderLayout.WEST);
-        // top bot panel
-        JPanel topBotPanel = new JPanel();
-        topPanel.add(topBotPanel, BorderLayout.SOUTH);
-        // Top top panel
-        JPanel topTopPanel = new JPanel();
-        topPanel.add(topTopPanel, BorderLayout.NORTH);
-
-        //tilføjer panels til main panel
-        mainPanel.add(botPanel, BorderLayout.CENTER);
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-
-        // -------------------- CONTENT VENSTRE DEL TOP --------------------
-        // FirstName text
-        JTextField firstNameText = new JTextField("First name");
-        firstNameText.setEditable(false);
-        firstNameText.setBorder(BorderFactory.createEmptyBorder());
-        topLeftEastPanel.add(firstNameText);
-        // FirstName textField
-        JTextField firstNameTextField = new JTextField("Put first name here...");
-        firstNameTextField.setForeground(Color.gray);
-        firstNameTextField.setPreferredSize(new Dimension(0, 22));
-        topLeftEastPanel.add(firstNameTextField);
-        topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-
-        // LastName text
-        JTextField lastNameText = new JTextField("Last name");
-        lastNameText.setEditable(false);
-        lastNameText.setBorder(BorderFactory.createEmptyBorder());
-        topLeftEastPanel.add(lastNameText);
-        // LastName textField
-        JTextField lastNameTextField = new JTextField("Put last name here...");
-        lastNameTextField.setForeground(Color.gray);
-        lastNameTextField.setPreferredSize(new Dimension(0, 22));
-        topLeftEastPanel.add(lastNameTextField);
-
-        // AgeGroup combobox
-        String[] ageGroups =
-        {
-            "Child",
-            "Adult",
-            "Elder"
-        };
-        ageGroupComboBox = new JComboBox(ageGroups);
-        topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        topLeftEastPanel.add(ageGroupComboBox);
-
-        // Persons ComboBox
-        personComboBox = new JComboBox();
-        updatePersonComboBox();
-        topLeftEastPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        topLeftEastPanel.add(personComboBox);
-
-        // -------------------- CONTENT HØJRE DEL TOP ----------------------
-        // Address text
-        JTextField AddressText = new JTextField("Address");
-        AddressText.setEditable(false);
-        AddressText.setBorder(BorderFactory.createEmptyBorder());
-        topRightWestPanel.add(AddressText);
-        // Street textField
-        JTextField streetTextField = new JTextField("Street...");
-        streetTextField.setForeground(Color.gray);
-        streetTextField.setPreferredSize(new Dimension(100, 22));
-        topRightWestPanel.add(streetTextField);
-        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-        // City textField
-        JTextField cityTextField = new JTextField("ZIP, City, Country");
-        cityTextField.setForeground(Color.gray);
-        cityTextField.setPreferredSize(new Dimension(100, 22));
-        topRightWestPanel.add(cityTextField);
-        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 25)));
-        // delete person button
-        JButton deletePersonButton = new JButton("Delete Person");
-        deletePersonButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent pressed)
-            {
-                deletePerson();
-            }
-        });
-        topRightWestPanel.add(deletePersonButton);
-        topRightWestPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        //save Person Button
-        JButton savePersonButton = new JButton("Save Person");
-        savePersonButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent pressed)
-            {
-                savePerson();
-            }
-        });
-        topRightWestPanel.add(savePersonButton);
-
-        // -------------------- CONTENT TOP TOP ----------------------
+        seatIDsThisRes = new ArrayList<>();
+        persons = new ArrayList<>();
+        
+        countPeople();
+        drawTop();
+        drawBottom();
+        addActionListeners();
+        
+        getRootPane().setDefaultButton(bookButton);
+        setMinimumSize(new Dimension(560, 480));
+        
         pack();
-        topTopPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        topTopPanel.add(graphics.paintHeader(20, getWidth() - 40));
-        topTopPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        setSize(new Dimension(560, 480));
+        setVisible(true);
+    }
 
-        // -------------------- CONTENT TOP BUND ----------------------
-        // back button
-        topBotPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent pressed)
-            {
-                back();
-            }
-        });
-        topBotPanel.add(backButton);
-        // book button
-        JButton bookButton = new JButton("> Book");
-        bookButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent pressed)
-            {
-                confirmBooking();
-            }
-        });
-        topBotPanel.add(bookButton);
+    /**
+     * Draw the top part of the window.
+     */
+    private void drawTop()
+    {
+        setTitle("Edit Passengers");
+        
+        top = new JPanel();
+        topContent = new JPanel();
+        topContent.setLayout(new MigLayout("",
+                "0 [] 50 [] 50 [] 0",
+                "5 [] 0 [] 5 [] 0 [] 5 []"));
 
-        // -------------------- CONTENT BUNDEN ----------------------
-        // the plane drawing
+        //Initialize all labels.
+        firstNameLabel = new JLabel(" First name:");
+        lastNameLabel = new JLabel(" Last name:");
+        addressLabel = new JLabel(" Address:");
+        zipLabel = new JLabel(" ZIP, city & country");
+
+        //Initialize all text fields.
+        firstNameField = new JTextField();
+        lastNameField = new JTextField();
+        addressField = new JTextField();
+        zipField = new JTextField();
+        firstNameField.setColumns(13);
+        lastNameField.setColumns(13);
+        addressField.setColumns(13);
+        zipField.setColumns(13);
+
+        //Initialize all fillers.
+        filler = new JPanel();
+        filler2 = new JPanel();
+        filler3 = new JPanel();
+
+        //Initialize all buttons.
+        addButton = new JButton("Add");
+        deleteButton = new JButton("Remove");
+        bookButton = new JButton("Book");
+        bookButton.setMinimumSize(new Dimension(170, 20));
+        bookButton.setDefaultCapable(true);
+
+        //Initialize all dropdowns.
+        String[] ages = {"Adult", "Child", "Elderly"};
+        ageGroupComboBox = new JComboBox(ages);
+        personComboBox = new JComboBox(getPeopleAsArray());
+        personComboBox.setAlignmentX(JComboBox.RIGHT_ALIGNMENT);
+
+        //Add the first and second line of components.
+        topContent.add(firstNameLabel);
+        topContent.add(filler);
+        topContent.add(addressLabel, "wrap");
+        topContent.add(firstNameField);
+        topContent.add(ageGroupComboBox);
+        topContent.add(addressField, "wrap");
+
+        //Add the third and fourth line of components.
+        topContent.add(lastNameLabel);
+        topContent.add(filler2);
+        topContent.add(zipLabel, "wrap");
+        topContent.add(lastNameField);
+        topContent.add(personComboBox);
+        topContent.add(zipField, "wrap");
+
+        //Add the last line of components.
+        topContent.add(addButton, "split 2");
+        topContent.add(deleteButton, "gapleft -30");
+        topContent.add(filler3);
+        topContent.add(bookButton);
+
+        //Add everything to the top part of the main frame.
+        top.add(topContent);
+        add(top, BorderLayout.NORTH);
+    }
+
+    /**
+     * Draw the bottom part of the window.
+     */
+    private void drawBottom()
+    {
+        scrollpane = new JScrollPane();
+        graphicsPanel = new JPanel();
         planeDrawingComp = graphics.paintPlaneSeats(planeToDraw);
-        planeDrawingComp.addMouseListener(new MouseListener()
-        {
-
+        
+        graphicsPanel.setLayout(new GridBagLayout());
+        graphicsPanel.add(planeDrawingComp);
+        scrollpane.setViewportView(graphicsPanel);
+        
+        planeDrawingComp.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e)
             {
@@ -210,82 +152,153 @@ public class PersonAndSeatFrame extends JFrame
                 planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
-                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();)
-                {
+                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();) {
                     String s = it.next();
                     System.out.println(s);
                 }
                 
             }
-
+            
             @Override
             public void mousePressed(MouseEvent e)
             {
             }
-
+            
             @Override
             public void mouseReleased(MouseEvent e)
             {
             }
-
+            
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                //
             }
-
+            
             @Override
             public void mouseExited(MouseEvent e)
             {
-                //
             }
         });
-        botPanel.add(planeDrawingComp);
-
-        pack();
-        setVisible(true);
-    }
-
-    private void updatePersonComboBox()
-    {
-        for (int i = 1; i <= this.amtOfPersons; i++)
-        {
-            personComboBox.addItem("Person " + (i));
-        }
-        personComboBox.addItem("Add another person");
-
+        
+        add(scrollpane, BorderLayout.CENTER);
     }
 
     /**
-    private void changeSeatAvailability(int x, int y)
-    {
-        planeDrawingComp
-    }
-    */
-    
-
-    private void savePerson()
-    {
-        System.out.println("Save person");
+     * Update the personCombobox to show all the persons currently added to the
+     * reservation.
+     */
+    private void updatePersonComboBox()
+    {        
+        personComboBox = new JComboBox(getPeopleAsArray());
+        personComboBox.addItem("Add another...");
     }
 
+    /**
+     * private void changeSeatAvailability(int x, int y) { planeDrawingComp }
+     */
+    /**
+     * Add a person to the reservation.
+     */
+    private void addPerson() throws SQLException
+    {
+        countPeople();
+        persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
+        updatePersonComboBox();
+    }
+
+    /**
+     * Remove a person from the reservation.
+     */
     private void deletePerson()
     {
         System.out.println("Delete person");
     }
 
-    private void confirmBooking()
+    /**
+     * Confirm the reservation, saving it in the booking system
+     */
+    private void confirmReservation()
     {
         reservation.bookSeats(seatIDsThisRes);
         controller.setWorkingOnReservation(reservation);
         controller.saveReservation(ProgramStorage.getInstance());
         reservation.getFlight().getPlane().resetSeats();
-        this.setVisible(false); 
-        this.dispose();
+        setVisible(false);
+        dispose();
     }
 
-    private void back()
+    /**
+     * Count all the passengers currently in the reservation.
+     */
+    private void countPeople()
     {
-        System.out.println("Back");
+        for (Person person : persons) {
+            amtOfPersons++;
+        }
+    }
+
+    /**
+     * Get the names of the passengers in the reservation as an array.
+     *
+     * @return An array of names of passengers.
+     */
+    private String[] getPeopleAsArray()
+    {
+        countPeople();
+        String[] peopleInReservation = new String[amtOfPersons];
+        
+        if (persons.size() > 1) {
+            int i = 0;
+            for (Person p : persons) {
+                peopleInReservation[i] = p.getFirstName();
+            }
+        }
+        
+        return peopleInReservation;
+    }
+
+    /**
+     * Add ActionListeners to the components in the frame.
+     */
+    private void addActionListeners()
+    {
+        bookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                confirmReservation();
+            }
+        });
+        
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                try { addPerson();
+                } catch (SQLException ex) {}
+            }
+        });
+        
+    }
+
+    /**
+     * Convert the persons age group into an integer value. 0 for adult, 1 for
+     * child and 2 for elderly.
+     *
+     * @param combobox The JComboBox to check.
+     * @return 0 if adult is selected, 1 if child is selected and 2 if elderly
+     * is selected.
+     */
+    private int getGroupID(JComboBox combobox)
+    {
+        if (combobox.getSelectedItem().equals("Child")) {
+            return 1;
+        }
+        
+        if (combobox.getSelectedItem().equals("Elderly")) {
+            return 2;
+        }
+        
+        return 0;
     }
 }
