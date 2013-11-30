@@ -89,11 +89,11 @@ public class Calculator
      * @return A new ID.
      * @throws SQLException 
      */
-    public static String createPersonID() throws SQLException
+    public static int createPersonID() throws SQLException
     {
         while (true)
         {
-            String personID = "" + randomGen.nextInt(99999);
+            int personID = randomGen.nextInt(99999);
             if (Database.getInstance().checkForID(personID))
             {
                 return personID;
@@ -106,11 +106,11 @@ public class Calculator
      * @return A new ID.
      * @throws SQLException 
      */
-    public static String createReservationID() throws SQLException
+    public static int createReservationID() throws SQLException
     {
         while (true)
         {
-            String personID = "" + randomGen.nextInt(9999);
+            int personID = randomGen.nextInt(9999);
             if (Database.getInstance().checkForID(personID))
             {
                 return personID;

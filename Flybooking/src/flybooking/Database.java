@@ -180,16 +180,16 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public boolean checkForID(String ID) throws SQLException
+    public boolean checkForID(int ID) throws SQLException
     {
-        if (ID.length() <= 4) {
+        if (ID <= 9999) {
             ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
             if (matchingIDs.next()) {
                 return false;
             }
         }
 
-        if (ID.length() > 4) {
+        if (ID > 9999) {
             ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
             if (matchingIDs.next()) {
                 return false;

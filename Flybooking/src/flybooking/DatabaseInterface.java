@@ -101,7 +101,7 @@ public interface DatabaseInterface
      *
      * @throws java.sql.SQLException
      */
-    boolean checkForID(String ID) throws SQLException;
+    boolean checkForID(int ID) throws SQLException;
 
     /**
      * Find all booked seats on a certain flight by searching through

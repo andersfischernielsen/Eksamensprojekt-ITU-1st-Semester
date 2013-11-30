@@ -114,7 +114,7 @@ public interface ControllerInterface
      *
      * @throws SQLException
      */
-    boolean checkForID(String ID) throws SQLException;
+    boolean checkForID(int ID) throws SQLException;
 
     /**
      * Saves the seatIDs which are booked on this reservation.

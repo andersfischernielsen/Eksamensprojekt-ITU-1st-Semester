@@ -190,7 +190,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public boolean checkForID(String ID) throws SQLException
+    public boolean checkForID(int ID) throws SQLException
     {
         // maybe not neccesary
         for (ReservationInterface reservation : reservationList) {

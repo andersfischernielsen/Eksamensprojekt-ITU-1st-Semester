@@ -120,7 +120,7 @@ public class Controller implements ControllerInterface
     }
 
     @Override
-    public boolean checkForID(String ID) throws SQLException
+    public boolean checkForID(int ID) throws SQLException
     {
         database.checkForID(ID);
 
