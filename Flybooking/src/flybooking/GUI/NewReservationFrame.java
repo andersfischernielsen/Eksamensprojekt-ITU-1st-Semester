@@ -86,10 +86,9 @@ public class NewReservationFrame extends JFrame {
 
         //Draw the top and bottom part of the GUI.
         setLayout(new BorderLayout());
-        flightList = new FlightList(searchResults);
         drawTopContent();
         drawBottomContent();
-        //addActionListeners();
+        addActionListeners();
 
         //Get the default values from the GUI, so we won't get an exception 
         //if nothing is clicked before searching.
@@ -109,14 +108,13 @@ public class NewReservationFrame extends JFrame {
      */
     private void drawTopContent() throws SQLException
     {
-        //Create the three top panels and the comboboxes.
-        setLayout(new FlowLayout());
+        //Create the top content panel, and set its layout and inner spacing..
         topContent = new JPanel();
         topContent.setLayout(new MigLayout(
                 "", 
                 "[] 90 [] 90 []",
-                "[] 5 [] 10 [] 5 [] 20 []"));
-        topContent.setPreferredSize(new Dimension(560, 480));
+                "[] 0  [] 10 [] 0 [] 30 []"));
+        topContent.setPreferredSize(new Dimension(560, 200));
         filler = new JPanel();
         filler2 = new JPanel();
         filler3 = new JPanel();
@@ -126,14 +124,19 @@ public class NewReservationFrame extends JFrame {
         peopleDropdown = new JComboBox(people);
         startDestDropdown = new JComboBox(drawDestinations());
         endDestDropdown = new JComboBox(drawDestinations());
-        dateLabel = new JLabel("Departure date: ");
-        peopleLabel = new JLabel("Passengers: ");
-        startLabel = new JLabel("Start destination: ");
-        endLabel = new JLabel("End destination: ");
-        doneButton = new JButton("Search");
+        dateLabel = new JLabel(" Departure date:");
+        peopleLabel = new JLabel(" Passengers:");
+        startLabel = new JLabel(" Start destination:");
+        endLabel = new JLabel(" End destination:");
+        searchButton = new JButton("Search");
         
-        doneButton.setHorizontalAlignment(JButton.RIGHT);
+        //Set the sizes and indexes of specific components.
+        searchButton.setMinimumSize(new Dimension(133, 20));
+        searchButton.setDefaultCapable(true);
+        peopleDropdown.setMinimumSize(new Dimension(80, 20));
+        dateDropdown.setSelectedIndex(7);
         
+        //Add the components so they show up in the right places.
         topContent.add(dateLabel);
         topContent.add(peopleLabel);
         topContent.add(startLabel, "wrap");
@@ -145,8 +148,9 @@ public class NewReservationFrame extends JFrame {
         topContent.add(filler2, "span 2");
         topContent.add(endDestDropdown, "wrap");
         topContent.add(filler3, "span 2");
-        topContent.add(doneButton, "gapleft 25");
+        topContent.add(searchButton);
         
+        //Add the finished top panel to the main frame.
         add(topContent, BorderLayout.PAGE_START);
     }
 
@@ -155,11 +159,16 @@ public class NewReservationFrame extends JFrame {
      */
     private void drawBottomContent()
     {
-        {   
-            bottomContent = new JPanel();
-            bottomContent.add(flightList);
+        {
+            flightList = new FlightList(searchResults);
+            doneButton = new JButton("Book this flight");
             
-            add(bottomContent, BorderLayout.PAGE_END);
+            scrollpane = new JScrollPane();
+            scrollpane.setViewportView(flightList);
+            
+            add(scrollpane, BorderLayout.CENTER);
+            add(doneButton, BorderLayout.PAGE_END);
+            setVisible(true);
         }
     }
 
@@ -264,14 +273,6 @@ public class NewReservationFrame extends JFrame {
                     performSearch();
                 } catch (SQLException ex) {
                 }
-            }
-        });
-
-        //Add an ActionListener that changes the boolean nextTo when clicked.
-        checkbox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                nextTo = !nextTo;
             }
         });
 
