@@ -138,6 +138,7 @@ public class PersonAndSeatFrame extends JFrame {
     {
         scrollpane = new JScrollPane();
         graphicsPanel = new JPanel();
+        graphicsPanel.setBackground(Color.WHITE);
         planeDrawingComp = graphics.paintPlaneSeats(planeToDraw);
         
         graphicsPanel.setLayout(new GridBagLayout());

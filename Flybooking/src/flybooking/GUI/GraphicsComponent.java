@@ -73,6 +73,7 @@ public class GraphicsComponent
      *
      * @param height
      * @param width
+     * @return 
      */
     public HeaderGraphicsComponent paintHeader(int height, int width)
     {
@@ -95,7 +96,7 @@ public class GraphicsComponent
             this.planeToDraw = planeToDraw;
             rows = planeToDraw.getRows();
             cols = planeToDraw.getColumns();
-            seatIDsThisRes = new ArrayList<String>();
+            seatIDsThisRes = new ArrayList<>();
         }
 
         /**
@@ -108,11 +109,6 @@ public class GraphicsComponent
         {
             int fixdistanceX = 25;
             int fixdistanceY = 25;
-            // draws a rect around the seats.
-            g.setColor(Color.WHITE);
-            g.fillRect(0, 0, cols * unit + 79, rows * unit + 64);
-            g.setColor(Color.BLACK);
-            g.drawRect(0, 0, cols * unit + 79, rows * unit + 64);
 
             for (int i = 0; i < cols; i++)
             {
