@@ -61,10 +61,10 @@ public class EditReservationFrame extends JFrame {
                 "[] 120 []",
                 "5 [] 0 [] 70 [] 5"));
 
-        resLabel = new JLabel("Reservation ID: ");
+        resLabel = new JLabel(" Reservation ID: ");
         resField = new JTextField(10);
 
-        CPRLabel = new JLabel("CPR #: ");
+        CPRLabel = new JLabel(" CPR #: ");
         CPRField = new JTextField(10);
 
         searchButton = new JButton("Search");
