@@ -59,6 +59,7 @@ public class ReservationList extends JList {
         public Component getListCellRendererComponent(final JList list, final Object value, final int index, final boolean isSelected, final boolean hasFocus)
         {
             Reservation res = (Reservation) value;
+            setFocusable(true);
             
             //All the panels and textfields to create the cell.
             final JPanel panel, topCellContent, bottomCellContent;
@@ -120,6 +121,17 @@ public class ReservationList extends JList {
                 bottomCellContent.setBackground(new Color(135, 206, 250));
                 selectedReservation = res;
             }
+			
+            //Alternate coloration of rows.
+            if (index % 2 == 0) {
+                topCellContent.setBackground(Color.WHITE);
+                bottomCellContent.setBackground(Color.WHITE);
+            }
+            else {
+                topCellContent.setBackground(new Color(247, 247, 247));
+                bottomCellContent.setBackground(new Color(247, 247, 247));
+            }
+			
             
             //Return the finished panel.
             return panel;
