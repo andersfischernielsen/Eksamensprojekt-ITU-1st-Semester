@@ -20,9 +20,8 @@ public class NewReservationFrame extends JFrame {
     //All of the Swing components needed to draw the interface.
     private JComboBox dateDropdown, peopleDropdown, startDestDropdown, endDestDropdown;
     private JButton searchButton, doneButton;
-    private JCheckBox checkbox;
     private FlightList flightList;
-    private JPanel topContent, bottomContent, filler, filler2, filler3;
+    private JPanel top, topContent, filler, filler2, filler3;
     private JLabel dateLabel, peopleLabel, startLabel, endLabel;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
@@ -80,12 +79,11 @@ public class NewReservationFrame extends JFrame {
      */
     public void drawFrame() throws SQLException
     {
-        //Set up the main frame.
         setTitle("New Reservation");
-        setResizable(false);
-
+        
         //Draw the top and bottom part of the GUI.
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        getContentPane().setLayout(new BorderLayout());
         drawTopContent();
         drawBottomContent();
         addActionListeners();
@@ -99,7 +97,7 @@ public class NewReservationFrame extends JFrame {
         
         //Pack everything and show the frame.
         pack();
-        setSize(new Dimension(560, 480));
+        setMinimumSize(new Dimension(560, 480));
         setVisible(true);
     }
 
@@ -109,6 +107,7 @@ public class NewReservationFrame extends JFrame {
     private void drawTopContent() throws SQLException
     {
         //Create the top content panel, and set its layout and inner spacing..
+        top = new JPanel();
         topContent = new JPanel();
         topContent.setLayout(new MigLayout(
                 "", 
@@ -151,7 +150,8 @@ public class NewReservationFrame extends JFrame {
         topContent.add(searchButton);
         
         //Add the finished top panel to the main frame.
-        add(topContent, BorderLayout.PAGE_START);
+        top.add(topContent);
+        getContentPane().add(top, BorderLayout.PAGE_START);
     }
 
     /**
@@ -166,8 +166,8 @@ public class NewReservationFrame extends JFrame {
             scrollpane = new JScrollPane();
             scrollpane.setViewportView(flightList);
             
-            add(scrollpane, BorderLayout.CENTER);
-            add(doneButton, BorderLayout.PAGE_END);
+            getContentPane().add(scrollpane, BorderLayout.CENTER);
+            getContentPane().add(doneButton, BorderLayout.PAGE_END);
             setVisible(true);
         }
     }
