@@ -115,13 +115,6 @@ public class FlightList extends JList {
             panel.add(topCellContent, BorderLayout.NORTH);
             panel.add(bottomCellContent, BorderLayout.SOUTH);
             
-            //Color the selected cell, and set is as the currently selected.
-            if (isSelected) {
-                topCellContent.setBackground(new Color(135, 206, 250));
-                bottomCellContent.setBackground(new Color(135, 206, 250));
-                selectedFlight = flight;
-            }
-            
             //Alternate coloration of rows.
             if (index % 2 == 0) {
                 topCellContent.setBackground(Color.WHITE);
@@ -130,6 +123,13 @@ public class FlightList extends JList {
             else {
                 topCellContent.setBackground(new Color(247, 247, 247));
                 bottomCellContent.setBackground(new Color(247, 247, 247));
+            }
+            
+            //Color the selected cell, and set is as the currently selected.
+            if (isSelected) {
+                topCellContent.setBackground(new Color(160, 160, 160));
+                bottomCellContent.setBackground(new Color(160, 160, 160));
+                selectedFlight = flight;
             }
             
             //Return the finished panel.

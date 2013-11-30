@@ -114,13 +114,6 @@ public class ReservationList extends JList {
             //Add the top and bottom part to the main panel in the cell.
             panel.add(topCellContent, BorderLayout.NORTH);
             panel.add(bottomCellContent, BorderLayout.SOUTH);
-            
-            //Color the selected cell, and set is as the currently selected.
-            if (isSelected) {
-                topCellContent.setBackground(new Color(135, 206, 250));
-                bottomCellContent.setBackground(new Color(135, 206, 250));
-                selectedReservation = res;
-            }
 			
             //Alternate coloration of rows.
             if (index % 2 == 0) {
@@ -128,10 +121,16 @@ public class ReservationList extends JList {
                 bottomCellContent.setBackground(Color.WHITE);
             }
             else {
-                topCellContent.setBackground(new Color(247, 247, 247));
-                bottomCellContent.setBackground(new Color(247, 247, 247));
+                topCellContent.setBackground(new Color(100, 100, 100));
+                bottomCellContent.setBackground(new Color(100, 100, 100));
             }
-			
+		
+            //Color the selected cell, and set is as the currently selected.
+            if (isSelected) {
+                topCellContent.setBackground(new Color(160, 160, 160));
+                bottomCellContent.setBackground(new Color(160, 160, 160));
+                selectedReservation = res;
+            }
             
             //Return the finished panel.
             return panel;
