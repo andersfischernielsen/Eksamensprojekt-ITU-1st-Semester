@@ -160,8 +160,36 @@ public class Controller implements ControllerInterface
     }
     
     @Override
+    public ArrayList<String> getBookedThisResSeats()
+    {
+        System.out.println(workingOnReservation.getFlight().getID());
+        if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null)
+        {
+            return database.getBookedSeatsOnReservation(workingOnReservation.getID());
+        }
+        else
+        {
+            return new ArrayList<String>();
+        }
+    }    
+    
+    @Override
     public void resetController()
     {
         workingOnReservation = new Reservation();
+    }
+
+    @Override
+    public ArrayList<Person> getBookedPersons()
+    {
+        System.out.println(workingOnReservation.getFlight().getID());
+        if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null)
+        {
+            return database.getBookedPersons(workingOnReservation.getID());
+        }
+        else
+        {
+            return new ArrayList<Person>();
+        }        
     }
 }
