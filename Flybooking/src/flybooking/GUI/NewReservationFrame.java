@@ -157,12 +157,16 @@ public class NewReservationFrame extends JFrame {
     private void drawBottomContent()
     {
         {
+            //Initialize a ned FLightList, and add the search results to it.
             flightList = new FlightList(searchResults);
+            //Initialize the doneButton.
             doneButton = new JButton("Book this flight");
             
+            //Add the FlightList to the scrollpane.
             scrollpane = new JScrollPane();
             scrollpane.setViewportView(flightList);
             
+            //Add the scrollpane and button to the frame.
             getContentPane().add(scrollpane, BorderLayout.CENTER);
             getContentPane().add(doneButton, BorderLayout.PAGE_END);
         }
@@ -214,7 +218,7 @@ public class NewReservationFrame extends JFrame {
     }
 
     /**
-     * Add all of the ugly ActionListener code to the ComboBoxes and Buttons.
+     * Add all of the ActionListener code to the ComboBoxes and Buttons.
      */
     private void addActionListeners()
     {
