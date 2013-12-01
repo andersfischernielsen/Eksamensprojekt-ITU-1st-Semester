@@ -29,8 +29,6 @@ public class Reservation implements ReservationInterface {
         //VI SNAKKEDE OM, VEL?
         //DEN SKULLE BARE HAVE SETTERS TIL ALLE FELTERNE, SÅ VI KAN OPRETTE EN 
         //TOM RESERVATION FØRST. 
-        
-        persons = new ArrayList<>();
 
         //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM TIL AT GENERERE ID'S. 
         //DE SKAL LIGGE I KRONOLOGISK ORDEN, GÅR JEG UD FRA, 
