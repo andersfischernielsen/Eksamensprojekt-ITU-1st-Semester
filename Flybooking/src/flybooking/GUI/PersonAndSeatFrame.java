@@ -31,6 +31,7 @@ public class PersonAndSeatFrame extends JFrame {
     private JButton bookButton, addButton, deleteButton;
     private JPanel top, topContent, filler, filler2, filler3, graphicsPanel;
     private JScrollPane scrollpane;
+    private String addItem;
 
     public PersonAndSeatFrame() throws HeadlessException
     {
@@ -148,9 +149,12 @@ public class PersonAndSeatFrame extends JFrame {
         add(scrollpane, BorderLayout.CENTER);
     }
 
-    /**
-     * private void changeSeatAvailability(int x, int y) { planeDrawingComp }
-     */
+    private void changeSeatAvailability(int x, int y)
+    {
+        //NOT IMPLEMENTED YET.
+        System.out.println("changeSeatAvailability isn't implemented yet!");
+    }
+
     /**
      * Add a person to the reservation.
      */
@@ -168,7 +172,9 @@ public class PersonAndSeatFrame extends JFrame {
     private void updatePersonComboBox()
     {
         personComboBox.setModel(new DefaultComboBoxModel(getPeopleAsArray()));
-        personComboBox.addItem("Add another...");
+        addItem = "Add another...";
+        personComboBox.addItem(addItem);
+        addButton.setText("Add");
     }
 
     /**
@@ -176,7 +182,8 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private void deletePerson()
     {
-        System.out.println("Delete person");
+        persons.remove(personComboBox.getSelectedIndex());
+        updatePersonComboBox();
     }
 
     /**
@@ -212,7 +219,7 @@ public class PersonAndSeatFrame extends JFrame {
         countPeople();
         Object[] personsAsArray = persons.toArray();
         String[] peopleInReservation = new String[personsAsArray.length];
-        
+
         if (personsAsArray.length > 0) {
             for (int i = 0; i < personsAsArray.length; i++) {
                 Person temp = (Person) personsAsArray[i];
@@ -280,6 +287,39 @@ public class PersonAndSeatFrame extends JFrame {
                     addPerson();
                 } catch (SQLException ex) {
                 }
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                deletePerson();
+            }
+        });
+        
+        personComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                //If the clicked item is the addItem, then empty all of the text fields.
+                if (personComboBox.getSelectedItem().equals(addItem)) {
+                    firstNameField.setText("");
+                    lastNameField.setText("");
+                    addressField.setText("");
+                    zipField.setText("");
+                    //And then end the method.
+                    return;
+                }
+
+                //If the clicked item isn't the addItem it must be a person.
+                Person temp = persons.get(personComboBox.getSelectedIndex());
+
+                //Then set the fields with that persons information.
+                firstNameField.setText(temp.getFirstName());
+                lastNameField.setText(temp.getLastName());
+                addressField.setText(temp.getAdress());
+                addButton.setText("Save");
             }
         });
 
