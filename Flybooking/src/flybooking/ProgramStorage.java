@@ -224,7 +224,7 @@ public class ProgramStorage implements DatabaseInterface {
     public ArrayList<String> getBookedSeatsOnReservation(String reservationID)
     {
         for (ReservationInterface reservation : reservationList) {
-            if (reservation.getID().equals(reservationID)) {
+            if (reservationID != null && reservation.getID() != null && reservation.getID().equals(reservationID)) {
                 return reservation.getBookedSeats();
             }
         }
@@ -262,5 +262,17 @@ public class ProgramStorage implements DatabaseInterface {
 
             return results;
         }
+    }
+
+    @Override
+    public ArrayList<Person> getBookedPersons(String reservationID)
+    {
+        for (ReservationInterface reservation : reservationList) {
+            if (reservation.getID() != null && reservationID != null && reservation.getID().equals(reservationID)) {
+                return reservation.getBookedPersons();
+            }
+        }
+        System.out.println("Found no reservation with that ID");
+        return new ArrayList<Person>();
     }
 }

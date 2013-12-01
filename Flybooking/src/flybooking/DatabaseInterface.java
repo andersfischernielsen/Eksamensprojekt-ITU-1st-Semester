@@ -23,7 +23,6 @@ public interface DatabaseInterface
      */
     Plane getPlane(String PlaneID) throws SQLException;
 
-
     /**
      * Returns an ArrayList of flights that match the specified search terms.
      *
@@ -114,24 +113,39 @@ public interface DatabaseInterface
     ArrayList<String> getAllBookedSeats(int flightID);
 
     /**
+     * Returns an array of persons who are kept in a reservation with ID
+     * "reservationID"
+     *
+     * @param reservationID the reservationID to check for persons in
+     *
+     * @return an arrayList of persons.
+     */
+    ArrayList<Person> getBookedPersons(String reservationID);
+
+    /**
      * Find the booked seats on a specific reservation.
+     *
      * @param reservationID the reservation we want to get the booked seats
      *                      from.
      *
      * @return an ArrayList of seatID strings
      */
     ArrayList<String> getBookedSeatsOnReservation(String reservationID);
-    
+
     /**
      * Get all matching Reservations from a CPR number.
+     *
      * @param CPR The CPR to search with.
+     *
      * @return An ArrayList of matching Reservations.
      */
     ArrayList<ReservationInterface> getReservationsFromCPR(String CPR);
-    
+
     /**
      * Get all matching Reservations from an reservation ID.
+     *
      * @param ID The ID to search with.
+     *
      * @return An ArrayList of matching Reservations.
      */
     ArrayList<ReservationInterface> getReservationsFromID(String ID);
