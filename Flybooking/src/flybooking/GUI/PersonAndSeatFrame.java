@@ -15,44 +15,45 @@ import net.miginfocom.swing.MigLayout;
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
 public class PersonAndSeatFrame extends JFrame {
-
-    private Plane planeToDraw;
-
-    private GraphicsComponent graphics;
+    
+    private Plane planeToDraw; //The plane to draw.
+    private GraphicsComponent graphics; //The graphics to use.
     private Controller controller;
-    private ReservationInterface reservation;
+    private ReservationInterface reservation; //The current reservation.
     private ArrayList<String> seatIDsThisRes;
-    private int amtOfPersons;
-    private ArrayList<Person> persons;
-    private JComboBox personComboBox, ageGroupComboBox;
-    private JComponent planeDrawingComp;
-    private JLabel firstNameLabel, lastNameLabel, addressLabel, zipLabel;
-    private JTextField firstNameField, lastNameField, addressField, zipField;
-    private JButton bookButton, addButton, deleteButton;
-    private JPanel top, topContent, filler, filler2, filler3, graphicsPanel;
-    private JScrollPane scrollpane;
-    private String addItem;
+    private int amtOfPersons; //The amount of passengers in the reservation.
+    private ArrayList<Person> persons; //The passengers in the reservation.
+    private JComboBox personComboBox, ageGroupComboBox; //Comboboxes for the UI.
+    private JComponent planeDrawingComp; 
+    private JLabel firstNameLabel, lastNameLabel, addressLabel, zipLabel; //Text labels for the UI.
+    private JTextField firstNameField, lastNameField, addressField, zipField; //Input fields for the UI.
+    private JButton bookButton, addButton, deleteButton; //Buttons for the UI.
+    private JPanel top, topContent, filler, filler2, filler3, graphicsPanel; //Panels for setting up the UI.
+    private JScrollPane scrollpane; //A scrollpane for the graphics component.
+    private String addItem; //A string for the person combobox.
 
     public PersonAndSeatFrame() throws HeadlessException
     {
-        //initialize the controller, database and get the current reservation and its plane.
+        //Initialize the controller, database and get the current reservation and its plane.
         graphics = new GraphicsComponent();
         controller = Controller.getInstance(ProgramStorage.getInstance());
         reservation = controller.getWorkingOnReservation();
         planeToDraw = reservation.getFlight().getPlane();
         planeToDraw.bookTakenSeats(controller.getBookedSeats());
 
+        //Initialize empty ArrayLists
         seatIDsThisRes = new ArrayList<>();
         persons = new ArrayList<>();
 
+        //Set up the frame.
         countPeople();
         drawTop();
         drawBottom();
         addListeners();
-
         getRootPane().setDefaultButton(bookButton);
         setMinimumSize(new Dimension(560, 480));
 
+        //Show the frame.
         pack();
         setSize(new Dimension(560, 480));
         setVisible(true);
@@ -137,15 +138,18 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private void drawBottom()
     {
+        //Initialize the scrollpane, the inner panel and the graphics to add.
         scrollpane = new JScrollPane();
         graphicsPanel = new JPanel();
         graphicsPanel.setBackground(Color.WHITE);
         planeDrawingComp = graphics.paintPlaneSeats(planeToDraw);
 
+        //Set up the layout, and add the components.
         graphicsPanel.setLayout(new GridBagLayout());
         graphicsPanel.add(planeDrawingComp);
         scrollpane.setViewportView(graphicsPanel);
 
+        //Add the finished pane to the frame.
         add(scrollpane, BorderLayout.CENTER);
     }
 
@@ -160,8 +164,10 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private void addPerson() throws SQLException
     {
+        //Count the number of people, and add a new person to the list of passengers.
         countPeople();
         persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
+        //Update the personComboBox to make sure it shows the current passengers.
         updatePersonComboBox();
     }
 
@@ -171,9 +177,12 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private void updatePersonComboBox()
     {
+        //Set the content of the ComboBox. 
         personComboBox.setModel(new DefaultComboBoxModel(getPeopleAsArray()));
+        //Add the "Add another..." item.
         addItem = "Add another...";
         personComboBox.addItem(addItem);
+        //Reset the addButton to its default state.
         addButton.setText("Add");
     }
 
@@ -182,6 +191,7 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private void deletePerson()
     {
+        //Remove the person from the ArrayList and update the personComboBox.
         persons.remove(personComboBox.getSelectedIndex());
         updatePersonComboBox();
     }
@@ -216,17 +226,20 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private String[] getPeopleAsArray()
     {
-        countPeople();
+        //Get all of the people in the reservation as an array (not an ArrayList).
         Object[] personsAsArray = persons.toArray();
+        //Init a list of strings for the names of people.
         String[] peopleInReservation = new String[personsAsArray.length];
 
         if (personsAsArray.length > 0) {
+            //For every person, get his/her first name and add it to the string array.
             for (int i = 0; i < personsAsArray.length; i++) {
                 Person temp = (Person) personsAsArray[i];
                 peopleInReservation[i] = temp.getFirstName();
             }
         }
 
+        //Return the finished string array.
         return peopleInReservation;
     }
 
@@ -270,7 +283,8 @@ public class PersonAndSeatFrame extends JFrame {
             {
             }
         });
-
+        
+        //Add an ActionListener to the bookButton to confirm reservations.
         bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -279,6 +293,7 @@ public class PersonAndSeatFrame extends JFrame {
             }
         });
 
+        //Add an ActionListener to the addButton to add people.
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -290,6 +305,7 @@ public class PersonAndSeatFrame extends JFrame {
             }
         });
 
+        ////Add an ActionListener to the removeButton to remove people.
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -298,6 +314,7 @@ public class PersonAndSeatFrame extends JFrame {
             }
         });
         
+        //Add an ActionListener to the personComboBox to keep track of people.
         personComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -335,14 +352,17 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private int getGroupID(JComboBox combobox)
     {
+        //If the person is a child, set the ID to 1.
         if (combobox.getSelectedItem().equals("Child")) {
             return 1;
         }
 
+        //If the person is elderly, set the ID to 2.
         if (combobox.getSelectedItem().equals("Elderly")) {
             return 2;
         }
 
+        //If none of the above, the person is an Adult, and therefore has ID 0.
         return 0;
     }
 }
