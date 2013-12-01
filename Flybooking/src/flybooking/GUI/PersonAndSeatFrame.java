@@ -15,9 +15,9 @@ import net.miginfocom.swing.MigLayout;
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
 public class PersonAndSeatFrame extends JFrame {
-    
+
     private Plane planeToDraw;
-    
+
     private GraphicsComponent graphics;
     private Controller controller;
     private ReservationInterface reservation;
@@ -31,7 +31,7 @@ public class PersonAndSeatFrame extends JFrame {
     private JButton bookButton, addButton, deleteButton;
     private JPanel top, topContent, filler, filler2, filler3, graphicsPanel;
     private JScrollPane scrollpane;
-    
+
     public PersonAndSeatFrame() throws HeadlessException
     {
         //initialize the controller, database and get the current reservation and its plane.
@@ -40,18 +40,18 @@ public class PersonAndSeatFrame extends JFrame {
         reservation = controller.getWorkingOnReservation();
         planeToDraw = reservation.getFlight().getPlane();
         planeToDraw.bookTakenSeats(controller.getBookedSeats());
-        
+
         seatIDsThisRes = new ArrayList<>();
         persons = new ArrayList<>();
-        
+
         countPeople();
         drawTop();
         drawBottom();
-        addActionListeners();
-        
+        addListeners();
+
         getRootPane().setDefaultButton(bookButton);
         setMinimumSize(new Dimension(560, 480));
-        
+
         pack();
         setSize(new Dimension(560, 480));
         setVisible(true);
@@ -63,7 +63,7 @@ public class PersonAndSeatFrame extends JFrame {
     private void drawTop()
     {
         setTitle("Edit Passengers");
-        
+
         top = new JPanel();
         topContent = new JPanel();
         topContent.setLayout(new MigLayout("",
@@ -102,7 +102,7 @@ public class PersonAndSeatFrame extends JFrame {
         String[] ages = {"Adult", "Child", "Elderly"};
         ageGroupComboBox = new JComboBox(ages);
         personComboBox = new JComboBox(getPeopleAsArray());
-        personComboBox.setAlignmentX(JComboBox.RIGHT_ALIGNMENT);
+        personComboBox.setMaximumSize(new Dimension(100, 25));
 
         //Add the first and second line of components.
         topContent.add(firstNameLabel);
@@ -140,58 +140,12 @@ public class PersonAndSeatFrame extends JFrame {
         graphicsPanel = new JPanel();
         graphicsPanel.setBackground(Color.WHITE);
         planeDrawingComp = graphics.paintPlaneSeats(planeToDraw);
-        
+
         graphicsPanel.setLayout(new GridBagLayout());
         graphicsPanel.add(planeDrawingComp);
         scrollpane.setViewportView(graphicsPanel);
-        
-        planeDrawingComp.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                seatIDsThisRes = graphics.getSeatIDsThisRes();
-                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
-                repaint();
-                pack();
-                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();) {
-                    String s = it.next();
-                    System.out.println(s);
-                }
-                
-            }
-            
-            @Override
-            public void mousePressed(MouseEvent e)
-            {
-            }
-            
-            @Override
-            public void mouseReleased(MouseEvent e)
-            {
-            }
-            
-            @Override
-            public void mouseEntered(MouseEvent e)
-            {
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e)
-            {
-            }
-        });
-        
-        add(scrollpane, BorderLayout.CENTER);
-    }
 
-    /**
-     * Update the personCombobox to show all the persons currently added to the
-     * reservation.
-     */
-    private void updatePersonComboBox()
-    {        
-        personComboBox = new JComboBox(getPeopleAsArray());
-        personComboBox.addItem("Add another...");
+        add(scrollpane, BorderLayout.CENTER);
     }
 
     /**
@@ -205,6 +159,16 @@ public class PersonAndSeatFrame extends JFrame {
         countPeople();
         persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
         updatePersonComboBox();
+    }
+
+    /**
+     * Update the personCombobox to show all the persons currently added to the
+     * reservation.
+     */
+    private void updatePersonComboBox()
+    {
+        personComboBox.setModel(new DefaultComboBoxModel(getPeopleAsArray()));
+        personComboBox.addItem("Add another...");
     }
 
     /**
@@ -246,23 +210,60 @@ public class PersonAndSeatFrame extends JFrame {
     private String[] getPeopleAsArray()
     {
         countPeople();
-        String[] peopleInReservation = new String[amtOfPersons];
+        Object[] personsAsArray = persons.toArray();
+        String[] peopleInReservation = new String[personsAsArray.length];
         
-        if (persons.size() > 1) {
-            int i = 0;
-            for (Person p : persons) {
-                peopleInReservation[i] = p.getFirstName();
+        if (personsAsArray.length > 0) {
+            for (int i = 0; i < personsAsArray.length; i++) {
+                Person temp = (Person) personsAsArray[i];
+                peopleInReservation[i] = temp.getFirstName();
             }
         }
-        
+
         return peopleInReservation;
     }
 
     /**
-     * Add ActionListeners to the components in the frame.
+     * Add Action- and MouseListeners to the components in the frame.
      */
-    private void addActionListeners()
+    private void addListeners()
     {
+        planeDrawingComp.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                seatIDsThisRes = graphics.getSeatIDsThisRes();
+                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
+                repaint();
+                pack();
+                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();) {
+                    String s = it.next();
+                    System.out.println(s);
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+            }
+        });
+
         bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -270,16 +271,18 @@ public class PersonAndSeatFrame extends JFrame {
                 confirmReservation();
             }
         });
-        
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try { addPerson();
-                } catch (SQLException ex) {}
+                try {
+                    addPerson();
+                } catch (SQLException ex) {
+                }
             }
         });
-        
+
     }
 
     /**
@@ -295,11 +298,11 @@ public class PersonAndSeatFrame extends JFrame {
         if (combobox.getSelectedItem().equals("Child")) {
             return 1;
         }
-        
+
         if (combobox.getSelectedItem().equals("Elderly")) {
             return 2;
         }
-        
+
         return 0;
     }
 }
