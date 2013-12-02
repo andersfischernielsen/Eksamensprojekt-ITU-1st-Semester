@@ -170,13 +170,13 @@ public class Database implements DatabaseInterface
     @Override
     public void removeReservation(String reservationID) throws SQLException
     {
-        statement.executeQuery("DELETE FROM " + name + ".Reservation WHERE Reservation.ID = " + reservationID);
+        statement.executeQuery("DELETE FROM Reservation WHERE Reservation.ID = " + reservationID);
     }
 
     @Override
     public void addPersonToReservation(String reservationID, Person person, String reservationSpot) throws SQLException
     {
-        statement.executeQuery("INSERT INTO " + name + ".People (ID, firstName, lastName, address, groupID) VALUES ('"
+        statement.executeQuery("INSERT INTO People (ID, firstName, lastName, address, groupID) VALUES ('"
                 + person.getID() + "', '"
                 + person.getFirstName() + "', '"
                 + person.getLastName() + "', '"
