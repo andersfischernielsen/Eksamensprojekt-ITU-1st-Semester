@@ -10,10 +10,10 @@ import java.text.SimpleDateFormat;
  */
 public class Printer implements ReceiptPrinter {
 
-    private Reservation reservation;
+    private ReservationInterface reservation;
     private SimpleDateFormat simpleDate;
 
-    public Printer(Reservation reservation)
+    public Printer(ReservationInterface reservation)
     {
         this.reservation = reservation;
         simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -21,18 +21,20 @@ public class Printer implements ReceiptPrinter {
     }
 
     @Override
-    public void print()
+    public String print()
     {
-        System.out.println("-------------------------------------------------");
-        System.out.println("");
-        System.out.println(createAirportDetails());
-        System.out.println("");
-        System.out.println(createPeopleDetails());
-        System.out.println("");
-        System.out.println(createPlaneDetails());
-        System.out.println("");
-        System.out.println(createPayerDetails());
-        System.out.println("-------------------------------------------------");
+        String string = "-------------------------------------------------";
+              string += "\n";
+              string += createAirportDetails();
+              string += "\n";
+              string += createPeopleDetails();
+              string += "\n";
+              string += createPlaneDetails();
+              string += "\n";
+              string += createPayerDetails();
+              string += "-------------------------------------------------";
+        
+        return string;
     }
 
     @Override
