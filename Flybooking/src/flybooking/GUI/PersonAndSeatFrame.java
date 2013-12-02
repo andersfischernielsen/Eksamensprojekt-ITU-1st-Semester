@@ -221,8 +221,6 @@ public class PersonAndSeatFrame extends JFrame {
         } else {
             reservation.bookSeats(seatIDsThisRes);
             controller.setWorkingOnReservation(reservation);
-            controller.saveReservation(ProgramStorage.getInstance());
-            reservation.getFlight().getPlane().resetSeats();
             setVisible(false);
             dispose();
         }
@@ -309,6 +307,7 @@ public class PersonAndSeatFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 confirmReservation();
+                new PaymentFrame();
             }
         });
 
@@ -324,7 +323,7 @@ public class PersonAndSeatFrame extends JFrame {
             }
         });
 
-        ////Add an ActionListener to the removeButton to remove people.
+        //Add an ActionListener to the removeButton to remove people.
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
