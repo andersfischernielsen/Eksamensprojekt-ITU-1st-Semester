@@ -31,10 +31,4 @@ public interface ReceiptPrinter {
      * @return A string with details about the plane in the reservation. 
      */
     String createPlaneDetails();
-
-    /**
-     * Create the details about the payer of the reservation.
-     * @return A string with details about the payer of the reservation.
-     */
-    String createPayerDetails();
 }
