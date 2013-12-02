@@ -13,12 +13,8 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
-<<<<<<< HEAD
 public class PersonAndSeatFrame extends JFrame
 {
-=======
-public class PersonAndSeatFrame extends JFrame {
->>>>>>> 959abe769ff6b4552af72e1add5c1c5a199bff4c
 
     private Plane planeToDraw; //The plane to draw.
     private GraphicsComponent graphics; //The graphics to use.
@@ -355,18 +351,9 @@ public class PersonAndSeatFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 //If the clicked item is the addItem, then empty all of the text fields.
-<<<<<<< HEAD
-                if (personComboBox.getSelectedItem().equals(addItem))
-                {
-                    firstNameField.setText("");
-                    lastNameField.setText("");
-                    addressField.setText("");
-                    zipField.setText("");
-=======
                 if (personComboBox.getSelectedItem().equals(addItem)) {
                     emptyTextFields();
                     
->>>>>>> 959abe769ff6b4552af72e1add5c1c5a199bff4c
                     //And then end the method.
                     return;
                 }
