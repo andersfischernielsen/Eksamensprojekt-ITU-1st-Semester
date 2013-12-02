@@ -31,7 +31,6 @@ public class Printer implements ReceiptPrinter {
               string += "\n";
               string += createPlaneDetails();
               string += "\n";
-              string += createPayerDetails();
               string += "-------------------------------------------------";
         
         return string;
@@ -41,10 +40,10 @@ public class Printer implements ReceiptPrinter {
     public String createAirportDetails()
     {
         String finalString;
-        finalString = "Departure:  "
+        finalString = "Departure: "
                 + simpleDate.format(reservation.getFlight().getStartDate())
                 + " " + reservation.getFlight().getStartAirport().getID();
-        finalString += "\nArrival:    "
+        finalString += "\nArrival: "
                 + simpleDate.format(reservation.getFlight().getEndDate())
                 + " " + reservation.getFlight().getEndAirport().getID();
 
@@ -54,9 +53,9 @@ public class Printer implements ReceiptPrinter {
     @Override
     public String createPeopleDetails()
     {
-        String finalString = "Seats:      ";
+        String finalString = "Passengers: \n";
         for (Person p : reservation.getPersons()) {
-            finalString += p.getFirstName() + " " + p.getLastName() + "\n            ";
+            finalString += "        " + p.getFirstName() + " " + p.getLastName() + "\n";
         }
 
         return finalString;
@@ -66,18 +65,7 @@ public class Printer implements ReceiptPrinter {
     public String createPlaneDetails()
     {
         String finalString;
-        finalString = "Plane:      " + reservation.getFlight().getPlane().getID();
+        finalString = "Plane: " + reservation.getFlight().getPlane().getID();
         return finalString;
     }
-
-    @Override
-    public String createPayerDetails()
-    {
-        String finalString;
-        finalString = "Payer:      " + reservation.getCPR() + "        " + 
-                      reservation.getPayer().getFirstName() + " " + 
-                      reservation.getPayer().getLastName();
-        return finalString;
-    }
-
 }
