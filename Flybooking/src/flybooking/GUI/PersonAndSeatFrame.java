@@ -13,8 +13,12 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
+<<<<<<< HEAD
 public class PersonAndSeatFrame extends JFrame
 {
+=======
+public class PersonAndSeatFrame extends JFrame {
+>>>>>>> 959abe769ff6b4552af72e1add5c1c5a199bff4c
 
     private Plane planeToDraw; //The plane to draw.
     private GraphicsComponent graphics; //The graphics to use.
@@ -172,6 +176,7 @@ public class PersonAndSeatFrame extends JFrame
         persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
         //Update the personComboBox to make sure it shows the current passengers.
         updatePersonComboBox();
+        emptyTextFields();
     }
 
     /**
@@ -187,6 +192,14 @@ public class PersonAndSeatFrame extends JFrame
         personComboBox.addItem(addItem);
         //Reset the addButton to its default state.
         addButton.setText("Add");
+    }
+
+    public void emptyTextFields()
+    {
+        firstNameField.setText("");
+        lastNameField.setText("");
+        addressField.setText("");
+        zipField.setText("");
     }
 
     /**
@@ -342,12 +355,18 @@ public class PersonAndSeatFrame extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 //If the clicked item is the addItem, then empty all of the text fields.
+<<<<<<< HEAD
                 if (personComboBox.getSelectedItem().equals(addItem))
                 {
                     firstNameField.setText("");
                     lastNameField.setText("");
                     addressField.setText("");
                     zipField.setText("");
+=======
+                if (personComboBox.getSelectedItem().equals(addItem)) {
+                    emptyTextFields();
+                    
+>>>>>>> 959abe769ff6b4552af72e1add5c1c5a199bff4c
                     //And then end the method.
                     return;
                 }
@@ -356,10 +375,19 @@ public class PersonAndSeatFrame extends JFrame
                 Person temp = persons.get(personComboBox.getSelectedIndex());
 
                 //Then set the fields with that persons information.
-                firstNameField.setText(temp.getFirstName());
-                lastNameField.setText(temp.getLastName());
-                addressField.setText(temp.getAdress());
-                addButton.setText("Save");
+                //First we get the id of the selected person.
+                int ID = temp.getID();
+                
+                //Then we go through all the persons, see if the ID's are 
+                //matching, and if it is get that person's info.
+                for (Person p : persons) {
+                    if (p.getID() == ID) {
+                        firstNameField.setText(p.getFirstName());
+                        lastNameField.setText(p.getLastName());
+                        addressField.setText(p.getAdress());
+                        addButton.setText("Save");
+                    }
+                }
             }
         });
 
