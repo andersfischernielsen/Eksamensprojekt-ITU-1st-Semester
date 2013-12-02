@@ -42,8 +42,8 @@ public class PersonAndSeatFrame extends JFrame {
         planeToDraw.bookTakenSeats(controller.getBookedSeats());
 
         //Initialize empty ArrayLists
-        seatIDsThisRes = new ArrayList<>();
-        persons = new ArrayList<>();
+        seatIDsThisRes = controller.getBookedThisResSeats();
+        persons = controller.getBookedPersons();
 
         //Set up the frame.
         countPeople();
@@ -142,7 +142,7 @@ public class PersonAndSeatFrame extends JFrame {
         scrollpane = new JScrollPane();
         graphicsPanel = new JPanel();
         graphicsPanel.setBackground(Color.WHITE);
-        planeDrawingComp = graphics.paintPlaneSeats(planeToDraw);
+        planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, seatIDsThisRes);
 
         //Set up the layout, and add the components.
         graphicsPanel.setLayout(new GridBagLayout());
@@ -223,6 +223,7 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private void countPeople()
     {
+        amtOfPersons = 0;
         for (Person person : persons) {
             amtOfPersons++;
         }
@@ -244,7 +245,7 @@ public class PersonAndSeatFrame extends JFrame {
             //For every person, get his/her first name and add it to the string array.
             for (int i = 0; i < personsAsArray.length; i++) {
                 Person temp = (Person) personsAsArray[i];
-                peopleInReservation[i] = temp.getFirstName();
+                peopleInReservation[i] = temp.getFirstName() + " " + temp.getLastName();
             }
         }
 
@@ -269,7 +270,6 @@ public class PersonAndSeatFrame extends JFrame {
                     String s = it.next();
                     System.out.println(s);
                 }
-
             }
 
             @Override

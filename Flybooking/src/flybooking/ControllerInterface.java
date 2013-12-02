@@ -132,6 +132,7 @@ public interface ControllerInterface
 
     /**
      * Set the Reservation we're currently working on.
+     * @param reservation
      */
     void setWorkingOnReservation(ReservationInterface reservation);
 
@@ -140,6 +141,18 @@ public interface ControllerInterface
      * @return an arrayList of seatIDs  
      */
     public ArrayList<String> getBookedSeats();
+    
+    /**
+     * returns the booked seats on the controllers reservation.
+     * @return 
+     */
+    public ArrayList<String> getBookedThisResSeats();
+            
+    /**
+     * Returns the controller's reservations booked persons.
+     * @return a list of Person objects
+     */
+    public ArrayList<Person> getBookedPersons();
 
     /**
      * Resets the controller, short for delete the current reservation and make

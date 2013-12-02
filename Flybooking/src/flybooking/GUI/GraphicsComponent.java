@@ -37,9 +37,10 @@ public class GraphicsComponent
      *
      * @return a component who draws planeToDraw
      */
-    public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw)
+    public PlaneGraphicsComponent paintPlaneSeats(Plane planeToDraw, ArrayList<String> seatIDsThisRes)
     {
         currentPlaneGraphics = new PlaneGraphicsComponent(planeToDraw);
+        currentPlaneGraphics.setSeatIDsThisRes(seatIDsThisRes);
         return currentPlaneGraphics;
     }
 
