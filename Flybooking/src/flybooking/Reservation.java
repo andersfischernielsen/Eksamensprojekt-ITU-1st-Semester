@@ -35,6 +35,7 @@ public class Reservation implements ReservationInterface {
         //SÅ VI SKAL HAVE FAT I DATABASEN OG FINDE DE TIDLIGERE RESERVATIONERS 
         //ID, OG SÅ LÆGGE EN TIL DET HØJESTE. EN SEPARAT "ID"-KLASSE VILLE MÅSKE
         //VÆRE EN RIGTIG GOD IDE.
+        persons = new ArrayList<>();
     }
 
     @Override
