@@ -358,25 +358,25 @@ public class PersonAndSeatFrame extends JFrame
                     return;
                 }
 
-                //If the clicked item isn't the addItem it must be a person.
-                Person temp = persons.get(personComboBox.getSelectedIndex());
+                    //If the clicked item isn't the addItem it must be a person.
+                    Person temp = persons.get(personComboBox.getSelectedIndex());
 
                 //Then set the fields with that persons information.
-                //First we get the id of the selected person.
-                int ID = temp.getID();
-                
-                //Then we go through all the persons, see if the ID's are 
-                //matching, and if it is get that person's info.
-                for (Person p : persons) {
-                    if (p.getID() == ID) {
-                        firstNameField.setText(p.getFirstName());
-                        lastNameField.setText(p.getLastName());
-                        addressField.setText(p.getAdress());
-                    }
-                }
-            }
-        });
+                    //First we get the id of the selected person.
+                    int ID = temp.getID();
 
+                //Then we go through all the persons, see if the ID's are 
+                    //matching, and if it is get that person's info.
+                    for (Person p : persons)
+                    {
+                        if (p.getID() == ID)
+                        {
+                            firstNameField.setText(p.getFirstName());
+                            lastNameField.setText(p.getLastName());
+                            addressField.setText(p.getAdress());
+                        }
+                    }
+                }});
     }
 
     /**
@@ -390,7 +390,7 @@ public class PersonAndSeatFrame extends JFrame
      */
     private int getGroupID(JComboBox combobox)
     {
-        //If the person is a child, set the ID to 1.
+        // If the person is a child, set the ID to 1.
         if (combobox.getSelectedItem().equals("Child"))
         {
             return 1;
