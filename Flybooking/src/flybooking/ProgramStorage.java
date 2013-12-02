@@ -89,7 +89,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<Flight> getFlight(Date departureDate, String startDestination, String endDestination) throws SQLException
+    public ArrayList<Flight> getFlightList(Date departureDate, String startDestination, String endDestination) throws SQLException
     {
         ArrayList<Flight> flightsToReturn = new ArrayList<>();
         /**
@@ -106,7 +106,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<ReservationInterface> getReservations(String ReservationID, String CPR)
+    public ArrayList<ReservationInterface> getReservationList(String ReservationID, String CPR)
     {
         ArrayList<ReservationInterface> reservationsToReturnList = new ArrayList<>();
         /**
@@ -274,5 +274,23 @@ public class ProgramStorage implements DatabaseInterface {
         }
         System.out.println("Found no reservation with that ID");
         return new ArrayList<Person>();
+    }
+
+    @Override
+    public Airport getAirport(String AirportID) throws SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person getPerson(int PersonID) throws SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public FlightInterface getFlight(int flightID) throws SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

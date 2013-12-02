@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 
@@ -158,7 +160,7 @@ public class PersonAndSeatFrame extends JFrame {
 
     private void changeSeatAvailability(int x, int y)
     {
-        //NOT IMPLEMENTED YET.
+        //NOT IMPLEMENTED YET. NOT NEEDED
         System.out.println("changeSeatAvailability isn't implemented yet!");
     }
 
@@ -211,13 +213,13 @@ public class PersonAndSeatFrame extends JFrame {
     /**
      * Confirm the reservation, saving it in the booking system
      */
-    private void confirmReservation()
+    private void confirmReservation() throws SQLException
     {
         if (seatIDsThisRes.size() != persons.size()) {
-            System.out.println("You havent booked the same amount of seats as the amounts of persons this booking");
+            JOptionPane.showMessageDialog(null, "You havent booked the same amount of seats as the amounts of persons this booking!", "You havent booked the same amount of seats as the amounts of persons this booking!", JOptionPane.ERROR_MESSAGE);
         }
-        if (seatIDsThisRes.size() == 0 || persons.size() == 0){
-                System.out.println("You havent booked any persons or seats");
+        else if (seatIDsThisRes.size() == 0 || persons.size() == 0){ // last statement not neccesary
+                JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
         } else {
             reservation.bookSeats(seatIDsThisRes);
             controller.setWorkingOnReservation(reservation);
@@ -264,7 +266,7 @@ public class PersonAndSeatFrame extends JFrame {
     /**
      * Add Action- and MouseListeners to the components in the frame.
      */
-    private void addListeners()
+    private void addListeners() 
     {
         planeDrawingComp.addMouseListener(new MouseListener() {
             @Override
@@ -274,10 +276,6 @@ public class PersonAndSeatFrame extends JFrame {
                 planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
-                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();) {
-                    String s = it.next();
-                    System.out.println(s);
-                }
             }
 
             @Override
@@ -306,8 +304,16 @@ public class PersonAndSeatFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                confirmReservation();
-                new PaymentFrame();
+                // FIX THIS LORTE SQL EXCEPTIONS
+                try
+                {
+                    confirmReservation();
+                    new PaymentFrame();
+                }
+                catch (SQLException ex)
+                {
+                    Logger.getLogger(PersonAndSeatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 

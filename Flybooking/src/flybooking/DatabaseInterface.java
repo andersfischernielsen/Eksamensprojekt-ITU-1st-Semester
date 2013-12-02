@@ -22,6 +22,22 @@ public interface DatabaseInterface
      * @throws java.sql.SQLException
      */
     Plane getPlane(String PlaneID) throws SQLException;
+    
+    /**
+     * Returns the airport with the airportID from the databse
+     * @param AirportID the id of the airport we creates.
+     * @return an airport
+     * @throws SQLException 
+     */
+    Airport getAirport(String AirportID) throws SQLException;
+    
+    /**
+     * Returns a person object created from the database's information
+     * @param PersonID the personID to look for
+     * @return a Person object
+     * @throws SQLException 
+     */
+    Person getPerson(int PersonID) throws SQLException;
 
     /**
      * Returns an ArrayList of flights that match the specified search terms.
@@ -32,7 +48,16 @@ public interface DatabaseInterface
      *
      * @return An array of flights that match the specified parameters.
      */
-    ArrayList<Flight> getFlight(Date departureDate,
+    
+    /**
+     * returns a flight with flightID
+     * @param flightID the flightID of the wanted flight
+     * @return a flight object
+     * @throws SQLException 
+     */
+    FlightInterface getFlight(int flightID) throws SQLException;
+    
+    ArrayList<Flight> getFlightList(Date departureDate,
                                 String startDestination, String endDestination)
             throws SQLException;
 
@@ -44,7 +69,7 @@ public interface DatabaseInterface
      *
      * @return
      */
-    ArrayList<ReservationInterface> getReservations(String reservationID, String CPR);
+    ArrayList<ReservationInterface> getReservationList(String reservationID, String CPR) throws SQLException;
 
     /**
      * Enten den her
@@ -61,7 +86,7 @@ public interface DatabaseInterface
      *
      * @param reservationToMake
      */
-    void newReservation(ReservationInterface reservationToMake);
+    void newReservation(ReservationInterface reservationToMake)throws SQLException; 
 
     /**
      * remove the reservation with ID reservationID

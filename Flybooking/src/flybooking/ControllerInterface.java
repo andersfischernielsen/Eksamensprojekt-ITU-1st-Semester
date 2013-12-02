@@ -26,14 +26,14 @@ public interface ControllerInterface
      *
      * @param database The database to save the reservation to.
      */
-    void saveReservation(DatabaseInterface database);
+    void saveReservation(DatabaseInterface database)  throws SQLException;
 
     /**
      * Get a specific reservation.
      *
      * @param database The database to get the reservation from.
      */
-    void getReservation(DatabaseInterface database, String reservationID, String CPR);
+    void getReservation(DatabaseInterface database, String reservationID, String CPR)throws SQLException;
 
     /**
      * Delete a reservation.
