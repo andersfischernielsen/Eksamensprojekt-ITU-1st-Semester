@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -23,9 +24,11 @@ public class PaymentFrame extends JFrame {
     private JLabel peopleLabel, CPRLabel;
     private JTextField peopleField, CPRField;
     private JTextArea receiptArea;
-    private JPanel receiptPanel, topPanel, bottomPanel;
+    private JPanel topPanel;
     private Container contentPane;
     private JButton confirmButton;
+    private JScrollPane scrollpane;
+    private Printer printer;
 
     public PaymentFrame()
     {
@@ -40,25 +43,28 @@ public class PaymentFrame extends JFrame {
 
     private void drawFrame()
     {
-        receiptPanel = new JPanel();
         contentPane = getContentPane();
         topPanel = new JPanel();
-        bottomPanel = new JPanel();
-        receiptArea = new JTextArea();
+        printer = new Printer(currentReservation);
+        receiptArea = new JTextArea(printer.print());
+        receiptArea.setBorder(new EmptyBorder(0, 10, 0, 10));
 
         peopleLabel = new JLabel("People in the reservation: ");
-        peopleField = new JTextField("0");
-        peopleField.setColumns(peopleInReservation.size());
+        peopleField = new JTextField();
+        peopleField.setColumns(10);
         peopleField.setEditable(false);
+        peopleField.setText("" + peopleInReservation.size());
+        peopleField.setHorizontalAlignment(SwingConstants.RIGHT);
 
         CPRLabel = new JLabel("Payers CPR: ");
         CPRField = new JTextField("");
         CPRField.setColumns(10);
 
         confirmButton = new JButton("Confirm");
+        confirmButton.setDefaultCapable(true);
 
         setLayout(new BorderLayout());
-        contentPane.setLayout(new MigLayout("", "[] 120 []", ""));
+        topPanel.setLayout(new MigLayout("", "[] 100 []", ""));
 
         topPanel.add(peopleLabel);
         topPanel.add(peopleField, "wrap");
@@ -67,15 +73,17 @@ public class PaymentFrame extends JFrame {
         topPanel.add(confirmButton);
 
         //-------------------------------------//
-        Printer printer = new Printer(currentReservation);
-        receiptArea.setText(printer.print());
-        receiptPanel.add(receiptArea);
-        bottomPanel.add(receiptPanel);
-        contentPane.add(topPanel, BorderLayout.PAGE_START);
-        contentPane.add(bottomPanel, BorderLayout.CENTER);
 
+        scrollpane = new JScrollPane(receiptArea);
+
+        contentPane.add(topPanel, BorderLayout.PAGE_START);
+        contentPane.add(scrollpane, BorderLayout.CENTER);
         contentPane.add(confirmButton, BorderLayout.PAGE_END);
 
+        getRootPane().setDefaultButton(confirmButton);
+        setPreferredSize(new Dimension(430, 300));
+        setLocation(new Point(600, 40));
+        
         pack();
         setVisible(true);
     }
@@ -88,10 +96,12 @@ public class PaymentFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 if (CPRField.getText().equals("") || CPRField.getText().equals("")) {
-                    CPRField.setText("Input missing!");
+                    CPRField.setText("CPR missing!");
+                    CPRField.setBackground(Color.RED);
                 } else {
                     try {
                         Controller.getInstance(database).saveReservation(database);
+                        dispose();
                     } catch (SQLException ex) {
                     }
                 }
