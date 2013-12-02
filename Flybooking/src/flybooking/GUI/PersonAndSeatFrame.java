@@ -13,12 +13,8 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
-<<<<<<< HEAD
 public class PersonAndSeatFrame extends JFrame
 {
-=======
-public class PersonAndSeatFrame extends JFrame {
->>>>>>> 959abe769ff6b4552af72e1add5c1c5a199bff4c
 
     private Plane planeToDraw; //The plane to draw.
     private GraphicsComponent graphics; //The graphics to use.
@@ -355,42 +351,42 @@ public class PersonAndSeatFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 //If the clicked item is the addItem, then empty all of the text fields.
-<<<<<<< HEAD
                 if (personComboBox.getSelectedItem().equals(addItem))
                 {
                     firstNameField.setText("");
                     lastNameField.setText("");
                     addressField.setText("");
                     zipField.setText("");
-=======
-                if (personComboBox.getSelectedItem().equals(addItem)) {
-                    emptyTextFields();
-                    
->>>>>>> 959abe769ff6b4552af72e1add5c1c5a199bff4c
-                    //And then end the method.
-                    return;
-                }
+                    if (personComboBox.getSelectedItem().equals(addItem))
+                    {
+                        emptyTextFields();
 
-                //If the clicked item isn't the addItem it must be a person.
-                Person temp = persons.get(personComboBox.getSelectedIndex());
+                        //And then end the method.
+                        return;
+                    }
+
+                    //If the clicked item isn't the addItem it must be a person.
+                    Person temp = persons.get(personComboBox.getSelectedIndex());
 
                 //Then set the fields with that persons information.
-                //First we get the id of the selected person.
-                int ID = temp.getID();
-                
+                    //First we get the id of the selected person.
+                    int ID = temp.getID();
+
                 //Then we go through all the persons, see if the ID's are 
-                //matching, and if it is get that person's info.
-                for (Person p : persons) {
-                    if (p.getID() == ID) {
-                        firstNameField.setText(p.getFirstName());
-                        lastNameField.setText(p.getLastName());
-                        addressField.setText(p.getAdress());
-                        addButton.setText("Save");
+                    //matching, and if it is get that person's info.
+                    for (Person p : persons)
+                    {
+                        if (p.getID() == ID)
+                        {
+                            firstNameField.setText(p.getFirstName());
+                            lastNameField.setText(p.getLastName());
+                            addressField.setText(p.getAdress());
+                            addButton.setText("Save");
+                        }
                     }
                 }
             }
         });
-
     }
 
     /**
@@ -404,7 +400,7 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private int getGroupID(JComboBox combobox)
     {
-        //If the person is a child, set the ID to 1.
+        // If the person is a child, set the ID to 1.
         if (combobox.getSelectedItem().equals("Child"))
         {
             return 1;
