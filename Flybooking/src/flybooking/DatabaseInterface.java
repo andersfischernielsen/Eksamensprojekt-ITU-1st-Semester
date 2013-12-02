@@ -96,6 +96,13 @@ public interface DatabaseInterface
     void removeReservation(String reservationID) throws SQLException;
 
     /**
+     * Updates a reservations persons, seats and price
+     * @param reservationToMake the reservation to update
+     * @throws SQLException 
+     */
+    void updateReservation(ReservationInterface reservationToMake)throws SQLException;
+    
+    /**
      * Adds a person to a reservation.
      *
      * @param reservationID   The reservation in the database to add to.
@@ -135,7 +142,7 @@ public interface DatabaseInterface
      *
      * @return an arrayList of seatId strings.
      */
-    ArrayList<String> getAllBookedSeats(int flightID);
+    ArrayList<String> getAllBookedSeats(int flightID) throws SQLException;
 
     /**
      * Returns an array of persons who are kept in a reservation with ID
@@ -145,7 +152,7 @@ public interface DatabaseInterface
      *
      * @return an arrayList of persons.
      */
-    ArrayList<Person> getBookedPersons(String reservationID);
+    ArrayList<Person> getBookedPersons(String reservationID) throws SQLException;
 
     /**
      * Find the booked seats on a specific reservation.
@@ -155,7 +162,7 @@ public interface DatabaseInterface
      *
      * @return an ArrayList of seatID strings
      */
-    ArrayList<String> getBookedSeatsOnReservation(String reservationID);
+    ArrayList<String> getBookedSeatsOnReservation(String reservationID) throws SQLException;
 
     /**
      * Get all matching Reservations from a CPR number.

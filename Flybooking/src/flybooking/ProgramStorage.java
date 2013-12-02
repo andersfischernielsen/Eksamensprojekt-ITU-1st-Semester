@@ -293,4 +293,10 @@ public class ProgramStorage implements DatabaseInterface {
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void updateReservation(ReservationInterface reservationToMake) throws SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

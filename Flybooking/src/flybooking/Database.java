@@ -57,18 +57,18 @@ public class Database implements DatabaseInterface
         ResultSet rs = statement.executeQuery("SELECT * FROM People WHERE People.ID = " + PersonID);
         return new Person(rs.getString("Firstname"), rs.getString("Lastname"), rs.getInt("PersonID"), rs.getString("Address"), rs.getInt("groupID"));
     }
-    
+
     public void insertPerson(Person person, String ReservationID) throws SQLException
     {
-        statement.executeQuery("INSERT INTO People (ID, ReservationID, firstName, lastName, address, groupID) " + 
-        "VALUES (" + person.getID() + "," + ReservationID + "," + person.getFirstName() + "," + 
-                person.getLastName() + "," + person.getAdress() + "," + person.getGroupID() + ")");
+        statement.executeQuery("INSERT INTO People (ID, ReservationID, firstName, lastName, address, groupID) "
+                + "VALUES (" + person.getID() + "," + ReservationID + "," + person.getFirstName() + ","
+                + person.getLastName() + "," + person.getAdress() + "," + person.getGroupID() + ")");
     }
-    
+
     public void insertSeat(String seatID, String ReservationID) throws SQLException
     {
-        statement.executeQuery("INSERT INTO Seat (SeatID, ReservationID) " + 
-        "VALUES (" + seatID + "," + ReservationID + ")");
+        statement.executeQuery("INSERT INTO Seat (SeatID, ReservationID) "
+                + "VALUES (" + seatID + "," + ReservationID + ")");
     }
 
     // ----------- advanced objects --------------
@@ -153,8 +153,8 @@ public class Database implements DatabaseInterface
     public void newReservation(ReservationInterface reservationToMake) throws SQLException
     {
         // save the reservation.
-        statement.executeQuery("INSERT INTO Reservation (flight, reservationDate, CPR) " + 
-        "VALUES (" + reservationToMake.getFlight().getID() + "," + reservationToMake.getReservationDate() + "," + reservationToMake.getCPR() + ")");
+        statement.executeQuery("INSERT INTO Reservation (flight, reservationDate, CPR) "
+                + "VALUES (" + reservationToMake.getFlight().getID() + "," + reservationToMake.getReservationDate() + "," + reservationToMake.getCPR() + ")");
         // save the seats in the reservation
         for (String seatID : reservationToMake.getBookedSeats())
         {
@@ -171,11 +171,31 @@ public class Database implements DatabaseInterface
     public void removeReservation(String reservationID) throws SQLException
     {
         statement.executeQuery("DELETE FROM Reservation WHERE Reservation.ID = " + reservationID);
+        statement.executeQuery("DELETE FROM Seat WHERE Seat.ReservationID = " + reservationID);
+        statement.executeQuery("DELETE FROM Person WHERE Person.ReservationID = " + reservationID);
+    }
+
+    @Override
+    public void updateReservation(ReservationInterface reservationToMake) throws SQLException
+    {
+        statement.executeQuery("DELETE FROM Seat WHERE Seat.ReservationID = " + reservationToMake.getID());
+        statement.executeQuery("DELETE FROM Person WHERE Person.ReservationID = " + reservationToMake.getID());
+        statement.executeQuery("UPDATE Rerservation SET price= " + reservationToMake.getPrice() + "WHERE Reservation.ID = " + reservationToMake.getID());
+        for (String seatID : reservationToMake.getBookedSeats())
+        {
+            insertSeat(seatID, reservationToMake.getID());
+        }
+        // save the persons in the reservation
+        for (Person person : reservationToMake.getBookedPersons())
+        {
+            insertPerson(person, reservationToMake.getID());
+        }
     }
 
     @Override
     public void addPersonToReservation(String reservationID, Person person, String reservationSpot) throws SQLException
     {
+        // USE UPDATERESERVATION INSTEAD
         statement.executeQuery("INSERT INTO People (ID, firstName, lastName, address, groupID) VALUES ('"
                 + person.getID() + "', '"
                 + person.getFirstName() + "', '"
@@ -188,6 +208,7 @@ public class Database implements DatabaseInterface
     @Override
     public ArrayList<String> getAirportCitiesAsStrings() throws SQLException
     {
+        // HAR IKKE KIGGET PÅ DENNE
         ResultSet rs = statement.executeQuery("SELECT * FROM Airport");
         ArrayList<String> airports = new ArrayList<>();
 
@@ -212,6 +233,7 @@ public class Database implements DatabaseInterface
     @Override
     public boolean checkForID(int ID) throws SQLException
     {
+        // IKKE NØDVENDIG MERE
         if (ID <= 9999)
         {
             ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
@@ -234,15 +256,39 @@ public class Database implements DatabaseInterface
     }
 
     @Override
-    public ArrayList<String> getAllBookedSeats(int flightID)
+    public ArrayList<String> getAllBookedSeats(int flightID) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> seatIDsToReturn = new ArrayList<>();
+        ArrayList<String> reservationsOnThisFlight = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM Reservation");
+        while (rs.next())
+        {
+            if (rs.getInt("flight") == flightID)
+            {
+                reservationsOnThisFlight.add(rs.getString("ID"));
+            }
+        }
+        for (String reservationID : reservationsOnThisFlight)
+        {
+            rs = statement.executeQuery("SELECT * FROM Seat WHERE seat.reservationID =" + reservationID + ")");
+            while (rs.next())
+            {
+                seatIDsToReturn.add(rs.getString("seatID"));
+            }
+        }
+        return seatIDsToReturn;
     }
 
     @Override
-    public ArrayList<String> getBookedSeatsOnReservation(String reservationID)
+    public ArrayList<String> getBookedSeatsOnReservation(String reservationID) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> seatIDsToReturn = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM Seat WHERE seat.reservationID =" + reservationID + ")");
+        while (rs.next())
+        {
+            seatIDsToReturn.add(rs.getString("seatID"));
+        }
+        return seatIDsToReturn;
     }
 
     @Override
@@ -258,9 +304,15 @@ public class Database implements DatabaseInterface
     }
 
     @Override
-    public ArrayList<Person> getBookedPersons(String reservationID)
+    public ArrayList<Person> getBookedPersons(String reservationID) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Person> personsToReturn = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM Person WHERE person.reservationID =" + reservationID + ")");
+        while (rs.next())
+        {
+            personsToReturn.add(getPerson(rs.getInt("ID")));
+        }
+        return personsToReturn;
     }
 
     public static void main(String[] args)
