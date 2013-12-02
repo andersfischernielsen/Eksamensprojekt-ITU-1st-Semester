@@ -1,3 +1,4 @@
+
 package flybooking.GUI;
 
 import flybooking.*;
@@ -13,8 +14,7 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
-public class PersonAndSeatFrame extends JFrame
-{
+public class PersonAndSeatFrame extends JFrame {
 
     private Plane planeToDraw; //The plane to draw.
     private GraphicsComponent graphics; //The graphics to use.
@@ -69,8 +69,8 @@ public class PersonAndSeatFrame extends JFrame
         top = new JPanel();
         topContent = new JPanel();
         topContent.setLayout(new MigLayout("",
-                                           "0 [] 50 [] 50 [] 0",
-                                           "5 [] 0 [] 5 [] 0 [] 5 []"));
+                "0 [] 50 [] 50 [] 0",
+                "5 [] 0 [] 5 [] 0 [] 5 []"));
 
         //Initialize all labels.
         firstNameLabel = new JLabel(" First name:");
@@ -101,10 +101,10 @@ public class PersonAndSeatFrame extends JFrame
         bookButton.setDefaultCapable(true);
 
         //Initialize all dropdowns.
-        String[] ages =
-        {
-            "Adult", "Child", "Elderly"
-        };
+        String[] ages
+                = {
+                    "Adult", "Child", "Elderly"
+                };
         ageGroupComboBox = new JComboBox(ages);
         personComboBox = new JComboBox(getPeopleAsArray());
         personComboBox.setMaximumSize(new Dimension(100, 25));
@@ -213,12 +213,9 @@ public class PersonAndSeatFrame extends JFrame
      */
     private void confirmReservation()
     {
-        if (seatIDsThisRes.size() != persons.size())
-        {
+        if (seatIDsThisRes.size() != persons.size()) {
             System.out.println("You havent booked the same amount of seats as the amounts of persons this booking");
-        }
-        else
-        {
+        } else {
             reservation.bookSeats(seatIDsThisRes);
             controller.setWorkingOnReservation(reservation);
             controller.saveReservation(ProgramStorage.getInstance());
@@ -234,8 +231,7 @@ public class PersonAndSeatFrame extends JFrame
     private void countPeople()
     {
         amtOfPersons = 0;
-        for (Person person : persons)
-        {
+        for (Person person : persons) {
             amtOfPersons++;
         }
     }
@@ -252,11 +248,9 @@ public class PersonAndSeatFrame extends JFrame
         //Init a list of strings for the names of people.
         String[] peopleInReservation = new String[personsAsArray.length];
 
-        if (personsAsArray.length > 0)
-        {
+        if (personsAsArray.length > 0) {
             //For every person, get his/her first name and add it to the string array.
-            for (int i = 0; i < personsAsArray.length; i++)
-            {
+            for (int i = 0; i < personsAsArray.length; i++) {
                 Person temp = (Person) personsAsArray[i];
                 peopleInReservation[i] = temp.getFirstName() + " " + temp.getLastName();
             }
@@ -271,8 +265,7 @@ public class PersonAndSeatFrame extends JFrame
      */
     private void addListeners()
     {
-        planeDrawingComp.addMouseListener(new MouseListener()
-        {
+        planeDrawingComp.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e)
             {
@@ -280,8 +273,7 @@ public class PersonAndSeatFrame extends JFrame
                 planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
-                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();)
-                {
+                for (Iterator<String> it = seatIDsThisRes.iterator(); it.hasNext();) {
                     String s = it.next();
                     System.out.println(s);
                 }
@@ -309,8 +301,7 @@ public class PersonAndSeatFrame extends JFrame
         });
 
         //Add an ActionListener to the bookButton to confirm reservations.
-        bookButton.addActionListener(new ActionListener()
-        {
+        bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
@@ -319,24 +310,19 @@ public class PersonAndSeatFrame extends JFrame
         });
 
         //Add an ActionListener to the addButton to add people.
-        addButton.addActionListener(new ActionListener()
-        {
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try
-                {
+                try {
                     addPerson();
-                }
-                catch (SQLException ex)
-                {
+                } catch (SQLException ex) {
                 }
             }
         });
 
         ////Add an ActionListener to the removeButton to remove people.
-        deleteButton.addActionListener(new ActionListener()
-        {
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
@@ -345,38 +331,36 @@ public class PersonAndSeatFrame extends JFrame
         });
 
         //Add an ActionListener to the personComboBox to keep track of people.
-        personComboBox.addActionListener(new ActionListener()
-        {
+        personComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 //If the clicked item is the addItem, then empty all of the text fields.
                 if (personComboBox.getSelectedItem().equals(addItem)) {
                     emptyTextFields();
-                    
+
                     //And then end the method.
                     return;
                 }
 
-                    //If the clicked item isn't the addItem it must be a person.
-                    Person temp = persons.get(personComboBox.getSelectedIndex());
+                //If the clicked item isn't the addItem it must be a person.
+                Person temp = persons.get(personComboBox.getSelectedIndex());
 
                 //Then set the fields with that persons information.
-                    //First we get the id of the selected person.
-                    int ID = temp.getID();
+                //First we get the id of the selected person.
+                int ID = temp.getID();
 
                 //Then we go through all the persons, see if the ID's are 
-                    //matching, and if it is get that person's info.
-                    for (Person p : persons)
-                    {
-                        if (p.getID() == ID)
-                        {
-                            firstNameField.setText(p.getFirstName());
-                            lastNameField.setText(p.getLastName());
-                            addressField.setText(p.getAdress());
-                        }
+                //matching, and if it is get that person's info.
+                for (Person p : persons) {
+                    if (p.getID() == ID) {
+                        firstNameField.setText(p.getFirstName());
+                        lastNameField.setText(p.getLastName());
+                        addressField.setText(p.getAdress());
                     }
-                }});
+                }
+            }
+        });
     }
 
     /**
@@ -386,19 +370,17 @@ public class PersonAndSeatFrame extends JFrame
      * @param combobox The JComboBox to check.
      *
      * @return 0 if adult is selected, 1 if child is selected and 2 if elderly
-     *         is selected.
+     * is selected.
      */
     private int getGroupID(JComboBox combobox)
     {
         // If the person is a child, set the ID to 1.
-        if (combobox.getSelectedItem().equals("Child"))
-        {
+        if (combobox.getSelectedItem().equals("Child")) {
             return 1;
         }
 
         //If the person is elderly, set the ID to 2.
-        if (combobox.getSelectedItem().equals("Elderly"))
-        {
+        if (combobox.getSelectedItem().equals("Elderly")) {
             return 2;
         }
 
