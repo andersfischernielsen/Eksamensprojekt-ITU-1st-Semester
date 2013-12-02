@@ -33,7 +33,7 @@ public interface ControllerInterface
      *
      * @param database The database to get the reservation from.
      */
-    void getReservation(DatabaseInterface database, String reservationID, String CPR);
+    void getReservation(DatabaseInterface database, String reservationID, String CPR)throws SQLException;
 
     /**
      * Delete a reservation.
