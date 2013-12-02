@@ -15,7 +15,7 @@ import net.miginfocom.swing.MigLayout;
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
 public class PersonAndSeatFrame extends JFrame {
-    
+
     private Plane planeToDraw; //The plane to draw.
     private GraphicsComponent graphics; //The graphics to use.
     private Controller controller;
@@ -24,7 +24,7 @@ public class PersonAndSeatFrame extends JFrame {
     private int amtOfPersons; //The amount of passengers in the reservation.
     private ArrayList<Person> persons; //The passengers in the reservation.
     private JComboBox personComboBox, ageGroupComboBox; //Comboboxes for the UI.
-    private JComponent planeDrawingComp; 
+    private JComponent planeDrawingComp;
     private JLabel firstNameLabel, lastNameLabel, addressLabel, zipLabel; //Text labels for the UI.
     private JTextField firstNameField, lastNameField, addressField, zipField; //Input fields for the UI.
     private JButton bookButton, addButton, deleteButton; //Buttons for the UI.
@@ -169,6 +169,7 @@ public class PersonAndSeatFrame extends JFrame {
         persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
         //Update the personComboBox to make sure it shows the current passengers.
         updatePersonComboBox();
+        emptyTextFields();
     }
 
     /**
@@ -184,6 +185,14 @@ public class PersonAndSeatFrame extends JFrame {
         personComboBox.addItem(addItem);
         //Reset the addButton to its default state.
         addButton.setText("Add");
+    }
+
+    public void emptyTextFields()
+    {
+        firstNameField.setText("");
+        lastNameField.setText("");
+        addressField.setText("");
+        zipField.setText("");
     }
 
     /**
@@ -283,7 +292,7 @@ public class PersonAndSeatFrame extends JFrame {
             {
             }
         });
-        
+
         //Add an ActionListener to the bookButton to confirm reservations.
         bookButton.addActionListener(new ActionListener() {
             @Override
@@ -313,7 +322,7 @@ public class PersonAndSeatFrame extends JFrame {
                 deletePerson();
             }
         });
-        
+
         //Add an ActionListener to the personComboBox to keep track of people.
         personComboBox.addActionListener(new ActionListener() {
             @Override
@@ -321,10 +330,8 @@ public class PersonAndSeatFrame extends JFrame {
             {
                 //If the clicked item is the addItem, then empty all of the text fields.
                 if (personComboBox.getSelectedItem().equals(addItem)) {
-                    firstNameField.setText("");
-                    lastNameField.setText("");
-                    addressField.setText("");
-                    zipField.setText("");
+                    emptyTextFields();
+                    
                     //And then end the method.
                     return;
                 }
@@ -333,10 +340,19 @@ public class PersonAndSeatFrame extends JFrame {
                 Person temp = persons.get(personComboBox.getSelectedIndex());
 
                 //Then set the fields with that persons information.
-                firstNameField.setText(temp.getFirstName());
-                lastNameField.setText(temp.getLastName());
-                addressField.setText(temp.getAdress());
-                addButton.setText("Save");
+                //First we get the id of the selected person.
+                int ID = temp.getID();
+                
+                //Then we go through all the persons, see if the ID's are 
+                //matching, and if it is get that person's info.
+                for (Person p : persons) {
+                    if (p.getID() == ID) {
+                        firstNameField.setText(p.getFirstName());
+                        lastNameField.setText(p.getLastName());
+                        addressField.setText(p.getAdress());
+                        addButton.setText("Save");
+                    }
+                }
             }
         });
 
