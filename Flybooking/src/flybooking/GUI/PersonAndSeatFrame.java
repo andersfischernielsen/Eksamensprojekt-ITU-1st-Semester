@@ -217,6 +217,8 @@ public class PersonAndSeatFrame extends JFrame
         {
             System.out.println("You havent booked the same amount of seats as the amounts of persons this booking");
         }
+        if (seatIDsThisRes.size() == 0 || persons.size() == 0)
+                System.out.println("You havent booked any persons or seats");
         else
         {
             reservation.bookSeats(seatIDsThisRes);
