@@ -12,7 +12,7 @@ public interface ReceiptPrinter {
     /**
      * Print the full receipt. 
      */
-    void print();
+    String print();
 
     /**
      * Create the details about the departure and arrival dates and airports. 
