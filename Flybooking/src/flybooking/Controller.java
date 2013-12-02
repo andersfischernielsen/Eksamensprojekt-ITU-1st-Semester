@@ -1,3 +1,4 @@
+
 package flybooking;
 
 import java.sql.SQLException;
@@ -155,7 +156,7 @@ public class Controller implements ControllerInterface
         }
         else
         {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
     }
     
