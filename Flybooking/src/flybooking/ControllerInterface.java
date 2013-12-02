@@ -26,7 +26,7 @@ public interface ControllerInterface
      *
      * @param database The database to save the reservation to.
      */
-    void saveReservation(DatabaseInterface database);
+    void saveReservation(DatabaseInterface database)  throws SQLException;
 
     /**
      * Get a specific reservation.

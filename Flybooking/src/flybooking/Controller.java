@@ -27,7 +27,7 @@ public class Controller implements ControllerInterface
     }
 
     @Override
-    public void saveReservation(DatabaseInterface database)
+    public void saveReservation(DatabaseInterface database) throws SQLException
     {
         database.newReservation(workingOnReservation);
         resetController();
