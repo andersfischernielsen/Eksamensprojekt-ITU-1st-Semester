@@ -222,8 +222,15 @@ public class PersonAndSeatFrame extends JFrame {
                 JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
         } else {
             reservation.bookSeats(seatIDsThisRes);
+            
+            //Add all the people to the reservation.
+            for (Person p : persons) {
+                reservation.addPerson(p);
+            }
+            
+            //Save the reservation.
             controller.setWorkingOnReservation(reservation);
-            setVisible(false);
+            new PaymentFrame();
             dispose();
         }
     }
@@ -308,7 +315,6 @@ public class PersonAndSeatFrame extends JFrame {
                 try
                 {
                     confirmReservation();
-                    new PaymentFrame();
                 }
                 catch (SQLException ex)
                 {
