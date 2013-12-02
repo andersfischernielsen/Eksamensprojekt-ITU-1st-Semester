@@ -67,6 +67,7 @@ public class StartFrame extends JFrame {
 
         //Initialize the buttons.
         newBookingButton = new JButton("New Booking");
+        newBookingButton.setDefaultCapable(true);
         editBookingButton = new JButton("Edit Booking");
         newBookingButton.setMinimumSize(new Dimension(200, 20));
         editBookingButton.setMinimumSize(new Dimension(200, 20));
@@ -76,6 +77,7 @@ public class StartFrame extends JFrame {
         buttonPanelCont.add(buttonPanel);
 	background.add(buttonPanelCont, BorderLayout.SOUTH);
 
+        getRootPane().setDefaultButton(newBookingButton);
         setResizable(false);
         pack();
         setVisible(true);
