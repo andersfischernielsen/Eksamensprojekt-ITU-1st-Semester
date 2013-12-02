@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 
@@ -211,7 +213,7 @@ public class PersonAndSeatFrame extends JFrame {
     /**
      * Confirm the reservation, saving it in the booking system
      */
-    private void confirmReservation()
+    private void confirmReservation() throws SQLException
     {
         if (seatIDsThisRes.size() != persons.size()) {
             JOptionPane.showMessageDialog(null, "You havent booked the same amount of seats as the amounts of persons this booking!", "You havent booked the same amount of seats as the amounts of persons this booking!", JOptionPane.ERROR_MESSAGE);
@@ -266,7 +268,7 @@ public class PersonAndSeatFrame extends JFrame {
     /**
      * Add Action- and MouseListeners to the components in the frame.
      */
-    private void addListeners()
+    private void addListeners() 
     {
         planeDrawingComp.addMouseListener(new MouseListener() {
             @Override
@@ -304,7 +306,15 @@ public class PersonAndSeatFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                confirmReservation();
+                // FIX THIS LORTE SQL EXCEPTIONS
+                try
+                {
+                    confirmReservation();
+                }
+                catch (SQLException ex)
+                {
+                    Logger.getLogger(PersonAndSeatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
