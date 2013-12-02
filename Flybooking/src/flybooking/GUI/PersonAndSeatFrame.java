@@ -350,7 +350,6 @@ public class PersonAndSeatFrame extends JFrame {
                         firstNameField.setText(p.getFirstName());
                         lastNameField.setText(p.getLastName());
                         addressField.setText(p.getAdress());
-                        addButton.setText("Save");
                     }
                 }
             }
