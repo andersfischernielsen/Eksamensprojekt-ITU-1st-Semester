@@ -81,7 +81,7 @@ public class PaymentFrame extends JFrame {
         contentPane.add(confirmButton, BorderLayout.PAGE_END);
 
         getRootPane().setDefaultButton(confirmButton);
-        setPreferredSize(new Dimension(430, 300));
+        setPreferredSize(new Dimension(440, 310));
         setLocation(new Point(600, 40));
         
         pack();
