@@ -39,18 +39,15 @@ public class EditReservationFrame extends JFrame {
 
     private EditReservationFrame(ControllerInterface controller) throws HeadlessException
     {
+        database = Database.getInstance();
         this.controller = controller;
-        database = ProgramStorage.getInstance();
         setTitle("Edit Booking");
 
         searchResults = new ArrayList<>();
         content = getContentPane();
 
-        try {
-            createTopContent();
-            createBottomContent();
-        } catch (SQLException ex) {
-        }
+        createTopContent();
+        createBottomContent();
 
         getRootPane().setDefaultButton(searchButton);
         setMinimumSize(new Dimension(560, 480));
@@ -58,7 +55,7 @@ public class EditReservationFrame extends JFrame {
         setVisible(true);
     }
 
-    private void createTopContent() throws SQLException
+    private void createTopContent()
     {
         top = new JPanel();
         topContent = new JPanel();
@@ -108,14 +105,15 @@ public class EditReservationFrame extends JFrame {
                 try {
                     if (CPRField.getText().equals("")) {
                         performIDSearch(resField.getText());
-                        reservationList = new ReservationList(searchResults);
+                        reservationList.update();
                     }
 
                     if (resField.getText().equals("")) {
                         performCPRSearch(CPRField.getText());
-                        reservationList = new ReservationList(searchResults);
+                        reservationList.update();
                     }
-                } catch (SQLException ex) {}
+                } catch (SQLException ex) {
+                }
             }
         });
 
@@ -145,7 +143,7 @@ public class EditReservationFrame extends JFrame {
 
         content.add(scrollpane, BorderLayout.CENTER);
     }
-    
+
     private void performCPRSearch(String CPR) throws SQLException
     {
         controller.getReservations(null, CPR);
