@@ -33,9 +33,9 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void getReservation(String reservationID, String CPR) throws SQLException
+    public ArrayList<ReservationInterface> getReservations(String reservationID, String CPR) throws SQLException
     {
-        database.getReservationList(reservationID, CPR);
+        return database.getReservationList(reservationID, CPR);
     }
 
     @Override
