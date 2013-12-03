@@ -103,10 +103,12 @@ public class EditReservationFrame extends JFrame {
             {
                     if (CPRField.getText().equals("")) {
                         performIDSearch(resField.getText());
+                        reservationList.setListData(searchResults.toArray());
                     }
 
                     if (resField.getText().equals("")) {
                         performCPRSearch(CPRField.getText());
+                        reservationList.setListData(searchResults.toArray());
                     }
             }
         });
@@ -130,11 +132,11 @@ public class EditReservationFrame extends JFrame {
 
     private void createBottomContent()
     {
-        reservationList = new ReservationList(searchResults);
-
         scrollpane = new JScrollPane();
+        reservationList = new ReservationList(searchResults);
+        
         scrollpane.setViewportView(reservationList);
-
+        
         content.add(scrollpane, BorderLayout.CENTER);
     }
 
