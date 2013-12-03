@@ -64,15 +64,15 @@ public interface DatabaseInterface
     /**
      * Returns an arrayList of reservations which respects the parameters.
      *
-     * @param ReservationID
-     * @param CPR
+     * @param reservationID The ID to search for.
+     * @param CPR The CPR to search for.
      *
      * @return
      */
-    ArrayList<ReservationInterface> getReservationList(String reservationID, String CPR) throws SQLException;
+    ArrayList<ReservationInterface> getReservationList(String reservationID, String CPR);
 
     /**
-     * Enten den her
+     * Get a list of reservations matching the specified parameters
      *
      * @param flight
      * @param persons
