@@ -6,7 +6,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.*;
 import net.miginfocom.swing.MigLayout;
 
@@ -23,7 +22,7 @@ public class EditReservationFrame extends JFrame {
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
     private DatabaseInterface database;
-    private ReservationList reservationList;
+    private JList reservationList;
     private ArrayList<ReservationInterface> searchResults;
     private JScrollPane scrollpane;
 
@@ -104,12 +103,10 @@ public class EditReservationFrame extends JFrame {
             {
                     if (CPRField.getText().equals("")) {
                         performIDSearch(resField.getText());
-                        reservationList.update();
                     }
 
                     if (resField.getText().equals("")) {
                         performCPRSearch(CPRField.getText());
-                        reservationList.update();
                     }
             }
         });
