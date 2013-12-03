@@ -29,7 +29,8 @@ public class Database implements DatabaseInterface
         {
             con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name, login, password);
             statement = con.createStatement();
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             showMessageDialog(null, "Couldn't connect to the database!");
         }
     }
@@ -39,9 +40,10 @@ public class Database implements DatabaseInterface
     public Plane getPlane(String PlaneID) throws SQLException
     {
         ResultSet rs = null;
-        try{
-        rs = statement.executeQuery("SELECT * FROM Plane WHERE ID = '" + PlaneID + "'");
-        } catch(SQLException e)
+        try
+        {
+            rs = statement.executeQuery("SELECT * FROM Plane WHERE ID = '" + PlaneID + "'");
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -53,9 +55,11 @@ public class Database implements DatabaseInterface
     public Airport getAirport(String AirportCityID) throws SQLException
     {
         ResultSet rs = null;
-        try{
-        rs = statement.executeQuery("SELECT * FROM Airport WHERE Airport.code = '" + AirportCityID + "'");
-        }catch (SQLException e){
+        try
+        {
+            rs = statement.executeQuery("SELECT * FROM Airport WHERE Airport.code = '" + AirportCityID + "'");
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         rs.next();
@@ -85,18 +89,21 @@ public class Database implements DatabaseInterface
 
     public void insertPerson(Person person, String ReservationID) throws SQLException
     {
-        try {
+        try
+        {
             statement.executeUpdate("INSERT INTO People (ID, ReservationID, firstName, lastName, address, groupID) "
                     + "VALUES (" + person.getID() + ", '" + ReservationID + "', '" + person.getFirstName() + "' , '"
                     + person.getLastName() + "' , '" + person.getAdress() + "' ," + person.getGroupID() + ")");
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
     }
 
     public void insertSeat(String seatID, String ReservationID) throws SQLException
     {
-        try {
+        try
+        {
             statement.executeUpdate("INSERT INTO Seat (SeatID, ReservationID) "
                     + "VALUES ( '" + seatID + "' , '" + ReservationID + "')");
         } catch (SQLException e)
@@ -107,10 +114,20 @@ public class Database implements DatabaseInterface
 
     // ----------- advanced objects --------------
     @Override
-    public FlightInterface getFlight(int flightID) throws SQLException
+    public FlightInterface getFlight(int flightID)
     {
-        ResultSet rs = statement.executeQuery("SELECT * FROM Flight WHERE flight.ID = '" + flightID + "'");
-        return new Flight(rs.getDouble("price"), rs.getInt("ID"), getPlane(rs.getString("plane")), new Date(), new Date(), getAirport(rs.getString("startAirport")), getAirport(rs.getString("endAirport")));
+        ResultSet rs;
+        FlightInterface flight = null;
+        try
+        {
+            rs = statement.executeQuery("SELECT * FROM Flight WHERE flight.ID = '" + flightID + "'");
+            rs.next();
+            flight = new Flight(rs.getDouble("price"), rs.getInt("ID"), getPlane(rs.getString("plane")), new Date(), new Date(), getAirport(rs.getString("startAirport")), getAirport(rs.getString("endAirport")));
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return flight;
     }
 
     @Override
@@ -143,40 +160,53 @@ public class Database implements DatabaseInterface
 
         //If the reservationsID given is null or an empty String, don't search for it.
         //Search for CPR instead.
-        if (reservationID == null || reservationID.equals("")) {
-            try {
+        if (reservationID == null || reservationID.equals(""))
+        {
+            try
+            {
                 rsReservation = statement.executeQuery("SELECT * FROM Reservation WHERE ID = '" + CPR + "';");
-            } catch (SQLException ex) {
+            } catch (SQLException ex)
+            {
                 ex.printStackTrace();
             }
         }
 
         //If the CPR given is null or an empty String, don't search for it.
         //Search for reservationID instead.
-        if (CPR == null || CPR.equals("")) {
-            try {
+        else if (CPR == null || CPR.equals(""))
+        {
+            try
+            {
                 rsReservation = statement.executeQuery("SELECT * FROM Reservation WHERE ID = '" + reservationID + "';");
-            } catch (SQLException ex) {
+            } catch (SQLException ex)
+            {
                 ex.printStackTrace();
             }
         }
 
-        try {
+        try
+        {
             //If the resultset isn't null, then there are some results. 
-            if (rsReservation != null) {
+            if (rsReservation != null)
+            {
                 //If there are no more results, break.
-                while (!rsReservation.isClosed() && rsReservation.next()) {
+                while (!rsReservation.isClosed() && rsReservation.next())
+                {
                     //Go through the results, and create reservations.
                     //Add these to the list of found reservations.
                     ReservationInterface r = new Reservation();
                     //Set the reservation details from the database info.
-                    r.setCPR("CPR");
+                    r.setCPR(rsReservation.getString("CPR"));
+                    r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
+                    r.setPrice(rsReservation.getDouble("price"));
+                    r.setReservationDate(new Date());
 
                     //Add the finished reservation to the list for each found res.
                     reservations.add(r);
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             ex.printStackTrace();
         }
 
@@ -194,7 +224,8 @@ public class Database implements DatabaseInterface
     public void newReservation(ReservationInterface reservationToMake) throws SQLException
     {
         // save the reservation.
-        try {
+        try
+        {
             statement.executeUpdate("INSERT INTO Reservation (ID, flight, CPR) "
                     + "VALUES ('" + reservationToMake.getID() + "', " + reservationToMake.getFlight().getID() + ", '" + reservationToMake.getCPR() + "')");
         } catch (SQLException e)
@@ -280,24 +311,32 @@ public class Database implements DatabaseInterface
     public boolean checkForID(int ID)
     {
         // IKKE NØDVENDIG MERE
-        if (ID <= 9999) {
-            try {
+        if (ID <= 9999)
+        {
+            try
+            {
                 ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
-                if (matchingIDs.next()) {
+                if (matchingIDs.next())
+                {
                     return false;
                 }
-            } catch (SQLException ex) {
+            } catch (SQLException ex)
+            {
                 ex.printStackTrace();
             }
         }
 
-        if (ID > 9999) {
-            try {
+        if (ID > 9999)
+        {
+            try
+            {
                 ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
-                if (matchingIDs.next()) {
+                if (matchingIDs.next())
+                {
                     return false;
                 }
-            } catch (SQLException ex) {
+            } catch (SQLException ex)
+            {
                 ex.printStackTrace();
             }
         }
