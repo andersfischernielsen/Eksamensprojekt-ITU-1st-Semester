@@ -85,17 +85,15 @@ public class EditReservationFrame extends JFrame {
         filler2 = new JPanel();
         filler3 = new JPanel();
         filler4 = new JPanel();
-
-        topContent.add(resLabel,"wrap");
-        topContent.add(resField, "wrap");
-        topContent.add(filler,"wrap");
         
+        topContent.add(resLabel);
+        topContent.add(filler);
         topContent.add(CPRLabel, "wrap");
+        topContent.add(resField);
+        topContent.add(filler2);
         topContent.add(CPRField, "wrap");
-        topContent.add(filler2, "wrap");
-        
         topContent.add(editButton);
-        topContent.add(filler3, "wrap");
+        topContent.add(filler3, "span 2, wrap");
         topContent.add(deleteButton);
         topContent.add(filler4);
         topContent.add(searchButton);
