@@ -26,10 +26,11 @@ public class ReservationList extends JList {
      *
      * @param reservations The reservations to show in the list.
      */
-    public ReservationList(ArrayList<ReservationInterface> reservations) throws SQLException
+    public ReservationList(ArrayList<ReservationInterface> reservations)
     {
         this.reservations = reservations;
         model = new DefaultListModel<>();
+        
         selectedReservation = new Reservation();
 
         //Add all the reservations to the list model.
