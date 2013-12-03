@@ -6,7 +6,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -22,7 +26,7 @@ public class EditReservationFrame extends JFrame {
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
     private DatabaseInterface database;
-    private JList reservationList;
+    private ReservationList reservationList;
     private ArrayList<ReservationInterface> searchResults;
     private JScrollPane scrollpane;
 
@@ -126,10 +130,30 @@ public class EditReservationFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 System.out.println("Test editButton");
+                // måske ikke exception her
+                try
+                {
+                    sendOnData();
+                }
+                catch (SQLException ex)
+                {
+                    Logger.getLogger(EditReservationFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
+    public void sendOnData() throws SQLException
+    {
+        ReservationInterface reservation = reservationList.getSelectedReservation();
+
+        if (reservation.getFlight().getPlane() != null) {
+            controller.setWorkingOnReservation(reservation);
+            setVisible(false);
+
+            new PersonAndSeatFrame();
+        }
+    }
     private void createBottomContent()
     {
         scrollpane = new JScrollPane();
