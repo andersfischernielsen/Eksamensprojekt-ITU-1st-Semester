@@ -17,7 +17,7 @@ public interface ControllerInterface
     /**
      * Begin the process of creating a new reservation.
      */
-    void createReservation();
+    void createReservation() throws SQLException;
     //HER SKAL VI NOK HAVE FLERE METODER. JEG VED BARE IKKE LIGE HELT PRÆCIST
     //HVORDAN VI TACKLER HELE DATABASEN OSV. 
 
@@ -155,5 +155,5 @@ public interface ControllerInterface
      * Resets the controller, short for delete the current reservation and make
      * a new one.
      */
-    public void resetController();
+    public void resetController() throws SQLException;
 }

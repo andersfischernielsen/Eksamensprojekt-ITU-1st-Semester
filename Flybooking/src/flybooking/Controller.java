@@ -20,7 +20,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void createReservation()
+    public void createReservation() throws SQLException
     {
         workingOnReservation = new Reservation();
     }
@@ -171,7 +171,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void resetController()
+    public void resetController()  throws SQLException
     {
         workingOnReservation = new Reservation();
     }
