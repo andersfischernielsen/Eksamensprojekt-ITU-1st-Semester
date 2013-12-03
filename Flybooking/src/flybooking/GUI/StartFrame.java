@@ -33,7 +33,7 @@ public class StartFrame extends JFrame {
 
     private StartFrame() throws HeadlessException
     {
-        database = ProgramStorage.getInstance();
+        database = Database.getInstance();
         controller = Controller.getInstance();
         drawFrame();
         addActionListeners();
