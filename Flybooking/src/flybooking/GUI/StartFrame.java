@@ -28,16 +28,16 @@ public class StartFrame extends JFrame {
 
     public static void main(String[] args)
     {
-        
         StartFrame.getInstance();
     }
 
     private StartFrame() throws HeadlessException
     {
+        database = ProgramStorage.getInstance();
+        controller = Controller.getInstance();
         drawFrame();
         addActionListeners();
-        controller = Controller.getInstance(database);
-        database = ProgramStorage.getInstance();
+
     }
 
     public static StartFrame getInstance()

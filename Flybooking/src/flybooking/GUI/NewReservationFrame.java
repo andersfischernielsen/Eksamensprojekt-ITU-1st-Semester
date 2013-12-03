@@ -47,7 +47,7 @@ public class NewReservationFrame extends JFrame {
         //Create a new Array ready to receive search results.
         searchResults = new ArrayList<>();
         //Get an instance of teh controller to be able to search and save results.
-        controller = Controller.getInstance(ProgramStorage.getInstance());
+        controller = Controller.getInstance();
         //Draw the GUI.
         drawFrame();
     }
