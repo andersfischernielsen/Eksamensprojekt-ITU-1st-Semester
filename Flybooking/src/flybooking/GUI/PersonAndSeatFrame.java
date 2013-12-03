@@ -402,4 +402,9 @@ public class PersonAndSeatFrame extends JFrame {
         //If none of the above, the person is an Adult, and therefore has ID 0.
         return 0;
     }
+    
+    @Override 
+    public void pack() {
+        
+    }
 }
