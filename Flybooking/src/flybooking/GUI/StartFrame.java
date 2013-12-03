@@ -22,14 +22,13 @@ public class StartFrame extends JFrame {
     JPanel buttonPanel;
     JButton newBookingButton;
     JButton editBookingButton;
-    private static DatabaseInterface database;
-    private static ControllerInterface controller;
+    private DatabaseInterface database;
+    private ControllerInterface controller;
     private static StartFrame instance = null;
 
     public static void main(String[] args)
     {
-        database = ProgramStorage.getInstance();
-        controller = Controller.getInstance(database);
+        
         StartFrame.getInstance();
     }
 
@@ -37,6 +36,8 @@ public class StartFrame extends JFrame {
     {
         drawFrame();
         addActionListeners();
+        controller = Controller.getInstance(database);
+        database = ProgramStorage.getInstance();
     }
 
     public static StartFrame getInstance()
@@ -83,6 +84,12 @@ public class StartFrame extends JFrame {
         setVisible(true);
     }
 
+    private void nextFrame() throws SQLException
+    {
+       controller.createReservation();
+       NewReservationFrame.getInstance();
+    }
+            
     private void addActionListeners()
     {
         newBookingButton.addActionListener(new ActionListener() {
@@ -90,7 +97,7 @@ public class StartFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 try {
-                    NewReservationFrame.getInstance();
+                    nextFrame();
                 } catch (SQLException ex) {
                 }
             }
