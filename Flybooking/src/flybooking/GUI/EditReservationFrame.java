@@ -15,8 +15,8 @@ import net.miginfocom.swing.MigLayout;
  */
 public class EditReservationFrame extends JFrame {
 
-    private Container content, top, topContent, filler, filler2, filler3;
-    private JButton searchButton, doneButton;
+    private Container content, top, topContent, buttom, buttomContent, filler, filler2, filler3;
+    private JButton searchButton, doneButton, deleteButton;
     private JLabel resLabel, CPRLabel;
     private JTextField resField, CPRField;
     private static EditReservationFrame instance = null;
@@ -86,6 +86,21 @@ public class EditReservationFrame extends JFrame {
 
         top.add(topContent);
         content.add(top, BorderLayout.NORTH);
+        
+        buttom = new JPanel();
+        buttomContent = new JPanel();
+        buttomContent.setLayout(new MigLayout());
+        
+        doneButton = new JButton("Edit Reservation");
+        doneButton.setPreferredSize(new Dimension(200, 40));
+        deleteButton = new JButton("Delete Reservation");
+        deleteButton.setPreferredSize(new Dimension(200, 40));
+        
+        buttomContent.add(doneButton);
+        buttomContent.add(deleteButton);
+        
+        buttom.add(buttomContent);
+        content.add(buttom, BorderLayout.SOUTH);
 
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -105,13 +120,11 @@ public class EditReservationFrame extends JFrame {
     private void createBottomContent()
     {
         reservationList = new ReservationList(searchResults);
-        doneButton = new JButton("Edit this flight");
 
         scrollpane = new JScrollPane();
         scrollpane.setViewportView(reservationList);
 
         content.add(scrollpane, BorderLayout.CENTER);
-        content.add(doneButton, BorderLayout.PAGE_END);
     }
 
     private void performCPRSearch(String CPR)
