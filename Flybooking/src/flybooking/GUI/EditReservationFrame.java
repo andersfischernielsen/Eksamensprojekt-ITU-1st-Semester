@@ -1,4 +1,3 @@
-
 package flybooking.GUI;
 
 import flybooking.*;
@@ -86,19 +85,19 @@ public class EditReservationFrame extends JFrame {
 
         top.add(topContent);
         content.add(top, BorderLayout.NORTH);
-        
+
         buttom = new JPanel();
         buttomContent = new JPanel();
         buttomContent.setLayout(new MigLayout());
-        
+
         doneButton = new JButton("Edit Reservation");
         doneButton.setPreferredSize(new Dimension(200, 40));
         deleteButton = new JButton("Delete Reservation");
         deleteButton.setPreferredSize(new Dimension(200, 40));
-        
+
         buttomContent.add(doneButton);
         buttomContent.add(deleteButton);
-        
+
         buttom.add(buttomContent);
         content.add(buttom, BorderLayout.SOUTH);
 
@@ -115,8 +114,22 @@ public class EditReservationFrame extends JFrame {
                 }
             }
         });
-    }
 
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Test deleteButton");
+            }
+        });
+        
+        doneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Test doneButton");
+            }
+        });
+    }
+        
     private void createBottomContent()
     {
         reservationList = new ReservationList(searchResults);
