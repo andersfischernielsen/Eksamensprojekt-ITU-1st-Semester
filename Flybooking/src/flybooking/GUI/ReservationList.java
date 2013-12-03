@@ -59,9 +59,7 @@ public class ReservationList extends JList {
     }
     
     public void update() {
-        setModel(model);
-        revalidate();
-        repaint();
+        System.out.println(model.getSize());
     }
 
     private class ReservationCellRenderer extends DefaultListCellRenderer {
