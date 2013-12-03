@@ -311,7 +311,7 @@ public class NewReservationFrame extends JFrame {
      *
      * @throws ParseException
      */
-    private void sendOnData() throws ParseException
+    private void sendOnData() throws ParseException, SQLException
     {
         ReservationInterface reservation = new Reservation();
         reservation.setReservationDate(new Date());
