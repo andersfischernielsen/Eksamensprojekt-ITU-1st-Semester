@@ -92,7 +92,7 @@ public class FlightList extends JList {
             bottomCellTextLeft = new JLabel(
                     Calculator.convertDateToHourString(flight.getEndDate()));
 
-            bottomCellTextMiddle = new JLabel(
+            bottomCellTextMiddle = new JLabel( "       " + 
                     Calculator.convertDateToString(flight.getStartDate()));
             bottomCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
