@@ -137,19 +137,19 @@ public interface ControllerInterface
      * return booked seats for this reservations flight.
      * @return an arrayList of seatIDs  
      */
-    public ArrayList<String> getBookedSeats();
+    public ArrayList<String> getBookedSeats()  throws SQLException;
     
     /**
      * returns the booked seats on the controllers reservation.
      * @return 
      */
-    public ArrayList<String> getBookedThisResSeats();
+    public ArrayList<String> getBookedThisResSeats() throws SQLException;
             
     /**
      * Returns the controller's reservations booked persons.
      * @return a list of Person objects
      */
-    public ArrayList<Person> getBookedPersons();
+    public ArrayList<Person> getBookedPersons() throws SQLException;
 
     /**
      * Resets the controller, short for delete the current reservation and make
