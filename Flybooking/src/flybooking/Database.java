@@ -85,7 +85,9 @@ public class Database implements DatabaseInterface
     @Override
     public Person getPerson(int PersonID) throws SQLException
     {
+        Statement statement = con.createStatement();
         ResultSet rs = statement.executeQuery("SELECT * FROM People WHERE People.ID = " + PersonID);
+        rs.next();
         return new Person(rs.getString("Firstname"), rs.getString("Lastname"), rs.getInt("PersonID"), rs.getString("Address"), rs.getInt("groupID"));
     }
 
@@ -161,6 +163,8 @@ public class Database implements DatabaseInterface
     {
         //Create a new empty ArrayList of reservations to avoid nullpointers.
         ArrayList<ReservationInterface> reservations = new ArrayList<>();
+        ArrayList<String> seatIDThisRes = new ArrayList<>();
+        ArrayList<Person> personsThisRes = new ArrayList<>();
         ReservationInterface r = new Reservation();
         ResultSet rsReservation = null;
 
@@ -203,6 +207,35 @@ public class Database implements DatabaseInterface
                 r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
                 //r.setPrice(rsReservation.getDouble("price"));
                 r.setReservationDate(new Date());
+
+                try
+                {
+                    Statement statement2 = con.createStatement();
+                    ResultSet rsSeat = statement2.executeQuery("SELECT * FROM Seat WHERE ReservationID = '" + reservationID + "';");
+                    
+                    while(!rsSeat.isClosed() && rsSeat.next())
+                    {
+                        seatIDThisRes.add(rsSeat.getString("seatID"));
+                    }
+                } catch (SQLException ex)
+                {
+                    ex.printStackTrace();
+                }
+                
+                try
+                {
+                    Statement statement3 = con.createStatement();
+                    ResultSet rsPerson = statement3.executeQuery("SELECT * FROM People WHERE ReservationID = '" + reservationID + "';");
+                    
+                    while(!rsPerson.isClosed() && rsPerson.next())
+                    {
+                        personsThisRes.add(getPerson(rsPerson.getInt("ID")));
+                    }
+                } catch (SQLException ex)
+                {
+                    ex.printStackTrace();
+                }
+
 
                 //Add the finished reservation to the list for each found res.
                 reservations.add(r);
