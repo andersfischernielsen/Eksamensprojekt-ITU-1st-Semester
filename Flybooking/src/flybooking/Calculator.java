@@ -110,10 +110,10 @@ public class Calculator
     {
         while (true)
         {
-            int personID = randomGen.nextInt(9999);
-            if (Database.getInstance().checkForID(personID))
+            int reservationID = randomGen.nextInt(9999);
+            if (Database.getInstance().checkForID(reservationID))
             {
-                return personID + "";
+                return reservationID + "";
             }
         }
     }
