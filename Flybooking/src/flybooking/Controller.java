@@ -8,16 +8,15 @@ import java.util.*;
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
-public class Controller implements ControllerInterface
-{
+public class Controller implements ControllerInterface {
 
     private DatabaseInterface database;
     private static Controller instance = null;
     private ReservationInterface workingOnReservation;
 
-    private Controller(DatabaseInterface database)
+    private Controller()
     {
-        this.database = database;
+        database = Database.getInstance();
     }
 
     @Override
@@ -27,20 +26,20 @@ public class Controller implements ControllerInterface
     }
 
     @Override
-    public void saveReservation(DatabaseInterface database) throws SQLException
+    public void saveReservation() throws SQLException
     {
         database.newReservation(workingOnReservation);
         resetController();
     }
 
     @Override
-    public void getReservation(DatabaseInterface database, String reservationID, String CPR) throws SQLException
+    public void getReservation(String reservationID, String CPR) throws SQLException
     {
         database.getReservationList(reservationID, CPR);
     }
 
     @Override
-    public void deleteReservation(DatabaseInterface database, String reservationID) throws SQLException
+    public void deleteReservation(String reservationID) throws SQLException
     {
         database.removeReservation(reservationID);
     }
@@ -63,7 +62,7 @@ public class Controller implements ControllerInterface
     }
 
     @Override
-    public void search(DatabaseInterface database)
+    public void search()
     {
         //Do nothing.    
     }
@@ -88,8 +87,7 @@ public class Controller implements ControllerInterface
         ArrayList<String> destinations = database.getAirportCitiesAsStrings();
         int number = 0;
 
-        for (String d : destinations)
-        {
+        for (String d : destinations) {
             number++;
         }
 
@@ -102,19 +100,17 @@ public class Controller implements ControllerInterface
         String[] destinations = new String[getNumberOfDestinations()];
         ArrayList<String> strings = database.getAirportCitiesAsStrings();
 
-        for (int i = 0; i < destinations.length; i++)
-        {
+        for (int i = 0; i < destinations.length; i++) {
             destinations[i] = strings.get(i);
         }
 
         return destinations;
     }
 
-    public static Controller getInstance(DatabaseInterface database)
+    public static Controller getInstance()
     {
-        if (instance == null)
-        {
-            instance = new Controller(database);
+        if (instance == null) {
+            instance = new Controller();
         }
 
         return instance;
@@ -150,30 +146,29 @@ public class Controller implements ControllerInterface
     public ArrayList<String> getBookedSeats()
     {
         System.out.println(workingOnReservation.getFlight().getID());
-        if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null)
-        {
-            return database.getAllBookedSeats(workingOnReservation.getFlight().getID());
-        }
-        else
-        {
-            return new ArrayList<>();
-        }
+        try {
+            if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null) {
+                return database.getAllBookedSeats(workingOnReservation.getFlight().getID());
+            }
+        } catch (SQLException ex) {}
+
+        return new ArrayList<>();
     }
-    
+
     @Override
     public ArrayList<String> getBookedThisResSeats()
     {
         System.out.println(workingOnReservation.getFlight().getID());
-        if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null)
-        {
-            return database.getBookedSeatsOnReservation(workingOnReservation.getID());
+        try {
+            if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null) {
+                return database.getBookedSeatsOnReservation(workingOnReservation.getID());
+            }
+        } catch (SQLException ex) {
         }
-        else
-        {
-            return new ArrayList<String>();
-        }
-    }    
-    
+
+        return new ArrayList<String>();
+    }
+
     @Override
     public void resetController()
     {
@@ -184,13 +179,13 @@ public class Controller implements ControllerInterface
     public ArrayList<Person> getBookedPersons()
     {
         System.out.println(workingOnReservation.getFlight().getID());
-        if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null)
-        {
-            return database.getBookedPersons(workingOnReservation.getID());
+        try {
+            if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null) {
+                return database.getBookedPersons(workingOnReservation.getID());
+            }
+        } catch (SQLException ex) {
         }
-        else
-        {
-            return new ArrayList<Person>();
-        }        
+
+        return new ArrayList<Person>();
     }
 }

@@ -29,7 +29,7 @@ public class StartFrame extends JFrame {
     public static void main(String[] args)
     {
         database = ProgramStorage.getInstance();
-        controller = Controller.getInstance(database);
+        controller = Controller.getInstance();
         StartFrame.getInstance();
     }
 

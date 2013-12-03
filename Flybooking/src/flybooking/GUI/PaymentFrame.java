@@ -33,7 +33,7 @@ public class PaymentFrame extends JFrame {
     public PaymentFrame()
     {
         database = ProgramStorage.getInstance();
-        controller = Controller.getInstance(database);
+        controller = Controller.getInstance();
         currentReservation = controller.getWorkingOnReservation();
         peopleInReservation = currentReservation.getPersons();
 
@@ -100,7 +100,7 @@ public class PaymentFrame extends JFrame {
                     CPRField.setBackground(Color.RED);
                 } else {
                     try {
-                        controller.saveReservation(database);
+                        controller.saveReservation();
                         dispose();
                     } catch (SQLException ex) {
                     }

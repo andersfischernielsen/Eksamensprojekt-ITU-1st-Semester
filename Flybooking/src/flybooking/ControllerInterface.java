@@ -24,23 +24,20 @@ public interface ControllerInterface
     /**
      * Save the reservation when finished.
      *
-     * @param database The database to save the reservation to.
      */
-    void saveReservation(DatabaseInterface database)  throws SQLException;
+    void saveReservation()  throws SQLException;
 
     /**
      * Get a specific reservation.
      *
-     * @param database The database to get the reservation from.
      */
-    void getReservation(DatabaseInterface database, String reservationID, String CPR)throws SQLException;
+    void getReservation( String reservationID, String CPR)throws SQLException;
 
     /**
      * Delete a reservation.
      *
-     * @param database The database to delete the reservation from.
      */
-    void deleteReservation(DatabaseInterface database, String reservationID) throws SQLException;
+    void deleteReservation(String reservationID) throws SQLException;
 
     /**
      * Print the receipt of the reservation.
@@ -65,7 +62,7 @@ public interface ControllerInterface
      *
      * @param database The database to search in.
      */
-    void search(DatabaseInterface database); //SEARCH BLIVER MERE AVANCERET AT LAVE, SÅ VI SKAL SIKKERT HAVE EN DEL ANDRE SØGEMETODER.
+    void search(); //SEARCH BLIVER MERE AVANCERET AT LAVE, SÅ VI SKAL SIKKERT HAVE EN DEL ANDRE SØGEMETODER.
 
     /**
      * Checks to see if anyone is next to the specified person.

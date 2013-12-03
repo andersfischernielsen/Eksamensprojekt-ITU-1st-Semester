@@ -146,11 +146,11 @@ public class EditReservationFrame extends JFrame {
 
     private void performCPRSearch(String CPR) throws SQLException
     {
-        controller.getReservation(database, null, CPR);
+        controller.getReservation(null, CPR);
     }
 
     private void performIDSearch(String ID) throws SQLException
     {
-        controller.getReservation(database, ID, null);
+        controller.getReservation(ID, null);
     }
 }

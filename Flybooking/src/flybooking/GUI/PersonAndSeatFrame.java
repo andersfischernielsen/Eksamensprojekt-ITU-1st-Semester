@@ -38,7 +38,7 @@ public class PersonAndSeatFrame extends JFrame {
     {
         //Initialize the controller, database and get the current reservation and its plane.
         graphics = new GraphicsComponent();
-        controller = Controller.getInstance(ProgramStorage.getInstance());
+        controller = Controller.getInstance();
         reservation = controller.getWorkingOnReservation();
         planeToDraw = reservation.getFlight().getPlane();
         planeToDraw.bookTakenSeats(controller.getBookedSeats());
