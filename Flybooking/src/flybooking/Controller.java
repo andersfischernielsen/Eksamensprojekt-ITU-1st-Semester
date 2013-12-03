@@ -147,7 +147,7 @@ public class Controller implements ControllerInterface
     }
 
     @Override
-    public ArrayList<String> getBookedSeats()
+    public ArrayList<String> getBookedSeats() throws SQLException
     {
         System.out.println(workingOnReservation.getFlight().getID());
         if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null)
@@ -161,7 +161,7 @@ public class Controller implements ControllerInterface
     }
     
     @Override
-    public ArrayList<String> getBookedThisResSeats()
+    public ArrayList<String> getBookedThisResSeats() throws SQLException
     {
         System.out.println(workingOnReservation.getFlight().getID());
         if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null)
@@ -181,7 +181,7 @@ public class Controller implements ControllerInterface
     }
 
     @Override
-    public ArrayList<Person> getBookedPersons()
+    public ArrayList<Person> getBookedPersons() throws SQLException
     {
         System.out.println(workingOnReservation.getFlight().getID());
         if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null)
