@@ -86,8 +86,8 @@ public class ReservationList extends JList {
             panel.setLayout(new BorderLayout());
 
             //Fill the top part of the cell with reservation information and lay it out.
-            topCellTextLeft = new JLabel("Booked the: "
-                    + Calculator.convertDateToHourString(res.getReservationDate()));
+            //topCellTextLeft = new JLabel("Booked the: "
+            //        + Calculator.convertDateToHourString(res.getReservationDate()));
 
             topCellTextMiddle = new JLabel(
                     res.getFlight().getStartAirport().getID() + " > "
@@ -109,7 +109,7 @@ public class ReservationList extends JList {
                     res.getPrice() + ",-");
 
             //Add all of the information to the top and bottom aprt of the cell.
-            topCellContent.add(topCellTextLeft, BorderLayout.LINE_START);
+            //topCellContent.add(topCellTextLeft, BorderLayout.LINE_START);
             topCellContent.add(topCellTextMiddle, BorderLayout.CENTER);
             topCellContent.add(topCellTextRight, BorderLayout.LINE_END);
             bottomCellContent.add(bottomCellTextLeft, BorderLayout.LINE_START);
