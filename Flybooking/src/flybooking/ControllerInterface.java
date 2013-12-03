@@ -28,10 +28,13 @@ public interface ControllerInterface
     void saveReservation()  throws SQLException;
 
     /**
-     * Get a specific reservation.
+     * Get a a list of reservations matching the given ID and CPR.
      *
+     * @param reservationID The res. ID to search for.
+     * @param CPR The CPR to search for.
+     * @return A list of matching reservations.
      */
-    void getReservation( String reservationID, String CPR)throws SQLException;
+    ArrayList<ReservationInterface> getReservations (String reservationID, String CPR)throws SQLException;
 
     /**
      * Delete a reservation.

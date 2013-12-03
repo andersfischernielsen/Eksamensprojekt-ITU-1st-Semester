@@ -15,52 +15,61 @@ import javax.swing.border.EmptyBorder;
 public class ReservationList extends JList {
 
     //The array of reservations to show in the list.
-    private ArrayList<Reservation> reservations;
-    private DefaultListModel<Reservation> model;
+    private ArrayList<ReservationInterface> reservations;
+    private DefaultListModel<ReservationInterface> model;
     private Reservation selectedReservation;
 
     /**
-     * Create a new ReservationList, containing a given ArrayList of reservations.
+     * Create a new ReservationList, containing a given ArrayList of
+     * reservations.
      *
      * @param reservations The reservations to show in the list.
      */
-    public ReservationList(ArrayList<Reservation> reservations)
+    public ReservationList(ArrayList<ReservationInterface> reservations)
     {
         this.reservations = reservations;
         model = new DefaultListModel<>();
         selectedReservation = new Reservation();
 
         //Add all the reservations to the list model.
-        for (Reservation r : reservations) {
+        for (ReservationInterface r : reservations) {
             model.addElement(r);
         }
 
         //Set the custom cell renderer.
         setCellRenderer(new ReservationCellRenderer());
-        
+
         //Set the model to show the reservations.
         setModel(model);
-        
+
         //Repaint the list.
         repaint();
     }
-    
+
     /**
      * Get the currently selected Reservation.
+     *
      * @return The currently selected reservation.
      */
-    public Reservation getSelectedReservation() {
+    public Reservation getSelectedReservation()
+    {
         return selectedReservation;
+    }
+    
+    public void update() {
+        setModel(model);
+        revalidate();
+        repaint();
     }
 
     private class ReservationCellRenderer extends DefaultListCellRenderer {
-        
+
         @Override
         public Component getListCellRendererComponent(final JList list, final Object value, final int index, final boolean isSelected, final boolean hasFocus)
         {
             Reservation res = (Reservation) value;
             setFocusable(true);
-            
+
             //All the panels and textfields to create the cell.
             final JPanel panel, topCellContent, bottomCellContent;
             JLabel topCellTextLeft, topCellTextMiddle, topCellTextRight;
@@ -77,8 +86,8 @@ public class ReservationList extends JList {
             panel.setLayout(new BorderLayout());
 
             //Fill the top part of the cell with reservation information and lay it out.
-            topCellTextLeft = new JLabel( "Booked the: " + 
-                    Calculator.convertDateToHourString(res.getReservationDate()));
+            topCellTextLeft = new JLabel("Booked the: "
+                    + Calculator.convertDateToHourString(res.getReservationDate()));
 
             topCellTextMiddle = new JLabel(
                     res.getFlight().getStartAirport().getID() + " > "
@@ -89,8 +98,8 @@ public class ReservationList extends JList {
                     res.getFlight().getPlane().getID());
 
             //Then the bottom part.
-            bottomCellTextLeft = new JLabel( "Paid by: " + 
-                    res.getPayer().getFirstName());
+            bottomCellTextLeft = new JLabel("Paid by: "
+                    + res.getPayer().getFirstName());
 
             bottomCellTextMiddle = new JLabel(
                     res.getBookedPersons().size() + "people");
@@ -114,24 +123,23 @@ public class ReservationList extends JList {
             //Add the top and bottom part to the main panel in the cell.
             panel.add(topCellContent, BorderLayout.NORTH);
             panel.add(bottomCellContent, BorderLayout.SOUTH);
-			
+
             //Alternate coloration of rows.
             if (index % 2 == 0) {
                 topCellContent.setBackground(Color.WHITE);
                 bottomCellContent.setBackground(Color.WHITE);
-            }
-            else {
+            } else {
                 topCellContent.setBackground(new Color(100, 100, 100));
                 bottomCellContent.setBackground(new Color(100, 100, 100));
             }
-		
+
             //Color the selected cell, and set is as the currently selected.
             if (isSelected) {
                 topCellContent.setBackground(new Color(160, 160, 160));
                 bottomCellContent.setBackground(new Color(160, 160, 160));
                 selectedReservation = res;
             }
-            
+
             //Return the finished panel.
             return panel;
         }
