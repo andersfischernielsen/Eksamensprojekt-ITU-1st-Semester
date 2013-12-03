@@ -29,8 +29,8 @@ public class Database implements DatabaseInterface
         {
             con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name, login, password);
             statement = con.createStatement();
-        }
-        catch (SQLException e)
+
+        } catch (SQLException e)
         {
             showMessageDialog(null, "Couldn't connect to the database!");
         }
@@ -60,15 +60,27 @@ public class Database implements DatabaseInterface
 
     public void insertPerson(Person person, String ReservationID) throws SQLException
     {
-        statement.executeQuery("INSERT INTO People (ID, ReservationID, firstName, lastName, address, groupID) "
-                + "VALUES (" + person.getID() + "," + ReservationID + "," + person.getFirstName() + ","
-                + person.getLastName() + "," + person.getAdress() + "," + person.getGroupID() + ")");
+        try
+        {
+            statement.executeUpdate("INSERT INTO People (ID, ReservationID, firstName, lastName, address, groupID) "
+                    + "VALUES (" + person.getID() + ", '" + ReservationID + "', '" + person.getFirstName() + "' , '"
+                    + person.getLastName() + "' , '" + person.getAdress() + "' ," + person.getGroupID() + ")");
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void insertSeat(String seatID, String ReservationID) throws SQLException
     {
-        statement.executeQuery("INSERT INTO Seat (SeatID, ReservationID) "
-                + "VALUES (" + seatID + "," + ReservationID + ")");
+        try
+        {
+            statement.executeUpdate("INSERT INTO Seat (SeatID, ReservationID) "
+                    + "VALUES ( '" + seatID + "' , '" + ReservationID +"')");
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     // ----------- advanced objects --------------
@@ -153,10 +165,14 @@ public class Database implements DatabaseInterface
     public void newReservation(ReservationInterface reservationToMake) throws SQLException
     {
         // save the reservation.
-        System.out.println("hej");
-        statement.executeUpdate("INSERT INTO Reservation (flight, reservationDate, CPR) "
-                + "VALUES (" + reservationToMake.getFlight().getID() + "," + reservationToMake.getReservationDate() + "," + reservationToMake.getCPR() + ")");
-        System.out.println("test");
+        try
+        {
+            statement.executeUpdate("INSERT INTO Reservation (ID, flight, CPR) "
+                    + "VALUES ('" + reservationToMake.getID() +"', " + reservationToMake.getFlight().getID() + ", '" + reservationToMake.getCPR() + "')");
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
         // save the seats in the reservation
         for (String seatID : reservationToMake.getBookedSeats())
         {
@@ -322,5 +338,4 @@ public class Database implements DatabaseInterface
         DatabaseInterface d = new Database("AACBookingDB", "AACBooking", "AACDB");
         //d.getAirport(null)
     }
-
 }
