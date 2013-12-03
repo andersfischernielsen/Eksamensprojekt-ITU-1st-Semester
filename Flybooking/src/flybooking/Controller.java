@@ -20,7 +20,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void createReservation()
+    public void createReservation() throws SQLException
     {
         workingOnReservation = new Reservation();
     }
@@ -33,9 +33,9 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void getReservation(String reservationID, String CPR) throws SQLException
+    public ArrayList<ReservationInterface> getReservations(String reservationID, String CPR) throws SQLException
     {
-        database.getReservationList(reservationID, CPR);
+        return database.getReservationList(reservationID, CPR);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void resetController()
+    public void resetController()  throws SQLException
     {
         workingOnReservation = new Reservation();
     }

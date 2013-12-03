@@ -24,7 +24,7 @@ public class EditReservationFrame extends JFrame {
     private ControllerInterface controller;
     private DatabaseInterface database;
     private ReservationList reservationList;
-    private ArrayList<Reservation> searchResults;
+    private ArrayList<ReservationInterface> searchResults;
     private JScrollPane scrollpane;
 
     public static EditReservationFrame getInstance(ControllerInterface controller)
@@ -108,12 +108,14 @@ public class EditReservationFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 try {
-                    if (CPRField.getText() == "") {
+                    if (CPRField.getText().equals("")) {
                         performIDSearch(resField.getText());
+                        reservationList = new ReservationList(searchResults);
                     }
 
-                    if (resField.getText() == "") {
+                    if (resField.getText().equals("")) {
                         performCPRSearch(CPRField.getText());
+                        reservationList = new ReservationList(searchResults);
                     }
                 } catch (SQLException ex) {}
             }
@@ -145,14 +147,14 @@ public class EditReservationFrame extends JFrame {
 
         content.add(scrollpane, BorderLayout.CENTER);
     }
-
+    
     private void performCPRSearch(String CPR) throws SQLException
     {
-        controller.getReservation(null, CPR);
+        controller.getReservations(null, CPR);
     }
 
     private void performIDSearch(String ID) throws SQLException
     {
-        controller.getReservation(ID, null);
+        searchResults = controller.getReservations(ID, null);
     }
 }
