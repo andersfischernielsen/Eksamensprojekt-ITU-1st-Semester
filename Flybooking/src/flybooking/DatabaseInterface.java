@@ -79,7 +79,7 @@ public interface DatabaseInterface
      * @param Price   HUSK AT ÆNDRE DEN TIL LILLE SKRIFT!
      * @param CPR
      */
-    void newReservation(Flight flight, Person[] persons, String CPR, double Price);
+    void newReservation(Flight flight, Person[] persons, String CPR, double Price) throws SQLException;
 
     /**
      * eller den

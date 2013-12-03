@@ -3,6 +3,7 @@ package flybooking.GUI;
 
 import flybooking.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,7 +26,7 @@ public class ReservationList extends JList {
      *
      * @param reservations The reservations to show in the list.
      */
-    public ReservationList(ArrayList<ReservationInterface> reservations)
+    public ReservationList(ArrayList<ReservationInterface> reservations) throws SQLException
     {
         this.reservations = reservations;
         model = new DefaultListModel<>();
