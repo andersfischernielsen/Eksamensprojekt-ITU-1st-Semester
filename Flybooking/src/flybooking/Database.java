@@ -221,21 +221,25 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public boolean checkForID(int ID) throws SQLException
+    public boolean checkForID(int ID)
     {
         // IKKE NØDVENDIG MERE
         if (ID <= 9999) {
-            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
-            if (matchingIDs.next()) {
-                return false;
-            }
+            try {
+                ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
+                if (matchingIDs.next()) {
+                    return false;
+                }
+            } catch (SQLException ex) { ex.printStackTrace(); }
         }
 
         if (ID > 9999) {
-            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
-            if (matchingIDs.next()) {
-                return false;
-            }
+            try {
+                ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
+                if (matchingIDs.next()) {
+                    return false;
+                }
+            } catch (SQLException ex) { ex.printStackTrace(); }
         }
 
         return true;
