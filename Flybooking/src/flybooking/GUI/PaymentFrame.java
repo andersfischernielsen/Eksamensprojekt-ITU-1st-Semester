@@ -101,6 +101,7 @@ public class PaymentFrame extends JFrame {
                 } else {
                     try {
                         controller.saveReservation();
+                        setVisible(false);
                         dispose();
                     } catch (SQLException ex) {
                     }
