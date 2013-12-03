@@ -102,7 +102,6 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try {
                     if (CPRField.getText().equals("")) {
                         performIDSearch(resField.getText());
                         reservationList.update();
@@ -112,8 +111,6 @@ public class EditReservationFrame extends JFrame {
                         performCPRSearch(CPRField.getText());
                         reservationList.update();
                     }
-                } catch (SQLException ex) {
-                }
             }
         });
 
@@ -144,12 +141,12 @@ public class EditReservationFrame extends JFrame {
         content.add(scrollpane, BorderLayout.CENTER);
     }
 
-    private void performCPRSearch(String CPR) throws SQLException
+    private void performCPRSearch(String CPR)
     {
-        controller.getReservations(null, CPR);
+        searchResults = controller.getReservations(null, CPR);
     }
 
-    private void performIDSearch(String ID) throws SQLException
+    private void performIDSearch(String ID)
     {
         searchResults = controller.getReservations(ID, null);
     }
