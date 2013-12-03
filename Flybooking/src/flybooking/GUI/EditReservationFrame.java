@@ -16,12 +16,13 @@ import net.miginfocom.swing.MigLayout;
  */
 public class EditReservationFrame extends JFrame {
 
-    private Container content, top, topContent, buttom, buttomContent, filler, filler2, filler3, filler4;
+    private Container content, top, topContent, filler, filler2, filler3, filler4;
     private JButton searchButton, editButton, deleteButton;
     private JLabel resLabel, CPRLabel;
     private JTextField resField, CPRField;
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
+    private DatabaseInterface database;
     private ReservationList reservationList;
     private ArrayList<Reservation> searchResults;
     private JScrollPane scrollpane;
@@ -39,6 +40,7 @@ public class EditReservationFrame extends JFrame {
     private EditReservationFrame(ControllerInterface controller) throws HeadlessException
     {
         this.controller = controller;
+        database = ProgramStorage.getInstance();
         setTitle("Edit Booking");
 
         searchResults = new ArrayList<>();
@@ -47,7 +49,8 @@ public class EditReservationFrame extends JFrame {
         try {
             createTopContent();
             createBottomContent();
-        } catch (SQLException ex) {}
+        } catch (SQLException ex) {
+        }
 
         getRootPane().setDefaultButton(searchButton);
         setMinimumSize(new Dimension(560, 480));
@@ -72,11 +75,11 @@ public class EditReservationFrame extends JFrame {
         searchButton = new JButton("Search");
         searchButton.setDefaultCapable(true);
         searchButton.setMinimumSize(new Dimension(133, 20));
-        
+
         editButton = new JButton("Edit");
-        editButton.setMinimumSize(new Dimension(100, 20));
+        editButton.setMinimumSize(new Dimension(133, 20));
         deleteButton = new JButton("Delete");
-        deleteButton.setMinimumSize(new Dimension(100, 20));
+        deleteButton.setMinimumSize(new Dimension(133, 20));
 
         filler = new JPanel();
         filler2 = new JPanel();
@@ -89,9 +92,9 @@ public class EditReservationFrame extends JFrame {
         topContent.add(resField);
         topContent.add(filler2);
         topContent.add(CPRField, "wrap");
-        topContent.add(editButton, "gapleft 16");
+        topContent.add(editButton);
         topContent.add(filler3, "span 2, wrap");
-        topContent.add(deleteButton, "gapleft 16");
+        topContent.add(deleteButton);
         topContent.add(filler4);
         topContent.add(searchButton);
 
@@ -102,13 +105,15 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (CPRField.getText() == "") {
-                    performIDSearch(resField.getText());
-                }
+                try {
+                    if (CPRField.getText() == "") {
+                        performIDSearch(resField.getText());
+                    }
 
-                if (resField.getText() == "") {
-                    performCPRSearch(CPRField.getText());
-                }
+                    if (resField.getText() == "") {
+                        performCPRSearch(CPRField.getText());
+                    }
+                } catch (SQLException ex) {}
             }
         });
 
@@ -139,13 +144,13 @@ public class EditReservationFrame extends JFrame {
         content.add(scrollpane, BorderLayout.CENTER);
     }
 
-    private void performCPRSearch(String CPR)
+    private void performCPRSearch(String CPR) throws SQLException
     {
-        ProgramStorage.getInstance().getReservationsFromCPR(CPR);
+        controller.getReservation(database, null, CPR);
     }
 
-    private void performIDSearch(String ID)
+    private void performIDSearch(String ID) throws SQLException
     {
-        ProgramStorage.getInstance().getReservationsFromID(ID);
+        controller.getReservation(database, ID, null);
     }
 }
