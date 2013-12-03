@@ -25,7 +25,7 @@ public class ProgramStorage implements DatabaseInterface {
     ArrayList<String> takenSeatsList = new ArrayList<String>();
     private static ProgramStorage instance = null;
 
-    public static ProgramStorage getInstance()
+    public static ProgramStorage getInstance()throws SQLException
     {
         if (instance == null) {
             instance = new ProgramStorage();
@@ -37,7 +37,7 @@ public class ProgramStorage implements DatabaseInterface {
     /**
      * The constructor adds data to all the ArrayLists.
      */
-    private ProgramStorage()
+    private ProgramStorage()throws SQLException
     {
         planeList.add(new Plane("Y312432", 6, 20));
         planeList.add(new Plane("H99342", 5, 25));
@@ -142,7 +142,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public void newReservation(Flight flight, Person[] persons, String CPR, double Price)
+    public void newReservation(Flight flight, Person[] persons, String CPR, double Price) throws SQLException
     {
         ReservationInterface reservationToAdd = new Reservation();
         reservationToAdd.setCPR(CPR);
