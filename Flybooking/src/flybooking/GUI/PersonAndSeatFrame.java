@@ -34,7 +34,7 @@ public class PersonAndSeatFrame extends JFrame {
     private JScrollPane scrollpane; //A scrollpane for the graphics component.
     private String addItem; //A string for the person combobox.
 
-    public PersonAndSeatFrame() throws HeadlessException
+    public PersonAndSeatFrame() throws HeadlessException,  SQLException 
     {
         //Initialize the controller, database and get the current reservation and its plane.
         graphics = new GraphicsComponent();
@@ -231,6 +231,7 @@ public class PersonAndSeatFrame extends JFrame {
             //Save the reservation.
             controller.setWorkingOnReservation(reservation);
             new PaymentFrame();
+            setVisible(false);
             dispose();
         }
     }
