@@ -170,7 +170,8 @@ public class Database implements DatabaseInterface
         {
             try
             {
-                rsReservation = statement.executeQuery("SELECT * FROM Reservation WHERE ID = '" + CPR + "';");
+                Statement statement = con.createStatement();
+                rsReservation = statement.executeQuery("SELECT * FROM Reservation WHERE CPR = '" + CPR + "';");
             } catch (SQLException ex)
             {
                 ex.printStackTrace();
