@@ -34,7 +34,7 @@ public interface ControllerInterface
      * @param CPR The CPR to search for.
      * @return A list of matching reservations.
      */
-    ArrayList<ReservationInterface> getReservations (String reservationID, String CPR)throws SQLException;
+    ArrayList<ReservationInterface> getReservations (String reservationID, String CPR);
 
     /**
      * Delete a reservation.

@@ -33,7 +33,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public ArrayList<ReservationInterface> getReservations(String reservationID, String CPR) throws SQLException
+    public ArrayList<ReservationInterface> getReservations(String reservationID, String CPR)
     {
         return database.getReservationList(reservationID, CPR);
     }

@@ -29,8 +29,7 @@ public class Database implements DatabaseInterface
         {
             con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name, login, password);
             statement = con.createStatement();
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             showMessageDialog(null, "Couldn't connect to the database!");
         }
     }
@@ -86,21 +85,18 @@ public class Database implements DatabaseInterface
 
     public void insertPerson(Person person, String ReservationID) throws SQLException
     {
-        try
-        {
+        try {
             statement.executeUpdate("INSERT INTO People (ID, ReservationID, firstName, lastName, address, groupID) "
                     + "VALUES (" + person.getID() + ", '" + ReservationID + "', '" + person.getFirstName() + "' , '"
                     + person.getLastName() + "' , '" + person.getAdress() + "' ," + person.getGroupID() + ")");
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void insertSeat(String seatID, String ReservationID) throws SQLException
     {
-        try
-        {
+        try {
             statement.executeUpdate("INSERT INTO Seat (SeatID, ReservationID) "
                     + "VALUES ( '" + seatID + "' , '" + ReservationID + "')");
         } catch (SQLException e)
@@ -139,37 +135,52 @@ public class Database implements DatabaseInterface
     }
 
     @Override
-    public ArrayList<ReservationInterface> getReservationList(String reservationID, String CPR) throws SQLException
+    public ArrayList<ReservationInterface> getReservationList(String reservationID, String CPR)
     {
+        //Create a new empty ArrayList of reservations to avoid nullpointers.
         ArrayList<ReservationInterface> reservations = new ArrayList<>();
-        ResultSet rsReservation;
+        ResultSet rsReservation = null;
 
         //If the reservationsID given is null or an empty String, don't search for it.
-        if (reservationID == null || reservationID.equals(""))
-        {
-            rsReservation = statement.executeQuery("SELECT * FROM AACBookingDB.Reservation WHERE ID = '" + CPR + "';");
+        //Search for CPR instead.
+        if (reservationID == null || reservationID.equals("")) {
+            try {
+                rsReservation = statement.executeQuery("SELECT * FROM Reservation WHERE ID = '" + CPR + "';");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
 
         //If the CPR given is null or an empty String, don't search for it.
-        if (CPR == null || CPR.equals(""))
-        {
-            rsReservation = statement.executeQuery("SELECT * FROM AACBookingDB.Reservation WHERE ID = '" + reservationID + "';");
-        }
-        else
-        {
-            rsReservation = null;
-        }
-
-        if (rsReservation != null)
-        {
-            while (rsReservation.next())
-            {
-                ReservationInterface r = new Reservation();
-                r.setCPR(rsReservation.getString("CPR"));
-
-                reservations.add(new Reservation());
+        //Search for reservationID instead.
+        if (CPR == null || CPR.equals("")) {
+            try {
+                rsReservation = statement.executeQuery("SELECT * FROM Reservation WHERE ID = '" + reservationID + "';");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
+
+        try {
+            //If the resultset isn't null, then there are some results. 
+            if (rsReservation != null) {
+                //If there are no more results, break.
+                while (!rsReservation.isClosed() && rsReservation.next()) {
+                    //Go through the results, and create reservations.
+                    //Add these to the list of found reservations.
+                    ReservationInterface r = new Reservation();
+                    //Set the reservation details from the database info.
+                    r.setCPR("CPR");
+
+                    //Add the finished reservation to the list for each found res.
+                    reservations.add(r);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        //Return the 
         return reservations;
     }
 
@@ -183,8 +194,7 @@ public class Database implements DatabaseInterface
     public void newReservation(ReservationInterface reservationToMake) throws SQLException
     {
         // save the reservation.
-        try
-        {
+        try {
             statement.executeUpdate("INSERT INTO Reservation (ID, flight, CPR) "
                     + "VALUES ('" + reservationToMake.getID() + "', " + reservationToMake.getFlight().getID() + ", '" + reservationToMake.getCPR() + "')");
         } catch (SQLException e)
@@ -267,24 +277,28 @@ public class Database implements DatabaseInterface
     }
 
     @Override
-    public boolean checkForID(int ID) throws SQLException
+    public boolean checkForID(int ID)
     {
         // IKKE NØDVENDIG MERE
-        if (ID <= 9999)
-        {
-            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
-            if (matchingIDs.next())
-            {
-                return false;
+        if (ID <= 9999) {
+            try {
+                ResultSet matchingIDs = statement.executeQuery("SELECT * FROM Reservation WHERE " + ID + " IN(ID)");
+                if (matchingIDs.next()) {
+                    return false;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
 
-        if (ID > 9999)
-        {
-            ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
-            if (matchingIDs.next())
-            {
-                return false;
+        if (ID > 9999) {
+            try {
+                ResultSet matchingIDs = statement.executeQuery("SELECT * FROM People WHERE " + ID + " IN(ID)");
+                if (matchingIDs.next()) {
+                    return false;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
 

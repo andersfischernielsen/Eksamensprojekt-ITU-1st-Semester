@@ -1,7 +1,6 @@
 
 package flybooking;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,7 +23,7 @@ public class Reservation implements ReservationInterface {
      * Create a reservation, containing details about the journey, the plane and
      * the people on board.
      */
-    public Reservation() throws SQLException
+    public Reservation()
     {
         //RESERVATIONEN SKULLE IKKE OPRETTES MED NOGLE PARAMETRE, SÅ VIDT 
         //VI SNAKKEDE OM, VEL?

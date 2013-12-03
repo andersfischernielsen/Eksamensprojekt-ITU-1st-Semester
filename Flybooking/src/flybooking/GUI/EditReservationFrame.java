@@ -6,7 +6,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.*;
 import net.miginfocom.swing.MigLayout;
 
@@ -23,7 +22,7 @@ public class EditReservationFrame extends JFrame {
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
     private DatabaseInterface database;
-    private ReservationList reservationList;
+    private JList reservationList;
     private ArrayList<ReservationInterface> searchResults;
     private JScrollPane scrollpane;
 
@@ -39,18 +38,15 @@ public class EditReservationFrame extends JFrame {
 
     private EditReservationFrame(ControllerInterface controller) throws HeadlessException
     {
+        database = Database.getInstance();
         this.controller = controller;
-        database = ProgramStorage.getInstance();
         setTitle("Edit Booking");
 
         searchResults = new ArrayList<>();
         content = getContentPane();
 
-        try {
-            createTopContent();
-            createBottomContent();
-        } catch (SQLException ex) {
-        }
+        createTopContent();
+        createBottomContent();
 
         getRootPane().setDefaultButton(searchButton);
         setMinimumSize(new Dimension(560, 480));
@@ -58,7 +54,7 @@ public class EditReservationFrame extends JFrame {
         setVisible(true);
     }
 
-    private void createTopContent() throws SQLException
+    private void createTopContent()
     {
         top = new JPanel();
         topContent = new JPanel();
@@ -85,7 +81,7 @@ public class EditReservationFrame extends JFrame {
         filler2 = new JPanel();
         filler3 = new JPanel();
         filler4 = new JPanel();
-
+        
         topContent.add(resLabel);
         topContent.add(filler);
         topContent.add(CPRLabel, "wrap");
@@ -105,17 +101,13 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try {
                     if (CPRField.getText().equals("")) {
                         performIDSearch(resField.getText());
-                        reservationList = new ReservationList(searchResults);
                     }
 
                     if (resField.getText().equals("")) {
                         performCPRSearch(CPRField.getText());
-                        reservationList = new ReservationList(searchResults);
                     }
-                } catch (SQLException ex) {}
             }
         });
 
@@ -145,13 +137,13 @@ public class EditReservationFrame extends JFrame {
 
         content.add(scrollpane, BorderLayout.CENTER);
     }
-    
-    private void performCPRSearch(String CPR) throws SQLException
+
+    private void performCPRSearch(String CPR)
     {
-        controller.getReservations(null, CPR);
+        searchResults = controller.getReservations(null, CPR);
     }
 
-    private void performIDSearch(String ID) throws SQLException
+    private void performIDSearch(String ID)
     {
         searchResults = controller.getReservations(ID, null);
     }

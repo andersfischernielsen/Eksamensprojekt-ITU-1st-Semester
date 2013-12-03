@@ -32,7 +32,7 @@ public class PaymentFrame extends JFrame {
 
     public PaymentFrame()
     {
-        database = ProgramStorage.getInstance();
+        database = Database.getInstance();
         controller = Controller.getInstance();
         currentReservation = controller.getWorkingOnReservation();
         peopleInReservation = currentReservation.getPersons();

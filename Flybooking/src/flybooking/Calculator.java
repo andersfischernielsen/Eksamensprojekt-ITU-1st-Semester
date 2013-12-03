@@ -1,3 +1,4 @@
+
 package flybooking;
 
 import java.sql.SQLException;
@@ -10,8 +11,8 @@ import java.util.Random;
  *
  * @author Anders Fischer-Nielsen
  */
-public class Calculator
-{   
+public class Calculator {
+
     private static Random randomGen = new Random();
 
     /**
@@ -66,18 +67,21 @@ public class Calculator
 
     /**
      * Convert the time of the date into a string.
+     *
      * @param date The date to convert.
      * @return The hour of the date as a string.
      */
-    public static String convertDateToHourString(Date date) {
+    public static String convertDateToHourString(Date date)
+    {
         return new SimpleDateFormat("kk:mm").format(date);
     }
-    
+
     /**
      * Convert a string (with the format "dd/MM-yyyy") into a date.
+     *
      * @param string The string to convert
      * @return The given string as a Date.
-     * @throws ParseException 
+     * @throws ParseException
      */
     public static Date convertStringToDate(String string) throws ParseException
     {
@@ -86,33 +90,29 @@ public class Calculator
 
     /**
      * Generate a person ID for creating a new Person.
+     *
      * @return A new ID.
-     * @throws SQLException 
      */
-    public static int createPersonID() throws SQLException
+    public static int createPersonID()
     {
-        while (true)
-        {
+        while (true) {
             int personID = randomGen.nextInt(99999);
-            if (Database.getInstance().checkForID(personID))
-            {
-                return personID;
-            }
+                if (Database.getInstance().checkForID(personID)) {
+                    return personID;
+                }
         }
     }
 
     /**
      * Generate a reservation ID for creating a new Reservation.
+     *
      * @return A new ID.
-     * @throws SQLException 
      */
-    public static String createReservationID() throws SQLException
+    public static String createReservationID()
     {
-        while (true)
-        {
+        while (true) {
             int reservationID = randomGen.nextInt(9999);
-            if (Database.getInstance().checkForID(reservationID))
-            {
+            if (Database.getInstance().checkForID(reservationID)) {
                 return reservationID + "";
             }
         }
