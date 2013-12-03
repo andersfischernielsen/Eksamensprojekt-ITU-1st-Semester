@@ -130,8 +130,10 @@ public class Database implements DatabaseInterface {
     public void newReservation(ReservationInterface reservationToMake) throws SQLException
     {
         // save the reservation.
-        statement.executeQuery("INSERT INTO Reservation (flight, reservationDate, CPR) "
+        System.out.println("hej");
+        statement.executeUpdate("INSERT INTO Reservation (flight, reservationDate, CPR) "
                 + "VALUES (" + reservationToMake.getFlight().getID() + "," + reservationToMake.getReservationDate() + "," + reservationToMake.getCPR() + ")");
+        System.out.println("test");
         // save the seats in the reservation
         for (String seatID : reservationToMake.getBookedSeats()) {
             insertSeat(seatID, reservationToMake.getID());
