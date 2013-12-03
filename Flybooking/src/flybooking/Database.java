@@ -88,7 +88,7 @@ public class Database implements DatabaseInterface
         Statement statement = con.createStatement();
         ResultSet rs = statement.executeQuery("SELECT * FROM People WHERE People.ID = " + PersonID);
         rs.next();
-        return new Person(rs.getString("Firstname"), rs.getString("Lastname"), rs.getInt("PersonID"), rs.getString("Address"), rs.getInt("groupID"));
+        return new Person(rs.getString("Firstname"), rs.getString("Lastname"), rs.getInt("ID"), rs.getString("Address"), rs.getInt("groupID"));
     }
 
     public void insertPerson(Person person, String ReservationID) throws SQLException
@@ -211,7 +211,7 @@ public class Database implements DatabaseInterface
                 try
                 {
                     Statement statement2 = con.createStatement();
-                    ResultSet rsSeat = statement2.executeQuery("SELECT * FROM Seat WHERE ReservationID = '" + reservationID + "';");
+                    ResultSet rsSeat = statement2.executeQuery("SELECT * FROM Seat WHERE ReservationID = '" + rsReservation.getString("ID") + "';");
                     
                     while(!rsSeat.isClosed() && rsSeat.next())
                     {
@@ -225,7 +225,7 @@ public class Database implements DatabaseInterface
                 try
                 {
                     Statement statement3 = con.createStatement();
-                    ResultSet rsPerson = statement3.executeQuery("SELECT * FROM People WHERE ReservationID = '" + reservationID + "';");
+                    ResultSet rsPerson = statement3.executeQuery("SELECT * FROM People WHERE ReservationID = '" + rsReservation.getString("ID") + "';");
                     
                     while(!rsPerson.isClosed() && rsPerson.next())
                     {
@@ -236,7 +236,8 @@ public class Database implements DatabaseInterface
                     ex.printStackTrace();
                 }
 
-
+                r.bookSeats(seatIDThisRes);
+                r.bookPersons(personsThisRes);
                 //Add the finished reservation to the list for each found res.
                 reservations.add(r);
             }
