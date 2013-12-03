@@ -127,14 +127,15 @@ public class Database implements DatabaseInterface {
         try {
             //If the resultset isn't null, then there are some results. 
             if (rsReservation != null) {
-                //Go through the results, and create reservations.
-                //Add these to the list of found reservations.
-                while (rsReservation.next()) {
+                //If there are no more results, break.
+                while (!rsReservation.isClosed() && rsReservation.next()) {
+                    //Go through the results, and create reservations.
+                    //Add these to the list of found reservations.
                     ReservationInterface r = new Reservation();
                     //Set the reservation details from the database info.
                     r.setCPR("CPR");
 
-                    //Add the finished reservation to the list fo found res.
+                    //Add the finished reservation to the list for each found res.
                     reservations.add(r);
                 }
             }
@@ -142,7 +143,7 @@ public class Database implements DatabaseInterface {
             ex.printStackTrace();
         }
 
-        //Return the reservations found.
+        //Return the 
         return reservations;
     }
 
