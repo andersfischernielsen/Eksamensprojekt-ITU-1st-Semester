@@ -85,6 +85,7 @@ public class Controller implements ControllerInterface
     @Override
     public int getNumberOfDestinations() throws SQLException
     {
+        // RET HER
         ArrayList<String> destinations = database.getAirportCitiesAsStrings();
         int number = 0;
 
