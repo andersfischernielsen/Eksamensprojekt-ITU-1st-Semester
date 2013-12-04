@@ -36,7 +36,7 @@ public class Reservation implements ReservationInterface {
         //ID, OG SÅ LÆGGE EN TIL DET HØJESTE. EN SEPARAT "ID"-KLASSE VILLE MÅSKE
         //VÆRE EN RIGTIG GOD IDE.
         persons = new ArrayList<>();
-        ID = Calculator.createReservationID();
+        
     }
 
     @Override
@@ -149,5 +149,17 @@ public class Reservation implements ReservationInterface {
     public ArrayList<Person> getBookedPersons()
     {
         return persons;
+    }
+
+    @Override
+    public void setID()
+    {
+        ID = Calculator.createReservationID();
+    }
+
+    @Override
+    public void setID(String IDToSet)
+    {
+        ID = IDToSet;
     }
 }
