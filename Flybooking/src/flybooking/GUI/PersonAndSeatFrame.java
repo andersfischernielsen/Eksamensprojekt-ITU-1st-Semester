@@ -3,10 +3,7 @@ package flybooking.GUI;
 import flybooking.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 
@@ -239,7 +236,7 @@ public class PersonAndSeatFrame extends JFrame
         {
             JOptionPane.showMessageDialog(null, "You havent booked the same amount of seats as the amounts of persons this booking!", "You havent booked the same amount of seats as the amounts of persons this booking!", JOptionPane.ERROR_MESSAGE);
         }
-        else if (seatIDsThisRes.size() == 0 || persons.size() == 0)
+        else if (seatIDsThisRes.isEmpty() || persons.isEmpty())
         { // last statement not neccesary
             JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
         }
@@ -254,6 +251,8 @@ public class PersonAndSeatFrame extends JFrame
 
             //Save the reservation.
             controller.setWorkingOnReservation(reservation);
+            
+            //Create the final window.
             new PaymentFrame();
             setVisible(false);
             dispose();
