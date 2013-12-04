@@ -176,12 +176,7 @@ public class Database implements DatabaseInterface
 
         //Create a new Date called startDate which is departureDate -3 days. 
         //Create a new Date called endDate which is departureDate +3 days. 
-        Date today = new Date();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = new Date(departureDate.getTime() - 4 * 24 * 60 * 60 * 1000);
-        Date endDate = new Date(departureDate.getTime() + 4 * 24 * 60 * 60 * 1000);
-        String startDateString = df.format(startDate);
-        String endDateString = df.format(endDate);
 
         //Search betweeen these two dates:
         ArrayList<FlightInterface> flights = new ArrayList<>();
@@ -191,6 +186,10 @@ public class Database implements DatabaseInterface
             Statement statement = con.createStatement();
             if (departureDate != null)
             {
+                Date startDate = new Date(departureDate.getTime() - 4 * 24 * 60 * 60 * 1000);
+                Date endDate = new Date(departureDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+                String startDateString = df.format(startDate);
+                String endDateString = df.format(endDate);
                 rs = statement.executeQuery("SELECT * FROM Flight WHERE endAirport = '" + getAirportID(endDestination) + "' AND startAirport = '" + getAirportID(startDestination) + "' AND startDate BETWEEN '" + startDateString + "' AND '" + endDateString + "'");
             }
             else
