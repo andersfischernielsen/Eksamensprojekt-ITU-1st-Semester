@@ -17,12 +17,12 @@ import java.util.Date;
  */
 public class ProgramStorage implements DatabaseInterface {
 
-    ArrayList<Flight> flightList = new ArrayList<Flight>();
-    ArrayList<ReservationInterface> reservationList = new ArrayList<ReservationInterface>();
-    ArrayList<Plane> planeList = new ArrayList<Plane>();
-    ArrayList<Airport> airportList = new ArrayList<Airport>();
-    ArrayList<Person> personList = new ArrayList<Person>();
-    ArrayList<String> takenSeatsList = new ArrayList<String>();
+    ArrayList<Flight> flightList = new ArrayList<>();
+    ArrayList<ReservationInterface> reservationList = new ArrayList<>();
+    ArrayList<Plane> planeList = new ArrayList<>();
+    ArrayList<Airport> airportList = new ArrayList<>();
+    ArrayList<Person> personList = new ArrayList<>();
+    ArrayList<String> takenSeatsList = new ArrayList<>();
     private static ProgramStorage instance = null;
 
     public static ProgramStorage getInstance()throws SQLException
@@ -89,7 +89,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<Flight> getFlightList(Date departureDate, String startDestination, String endDestination) throws SQLException
+    public ArrayList<Flight> getFlightList(Date departureDate, String startDestination, String endDestination)
     {
         ArrayList<Flight> flightsToReturn = new ArrayList<>();
         /**
@@ -142,7 +142,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public void newReservation(Flight flight, Person[] persons, String CPR, double Price) throws SQLException
+    public void newReservation(Flight flight, Person[] persons, String CPR, double Price)
     {
         ReservationInterface reservationToAdd = new Reservation();
         reservationToAdd.setCPR(CPR);
@@ -159,7 +159,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public void removeReservation(String reservationID) throws SQLException
+    public void removeReservation(String reservationID)
     {
         for (ReservationInterface reservation : reservationList) {
             if (reservation.getID().equals(reservationID)) {
@@ -169,7 +169,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot) throws SQLException
+    public void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot)
     {
         for (ReservationInterface reservation : reservationList) {
             if (reservation.getID().equals(reservationID)) {
@@ -180,7 +180,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<String> getAirportCitiesAsStrings() throws SQLException
+    public ArrayList<String> getAirportCitiesAsStrings()
     {
         ArrayList<String> stringListToReturn = new ArrayList<>();
         for (Airport airport : airportList) {
@@ -190,7 +190,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public boolean checkForID(int ID) throws SQLException
+    public boolean checkForID(int ID)
     {
         // maybe not neccesary
         for (ReservationInterface reservation : reservationList) {
@@ -277,25 +277,25 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public Airport getAirport(String AirportID) throws SQLException
+    public Airport getAirport(String AirportID)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Person getPerson(int PersonID) throws SQLException
+    public Person getPerson(int PersonID)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public FlightInterface getFlight(int flightID) throws SQLException
+    public FlightInterface getFlight(int flightID)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void updateReservation(ReservationInterface reservationToMake) throws SQLException
+    public void updateReservation(ReservationInterface reservationToMake)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
