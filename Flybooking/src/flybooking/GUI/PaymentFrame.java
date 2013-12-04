@@ -45,6 +45,7 @@ public class PaymentFrame extends JFrame {
         contentPane = getContentPane();
         topPanel = new JPanel();
         printer = new Printer(currentReservation);
+        controller.setReservationIDToCome(Calculator.createReservationID());
         receiptArea = new JTextArea(printer.print());
         receiptArea.setBorder(new EmptyBorder(0, 10, 0, 10));
 
