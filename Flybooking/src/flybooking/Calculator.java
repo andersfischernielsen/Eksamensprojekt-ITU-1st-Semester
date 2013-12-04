@@ -1,9 +1,9 @@
-
 package flybooking;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -11,18 +11,51 @@ import java.util.Random;
  *
  * @author Anders Fischer-Nielsen
  */
-public class Calculator {
+public class Calculator
+{
 
     private static Random randomGen = new Random();
 
     /**
      * Add two numbers and get the result.
      *
+     * @param flightPrice the price of the flight
      * @param n1 The first number to add.
      * @param n2 The second number to add.
      *
      * @return The sum of the two numbers.
      */
+    public static double getprice(double flightPrice, ArrayList<Person> persons)
+    {
+        double finalPrice;
+        finalPrice = flightPrice * persons.size();
+        double savings = 0;
+        for (Person person : persons)
+        {
+            switch (person.getGroupID())
+            {
+                case 0:
+                {
+                    break;
+                }
+                case 1:
+                {
+                    // childs 10% offer
+                    savings += flightPrice/10;
+                    break;
+                }
+                case 2:
+                {
+                    // Elder 10% offer
+                    savings += flightPrice/10;
+                    break;
+                }
+            }
+        }
+        finalPrice -=savings;
+        return finalPrice;
+    }
+
     public static int add(int n1, int n2)
     {
         return n1 + n2;
@@ -58,6 +91,7 @@ public class Calculator {
      * Convert a given date into a string.
      *
      * @param date The date to parse.
+     *
      * @return The parsed Date as a string.
      */
     public static String convertDateToString(Date date)
@@ -69,6 +103,7 @@ public class Calculator {
      * Convert the time of the date into a string.
      *
      * @param date The date to convert.
+     *
      * @return The hour of the date as a string.
      */
     public static String convertDateToHourString(Date date)
@@ -80,7 +115,9 @@ public class Calculator {
      * Convert a string (with the format "dd/MM-yyyy") into a date.
      *
      * @param string The string to convert
+     *
      * @return The given string as a Date.
+     *
      * @throws ParseException
      */
     public static Date convertStringToDate(String string) throws ParseException
@@ -95,11 +132,13 @@ public class Calculator {
      */
     public static int createPersonID()
     {
-        while (true) {
+        while (true)
+        {
             int personID = randomGen.nextInt(99999);
-                if (Database.getInstance().checkForID(personID)) {
-                    return personID;
-                }
+            if (Database.getInstance().checkForID(personID))
+            {
+                return personID;
+            }
         }
     }
 
@@ -110,9 +149,11 @@ public class Calculator {
      */
     public static String createReservationID()
     {
-        while (true) {
+        while (true)
+        {
             int reservationID = randomGen.nextInt(9999);
-            if (Database.getInstance().checkForID(reservationID)) {
+            if (Database.getInstance().checkForID(reservationID))
+            {
                 return reservationID + "";
             }
         }
