@@ -274,6 +274,14 @@ public class NewReservationFrame extends JFrame {
                 performSearch();
             }
         });
+        
+        doneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                    sendOnData();
+            }
+        });
 
         flightList.addMouseListener(new MouseListener() {
 
