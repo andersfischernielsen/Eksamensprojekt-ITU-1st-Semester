@@ -15,8 +15,8 @@ import javax.swing.border.EmptyBorder;
 public class FlightList extends JList {
 
     //The array of flights to show in the list.
-    private ArrayList<Flight> flights;
-    private DefaultListModel<Flight> model;
+    private ArrayList<FlightInterface> flights;
+    private DefaultListModel<FlightInterface> model;
     private Flight selectedFlight;
 
     /**
@@ -24,14 +24,14 @@ public class FlightList extends JList {
      *
      * @param flights The flights to show in the list.
      */
-    public FlightList(ArrayList<Flight> flights)
+    public FlightList(ArrayList<FlightInterface> flights)
     {
         this.flights = flights;
         model = new DefaultListModel<>();
         selectedFlight = new Flight(0, 0, null, null, null, null, null);
 
         //Add all the flights to the list model.
-        for (Flight f : flights) {
+        for (FlightInterface f : flights) {
             model.addElement(f);
         }
 
