@@ -105,7 +105,7 @@ public class PaymentFrame extends JFrame {
                     currentReservation.setCPR(CPRField.getText());
                     boolean savedSuccessfully = false;
                     savedSuccessfully = controller.saveReservation();
-                    if (!savedSuccessfully) {
+                    if (savedSuccessfully) {
                         setVisible(false);
                         dispose();
                     } else {
