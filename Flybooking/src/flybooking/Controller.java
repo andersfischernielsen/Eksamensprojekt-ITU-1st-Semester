@@ -26,12 +26,13 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void saveReservation()
+    public boolean saveReservation()
     {
         database.removeReservation(workingOnReservation.getID());
         workingOnReservation.setID();
-        database.newReservation(workingOnReservation);
+        boolean savedSuccessfully = database.newReservation(workingOnReservation);
         resetController();
+        return savedSuccessfully;
     }
 
     @Override
@@ -157,9 +158,9 @@ public class Controller implements ControllerInterface {
     public ArrayList<String> getBookedThisResSeats()
     {
         System.out.println(workingOnReservation.getFlight().getID());
-            if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null) {
-                return database.getBookedSeatsOnReservation(workingOnReservation.getID());
-            }
+        if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null) {
+            return database.getBookedSeatsOnReservation(workingOnReservation.getID());
+        }
 
         return new ArrayList<String>();
     }
@@ -174,9 +175,9 @@ public class Controller implements ControllerInterface {
     public ArrayList<Person> getBookedPersons()
     {
         System.out.println(workingOnReservation.getFlight().getID());
-            if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null) {
-                return database.getBookedPersons(workingOnReservation.getID());
-            }
+        if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null) {
+            return database.getBookedPersons(workingOnReservation.getID());
+        }
 
         return new ArrayList<Person>();
     }

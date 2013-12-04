@@ -76,17 +76,19 @@ public interface DatabaseInterface
      *
      * @param flight
      * @param persons
-     * @param Price   HUSK AT ÆNDRE DEN TIL LILLE SKRIFT!
+     * @param price   HUSK AT ÆNDRE DEN TIL LILLE SKRIFT!
      * @param CPR
+     * @return true if the reservation was saved successfully.
      */
-    void newReservation(Flight flight, Person[] persons, String CPR, double Price);
+    boolean newReservation(Flight flight, Person[] persons, String CPR, double price);
 
     /**
-     * eller den
+     * Save a given reservation to the database.
      *
      * @param reservationToMake
+     * @return true if the reservation was saved successfully.
      */
-    void newReservation(ReservationInterface reservationToMake); 
+    boolean newReservation(ReservationInterface reservationToMake); 
 
     /**
      * remove the reservation with ID reservationID

@@ -26,7 +26,7 @@ public interface ControllerInterface
      * Save the reservation when finished.
      *
      */
-    void saveReservation();
+    boolean saveReservation();
 
     /**
      * Get a a list of reservations matching the given ID and CPR.
