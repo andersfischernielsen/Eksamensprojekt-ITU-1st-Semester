@@ -231,7 +231,6 @@ public class ProgramStorage implements DatabaseInterface {
                 return reservation.getBookedSeats();
             }
         }
-        System.out.println("Found no reservation with that ID");
         return null;
     }
 
@@ -275,7 +274,6 @@ public class ProgramStorage implements DatabaseInterface {
                 return reservation.getBookedPersons();
             }
         }
-        System.out.println("Found no reservation with that ID");
         return new ArrayList<Person>();
     }
 

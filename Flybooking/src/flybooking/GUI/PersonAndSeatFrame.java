@@ -176,12 +176,6 @@ public class PersonAndSeatFrame extends JFrame
         add(scrollpane, BorderLayout.CENTER);
     }
 
-    private void changeSeatAvailability(int x, int y)
-    {
-        //NOT IMPLEMENTED YET. NOT NEEDED
-        System.out.println("changeSeatAvailability isn't implemented yet!");
-    }
-
     /**
      * Add a person to the reservation.
      */

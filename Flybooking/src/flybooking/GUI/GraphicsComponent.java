@@ -265,10 +265,6 @@ public class GraphicsComponent
                             seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
                         }
                     }
-                    else
-                    {
-                        System.out.println("Not available");
-                    }
                 }
             }
 
