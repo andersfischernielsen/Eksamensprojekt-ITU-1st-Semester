@@ -44,21 +44,15 @@ public class PersonAndSeatFrame extends JFrame {
         seatIDsNotInThisRes = controller.getBookedSeats();
         seatIDsThisRes = controller.getBookedThisResSeats();
         persons = controller.getBookedPersons();
-        for (String seatIDNotThisRes : seatIDsNotInThisRes)
-        {
-            for (String seatIDthisRes : seatIDsThisRes)
-            {
-                if (seatIDNotThisRes.equals(seatIDthisRes))
-                {
+
+        for (String seatIDNotThisRes : seatIDsNotInThisRes) {
+            for (String seatIDthisRes : seatIDsThisRes) {
+                if (seatIDNotThisRes.equals(seatIDthisRes)) {
                     seatIDsNotInThisRes.remove(seatIDNotThisRes);
                 }
             }
         }
         planeToDraw.bookTakenSeats(seatIDsNotInThisRes);
-
-        //Initialize empty ArrayLists
-        
-        persons = controller.getBookedPersons();
 
         //Set up the frame.
         countPeople();
@@ -180,7 +174,7 @@ public class PersonAndSeatFrame extends JFrame {
     /**
      * Add a person to the reservation.
      */
-    private void addPerson() throws SQLException
+    private void addPerson()
     {
         //Count the number of people, and add a new person to the list of passengers.
         countPeople();
@@ -201,6 +195,8 @@ public class PersonAndSeatFrame extends JFrame {
         //Add the "Add another..." item.
         addItem = "Add another...";
         personComboBox.addItem(addItem);
+        
+        personComboBox.setSelectedIndex(personComboBox.getItemCount() - 1);
         //Reset the addButton to its default state.
         addButton.setText("Add");
     }
@@ -230,18 +226,16 @@ public class PersonAndSeatFrame extends JFrame {
     {
         if (seatIDsThisRes.size() != persons.size()) {
             JOptionPane.showMessageDialog(null, "You havent booked the same amount of seats as the amounts of persons this booking!", "You havent booked the same amount of seats as the amounts of persons this booking!", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (seatIDsThisRes.size() == 0 || persons.size() == 0){ // last statement not neccesary
-                JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
+        } else if (seatIDsThisRes.size() == 0 || persons.size() == 0) { // last statement not neccesary
+            JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
         } else {
             reservation.bookSeats(seatIDsThisRes);
-            
-            
+
             //Add all the people to the reservation.
             for (Person p : persons) {
                 reservation.addPerson(p);
             }
-            
+
             //Save the reservation.
             controller.setWorkingOnReservation(reservation);
             new PaymentFrame();
@@ -281,6 +275,12 @@ public class PersonAndSeatFrame extends JFrame {
             }
         }
 
+        //If there are no people in the reservaiton yet, return a "People" String.
+        if (personsAsArray.length == 0) {
+            peopleInReservation = new String[1];
+            peopleInReservation[0] = "People";
+        }
+
         //Return the finished string array.
         return peopleInReservation;
     }
@@ -288,7 +288,7 @@ public class PersonAndSeatFrame extends JFrame {
     /**
      * Add Action- and MouseListeners to the components in the frame.
      */
-    private void addListeners() 
+    private void addListeners()
     {
         planeDrawingComp.addMouseListener(new MouseListener() {
             @Override
@@ -327,12 +327,9 @@ public class PersonAndSeatFrame extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 // FIX THIS LORTE SQL EXCEPTIONS
-                try
-                {
+                try {
                     confirmReservation();
-                }
-                catch (SQLException ex)
-                {
+                } catch (SQLException ex) {
                     Logger.getLogger(PersonAndSeatFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -343,10 +340,7 @@ public class PersonAndSeatFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try {
-                    addPerson();
-                } catch (SQLException ex) {
-                }
+                addPerson();
             }
         });
 
@@ -416,9 +410,10 @@ public class PersonAndSeatFrame extends JFrame {
         //If none of the above, the person is an Adult, and therefore has ID 0.
         return 0;
     }
-    
-    @Override 
-    public void pack() {
-        
+
+    @Override
+    public void pack()
+    {
+
     }
 }
