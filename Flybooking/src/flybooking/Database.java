@@ -147,10 +147,18 @@ public class Database implements DatabaseInterface {
     public ArrayList<FlightInterface> getFlightList(Date departureDate,
             String startDestination, String endDestination)
     {
+        
+        //Create a new Date called startDate which is departureDate -3 days. 
+        //Create a new Date called endDate which is departureDate +3 days. 
+        Date today = new Date();
+        Date startDate = new Date(today.getTime() - 3* 24 * 60 * 60 * 1000);
+        Date endDate = new Date(today.getTime() + 3* 24 * 60 * 60 * 1000);
+         
+        //Search betweeen these two dates:
         ArrayList<FlightInterface> flights = new ArrayList<>();
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery("SELECT * FROM Flight WHERE endAirport = '" + getAirportID(endDestination) + "' AND startAirport = '" + getAirportID(startDestination) + "'"); // + departureDate + " AND startAirport = " + startDestination 
+            rs = statement.executeQuery("SELECT * FROM Flight WHERE endAirport = '" + getAirportID(endDestination) + "' AND startAirport = '" + getAirportID(startDestination) + "' AND startDate BETWEEN " + startDate + " AND " + endDate + "");
 
             while (!rs.isClosed() && rs.next()) {
                 flights.add(new Flight(rs.getDouble("price"), rs.getInt("ID"), getPlane(rs.getString("plane")), new Date(), new Date(), getAirport(getAirportID(startDestination)), getAirport(getAirportID(endDestination))));
