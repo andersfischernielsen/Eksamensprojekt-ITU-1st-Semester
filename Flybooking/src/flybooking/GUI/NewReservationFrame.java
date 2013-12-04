@@ -315,15 +315,8 @@ public class NewReservationFrame extends JFrame {
         }
         
         searchResults = controller.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
-        FlightInterface[] convertedArray = new Flight[searchResults.size()];
         
-        int i = 0;
-        for (FlightInterface f : searchResults) {
-            convertedArray[i] = f;
-            i++;
-        }
-        
-        flightList.setListData(convertedArray);
+        flightList.setListData(searchResults.toArray());
     }
 
     /**
