@@ -58,6 +58,11 @@ public class PaymentFrame extends JFrame {
 
         CPRLabel = new JLabel("Payers CPR: ");
         CPRField = new JTextField("");
+        
+        if (currentReservation.getCPR() != null) {
+            CPRField.setText(currentReservation.getCPR());
+        }
+        
         CPRField.setColumns(10);
 
         confirmButton = new JButton("Confirm");
