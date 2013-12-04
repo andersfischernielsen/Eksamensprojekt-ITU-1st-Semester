@@ -22,7 +22,7 @@ public class PersonAndSeatFrame extends JFrame {
     private GraphicsComponent graphics; //The graphics to use.
     private Controller controller;
     private ReservationInterface reservation; //The current reservation.
-    private ArrayList<String> seatIDsThisRes;
+    private ArrayList<String> seatIDsThisRes, seatIDsNotInThisRes;
     private int amtOfPersons; //The amount of passengers in the reservation.
     private ArrayList<Person> persons; //The passengers in the reservation.
     private JComboBox personComboBox, ageGroupComboBox; //Comboboxes for the UI.
@@ -41,10 +41,22 @@ public class PersonAndSeatFrame extends JFrame {
         controller = Controller.getInstance();
         reservation = controller.getWorkingOnReservation();
         planeToDraw = reservation.getFlight().getPlane();
-        planeToDraw.bookTakenSeats(controller.getBookedSeats());
+        seatIDsNotInThisRes = controller.getBookedSeats();
+        seatIDsThisRes = controller.getBookedThisResSeats();
+        for (String seatIDNotThisRes : seatIDsNotInThisRes)
+        {
+            for (String seatIDthisRes : seatIDsThisRes)
+            {
+                if (seatIDNotThisRes.equals(seatIDthisRes))
+                {
+                    seatIDsNotInThisRes.remove(seatIDNotThisRes);
+                }
+            }
+        }
+        planeToDraw.bookTakenSeats(seatIDsNotInThisRes);
 
         //Initialize empty ArrayLists
-        seatIDsThisRes = controller.getBookedThisResSeats();
+        
         persons = controller.getBookedPersons();
 
         //Set up the frame.
@@ -222,6 +234,7 @@ public class PersonAndSeatFrame extends JFrame {
                 JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
         } else {
             reservation.bookSeats(seatIDsThisRes);
+            
             
             //Add all the people to the reservation.
             for (Person p : persons) {

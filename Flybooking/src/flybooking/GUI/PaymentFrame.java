@@ -99,6 +99,7 @@ public class PaymentFrame extends JFrame {
                     CPRField.setBackground(Color.RED);
                 } else {
                     currentReservation.setCPR(CPRField.getText());
+                    currentReservation.setID();
                     controller.saveReservation();
                     setVisible(false);
                     dispose();

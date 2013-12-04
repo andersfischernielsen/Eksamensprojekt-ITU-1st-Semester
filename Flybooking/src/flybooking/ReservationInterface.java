@@ -64,6 +64,18 @@ public interface ReservationInterface
      *
      * @param person The person to add to the reservation.
      */
+    
+    /**
+     * Calculates an ID via the calculator and sets it
+     */
+    void setID();
+    
+    /**
+     * set the ID of the reservation to IDToSet
+     * @param IDToSet 
+     */
+    void setID(String IDToSet);
+    
     public void addPerson(Person person);
 
     /**

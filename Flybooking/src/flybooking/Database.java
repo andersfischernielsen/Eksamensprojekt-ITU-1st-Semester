@@ -184,6 +184,7 @@ public class Database implements DatabaseInterface {
                 //Set the reservation details from the database info.
                 r.setCPR(rsReservation.getString("CPR"));
                 r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
+                r.setID(rsReservation.getString("ID"));
                 //r.setPrice(rsReservation.getDouble("price"));
                 r.setReservationDate(new Date());
 
