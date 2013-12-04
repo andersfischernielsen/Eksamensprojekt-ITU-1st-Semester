@@ -5,7 +5,6 @@ import flybooking.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -65,7 +64,7 @@ public class PaymentFrame extends JFrame {
         
         CPRField.setColumns(10);
 
-        confirmButton = new JButton("Confirm");
+        confirmButton = new JButton("Confirm Booking");
         confirmButton.setDefaultCapable(true);
 
         setLayout(new BorderLayout());
@@ -77,7 +76,8 @@ public class PaymentFrame extends JFrame {
         topPanel.add(CPRField, "wrap");
         topPanel.add(confirmButton);
 
-        //-------------------------------------//
+        //---------------------------------------------------------//
+        
         scrollpane = new JScrollPane(receiptArea);
 
         contentPane.add(topPanel, BorderLayout.PAGE_START);
