@@ -4,6 +4,8 @@ package flybooking;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -151,17 +153,21 @@ public class Database implements DatabaseInterface {
         //Create a new Date called startDate which is departureDate -3 days. 
         //Create a new Date called endDate which is departureDate +3 days. 
         Date today = new Date();
-        Date startDate = new Date(today.getTime() - 3* 24 * 60 * 60 * 1000);
-        Date endDate = new Date(today.getTime() + 3* 24 * 60 * 60 * 1000);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = new Date(departureDate.getTime() - 3* 24 * 60 * 60 * 1000);
+        Date endDate = new Date(departureDate.getTime() + 3* 24 * 60 * 60 * 1000);
+        String startDateString = df.format(startDate);
+        String endDateString = df.format(endDate);
          
         //Search betweeen these two dates:
         ArrayList<FlightInterface> flights = new ArrayList<>();
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery("SELECT * FROM Flight WHERE endAirport = '" + getAirportID(endDestination) + "' AND startAirport = '" + getAirportID(startDestination) + "' AND startDate BETWEEN " + startDate + " AND " + endDate + "");
+            Statement statement = con.createStatement();
+            rs = statement.executeQuery("SELECT * FROM Flight WHERE endAirport = '" + getAirportID(endDestination) + "' AND startAirport = '" + getAirportID(startDestination) + "' AND startDate BETWEEN '" + startDateString + "' AND '" + endDateString + "'");
 
             while (!rs.isClosed() && rs.next()) {
-                flights.add(new Flight(rs.getDouble("price"), rs.getInt("ID"), getPlane(rs.getString("plane")), new Date(), new Date(), getAirport(getAirportID(startDestination)), getAirport(getAirportID(endDestination))));
+                flights.add(new Flight(rs.getDouble("price"), rs.getInt("ID"), getPlane(rs.getString("plane")), rs.getDate("startDate"), rs.getDate("endDate"), getAirport(getAirportID(startDestination)), getAirport(getAirportID(endDestination))));
             }
 
         } catch (SQLException e) {
