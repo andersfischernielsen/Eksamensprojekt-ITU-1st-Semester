@@ -140,7 +140,7 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Test deleteButton");
+                deleteReservation(reservationList.getSelectedReservation().getID());
             }
         });
 
@@ -215,5 +215,10 @@ public class EditReservationFrame extends JFrame {
     private void performIDSearch(String ID)
     {
         searchResults = controller.getReservations(ID, null);
+    }
+    
+    private void deleteReservation(String reservationID) {
+        controller.deleteReservation(reservationID);
+        searchButton.doClick();
     }
 }
