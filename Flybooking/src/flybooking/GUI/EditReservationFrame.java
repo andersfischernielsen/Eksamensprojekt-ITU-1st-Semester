@@ -74,14 +74,16 @@ public class EditReservationFrame extends JFrame {
 
         editButton = new JButton("Edit");
         editButton.setMinimumSize(new Dimension(133, 20));
+        editButton.setEnabled(false);
         deleteButton = new JButton("Delete");
         deleteButton.setMinimumSize(new Dimension(133, 20));
+        deleteButton.setEnabled(false);
 
         filler = new JPanel();
         filler2 = new JPanel();
         filler3 = new JPanel();
         filler4 = new JPanel();
-        
+
         topContent.add(resLabel);
         topContent.add(filler);
         topContent.add(CPRLabel, "wrap");
@@ -96,20 +98,37 @@ public class EditReservationFrame extends JFrame {
 
         top.add(topContent);
         content.add(top, BorderLayout.NORTH);
+    }
 
+    private void createBottomContent()
+    {
+        scrollpane = new JScrollPane();
+        reservationList = new ReservationList(searchResults);
+
+        scrollpane.setViewportView(reservationList);
+
+        addActionListeners();
+        content.add(scrollpane, BorderLayout.CENTER);
+    }
+
+    private void addActionListeners()
+    {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                    if (CPRField.getText().equals("")) {
-                        performIDSearch(resField.getText());
-                        reservationList.setListData(searchResults.toArray());
-                    }
+                if (CPRField.getText().equals("")) {
+                    performIDSearch(resField.getText());
+                    reservationList.setListData(searchResults.toArray());
+                }
 
-                    if (resField.getText().equals("")) {
-                        performCPRSearch(CPRField.getText());
-                        reservationList.setListData(searchResults.toArray());
-                    }
+                if (resField.getText().equals("")) {
+                    performCPRSearch(CPRField.getText());
+                    reservationList.setListData(searchResults.toArray());
+                }
+
+                editButton.setEnabled(false);
+                deleteButton.setEnabled(false);
             }
         });
 
@@ -128,16 +147,49 @@ public class EditReservationFrame extends JFrame {
                 System.out.println("Test editButton");
             }
         });
-    }
 
-    private void createBottomContent()
-    {
-        scrollpane = new JScrollPane();
-        reservationList = new ReservationList(searchResults);
-        
-        scrollpane.setViewportView(reservationList);
-        
-        content.add(scrollpane, BorderLayout.CENTER);
+        reservationList.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                if (reservationList.getSelectedIndex() > -1) {
+                    editButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
+
+                    if (e.getClickCount() < 2) {
+                        editButton.doClick();
+                    }
+
+                }
+            }
+
+            @Override
+
+            public void mouseReleased(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                //Do nothing.
+            }
+        }
+        );
     }
 
     private void performCPRSearch(String CPR)
