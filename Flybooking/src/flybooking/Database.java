@@ -273,9 +273,9 @@ public class Database implements DatabaseInterface {
     {
         try {
             Statement statement = con.createStatement();
-            statement.executeQuery("DELETE FROM Reservation WHERE ID = '" + reservationID + "'");
-            statement.executeQuery("DELETE FROM Seat WHERE ReservationID = '" + reservationID + "'");
-            statement.executeQuery("DELETE FROM Person WHERE ReservationID = '" + reservationID + "'S");
+            statement.executeUpdate("DELETE FROM Reservation WHERE ID = '" + reservationID + "'");
+            statement.executeUpdate("DELETE FROM Seat WHERE ReservationID = '" + reservationID + "'");
+            statement.executeUpdate("DELETE FROM People WHERE ReservationID = '" + reservationID + "'");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
