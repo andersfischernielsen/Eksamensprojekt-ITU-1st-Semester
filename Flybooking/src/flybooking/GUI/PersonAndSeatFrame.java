@@ -44,13 +44,14 @@ public class PersonAndSeatFrame extends JFrame {
         seatIDsNotInThisRes = controller.getBookedSeats();
         seatIDsThisRes = controller.getBookedThisResSeats();
         persons = controller.getBookedPersons();
-        for (String seatIDNotThisRes : seatIDsNotInThisRes)
+        for (Iterator<String> it = seatIDsNotInThisRes.iterator(); it.hasNext();)
         {
+            String seatIDNotThisRes = it.next();
             for (String seatIDthisRes : seatIDsThisRes)
             {
                 if (seatIDNotThisRes.equals(seatIDthisRes))
                 {
-                    seatIDsNotInThisRes.remove(seatIDNotThisRes);
+                    it.remove();
                 }
             }
         }
