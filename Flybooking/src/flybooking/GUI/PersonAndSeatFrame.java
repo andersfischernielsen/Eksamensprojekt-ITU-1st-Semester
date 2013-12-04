@@ -74,6 +74,9 @@ public class PersonAndSeatFrame extends JFrame
                 }
             }
         }
+        planeToDraw.bookTakenSeats(seatIDsNotInThisRes);
+        
+        
     }
 
     /**
