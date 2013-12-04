@@ -246,7 +246,7 @@ public class Database implements DatabaseInterface
                 r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
                 r.setID(rsReservation.getString("ID"));
                 //r.setPrice(rsReservation.getDouble("price"));
-                r.setReservationDate(new Date());
+                r.setReservationDate(rsReservation.getDate("reservationDate"));
 
                 try
                 {
