@@ -17,11 +17,12 @@ import net.miginfocom.swing.MigLayout;
 public class NewReservationFrame extends JFrame {
 
     //All of the Swing components needed to draw the interface.
-    private JComboBox dateDropdown, peopleDropdown, startDestDropdown, endDestDropdown;
+    private JComboBox peopleDropdown, startDestDropdown, endDestDropdown;
     private JButton searchButton, doneButton;
     private FlightList flightList;
     private JPanel top, topContent, filler, filler2, filler3;
     private JLabel dateLabel, peopleLabel, startLabel, endLabel;
+    private JTextField dateField;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private JScrollPane scrollpane;
@@ -114,7 +115,7 @@ public class NewReservationFrame extends JFrame {
         filler3 = new JPanel();
 
         //Create all of the components.
-        dateDropdown = new JComboBox(drawDates());
+        dateField = new JTextField();
         peopleDropdown = new JComboBox(people);
         startDestDropdown = new JComboBox(drawDestinations());
         endDestDropdown = new JComboBox(drawDestinations());
@@ -131,15 +132,15 @@ public class NewReservationFrame extends JFrame {
         searchButton.setMinimumSize(new Dimension(130, 20));
         searchButton.setDefaultCapable(true);
         peopleDropdown.setMinimumSize(new Dimension(80, 20));
-        dateDropdown.setSelectedIndex(7);
         startDestDropdown.setMaximumSize(new Dimension(130, 25));
         endDestDropdown.setMaximumSize(new Dimension(130, 25));
+        dateField.setColumns(10);
 
         //Add the components so they show up in the right places.
         topContent.add(dateLabel);
         topContent.add(peopleLabel);
         topContent.add(startLabel, "wrap");
-        topContent.add(dateDropdown);
+        topContent.add(dateField);
         topContent.add(peopleDropdown);
         topContent.add(startDestDropdown, "wrap");
         topContent.add(filler, "span 2");
@@ -174,41 +175,6 @@ public class NewReservationFrame extends JFrame {
     }
 
     /**
-     * Get the dates as a String array between a week ago and a week forward
-     * from the current date.
-     *
-     * @return A string array of the dates a week ago and up until a week from
-     * now.
-     */
-    private String[] drawDates()
-    {
-        //Initialize an empty string to return.
-        String[] array = new String[14];
-        //Get the current date.
-        Date today = new Date();
-
-        //Go through the array, adding the dates a week before and after today.
-        int j = 0;
-        for (int i = 7; i > 0; i--) {
-            //today is in milliseconds, so we calculate the date a week from now
-            //(7 * milliseconds on a day, subtracting one day for each loop.)
-            array[j] = Calculator.convertDateToString(new Date(today.getTime() - i * 24 * 60 * 60 * 1000));
-            //Then increase the position in the array by one, so the dates are
-            //in proper order.
-            j++;
-        }
-
-        for (int i = 0; i < 7; i++) {
-            //We do the same here, just the other way around. 
-            array[j] = Calculator.convertDateToString(new Date(today.getTime() + i * 24 * 60 * 60 * 1000));
-            j++;
-        }
-
-        //Then when the array has been made, we return it.
-        return array;
-    }
-
-    /**
      * Get the possible destinations from the controller as a string array.
      *
      * @return A string array of possible destinations.
@@ -223,20 +189,6 @@ public class NewReservationFrame extends JFrame {
      */
     private void addActionListeners()
     {
-        //Adds an ActionListener that changes chosenDate to the date chosen when clicked.
-        dateDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                //Creates a temporary ComboBox, that contains the click source.
-                JComboBox cb = (JComboBox) e.getSource();
-                try {
-                    //Then convert the ComboBox into a date using the Calculator.
-                    chosenDate = Calculator.convertStringToDate(cb.getSelectedItem().toString());
-                } catch (ParseException ex) {
-                }
-            }
-        });
-
         //Add an ActionListener that changes the chosenPeople to the value chosen when clicked.
         peopleDropdown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -327,6 +279,10 @@ public class NewReservationFrame extends JFrame {
      */
     private void performSearch()
     {
+        try {
+        chosenDate = Calculator.convertStringToDate(dateField.getText());
+        } catch (ParseException ex) { ex.printStackTrace(); }
+        
         searchResults = controller.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
         FlightInterface[] convertedArray = new Flight[searchResults.size()];
 
