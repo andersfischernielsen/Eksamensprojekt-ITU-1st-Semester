@@ -28,6 +28,7 @@ public class Controller implements ControllerInterface {
     @Override
     public void saveReservation()
     {
+        database.removeReservation(workingOnReservation.getID());
         database.newReservation(workingOnReservation);
         resetController();
     }

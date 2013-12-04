@@ -86,6 +86,10 @@ public interface ReservationInterface
     public void removePerson(Person person);
 
     /**
+     * clears the old persons list and creates a new one.
+     */
+    public void clearPersonList();
+    /**
      * Set the flight for the reservation
      *
      * @param flight The flight to fly on/with.

@@ -246,6 +246,9 @@ public class PersonAndSeatFrame extends JFrame
         else
         {
             reservation.bookSeats(seatIDsThisRes);
+            // Remove all existing persons in reservation
+            reservation.clearPersonList();
+            
             //Add all the people to the reservation.
             for (Person p : persons)
             {
