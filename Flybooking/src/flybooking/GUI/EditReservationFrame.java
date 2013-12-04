@@ -148,14 +148,10 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Test editButton");
-                // måske ikke exception her
                 try
                 {
                     sendOnData();
-                }
-                catch (SQLException ex)
-                {
+                } catch (SQLException ex) {
                     Logger.getLogger(EditReservationFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -166,21 +162,20 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                //Do nothing.
+                if (reservationList.getSelectedIndex() > -1) {
+                    editButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
+
+                    if (e.getClickCount() > 1) {
+                        editButton.doClick();
+                    }
+                }
             }
 
             @Override
             public void mousePressed(MouseEvent e)
             {
-                if (reservationList.getSelectedIndex() > -1) {
-                    editButton.setEnabled(true);
-                    deleteButton.setEnabled(true);
-
-                    if (e.getClickCount() < 2) {
-                        editButton.doClick();
-                    }
-
-                }
+                //Do nothing.
             }
 
             @Override
