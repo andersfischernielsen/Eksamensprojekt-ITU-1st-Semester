@@ -57,11 +57,11 @@ public class PaymentFrame extends JFrame {
 
         CPRLabel = new JLabel("Payers CPR: ");
         CPRField = new JTextField("");
-        
+
         if (currentReservation.getCPR() != null) {
             CPRField.setText(currentReservation.getCPR());
         }
-        
+
         CPRField.setColumns(10);
 
         confirmButton = new JButton("Confirm Booking");
@@ -77,7 +77,6 @@ public class PaymentFrame extends JFrame {
         topPanel.add(confirmButton);
 
         //---------------------------------------------------------//
-        
         scrollpane = new JScrollPane(receiptArea);
 
         contentPane.add(topPanel, BorderLayout.PAGE_START);
@@ -104,9 +103,15 @@ public class PaymentFrame extends JFrame {
                     CPRField.setBackground(Color.RED);
                 } else {
                     currentReservation.setCPR(CPRField.getText());
-                    controller.saveReservation();
-                    setVisible(false);
-                    dispose();
+                    boolean savedSuccessfully = false;
+                    savedSuccessfully = controller.saveReservation();
+                    if (!savedSuccessfully) {
+                        setVisible(false);
+                        dispose();
+                    } else {
+                        receiptArea.setText("ERROR! COULDN'T SAVE RESERVATION!");
+                        receiptArea.setBackground(Color.red);
+                    }
                 }
             }
         });
