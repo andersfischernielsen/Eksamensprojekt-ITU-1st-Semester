@@ -62,14 +62,14 @@ public class NewReservationFrame extends JFrame {
         if (instance == null) {
             instance = new NewReservationFrame();
         }
-
+        
         instance.setVisible(true);
         return instance;
     }
 
     /**
      * Draw the GUI.
-     * 
+     *
      */
     public void drawFrame()
     {
@@ -115,7 +115,7 @@ public class NewReservationFrame extends JFrame {
         filler3 = new JPanel();
 
         //Create all of the components.
-        dateField = new JTextField();
+        dateField = new JTextField("dd/mm-yyyy");
         peopleDropdown = new JComboBox(people);
         startDestDropdown = new JComboBox(drawDestinations());
         endDestDropdown = new JComboBox(drawDestinations());
@@ -127,7 +127,7 @@ public class NewReservationFrame extends JFrame {
         doneButton = new JButton("Book Flight");
         doneButton.setMinimumSize(new Dimension(133, 20));
         doneButton.setEnabled(false);
-        
+
         //Set the sizes and indexes of specific components.
         searchButton.setMinimumSize(new Dimension(130, 20));
         searchButton.setDefaultCapable(true);
@@ -170,7 +170,7 @@ public class NewReservationFrame extends JFrame {
             scrollpane.setViewportView(flightList);
 
             //Add the scrollpane and button to the frame.
-            getContentPane().add(scrollpane, BorderLayout.CENTER);          
+            getContentPane().add(scrollpane, BorderLayout.CENTER);            
         }
     }
 
@@ -230,42 +230,65 @@ public class NewReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                    sendOnData();
+                sendOnData();
             }
         });
-
+        
+        dateField.addFocusListener(new FocusListener() {
+            
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                dateField.setSelectionStart(0);
+                dateField.setSelectionEnd(dateField.getText().length());
+                dateField.setForeground(Color.BLACK);
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                dateField.setForeground(Color.LIGHT_GRAY);
+                
+                if (!dateField.getText().equals("dd/mm-yyyy")) {
+                    
+                } else {
+                    dateField.setText("dd/mm-yyyy");
+                }
+            }
+        });
+        
         flightList.addMouseListener(new MouseListener() {
-
+            
             @Override
             public void mouseClicked(MouseEvent e)
             {
                 if (flightList.getSelectedIndex() > -1) {
                     doneButton.setEnabled(true);
-
+                    
                     if (e.getClickCount() > 1) {
                         sendOnData();
                     }
                 }
             }
-
+            
             @Override
             public void mousePressed(MouseEvent e)
             {
                 //Do nothing.
             }
-
+            
             @Override
             public void mouseReleased(MouseEvent e)
             {
                 //Do nothing.
             }
-
+            
             @Override
             public void mouseEntered(MouseEvent e)
             {
                 //Do nothing.
             }
-
+            
             @Override
             public void mouseExited(MouseEvent e)
             {
@@ -280,18 +303,24 @@ public class NewReservationFrame extends JFrame {
     private void performSearch()
     {
         try {
-        chosenDate = Calculator.convertStringToDate(dateField.getText());
-        } catch (ParseException ex) { ex.printStackTrace(); }
+            if (dateField.getText().equals("dd/mm-yyyy") || dateField.getText().equals("No date chosen")) {
+                dateField.setText("No date chosen");
+            } else {
+                chosenDate = Calculator.convertStringToDate(dateField.getText());
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
         
         searchResults = controller.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
         FlightInterface[] convertedArray = new Flight[searchResults.size()];
-
+        
         int i = 0;
         for (FlightInterface f : searchResults) {
             convertedArray[i] = f;
             i++;
         }
-
+        
         flightList.setListData(convertedArray);
     }
 
@@ -306,11 +335,11 @@ public class NewReservationFrame extends JFrame {
         ReservationInterface reservation = new Reservation();
         reservation.setReservationDate(new Date());
         reservation.setFlight(flightList.getSelectedFlight());
-
+        
         if (reservation.getFlight().getPlane() != null) {
             controller.setWorkingOnReservation(reservation);
             setVisible(false);
-
+            
             new PersonAndSeatFrame();
         }
     }
