@@ -272,9 +272,10 @@ public class Database implements DatabaseInterface {
     public void removeReservation(String reservationID)
     {
         try {
-            statement.executeQuery("DELETE FROM Reservation WHERE Reservation.ID = " + reservationID);
-            statement.executeQuery("DELETE FROM Seat WHERE Seat.ReservationID = " + reservationID);
-            statement.executeQuery("DELETE FROM Person WHERE Person.ReservationID = " + reservationID);
+            Statement statement = con.createStatement();
+            statement.executeQuery("DELETE FROM Reservation WHERE ID = '" + reservationID + "'");
+            statement.executeQuery("DELETE FROM Seat WHERE ReservationID = '" + reservationID + "'");
+            statement.executeQuery("DELETE FROM Person WHERE ReservationID = '" + reservationID + "'S");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
