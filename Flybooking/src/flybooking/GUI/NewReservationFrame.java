@@ -307,8 +307,8 @@ public class NewReservationFrame extends JFrame {
     private void performSearch()
     {
         try {
-            if (dateField.getText().equals("dd/mm-yyyy") || dateField.getText().equals("No date chosen")) {
-                dateField.setText("No date chosen");
+            if (dateField.getText().equals("dd/mm-yyyy")) {
+                chosenDate = null;
             } else {
                 chosenDate = Calculator.convertStringToDate(dateField.getText());
             }
