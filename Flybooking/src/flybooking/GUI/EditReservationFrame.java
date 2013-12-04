@@ -148,12 +148,7 @@ public class EditReservationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try
-                {
                     sendOnData();
-                } catch (SQLException ex) {
-                    Logger.getLogger(EditReservationFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
         });
 
@@ -200,7 +195,7 @@ public class EditReservationFrame extends JFrame {
         );
     }
     
-    public void sendOnData() throws SQLException
+    public void sendOnData()
     {
         ReservationInterface reservation = reservationList.getSelectedReservation();
 
