@@ -101,6 +101,7 @@ public class PaymentFrame extends JFrame {
                 } else {
                     try {
                         currentReservation.setCPR(CPRField.getText());
+                        currentReservation.setID();
                         controller.saveReservation();
                         setVisible(false);
                         dispose();
