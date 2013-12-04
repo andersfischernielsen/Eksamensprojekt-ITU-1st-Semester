@@ -89,8 +89,9 @@ public class Database implements DatabaseInterface
     @Override
     public Person getPerson(int PersonID) throws SQLException
     {
+        ResultSet rs = null;
         Statement statement = con.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * FROM People WHERE People.ID = " + PersonID);
+        rs = statement.executeQuery("SELECT * FROM People WHERE People.ID = " + PersonID);
         rs.next();
         return new Person(rs.getString("Firstname"), rs.getString("Lastname"), rs.getInt("ID"), rs.getString("Address"), rs.getInt("groupID"));
     }
@@ -453,7 +454,9 @@ public class Database implements DatabaseInterface
     public ArrayList<Person> getBookedPersons(String reservationID) throws SQLException
     {
         ArrayList<Person> personsToReturn = new ArrayList<>();
-        ResultSet rs = statement.executeQuery("SELECT * FROM Person WHERE person.reservationID =" + reservationID + ")");
+        Statement statement = con.createStatement();
+        ResultSet rs = null;
+        rs = statement.executeQuery("SELECT * FROM People WHERE reservationID = '" + reservationID + "'");
         while (rs.next())
         {
             personsToReturn.add(getPerson(rs.getInt("ID")));
