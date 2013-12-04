@@ -57,9 +57,9 @@ public interface DatabaseInterface
      */
     FlightInterface getFlight(int flightID) throws SQLException;
     
+    
     ArrayList<Flight> getFlightList(Date departureDate,
-                                String startDestination, String endDestination)
-            throws SQLException;
+                                String startDestination, String endDestination);
 
     /**
      * Returns an arrayList of reservations which respects the parameters.
@@ -79,28 +79,28 @@ public interface DatabaseInterface
      * @param Price   HUSK AT ÆNDRE DEN TIL LILLE SKRIFT!
      * @param CPR
      */
-    void newReservation(Flight flight, Person[] persons, String CPR, double Price) throws SQLException;
+    void newReservation(Flight flight, Person[] persons, String CPR, double Price);
 
     /**
      * eller den
      *
      * @param reservationToMake
      */
-    void newReservation(ReservationInterface reservationToMake)throws SQLException; 
+    void newReservation(ReservationInterface reservationToMake); 
 
     /**
      * remove the reservation with ID reservationID
      *
      * @param reservationID
      */
-    void removeReservation(String reservationID) throws SQLException;
+    void removeReservation(String reservationID);
 
     /**
      * Updates a reservations persons, seats and price
      * @param reservationToMake the reservation to update
      * @throws SQLException 
      */
-    void updateReservation(ReservationInterface reservationToMake)throws SQLException;
+    void updateReservation(ReservationInterface reservationToMake);
     
     /**
      * Adds a person to a reservation.
@@ -112,16 +112,15 @@ public interface DatabaseInterface
      *
      * @throws java.sql.SQLException
      */
-    void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot) throws SQLException;
+    void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot);
 
     /**
      * Get all the available flights as an ArrayList.
      *
      * @return An ArrayList of all the available flights.
      *
-     * @throws java.sql.SQLException An SQLException if something went wrong.
      */
-    ArrayList<String> getAirportCitiesAsStrings() throws SQLException;
+    ArrayList<String> getAirportCitiesAsStrings();
 
     /**
      * Check whether a given ID already exists.
@@ -129,10 +128,8 @@ public interface DatabaseInterface
      * @param ID
      *
      * @return true if the ID exists.
-     *
-     * @throws java.sql.SQLException
      */
-    boolean checkForID(int ID) throws SQLException;
+    boolean checkForID(int ID);
 
     /**
      * Find all booked seats on a certain flight by searching through
@@ -142,7 +139,7 @@ public interface DatabaseInterface
      *
      * @return an arrayList of seatId strings.
      */
-    ArrayList<String> getAllBookedSeats(int flightID) throws SQLException;
+    ArrayList<String> getAllBookedSeats(int flightID);
 
     /**
      * Returns an array of persons who are kept in a reservation with ID
@@ -152,7 +149,7 @@ public interface DatabaseInterface
      *
      * @return an arrayList of persons.
      */
-    ArrayList<Person> getBookedPersons(String reservationID) throws SQLException;
+    ArrayList<Person> getBookedPersons(String reservationID);
 
     /**
      * Find the booked seats on a specific reservation.
@@ -162,7 +159,7 @@ public interface DatabaseInterface
      *
      * @return an ArrayList of seatID strings
      */
-    ArrayList<String> getBookedSeatsOnReservation(String reservationID) throws SQLException;
+    ArrayList<String> getBookedSeatsOnReservation(String reservationID);
 
     /**
      * Get all matching Reservations from a CPR number.

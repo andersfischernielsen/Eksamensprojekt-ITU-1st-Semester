@@ -2,6 +2,7 @@ package flybooking;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * An interface for creating reservations and controlling the booking system in
@@ -17,7 +18,7 @@ public interface ControllerInterface
     /**
      * Begin the process of creating a new reservation.
      */
-    void createReservation() throws SQLException;
+    void createReservation();
     //HER SKAL VI NOK HAVE FLERE METODER. JEG VED BARE IKKE LIGE HELT PRÆCIST
     //HVORDAN VI TACKLER HELE DATABASEN OSV. 
 
@@ -25,7 +26,7 @@ public interface ControllerInterface
      * Save the reservation when finished.
      *
      */
-    void saveReservation()  throws SQLException;
+    void saveReservation();
 
     /**
      * Get a a list of reservations matching the given ID and CPR.
@@ -39,8 +40,9 @@ public interface ControllerInterface
     /**
      * Delete a reservation.
      *
+     * @param reservationID
      */
-    void deleteReservation(String reservationID) throws SQLException;
+    void deleteReservation(String reservationID);
 
     /**
      * Print the receipt of the reservation.
@@ -62,8 +64,6 @@ public interface ControllerInterface
 
     /**
      * Find something.
-     *
-     * @param database The database to search in.
      */
     void search(); //SEARCH BLIVER MERE AVANCERET AT LAVE, SÅ VI SKAL SIKKERT HAVE EN DEL ANDRE SØGEMETODER.
 
@@ -93,28 +93,23 @@ public interface ControllerInterface
      * Get the number of destinations from the database.
      *
      * @return The number of destinations in the database.
-     *
-     * @throws java.sql.SQLException If something went wrong.
      */
-    int getNumberOfDestinations() throws SQLException;
+    int getNumberOfDestinations();
 
     /**
      * Get all destination cities from the database as strings.
      *
      * @return A string array of cities in the database.
      *
-     * @throws java.sql.SQLException
      */
-    String[] getDestinationsAsStrings() throws SQLException;
+    String[] getDestinationsAsStrings();
 
     /**
      * Check whether an ID already exists in the database.
      *
      * @return Whether the ID exists in the database.
-     *
-     * @throws SQLException
      */
-    boolean checkForID(int ID) throws SQLException;
+    boolean checkForID(int ID);
 
     /**
      * Saves the seatIDs which are booked on this reservation.
@@ -140,23 +135,25 @@ public interface ControllerInterface
      * return booked seats for this reservations flight.
      * @return an arrayList of seatIDs  
      */
-    public ArrayList<String> getBookedSeats()  throws SQLException;
+    public ArrayList<String> getBookedSeats();
     
     /**
      * returns the booked seats on the controllers reservation.
      * @return 
      */
-    public ArrayList<String> getBookedThisResSeats() throws SQLException;
+    public ArrayList<String> getBookedThisResSeats();
             
     /**
      * Returns the controller's reservations booked persons.
      * @return a list of Person objects
      */
-    public ArrayList<Person> getBookedPersons() throws SQLException;
+    public ArrayList<Person> getBookedPersons();
 
     /**
      * Resets the controller, short for delete the current reservation and make
      * a new one.
      */
-    public void resetController() throws SQLException;
+    public void resetController();
+    
+    public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination);
 }

@@ -58,6 +58,11 @@ public class PaymentFrame extends JFrame {
 
         CPRLabel = new JLabel("Payers CPR: ");
         CPRField = new JTextField("");
+        
+        if (currentReservation.getCPR() != null) {
+            CPRField.setText(currentReservation.getCPR());
+        }
+        
         CPRField.setColumns(10);
 
         confirmButton = new JButton("Confirm");
@@ -73,7 +78,6 @@ public class PaymentFrame extends JFrame {
         topPanel.add(confirmButton);
 
         //-------------------------------------//
-
         scrollpane = new JScrollPane(receiptArea);
 
         contentPane.add(topPanel, BorderLayout.PAGE_START);
@@ -83,7 +87,7 @@ public class PaymentFrame extends JFrame {
         getRootPane().setDefaultButton(confirmButton);
         setPreferredSize(new Dimension(440, 310));
         setLocation(new Point(600, 40));
-        
+
         pack();
         setVisible(true);
     }
@@ -99,14 +103,11 @@ public class PaymentFrame extends JFrame {
                     CPRField.setText("CPR missing!");
                     CPRField.setBackground(Color.RED);
                 } else {
-                    try {
-                        currentReservation.setCPR(CPRField.getText());
-                        currentReservation.setID();
-                        controller.saveReservation();
-                        setVisible(false);
-                        dispose();
-                    } catch (SQLException ex) {
-                    }
+                    currentReservation.setCPR(CPRField.getText());
+                    currentReservation.setID();
+                    controller.saveReservation();
+                    setVisible(false);
+                    dispose();
                 }
             }
         });

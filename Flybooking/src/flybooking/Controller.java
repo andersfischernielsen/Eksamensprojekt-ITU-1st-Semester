@@ -20,13 +20,13 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void createReservation() throws SQLException
+    public void createReservation()
     {
         workingOnReservation = new Reservation();
     }
 
     @Override
-    public void saveReservation() throws SQLException
+    public void saveReservation()
     {
         database.newReservation(workingOnReservation);
         resetController();
@@ -39,7 +39,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void deleteReservation(String reservationID) throws SQLException
+    public void deleteReservation(String reservationID)
     {
         database.removeReservation(reservationID);
     }
@@ -82,7 +82,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public int getNumberOfDestinations() throws SQLException
+    public int getNumberOfDestinations()
     {
         // RET HER
         ArrayList<String> destinations = database.getAirportCitiesAsStrings();
@@ -96,7 +96,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public String[] getDestinationsAsStrings() throws SQLException
+    public String[] getDestinationsAsStrings()
     {
         String[] destinations = new String[getNumberOfDestinations()];
         ArrayList<String> strings = database.getAirportCitiesAsStrings();
@@ -118,7 +118,7 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public boolean checkForID(int ID) throws SQLException
+    public boolean checkForID(int ID)
     {
         database.checkForID(ID);
 
@@ -144,49 +144,46 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public ArrayList<String> getBookedSeats() throws SQLException
+    public ArrayList<String> getBookedSeats()
     {
-        System.out.println(workingOnReservation.getFlight().getID());
-        try {
-            if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null) {
-                return database.getAllBookedSeats(workingOnReservation.getFlight().getID());
-            }
-        } catch (SQLException ex) {}
+        if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null) {
+            return database.getAllBookedSeats(workingOnReservation.getFlight().getID());
+        }
 
         return new ArrayList<>();
     }
 
     @Override
-    public ArrayList<String> getBookedThisResSeats() throws SQLException
+    public ArrayList<String> getBookedThisResSeats()
     {
         System.out.println(workingOnReservation.getFlight().getID());
-        try {
             if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null) {
                 return database.getBookedSeatsOnReservation(workingOnReservation.getID());
             }
-        } catch (SQLException ex) {
-        }
 
         return new ArrayList<String>();
     }
 
     @Override
-    public void resetController()  throws SQLException
+    public void resetController()
     {
         workingOnReservation = new Reservation();
     }
 
     @Override
-    public ArrayList<Person> getBookedPersons() throws SQLException
+    public ArrayList<Person> getBookedPersons()
     {
         System.out.println(workingOnReservation.getFlight().getID());
-        try {
             if (database.getAllBookedSeats(workingOnReservation.getFlight().getID()) != null) {
                 return database.getBookedPersons(workingOnReservation.getID());
             }
-        } catch (SQLException ex) {
-        }
 
         return new ArrayList<Person>();
+    }
+
+    @Override
+    public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

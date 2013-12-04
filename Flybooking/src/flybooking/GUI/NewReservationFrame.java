@@ -42,7 +42,7 @@ public class NewReservationFrame extends JFrame {
      *
      * @throws HeadlessException
      */
-    private NewReservationFrame() throws HeadlessException, SQLException
+    private NewReservationFrame() throws HeadlessException
     {
         //Create a new Array ready to receive search results.
         searchResults = new ArrayList<>();
@@ -57,7 +57,7 @@ public class NewReservationFrame extends JFrame {
      *
      * @return An instance of the frame.
      */
-    public static NewReservationFrame getInstance() throws SQLException
+    public static NewReservationFrame getInstance()
     {
         if (instance == null) {
             instance = new NewReservationFrame();
@@ -69,13 +69,12 @@ public class NewReservationFrame extends JFrame {
 
     /**
      * Draw the GUI.
-     *
-     * @throws SQLException
+     * 
      */
-    public void drawFrame() throws SQLException
+    public void drawFrame()
     {
         setTitle("New Reservation");
-        
+
         //Draw the top and bottom part of the GUI.
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         getContentPane().setLayout(new BorderLayout());
@@ -89,10 +88,10 @@ public class NewReservationFrame extends JFrame {
         chosenEndDestination = (String) endDestDropdown.getSelectedItem();
         chosenPeople = 1;
         chosenDate = new Date();
-        
+
         //Set the default button.
         getRootPane().setDefaultButton(searchButton);
-        
+
         //Pack everything and show the frame.
         pack();
         setMinimumSize(new Dimension(560, 480));
@@ -102,14 +101,14 @@ public class NewReservationFrame extends JFrame {
     /**
      * Draw the top part of the window, containing input and search buttons.
      */
-    private void drawTopContent() throws SQLException
+    private void drawTopContent()
     {
         //Create the top content panel, and set its layout and inner spacing..
         top = new JPanel();
         topContent = new JPanel();
         topContent.setLayout(new MigLayout(
-                "", 
-                "[] 90 [] 90 []",
+                "",
+                "0 [] 90 [] 90 [] 0",
                 "0 [] 0  [] 5 [] 0 [] 20 [] 5"));
         filler = new JPanel();
         filler2 = new JPanel();
@@ -130,11 +129,13 @@ public class NewReservationFrame extends JFrame {
         doneButton.setEnabled(false);
         
         //Set the sizes and indexes of specific components.
-        searchButton.setMinimumSize(new Dimension(133, 20));
+        searchButton.setMinimumSize(new Dimension(130, 20));
         searchButton.setDefaultCapable(true);
         peopleDropdown.setMinimumSize(new Dimension(80, 20));
         dateDropdown.setSelectedIndex(7);
-        
+        startDestDropdown.setMaximumSize(new Dimension(130, 25));
+        endDestDropdown.setMaximumSize(new Dimension(130, 25));
+
         //Add the components so they show up in the right places.
         topContent.add(dateLabel);
         topContent.add(peopleLabel);
@@ -149,7 +150,7 @@ public class NewReservationFrame extends JFrame {
         topContent.add(doneButton);
         topContent.add(filler3, "span 1");
         topContent.add(searchButton);
-        
+
         //Add the finished top panel to the main frame.
         top.add(topContent);
         getContentPane().add(top, BorderLayout.PAGE_START);
@@ -163,11 +164,11 @@ public class NewReservationFrame extends JFrame {
         {
             //Initialize a ned FLightList, and add the search results to it.
             flightList = new FlightList(searchResults);
-            
+
             //Add the FlightList to the scrollpane.
             scrollpane = new JScrollPane();
             scrollpane.setViewportView(flightList);
-            
+
             //Add the scrollpane and button to the frame.
             getContentPane().add(scrollpane, BorderLayout.CENTER);          
         }
@@ -213,7 +214,7 @@ public class NewReservationFrame extends JFrame {
      *
      * @return A string array of possible destinations.
      */
-    private String[] drawDestinations() throws SQLException
+    private String[] drawDestinations()
     {
         return controller.getDestinationsAsStrings();
     }
@@ -270,21 +271,46 @@ public class NewReservationFrame extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                try {
-                    performSearch();
-                } catch (SQLException ex) {
-                }
+                performSearch();
             }
         });
 
-        //Add an ActionListener that sends the data to the next window in the system.
-        doneButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
+        flightList.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e)
             {
-                try {
-                    NewReservationFrame.getInstance().sendOnData();
-                } catch (ParseException | SQLException ex) {
+                if (flightList.getSelectedIndex() > -1) {
+                    doneButton.setEnabled(true);
+
+                    if (e.getClickCount() > 1) {
+                        sendOnData();
+                    }
                 }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                //Do nothing.
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                //Do nothing.
             }
         });
     }
@@ -292,7 +318,7 @@ public class NewReservationFrame extends JFrame {
     /**
      * Perform a search for flights with the specified search options.
      */
-    private void performSearch() throws SQLException
+    private void performSearch()
     {
         searchResults = Database.getInstance().getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
         Flight[] convertedArray = new Flight[searchResults.size()];
@@ -312,7 +338,7 @@ public class NewReservationFrame extends JFrame {
      *
      * @throws ParseException
      */
-    private void sendOnData() throws ParseException, SQLException
+    private void sendOnData()
     {
         ReservationInterface reservation = new Reservation();
         reservation.setReservationDate(new Date());
