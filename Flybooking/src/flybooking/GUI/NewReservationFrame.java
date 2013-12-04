@@ -69,8 +69,7 @@ public class NewReservationFrame extends JFrame {
 
     /**
      * Draw the GUI.
-     *
-     * @throws SQLException
+     * 
      */
     public void drawFrame()
     {
@@ -109,7 +108,7 @@ public class NewReservationFrame extends JFrame {
         topContent = new JPanel();
         topContent.setLayout(new MigLayout(
                 "",
-                "[] 90 [] 90 []",
+                "0 [] 90 [] 90 [] 0",
                 "0 [] 0  [] 5 [] 0 [] 20 [] 5"));
         filler = new JPanel();
         filler2 = new JPanel();
@@ -127,10 +126,12 @@ public class NewReservationFrame extends JFrame {
         searchButton = new JButton("Search");
 
         //Set the sizes and indexes of specific components.
-        searchButton.setMinimumSize(new Dimension(133, 20));
+        searchButton.setMinimumSize(new Dimension(130, 20));
         searchButton.setDefaultCapable(true);
         peopleDropdown.setMinimumSize(new Dimension(80, 20));
         dateDropdown.setSelectedIndex(7);
+        startDestDropdown.setMaximumSize(new Dimension(130, 25));
+        endDestDropdown.setMaximumSize(new Dimension(130, 25));
 
         //Add the components so they show up in the right places.
         topContent.add(dateLabel);
