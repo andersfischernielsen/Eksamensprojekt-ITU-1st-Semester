@@ -4,7 +4,6 @@ package flybooking.GUI;
 import flybooking.*;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.JFrame;
 import java.awt.event.*;
 import java.util.*;
 import net.miginfocom.swing.MigLayout;
