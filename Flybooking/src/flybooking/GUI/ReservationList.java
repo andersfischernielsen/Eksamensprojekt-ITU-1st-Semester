@@ -3,7 +3,6 @@ package flybooking.GUI;
 
 import flybooking.*;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

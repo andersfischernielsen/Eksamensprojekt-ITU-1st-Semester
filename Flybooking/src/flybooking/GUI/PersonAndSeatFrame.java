@@ -24,8 +24,8 @@ public class PersonAndSeatFrame extends JFrame
     private ArrayList<Person> persons; //The passengers in the reservation.
     private JComboBox personComboBox, ageGroupComboBox; //Comboboxes for the UI.
     private JComponent planeDrawingComp;
-    private JLabel firstNameLabel, lastNameLabel, addressLabel, zipLabel; //Text labels for the UI.
-    private JTextField firstNameField, lastNameField, addressField, zipField; //Input fields for the UI.
+    private JLabel firstNameLabel, lastNameLabel, addressLabel; //Text labels for the UI.
+    private JTextField firstNameField, lastNameField, addressField; //Input fields for the UI.
     private JButton bookButton, addButton, deleteButton; //Buttons for the UI.
     private JPanel top, topContent, filler, filler2, filler3, graphicsPanel; //Panels for setting up the UI.
     private JScrollPane scrollpane; //A scrollpane for the graphics component.
@@ -95,18 +95,15 @@ public class PersonAndSeatFrame extends JFrame
         //Initialize all labels.
         firstNameLabel = new JLabel(" First name:");
         lastNameLabel = new JLabel(" Last name:");
-        addressLabel = new JLabel(" Address:");
-        zipLabel = new JLabel(" ZIP, city & country");
+        addressLabel = new JLabel(" Full address:");
 
         //Initialize all text fields.
         firstNameField = new JTextField();
         lastNameField = new JTextField();
         addressField = new JTextField();
-        zipField = new JTextField();
         firstNameField.setColumns(13);
         lastNameField.setColumns(13);
         addressField.setColumns(13);
-        zipField.setColumns(13);
 
         //Initialize all fillers.
         filler = new JPanel();
@@ -139,11 +136,9 @@ public class PersonAndSeatFrame extends JFrame
 
         //Add the third and fourth line of components.
         topContent.add(lastNameLabel);
-        topContent.add(filler2);
-        topContent.add(zipLabel, "wrap");
+        topContent.add(filler2, "span 2, wrap");
         topContent.add(lastNameField);
-        topContent.add(personComboBox);
-        topContent.add(zipField, "wrap");
+        topContent.add(personComboBox, "wrap");
 
         //Add the last line of components.
         topContent.add(addButton, "split 2");
@@ -184,6 +179,9 @@ public class PersonAndSeatFrame extends JFrame
         //Count the number of people, and add a new person to the list of passengers.
         countPeople();
         persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
+        if (!personComboBox.getSelectedItem().equals(addItem)) {
+            persons.remove(personComboBox.getSelectedItem());
+        }
         //Update the personComboBox to make sure it shows the current passengers.
         updatePersonComboBox();
         emptyTextFields();
@@ -211,7 +209,6 @@ public class PersonAndSeatFrame extends JFrame
         firstNameField.setText("");
         lastNameField.setText("");
         addressField.setText("");
-        zipField.setText("");
     }
 
     /**
@@ -388,7 +385,8 @@ public class PersonAndSeatFrame extends JFrame
 
                 //If the clicked item isn't the addItem it must be a person.
                 Person temp = persons.get(personComboBox.getSelectedIndex());
-
+                addButton.setText("Save");
+                
                 //Then set the fields with that persons information.
                 //First we get the id of the selected person.
                 int ID = temp.getID();
