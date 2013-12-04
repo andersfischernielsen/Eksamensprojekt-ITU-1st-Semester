@@ -31,6 +31,9 @@ public class Printer implements ReceiptPrinter {
               string += "\n";
               string += createPlaneDetails();
               string += "\n";
+              string += "\n";
+              string += createPriceDetails();
+              string += "\n";
               string += "-------------------------------------------------";
         
         return string;
@@ -66,6 +69,13 @@ public class Printer implements ReceiptPrinter {
     {
         String finalString;
         finalString = "Plane: " + reservation.getFlight().getPlane().getID();
+        return finalString;
+    }
+    
+    public String createPriceDetails()
+    {
+        String finalString;
+        finalString = "Price: " + reservation.getPrice()+",-";
         return finalString;
     }
 }
