@@ -29,6 +29,7 @@ public class Controller implements ControllerInterface {
     public void saveReservation()
     {
         database.removeReservation(workingOnReservation.getID());
+        workingOnReservation.setID();
         database.newReservation(workingOnReservation);
         resetController();
     }
@@ -121,9 +122,7 @@ public class Controller implements ControllerInterface {
     @Override
     public boolean checkForID(int ID)
     {
-        database.checkForID(ID);
-
-        return false;
+        return database.checkForID(ID);
     }
 
     @Override
