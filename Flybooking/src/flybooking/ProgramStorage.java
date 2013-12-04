@@ -17,7 +17,7 @@ import java.util.Date;
  */
 public class ProgramStorage implements DatabaseInterface {
 
-    ArrayList<Flight> flightList = new ArrayList<>();
+    ArrayList<FlightInterface> flightList = new ArrayList<>();
     ArrayList<ReservationInterface> reservationList = new ArrayList<>();
     ArrayList<Plane> planeList = new ArrayList<>();
     ArrayList<Airport> airportList = new ArrayList<>();
@@ -89,14 +89,14 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<Flight> getFlightList(Date departureDate, String startDestination, String endDestination)
+    public ArrayList<FlightInterface> getFlightList(Date departureDate, String startDestination, String endDestination)
     {
-        ArrayList<Flight> flightsToReturn = new ArrayList<>();
+        ArrayList<FlightInterface> flightsToReturn = new ArrayList<>();
         /**
          * DOES NOT TAKE DATE INTO ACCOUNT YET
          */
         if (departureDate != null && startDestination != null && endDestination != null) {
-            for (Flight flight : flightList) {
+            for (FlightInterface flight : flightList) {
                 if (flight.getEndAirport().getCity().equals(endDestination) && flight.getStartAirport().getCity().equals(startDestination)) {
                     flightsToReturn.add(flight);
                 }
