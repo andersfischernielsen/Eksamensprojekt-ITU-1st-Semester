@@ -37,50 +37,69 @@ public class Database implements DatabaseInterface {
 
     // ------------------Simple objects --------
     @Override
-    public Plane getPlane(String PlaneID) throws SQLException
+    public Plane getPlane(String PlaneID)
     {
         ResultSet rs = null;
         try {
             rs = statement.executeQuery("SELECT * FROM Plane WHERE ID = '" + PlaneID + "'");
+            rs.next();
+
+            return new Plane(rs.getString("ID"), rs.getInt("rows"), rs.getInt("columns"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        rs.next();
-        return new Plane(rs.getString("ID"), rs.getInt("rows"), rs.getInt("columns"));
+
+        return null;
     }
 
     @Override
-    public Airport getAirport(String AirportCityID) throws SQLException
+    public Airport getAirport(String AirportCityID)
     {
         ResultSet rs = null;
         try {
             rs = statement.executeQuery("SELECT * FROM Airport WHERE Airport.code = '" + AirportCityID + "'");
+            rs.next();
+
+            return new Airport(AirportCityID, rs.getString("Country"), rs.getString("City"));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        rs.next();
-        return new Airport(AirportCityID, rs.getString("Country"), rs.getString("City"));
+
+        return null;
     }
 
-    public String getAirportID(String AirportCityName) throws SQLException
+    public String getAirportID(String AirportCityName)
     {
         ResultSet rs = null;
         try {
             rs = statement.executeQuery("SELECT code FROM Airport WHERE city = '" + AirportCityName + "'");
+
+            rs.next();
+            return rs.getString("code");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        rs.next();
-        return rs.getString("code");
+
+        return null;
     }
 
     @Override
-    public Person getPerson(int PersonID) throws SQLException
+    public Person getPerson(int PersonID)
     {
-        Statement statement = con.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * FROM People WHERE People.ID = " + PersonID);
-        rs.next();
-        return new Person(rs.getString("Firstname"), rs.getString("Lastname"), rs.getInt("ID"), rs.getString("Address"), rs.getInt("groupID"));
+        try {
+            ResultSet rs = null;
+            Statement statement = con.createStatement();
+            rs = statement.executeQuery("SELECT * FROM People WHERE People.ID = " + PersonID);
+            rs.next();
+            return new Person(rs.getString("Firstname"), rs.getString("Lastname"), rs.getInt("ID"), rs.getString("Address"), rs.getInt("groupID"));
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
     public void insertPerson(Person person, String ReservationID)
@@ -282,8 +301,7 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public void addPersonToReservation(String reservationID, Person person, String reservationSpot
-    )
+    public void addPersonToReservation(String reservationID, Person person, String reservationSpot)
     {
         // USE UPDATERESERVATION INSTEAD
         try {
@@ -422,21 +440,21 @@ public class Database implements DatabaseInterface {
     public ArrayList<Person> getBookedPersons(String reservationID)
     {
         ArrayList<Person> personsToReturn = new ArrayList<>();
+
         try {
-            ResultSet rs = statement.executeQuery("SELECT * FROM Person WHERE person.reservationID =" + reservationID + ")");
+            Statement statement = con.createStatement();
+            ResultSet rs = null;
+            rs = statement.executeQuery("SELECT * FROM People WHERE reservationID = '" + reservationID + "'");
             while (rs.next()) {
                 personsToReturn.add(getPerson(rs.getInt("ID")));
             }
+
+            return personsToReturn;
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return personsToReturn;
-    }
-
-    public static void main(String[] args)
-    {
-        DatabaseInterface d = new Database("AACBookingDB", "AACBooking", "AACDB");
-        //d.getAirport(null)
+        return null;
     }
 }
