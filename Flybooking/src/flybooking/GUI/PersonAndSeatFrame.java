@@ -250,6 +250,7 @@ public class PersonAndSeatFrame extends JFrame
             }
 
             //Save the reservation.
+            reservation.setPrice(Calculator.getprice(reservation.getFlight().getPrice(), reservation.getBookedPersons()));
             controller.setWorkingOnReservation(reservation);
             
             //Create the final window.
