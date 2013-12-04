@@ -198,15 +198,15 @@ public class Plane
      */
     public void bookTakenSeats(ArrayList<String> seatIDs)
     {
-        if (!(seatIDs.isEmpty()&& seatIDs!=null))
+        for (Seat[] seatI : seats)
         {
-            for (Seat[] seatI : seats)
+            for (Seat seat : seatI)
             {
-                for (Seat seat :seatI)
-                {
-                    seat.setAvailability(true);
-                }
+                seat.setAvailability(true);
             }
+        }
+        if (!(seatIDs.isEmpty() && seatIDs != null))
+        {
             for (String seatID : seatIDs)
             {
                 setSeatAvailability(seatID);
