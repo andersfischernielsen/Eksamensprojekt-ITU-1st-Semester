@@ -184,6 +184,6 @@ public class Controller implements ControllerInterface {
     @Override
     public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return database.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
     }
 }
