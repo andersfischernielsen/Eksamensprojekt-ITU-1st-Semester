@@ -83,7 +83,7 @@ public class EditReservationFrame extends JFrame {
         filler2 = new JPanel();
         filler3 = new JPanel();
         filler4 = new JPanel();
-
+        
         topContent.add(resLabel);
         topContent.add(filler);
         topContent.add(CPRLabel, "wrap");
