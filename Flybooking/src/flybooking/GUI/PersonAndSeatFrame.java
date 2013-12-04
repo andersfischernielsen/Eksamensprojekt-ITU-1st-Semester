@@ -1,4 +1,3 @@
-
 package flybooking.GUI;
 
 import flybooking.*;
@@ -16,7 +15,8 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
-public class PersonAndSeatFrame extends JFrame {
+public class PersonAndSeatFrame extends JFrame
+{
 
     private Plane planeToDraw; //The plane to draw.
     private GraphicsComponent graphics; //The graphics to use.
@@ -36,7 +36,29 @@ public class PersonAndSeatFrame extends JFrame {
 
     public PersonAndSeatFrame()
     {
-        //Initialize the controller, database and get the current reservation and its plane.
+
+        persons = controller.getBookedPersons();
+
+        //Set up the frame.
+        initializer();
+        countPeople();
+        drawTop();
+        drawBottom();
+        addListeners();
+        getRootPane().setDefaultButton(bookButton);
+        setMinimumSize(new Dimension(560, 480));
+
+        //Show the frame.
+        pack();
+        setSize(new Dimension(560, 480));
+        setVisible(true);
+    }
+
+    /**
+     * Sets the values of the fields.
+     */
+    private void initializer()
+    {
         graphics = new GraphicsComponent();
         controller = Controller.getInstance();
         reservation = controller.getWorkingOnReservation();
@@ -44,6 +66,10 @@ public class PersonAndSeatFrame extends JFrame {
         seatIDsNotInThisRes = controller.getBookedSeats();
         seatIDsThisRes = controller.getBookedThisResSeats();
         persons = controller.getBookedPersons();
+        /**
+         * takes all the booked seats on this flight and removes those which is
+         * on this reservation.
+         */
         for (Iterator<String> it = seatIDsNotInThisRes.iterator(); it.hasNext();)
         {
             String seatIDNotThisRes = it.next();
@@ -56,23 +82,6 @@ public class PersonAndSeatFrame extends JFrame {
             }
         }
         planeToDraw.bookTakenSeats(seatIDsNotInThisRes);
-
-        //Initialize empty ArrayLists
-        
-        persons = controller.getBookedPersons();
-
-        //Set up the frame.
-        countPeople();
-        drawTop();
-        drawBottom();
-        addListeners();
-        getRootPane().setDefaultButton(bookButton);
-        setMinimumSize(new Dimension(560, 480));
-
-        //Show the frame.
-        pack();
-        setSize(new Dimension(560, 480));
-        setVisible(true);
     }
 
     /**
@@ -117,10 +126,10 @@ public class PersonAndSeatFrame extends JFrame {
         bookButton.setDefaultCapable(true);
 
         //Initialize all dropdowns.
-        String[] ages
-                = {
-                    "Adult", "Child", "Elderly"
-                };
+        String[] ages =
+        {
+            "Adult", "Child", "Elderly"
+        };
         ageGroupComboBox = new JComboBox(ages);
         personComboBox = new JComboBox(getPeopleAsArray());
         personComboBox.setMaximumSize(new Dimension(100, 25));
@@ -229,20 +238,25 @@ public class PersonAndSeatFrame extends JFrame {
      */
     private void confirmReservation() throws SQLException
     {
-        if (seatIDsThisRes.size() != persons.size()) {
+        if (seatIDsThisRes.size() != persons.size())
+        {
             JOptionPane.showMessageDialog(null, "You havent booked the same amount of seats as the amounts of persons this booking!", "You havent booked the same amount of seats as the amounts of persons this booking!", JOptionPane.ERROR_MESSAGE);
         }
-        else if (seatIDsThisRes.size() == 0 || persons.size() == 0){ // last statement not neccesary
-                JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
-        } else {
+        else if (seatIDsThisRes.size() == 0 || persons.size() == 0)
+        { // last statement not neccesary
+            JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
             reservation.bookSeats(seatIDsThisRes);
-            
-            
+
+
             //Add all the people to the reservation.
-            for (Person p : persons) {
+            for (Person p : persons)
+            {
                 reservation.addPerson(p);
             }
-            
+
             //Save the reservation.
             controller.setWorkingOnReservation(reservation);
             new PaymentFrame();
@@ -257,7 +271,8 @@ public class PersonAndSeatFrame extends JFrame {
     private void countPeople()
     {
         amtOfPersons = 0;
-        for (Person person : persons) {
+        for (Person person : persons)
+        {
             amtOfPersons++;
         }
     }
@@ -274,9 +289,11 @@ public class PersonAndSeatFrame extends JFrame {
         //Init a list of strings for the names of people.
         String[] peopleInReservation = new String[personsAsArray.length];
 
-        if (personsAsArray.length > 0) {
+        if (personsAsArray.length > 0)
+        {
             //For every person, get his/her first name and add it to the string array.
-            for (int i = 0; i < personsAsArray.length; i++) {
+            for (int i = 0; i < personsAsArray.length; i++)
+            {
                 Person temp = (Person) personsAsArray[i];
                 peopleInReservation[i] = temp.getFirstName() + " " + temp.getLastName();
             }
@@ -289,9 +306,10 @@ public class PersonAndSeatFrame extends JFrame {
     /**
      * Add Action- and MouseListeners to the components in the frame.
      */
-    private void addListeners() 
+    private void addListeners()
     {
-        planeDrawingComp.addMouseListener(new MouseListener() {
+        planeDrawingComp.addMouseListener(new MouseListener()
+        {
             @Override
             public void mouseClicked(MouseEvent e)
             {
@@ -323,7 +341,8 @@ public class PersonAndSeatFrame extends JFrame {
         });
 
         //Add an ActionListener to the bookButton to confirm reservations.
-        bookButton.addActionListener(new ActionListener() {
+        bookButton.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
@@ -331,8 +350,7 @@ public class PersonAndSeatFrame extends JFrame {
                 try
                 {
                     confirmReservation();
-                }
-                catch (SQLException ex)
+                } catch (SQLException ex)
                 {
                     Logger.getLogger(PersonAndSeatFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -340,19 +358,23 @@ public class PersonAndSeatFrame extends JFrame {
         });
 
         //Add an ActionListener to the addButton to add people.
-        addButton.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try {
+                try
+                {
                     addPerson();
-                } catch (SQLException ex) {
+                } catch (SQLException ex)
+                {
                 }
             }
         });
 
         //Add an ActionListener to the removeButton to remove people.
-        deleteButton.addActionListener(new ActionListener() {
+        deleteButton.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
@@ -361,12 +383,14 @@ public class PersonAndSeatFrame extends JFrame {
         });
 
         //Add an ActionListener to the personComboBox to keep track of people.
-        personComboBox.addActionListener(new ActionListener() {
+        personComboBox.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 //If the clicked item is the addItem, then empty all of the text fields.
-                if (personComboBox.getSelectedItem().equals(addItem)) {
+                if (personComboBox.getSelectedItem().equals(addItem))
+                {
                     emptyTextFields();
 
                     //And then end the method.
@@ -382,8 +406,10 @@ public class PersonAndSeatFrame extends JFrame {
 
                 //Then we go through all the persons, see if the ID's are 
                 //matching, and if it is get that person's info.
-                for (Person p : persons) {
-                    if (p.getID() == ID) {
+                for (Person p : persons)
+                {
+                    if (p.getID() == ID)
+                    {
                         firstNameField.setText(p.getFirstName());
                         lastNameField.setText(p.getLastName());
                         addressField.setText(p.getAdress());
@@ -400,26 +426,28 @@ public class PersonAndSeatFrame extends JFrame {
      * @param combobox The JComboBox to check.
      *
      * @return 0 if adult is selected, 1 if child is selected and 2 if elderly
-     * is selected.
+     *         is selected.
      */
     private int getGroupID(JComboBox combobox)
     {
         // If the person is a child, set the ID to 1.
-        if (combobox.getSelectedItem().equals("Child")) {
+        if (combobox.getSelectedItem().equals("Child"))
+        {
             return 1;
         }
 
         //If the person is elderly, set the ID to 2.
-        if (combobox.getSelectedItem().equals("Elderly")) {
+        if (combobox.getSelectedItem().equals("Elderly"))
+        {
             return 2;
         }
 
         //If none of the above, the person is an Adult, and therefore has ID 0.
         return 0;
     }
-    
-    @Override 
-    public void pack() {
-        
+
+    @Override
+    public void pack()
+    {
     }
 }
