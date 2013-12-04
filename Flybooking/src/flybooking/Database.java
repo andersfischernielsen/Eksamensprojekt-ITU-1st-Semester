@@ -220,6 +220,7 @@ public class Database implements DatabaseInterface {
                 r.setCPR(rsReservation.getString("CPR"));
                 r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
                 r.setID(rsReservation.getString("ID"));
+                r.setPrice(rsReservation.getDouble("price"));
                 //r.setPrice(rsReservation.getDouble("price"));
                 r.setReservationDate(rsReservation.getDate("reservationDate"));
 
@@ -271,8 +272,8 @@ public class Database implements DatabaseInterface {
         if (reservationToMake.getCPR().length() < 12) {
             try {
                 Statement statement = con.createStatement();
-                statement.executeUpdate("INSERT INTO Reservation (ID, flight, CPR) "
-                        + "VALUES ('" + reservationToMake.getID() + "', " + reservationToMake.getFlight().getID() + ", '" + reservationToMake.getCPR() + "')");
+                statement.executeUpdate("INSERT INTO Reservation (ID, flight, CPR, price) "
+                        + "VALUES ('" + reservationToMake.getID() + "', " + reservationToMake.getFlight().getID() + ", '" + reservationToMake.getCPR() + "' , " + reservationToMake.getPrice() +")");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
