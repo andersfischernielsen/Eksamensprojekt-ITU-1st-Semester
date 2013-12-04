@@ -27,7 +27,7 @@ public class Database implements DatabaseInterface {
         this.password = password;
 
         try {
-            con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name, login, password);
+            con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name + "?autoReconnect=true", login, password);
         } catch (SQLException e) {
             showMessageDialog(null, "Couldn't connect to the database!");
         }
