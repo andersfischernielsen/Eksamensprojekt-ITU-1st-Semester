@@ -144,10 +144,10 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<Flight> getFlightList(Date departureDate,
+    public ArrayList<FlightInterface> getFlightList(Date departureDate,
             String startDestination, String endDestination)
     {
-        ArrayList<Flight> flights = new ArrayList<>();
+        ArrayList<FlightInterface> flights = new ArrayList<>();
         ResultSet rs = null;
         try {
             rs = statement.executeQuery("SELECT * FROM Flight WHERE endAirport = '" + getAirportID(endDestination) + "' AND startAirport = '" + getAirportID(startDestination) + "'"); // + departureDate + " AND startAirport = " + startDestination 

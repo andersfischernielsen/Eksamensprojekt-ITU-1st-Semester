@@ -58,7 +58,7 @@ public interface DatabaseInterface
     FlightInterface getFlight(int flightID) throws SQLException;
     
     
-    ArrayList<Flight> getFlightList(Date departureDate,
+    ArrayList<FlightInterface> getFlightList(Date departureDate,
                                 String startDestination, String endDestination);
 
     /**
