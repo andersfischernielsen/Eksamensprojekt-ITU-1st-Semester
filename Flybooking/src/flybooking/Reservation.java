@@ -44,6 +44,12 @@ public class Reservation implements ReservationInterface {
     {
         return persons;
     }
+    
+    @Override
+    public void clearPersonList()
+    {
+        persons = new ArrayList<Person>();
+    }
 
     @Override
     public Flight getFlight()
