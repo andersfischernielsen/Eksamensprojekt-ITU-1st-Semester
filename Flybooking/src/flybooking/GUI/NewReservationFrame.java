@@ -29,7 +29,7 @@ public class NewReservationFrame extends JFrame {
     private String[] people = {"1", "2", "3", "4", "5"};
 
     //All of the search variables in the interface.
-    private ArrayList<Flight> searchResults;
+    private ArrayList<FlightInterface> searchResults;
     private Date chosenDate;
     private int chosenPeople;
     private String chosenStartDestination;
@@ -328,11 +328,11 @@ public class NewReservationFrame extends JFrame {
      */
     private void performSearch()
     {
-        searchResults = Database.getInstance().getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
-        Flight[] convertedArray = new Flight[searchResults.size()];
+        searchResults = controller.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
+        FlightInterface[] convertedArray = new Flight[searchResults.size()];
 
         int i = 0;
-        for (Flight f : searchResults) {
+        for (FlightInterface f : searchResults) {
             convertedArray[i] = f;
             i++;
         }
