@@ -6,15 +6,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
+ * Find and edit an existing reservation.
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class EditReservationFrame extends JFrame {
