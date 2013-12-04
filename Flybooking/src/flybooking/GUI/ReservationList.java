@@ -121,14 +121,14 @@ public class ReservationList extends JList {
                 topCellContent.setBackground(Color.WHITE);
                 bottomCellContent.setBackground(Color.WHITE);
             } else {
-                topCellContent.setBackground(new Color(100, 100, 100));
-                bottomCellContent.setBackground(new Color(100, 100, 100));
+                topCellContent.setBackground(new Color(160, 160, 160));
+                bottomCellContent.setBackground(new Color(160, 160, 160));
             }
 
             //Color the selected cell, and set is as the currently selected.
             if (isSelected) {
-                topCellContent.setBackground(new Color(160, 160, 160));
-                bottomCellContent.setBackground(new Color(160, 160, 160));
+                topCellContent.setBackground(new Color(100, 100, 100));
+                bottomCellContent.setBackground(new Color(100, 100, 100));
                 selectedReservation = res;
             }
 
