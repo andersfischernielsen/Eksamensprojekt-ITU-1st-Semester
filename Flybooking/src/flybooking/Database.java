@@ -169,7 +169,7 @@ public class Database implements DatabaseInterface {
             }
 
             while (!rs.isClosed() && rs.next()) {
-                flights.add(new Flight(rs.getDouble("price"), rs.getInt("ID"), getPlane(rs.getString("plane")), rs.getTime("startDate"), rs.getTime("endDate"), getAirport(getAirportID(startDestination)), getAirport(getAirportID(endDestination))));
+                flights.add(new Flight(rs.getDouble("price"), rs.getInt("ID"), getPlane(rs.getString("plane")), new Date(rs.getDate("startDate").getTime() + rs.getTime("startDate").getTime()), new Date(rs.getDate("endDate").getTime() + rs.getTime("endDate").getTime()), getAirport(getAirportID(startDestination)), getAirport(getAirportID(endDestination))));
             }
 
         } catch (SQLException e) {
