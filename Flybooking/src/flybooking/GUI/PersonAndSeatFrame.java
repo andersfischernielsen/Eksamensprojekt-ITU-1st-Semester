@@ -43,6 +43,7 @@ public class PersonAndSeatFrame extends JFrame {
         planeToDraw = reservation.getFlight().getPlane();
         seatIDsNotInThisRes = controller.getBookedSeats();
         seatIDsThisRes = controller.getBookedThisResSeats();
+        persons = controller.getBookedPersons();
         for (String seatIDNotThisRes : seatIDsNotInThisRes)
         {
             for (String seatIDthisRes : seatIDsThisRes)
