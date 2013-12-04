@@ -13,6 +13,7 @@ public class Controller implements ControllerInterface {
     private DatabaseInterface database;
     private static Controller instance = null;
     private ReservationInterface workingOnReservation;
+    private String reservationIDToCome;
 
     private Controller()
     {
@@ -29,10 +30,22 @@ public class Controller implements ControllerInterface {
     public boolean saveReservation()
     {
         database.removeReservation(workingOnReservation.getID());
-        workingOnReservation.setID();
+        workingOnReservation.setID(reservationIDToCome);
         boolean savedSuccessfully = database.newReservation(workingOnReservation);
         resetController();
         return savedSuccessfully;
+    }
+
+    @Override
+    public String getReservationIDToCome()
+    {
+        return reservationIDToCome;
+    }
+
+    @Override
+    public void setReservationIDToCome(String reservationIDToCome)
+    {
+        this.reservationIDToCome = reservationIDToCome;
     }
 
     @Override
@@ -167,6 +180,7 @@ public class Controller implements ControllerInterface {
     @Override
     public void resetController()
     {
+        reservationIDToCome = null;
         workingOnReservation = new Reservation();
     }
 

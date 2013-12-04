@@ -32,10 +32,11 @@ public interface ControllerInterface
      * Get a a list of reservations matching the given ID and CPR.
      *
      * @param reservationID The res. ID to search for.
-     * @param CPR The CPR to search for.
+     * @param CPR           The CPR to search for.
+     *
      * @return A list of matching reservations.
      */
-    ArrayList<ReservationInterface> getReservations (String reservationID, String CPR);
+    ArrayList<ReservationInterface> getReservations(String reservationID, String CPR);
 
     /**
      * Delete a reservation.
@@ -127,24 +128,28 @@ public interface ControllerInterface
 
     /**
      * Set the Reservation we're currently working on.
+     *
      * @param reservation
      */
     void setWorkingOnReservation(ReservationInterface reservation);
 
     /**
      * return booked seats for this reservations flight.
-     * @return an arrayList of seatIDs  
+     *
+     * @return an arrayList of seatIDs
      */
     public ArrayList<String> getBookedSeats();
-    
+
     /**
      * returns the booked seats on the controllers reservation.
-     * @return 
+     *
+     * @return
      */
     public ArrayList<String> getBookedThisResSeats();
-            
+
     /**
      * Returns the controller's reservations booked persons.
+     *
      * @return a list of Person objects
      */
     public ArrayList<Person> getBookedPersons();
@@ -154,6 +159,20 @@ public interface ControllerInterface
      * a new one.
      */
     public void resetController();
-    
+
+    /**
+     * gets the reservationID which will later be appointed to the
+     * workingReservation
+     *
+     * @return
+     */
+    public String getReservationIDToCome();
+
+    /**
+     * sets the reservationID which will later be appointed to the
+     * workingReservation
+     */
+    public void setReservationIDToCome(String reservationIDToCome);
+
     public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination);
 }
