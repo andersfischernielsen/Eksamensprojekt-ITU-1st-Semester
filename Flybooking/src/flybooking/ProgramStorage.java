@@ -142,7 +142,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public void newReservation(Flight flight, Person[] persons, String CPR, double Price)
+    public boolean newReservation(Flight flight, Person[] persons, String CPR, double Price)
     {
         ReservationInterface reservationToAdd = new Reservation();
         reservationToAdd.setCPR(CPR);
@@ -150,12 +150,15 @@ public class ProgramStorage implements DatabaseInterface {
         reservationToAdd.setPayer(persons[0]);
         reservationToAdd.setPrice(Price);
         reservationList.add(reservationToAdd);
+        
+        return true;
     }
 
     @Override
-    public void newReservation(ReservationInterface reservationToMake)
+    public boolean newReservation(ReservationInterface reservationToMake)
     {
         reservationList.add(reservationToMake);
+        return true;
     }
 
     @Override
