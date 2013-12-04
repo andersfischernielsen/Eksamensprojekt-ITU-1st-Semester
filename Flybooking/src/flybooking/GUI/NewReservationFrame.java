@@ -251,6 +251,10 @@ public class NewReservationFrame extends JFrame {
                 
                 if (!dateField.getText().equals("dd/mm-yyyy")) {
                     
+                } 
+                
+                if (dateField.getText().equals("")) {
+                    dateField.setText("dd/mm-yyyy");
                 } else {
                     dateField.setText("dd/mm-yyyy");
                 }
