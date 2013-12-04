@@ -200,6 +200,13 @@ public class Plane
     {
         if (!(seatIDs.isEmpty()&& seatIDs!=null))
         {
+            for (Seat[] seatI : seats)
+            {
+                for (Seat seat :seatI)
+                {
+                    seat.setAvailability(true);
+                }
+            }
             for (String seatID : seatIDs)
             {
                 setSeatAvailability(seatID);
