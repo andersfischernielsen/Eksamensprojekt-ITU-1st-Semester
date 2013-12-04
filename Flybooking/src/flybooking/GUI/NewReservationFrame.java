@@ -125,6 +125,9 @@ public class NewReservationFrame extends JFrame {
         startLabel = new JLabel(" Start destination:");
         endLabel = new JLabel(" End destination:");
         searchButton = new JButton("Search");
+        doneButton = new JButton("Book Flight");
+        doneButton.setMinimumSize(new Dimension(133, 20));
+        doneButton.setEnabled(false);
         
         //Set the sizes and indexes of specific components.
         searchButton.setMinimumSize(new Dimension(133, 20));
@@ -143,7 +146,8 @@ public class NewReservationFrame extends JFrame {
         topContent.add(endLabel, "wrap");
         topContent.add(filler2, "span 2");
         topContent.add(endDestDropdown, "wrap");
-        topContent.add(filler3, "span 2");
+        topContent.add(doneButton);
+        topContent.add(filler3, "span 1");
         topContent.add(searchButton);
         
         //Add the finished top panel to the main frame.
@@ -159,16 +163,13 @@ public class NewReservationFrame extends JFrame {
         {
             //Initialize a ned FLightList, and add the search results to it.
             flightList = new FlightList(searchResults);
-            //Initialize the doneButton.
-            doneButton = new JButton("Book this flight");
             
             //Add the FlightList to the scrollpane.
             scrollpane = new JScrollPane();
             scrollpane.setViewportView(flightList);
             
             //Add the scrollpane and button to the frame.
-            getContentPane().add(scrollpane, BorderLayout.CENTER);
-            getContentPane().add(doneButton, BorderLayout.PAGE_END);
+            getContentPane().add(scrollpane, BorderLayout.CENTER);          
         }
     }
 
