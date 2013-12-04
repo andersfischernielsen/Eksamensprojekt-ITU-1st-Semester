@@ -185,9 +185,6 @@ public class Database implements DatabaseInterface {
     {
         //Create a new empty ArrayList of reservations to avoid nullpointers.
         ArrayList<ReservationInterface> reservations = new ArrayList<>();
-        ArrayList<String> seatIDThisRes = new ArrayList<>();
-        ArrayList<Person> personsThisRes = new ArrayList<>();
-        ReservationInterface r = new Reservation();
         ResultSet rsReservation = null;
 
         //If the reservationsID given is null or an empty String, don't search for it.
@@ -217,6 +214,9 @@ public class Database implements DatabaseInterface {
                 //Add these to the list of found reservations.
 
                 //Set the reservation details from the database info.
+                ReservationInterface r = new Reservation();
+                ArrayList<String> seatIDThisRes = new ArrayList<>();
+                ArrayList<Person> personsThisRes = new ArrayList<>();
                 r.setCPR(rsReservation.getString("CPR"));
                 r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
                 r.setID(rsReservation.getString("ID"));
