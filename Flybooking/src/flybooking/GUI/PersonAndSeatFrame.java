@@ -179,6 +179,9 @@ public class PersonAndSeatFrame extends JFrame
         //Count the number of people, and add a new person to the list of passengers.
         countPeople();
         persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
+        if (!personComboBox.getSelectedItem().equals(addItem)) {
+            persons.remove(personComboBox.getSelectedItem());
+        }
         //Update the personComboBox to make sure it shows the current passengers.
         updatePersonComboBox();
         emptyTextFields();
@@ -381,7 +384,8 @@ public class PersonAndSeatFrame extends JFrame
 
                 //If the clicked item isn't the addItem it must be a person.
                 Person temp = persons.get(personComboBox.getSelectedIndex());
-
+                addButton.setText("Save");
+                
                 //Then set the fields with that persons information.
                 //First we get the id of the selected person.
                 int ID = temp.getID();
