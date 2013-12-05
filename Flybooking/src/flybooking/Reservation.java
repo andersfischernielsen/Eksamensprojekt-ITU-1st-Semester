@@ -10,12 +10,19 @@ import java.util.Date;
  */
 public class Reservation implements ReservationInterface {
 
+    //The people in the reservation.
     private ArrayList<Person> persons;
+    //The seat IDs reserved in the reservation.
     private ArrayList<String> seatIDs;
+    //The flight booked in the reservation.
     private Flight flight;
+    //The ID of the reservation.
     private String ID;
+    //The date the reservation was placed.
     private Date reservationDate;
+    //The CPR of the person that paid for the reservation.
     private String CPR;
+    //The price of the reservation.
     private double price;
 
     /**
@@ -24,18 +31,7 @@ public class Reservation implements ReservationInterface {
      */
     public Reservation()
     {
-        //RESERVATIONEN SKULLE IKKE OPRETTES MED NOGLE PARAMETRE, SÅ VIDT 
-        //VI SNAKKEDE OM, VEL?
-        //DEN SKULLE BARE HAVE SETTERS TIL ALLE FELTERNE, SÅ VI KAN OPRETTE EN 
-        //TOM RESERVATION FØRST. 
-
-        //VI SKAL HAVE IMPLEMENTERET ET KORREKT SYSTEM TIL AT GENERERE ID'S. 
-        //DE SKAL LIGGE I KRONOLOGISK ORDEN, GÅR JEG UD FRA, 
-        //SÅ VI SKAL HAVE FAT I DATABASEN OG FINDE DE TIDLIGERE RESERVATIONERS 
-        //ID, OG SÅ LÆGGE EN TIL DET HØJESTE. EN SEPARAT "ID"-KLASSE VILLE MÅSKE
-        //VÆRE EN RIGTIG GOD IDE.
         persons = new ArrayList<>();
-        
     }
 
     @Override
@@ -47,7 +43,7 @@ public class Reservation implements ReservationInterface {
     @Override
     public void clearPersonList()
     {
-        persons = new ArrayList<Person>();
+        persons = new ArrayList<>();
     }
 
     @Override
@@ -105,8 +101,7 @@ public class Reservation implements ReservationInterface {
     {
         this.CPR = CPR;
     }
-
-
+    
     @Override
     public void setPrice(double price)
     {
@@ -122,7 +117,6 @@ public class Reservation implements ReservationInterface {
     @Override
     public void bookSeats(ArrayList<String> seatIDs)
     {
-        // skal måske ændres til at den ligger den til.
         this.seatIDs = seatIDs;
         flight.getPlane().bookTakenSeats(seatIDs);
     }

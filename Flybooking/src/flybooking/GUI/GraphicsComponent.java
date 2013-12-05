@@ -26,7 +26,7 @@ public class GraphicsComponent
 
     public GraphicsComponent()
     {
-        // do nothing so far
+        
     }
 
     /**
