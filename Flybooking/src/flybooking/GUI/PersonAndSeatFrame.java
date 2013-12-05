@@ -197,7 +197,10 @@ public class PersonAndSeatFrame extends JFrame
                                                   getGroupID(ageGroupComboBox)));
         
         if (!personComboBox.getSelectedItem().equals(addItem)) {
-            persons.remove(personComboBox.getSelectedItem());
+            if (persons.size() != 1)
+            {
+                deletePerson();
+            }
         }
         //Update the personComboBox to make sure it shows the current passengers.
         updatePersonComboBox();
