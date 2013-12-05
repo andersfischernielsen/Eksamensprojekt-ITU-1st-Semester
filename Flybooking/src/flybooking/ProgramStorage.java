@@ -70,7 +70,6 @@ public class ProgramStorage implements DatabaseInterface {
         Reservation res1 = new Reservation();
         res1.setCPR("060606-0606");
         res1.setFlight(new Flight(600, 1, planeList.get(0), new Date(), new Date(), airportList.get(0), airportList.get(4)));
-        res1.setPayer(new Person("John", "Johnsen", 2, "Johnvej 1", 0));
         res1.setPrice(18000);
         res1.setReservationDate(new Date());
         reservationList.add(res1);
@@ -147,7 +146,6 @@ public class ProgramStorage implements DatabaseInterface {
         ReservationInterface reservationToAdd = new Reservation();
         reservationToAdd.setCPR(CPR);
         reservationToAdd.setFlight(flight);
-        reservationToAdd.setPayer(persons[0]);
         reservationToAdd.setPrice(Price);
         reservationList.add(reservationToAdd);
         
