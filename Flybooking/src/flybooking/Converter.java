@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- *
+ * A static class for converting dates and calculating reservation information.
  * @author Anders Fischer-Nielsen
  */
 public class Converter

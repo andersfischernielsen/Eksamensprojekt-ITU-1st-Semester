@@ -1,11 +1,11 @@
 package flybooking;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
+ * An interface for creating, editing and removing flight reservations from a
+ * database.
  * @author Anders Wind Steffensen, Chistoffer Forup & Anders Fischer-Nielsen
  */
 public interface DatabaseInterface
