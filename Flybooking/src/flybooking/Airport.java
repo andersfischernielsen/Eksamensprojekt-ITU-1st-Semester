@@ -12,7 +12,7 @@ public class Airport {
 
     /**
      * 
-     * @param name The name of the airport
+     * @param id The three-letter ID for the airport (ex. "CPH")
      * @param country The name of the country
      * @param city The name of the city
      */
@@ -25,7 +25,7 @@ public class Airport {
     
     
     /**
-     * Return the name of the airport.
+     * Return the three-letter ID of the airport.
      * @return name The name of the airport.
      */
     public String getID() {
