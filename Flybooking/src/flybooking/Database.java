@@ -28,7 +28,10 @@ public class Database implements DatabaseInterface
 
         try
         {
-            con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" + name + "?autoReconnect=true", login, password);
+            // make a connection to the database.
+            con = DriverManager.getConnection
+                    ("jdbc:mysql://mysql.itu.dk:3306/" + name
+                    + "?autoReconnect=true", login, password);
         } catch (SQLException e)
         {
             showMessageDialog(null, "Couldn't connect to the database!");
@@ -46,6 +49,7 @@ public class Database implements DatabaseInterface
             rs = statement.executeQuery("SELECT * FROM Plane WHERE ID = '" + PlaneID + "'");
             rs.next();
 
+            // use the selected data from the database to create a plane.
             return new Plane(rs.getString("ID"), rs.getInt("rows"), rs.getInt("columns"));
         } catch (SQLException e)
         {
@@ -65,6 +69,7 @@ public class Database implements DatabaseInterface
             rs = statement.executeQuery("SELECT * FROM Airport WHERE Airport.code = '" + AirportCityID + "'");
             rs.next();
 
+            // use the selected data from the database to create an airport object.
             return new Airport(AirportCityID, rs.getString("Country"), rs.getString("City"));
 
         } catch (SQLException e)
