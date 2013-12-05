@@ -81,6 +81,7 @@ public class PaymentFrame extends JFrame {
         
         //------------------BOTTOM FRAME CODE -------------------//
         
+        receiptArea.setFont(new Font("monospaced", Font.PLAIN, 13));
         scrollpane = new JScrollPane(receiptArea);
 
         contentPane.add(topPanel, BorderLayout.PAGE_START);
@@ -88,7 +89,7 @@ public class PaymentFrame extends JFrame {
         contentPane.add(confirmButton, BorderLayout.PAGE_END);
 
         getRootPane().setDefaultButton(confirmButton);
-        setPreferredSize(new Dimension(440, 310));
+        setPreferredSize(new Dimension(440, 380));
         setLocation(new Point(600, 40));
 
         pack();

@@ -35,8 +35,7 @@ public class Printer implements PrinterInterface
         string += createPeopleDetails();
         string += "\n";
         string += createPlaneDetails();
-        string += "\n";
-        string += "\n";
+        string += "\n\n";
         string += createPriceDetails();
         string += "\n";
         string += "-------------------------------------------------";
@@ -48,7 +47,9 @@ public class Printer implements PrinterInterface
     public String createReservationIDDetails()
     {
         String finalString;
-        finalString = "Reservation ID:            " + controller.getReservationIDToCome();
+        finalString = "Reservation ID:           " + 
+                                     controller.getReservationIDToCome() + "\n";
+        
         return finalString;
     }
 
@@ -56,12 +57,12 @@ public class Printer implements PrinterInterface
     public String createAirportDetails()
     {
         String finalString;
-        finalString = "Departure: "
-                + simpleDate.format(reservation.getFlight().getStartDate())
+        finalString = "Departure:                " + 
+                simpleDate.format(reservation.getFlight().getStartDate())
                 + " " + reservation.getFlight().getStartAirport().getID();
-        finalString += "\nArrival: "
-                + simpleDate.format(reservation.getFlight().getEndDate())
-                + " " + reservation.getFlight().getEndAirport().getID();
+        finalString += "\nArrival:                  " + 
+                simpleDate.format(reservation.getFlight().getEndDate())
+                + " " + reservation.getFlight().getEndAirport().getID() + "\n";
 
         return finalString;
     }
@@ -92,7 +93,7 @@ public class Printer implements PrinterInterface
                     break;
                 }
             }
-            finalString += "        " + p.getFirstName() + " " + p.getLastName() + " " + groupIDText + "\n";
+            finalString += "             " + p.getFirstName() + " " + p.getLastName() + " " + groupIDText + "\n";
         }
 
         return finalString;
@@ -102,7 +103,8 @@ public class Printer implements PrinterInterface
     public String createPlaneDetails()
     {
         String finalString;
-        finalString = "Plane: " + reservation.getFlight().getPlane().getID();
+        finalString = "Plane:                    " + 
+                                    reservation.getFlight().getPlane().getID();
         return finalString;
     }
 
@@ -110,7 +112,8 @@ public class Printer implements PrinterInterface
     public String createPriceDetails()
     {
         String finalString;
-        finalString = "Price: " + reservation.getPrice() + "DKK";
+        finalString = "Price:                    " + 
+                                                reservation.getPrice() + "DKK";
         return finalString;
     }
 }
