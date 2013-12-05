@@ -1,6 +1,5 @@
 package flybooking;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,87 +10,61 @@ import java.util.Random;
  *
  * @author Anders Fischer-Nielsen
  */
-public class Calculator
+public class Converter
 {
 
     private static Random randomGen = new Random();
 
     /**
-     * Add two numbers and get the result.
+     * Convert the final price for a reservation.
      *
-     * @param flightPrice the price of the flight
-     * @param n1 The first number to add.
-     * @param n2 The second number to add.
+     * @param flightPrice The price of the flight
+     * @param persons The persons in the reservation. 
      *
      * @return The sum of the two numbers.
      */
-    public static double getprice(double flightPrice, ArrayList<Person> persons)
+    public static double getFinalPrice(double flightPrice, ArrayList<Person> persons)
     {
+        //Initialize the final calculated price.
         double finalPrice;
+        //Calculate the final price from the amount of people.
         finalPrice = flightPrice * persons.size();
+        //Initialize the savings discount.
         double savings = 0;
+        //Check the people in the reservation for their age group.
         for (Person person : persons)
         {
             switch (person.getGroupID())
             {
+                //If the person is an adult, give no discount.
                 case 0:
                 {
                     break;
                 }
+                //If the person is a child, give a 20% discount.
                 case 1:
                 {
-                    // childs 10% offer
-                    savings += flightPrice/10;
+                    savings += flightPrice/20;
                     break;
                 }
+                //If the person is elderly, give a 10% discount.
                 case 2:
                 {
-                    // Elder 10% offer
                     savings += flightPrice/10;
                     break;
                 }
             }
         }
+        //Subtract the savings from the calculated price.
         finalPrice -=savings;
+        
         return finalPrice;
     }
 
-    public static int add(int n1, int n2)
-    {
-        return n1 + n2;
-    }
-
     /**
-     * Subtract two numbers and get the result.
-     *
-     * @param n1 The first number to subtract.
-     * @param n2 The second number to subtract.
-     *
-     * @return The sum of the two numbers.
-     */
-    public static int subtract(int n1, int n2)
-    {
-        return n1 - n2;
-    }
-
-    /**
-     * Multiply two numbers and get the result.
-     *
-     * @param n1 The first number to multiply.
-     * @param n2 The second number to multiply.
-     *
-     * @return The sum of the two numbers.
-     */
-    public static int multiply(int n1, int n2)
-    {
-        return n1 * n2;
-    }
-
-    /**
-     * Convert a given date into a string.
+     * Convert a given date into a string (in the format "dd/MM-yyyy").
      *
      * @param date The date to parse.
-     *
      * @return The parsed Date as a string.
      */
     public static String convertDateToString(Date date)
@@ -103,7 +76,6 @@ public class Calculator
      * Convert the time of the date into a string.
      *
      * @param date The date to convert.
-     *
      * @return The hour of the date as a string.
      */
     public static String convertDateToHourString(Date date)
@@ -115,14 +87,15 @@ public class Calculator
      * Convert a string (with the format "dd/MM-yyyy") into a date.
      *
      * @param string The string to convert
-     *
      * @return The given string as a Date.
-     *
-     * @throws ParseException
      */
-    public static Date convertStringToDate(String string) throws ParseException
+    public static Date convertStringToDate(String string)
     {
-        return new SimpleDateFormat("dd/MM-yyyy").parse(string);
+        try {
+            return new SimpleDateFormat("dd/MM-yyyy").parse(string);
+        } catch (ParseException ex) { ex.printStackTrace(); }
+        
+        return null;
     }
 
     /**
@@ -132,9 +105,11 @@ public class Calculator
      */
     public static int createPersonID()
     {
+        //Keep generating IDs until a valid one is generated.
         while (true)
         {
             int personID = randomGen.nextInt(99999);
+            
             if (Database.getInstance().checkForID(personID))
             {
                 return personID;
@@ -149,6 +124,7 @@ public class Calculator
      */
     public static String createReservationID()
     {
+        //Keep generating IDs until a valid one is generated.
         while (true)
         {
             int reservationID = randomGen.nextInt(9999);
