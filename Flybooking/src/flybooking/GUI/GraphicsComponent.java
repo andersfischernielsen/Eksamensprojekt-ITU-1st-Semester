@@ -189,6 +189,7 @@ public class GraphicsComponent
             }
             g.setColor(Color.BLACK);
             // creates a 2dGraphics which can rotate and draw strings.
+            /*
             Graphics2D g2 = (Graphics2D) g;
             g2.setColor(Color.BLACK);
             // creates the font to draw the classes strings with.
@@ -205,7 +206,7 @@ public class GraphicsComponent
             // draw the other classes strings
             g2.drawString("B. class", cols * unit / 4, -rows * unit / 10 - cols * unit / 8);
             g2.drawString("E. class", cols * unit / 1.45f, -rows * unit / 10 - cols * unit / 2f);
-
+            */
         }
 
         @Override
