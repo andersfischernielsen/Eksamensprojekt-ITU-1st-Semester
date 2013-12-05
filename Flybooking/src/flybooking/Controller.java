@@ -31,6 +31,7 @@ public class Controller implements ControllerInterface {
     {
         database.removeReservation(workingOnReservation.getID());
         workingOnReservation.setID(reservationIDToCome);
+        // saves and then returns if saving was succesfull
         boolean savedSuccessfully = database.newReservation(workingOnReservation);
         resetController();
         return savedSuccessfully;
