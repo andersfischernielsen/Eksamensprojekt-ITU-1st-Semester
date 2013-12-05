@@ -19,7 +19,8 @@ public class Flight implements FlightInterface {
     private Airport startAirport;
     private Airport endAirport;
 
-    public Flight(double price, int ID, Plane plane, Date startDate, Date endDate, Airport startAirport, Airport endAirport)
+    public Flight(double price, int ID, Plane plane, Date startDate, 
+                  Date endDate, Airport startAirport, Airport endAirport)
     {
         this.price = price;
         this.ID = ID;
@@ -83,11 +84,4 @@ public class Flight implements FlightInterface {
     {
         return plane.getSeatAvailability(seatID);
     }
-
-    @Override
-    public void setSeatAvailability(String seatID, boolean availability)
-    {
-        
-    }
-    
 }
