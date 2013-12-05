@@ -110,7 +110,7 @@ public class Printer implements PrinterInterface
     public String createPriceDetails()
     {
         String finalString;
-        finalString = "Price: " + reservation.getPrice() + ",-";
+        finalString = "Price: " + reservation.getPrice() + "DKK";
         return finalString;
     }
 }
