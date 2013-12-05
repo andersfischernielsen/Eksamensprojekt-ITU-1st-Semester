@@ -121,8 +121,8 @@ public class GraphicsComponent
         @Override
         public void paint(Graphics g)
         {
-            int fixdistanceX = 25 * 2;
-            int fixdistanceY = 25 * 2;
+            int fixdistanceX = 25;
+            int fixdistanceY = 25;
 
             for (int i = 0; i < cols; i++)
             {
@@ -133,7 +133,7 @@ public class GraphicsComponent
                  */
                 if (i == cols / 10)
                 {
-                    fixdistanceY = 40 * 2;
+                    fixdistanceY = 40;
                 }
                 /*
                  * same as before just for the business class which is between
@@ -141,7 +141,7 @@ public class GraphicsComponent
                  */
                 if (i == cols / 4)
                 {
-                    fixdistanceY = 55 * 2;
+                    fixdistanceY = 55;
                 }
                 for (int j = 0; j < rows; j++)
                 {
@@ -151,7 +151,7 @@ public class GraphicsComponent
                      */
                     if (j == rows / 2)
                     {
-                        fixdistanceX = 40 * 2;
+                        fixdistanceX = 40;
                     }
                     // checks the availability of the seat. and change the color
                     if (planeToDraw.getSeatAvailability(Plane.SeatIDGenerator(i, j)))
@@ -185,7 +185,7 @@ public class GraphicsComponent
                             unit - padding, unit - padding);
                 }
                 // return the fixdistance to the default.
-                fixdistanceX = 25 * 2;
+                fixdistanceX = 25;
             }
             g.setColor(Color.BLACK);
             // creates a 2dGraphics which can rotate and draw strings.
@@ -212,7 +212,7 @@ public class GraphicsComponent
         @Override
         public Dimension getPreferredSize()
         {
-            return new Dimension(cols * unit + 80 * 2, rows * unit + 65 * 2);
+            return new Dimension(cols * unit + 80, rows * unit + 65);
         }
 
         @Override
