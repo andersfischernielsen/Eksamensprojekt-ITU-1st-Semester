@@ -77,7 +77,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public Plane getPlane(String PlaneID) throws SQLException
+    public Plane getPlane(String PlaneID)
     {
         for (Plane plane : planeList) {
             if (plane.getID().equals(PlaneID)) {
@@ -141,18 +141,6 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public boolean newReservation(Flight flight, Person[] persons, String CPR, double Price)
-    {
-        ReservationInterface reservationToAdd = new Reservation();
-        reservationToAdd.setCPR(CPR);
-        reservationToAdd.setFlight(flight);
-        reservationToAdd.setPrice(Price);
-        reservationList.add(reservationToAdd);
-        
-        return true;
-    }
-
-    @Override
     public boolean newReservation(ReservationInterface reservationToMake)
     {
         reservationList.add(reservationToMake);
@@ -169,7 +157,6 @@ public class ProgramStorage implements DatabaseInterface {
         }
     }
 
-    @Override
     public void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot)
     {
         for (ReservationInterface reservation : reservationList) {
@@ -232,7 +219,6 @@ public class ProgramStorage implements DatabaseInterface {
         return null;
     }
 
-    @Override
     public ArrayList<ReservationInterface> getReservationsFromCPR(String CPR)
     {
         ArrayList results = new ArrayList<>();
@@ -246,7 +232,7 @@ public class ProgramStorage implements DatabaseInterface {
         return results;
     }
 
-    @Override
+    
     public ArrayList<ReservationInterface> getReservationsFromID(String ID)
     {
         if (ID == null) {
@@ -289,12 +275,6 @@ public class ProgramStorage implements DatabaseInterface {
 
     @Override
     public FlightInterface getFlight(int flightID)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateReservation(ReservationInterface reservationToMake)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
