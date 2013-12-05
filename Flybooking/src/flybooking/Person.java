@@ -7,7 +7,6 @@ package flybooking;
  */
 public class Person
 {
-
     private String firstName;
     private String lastName;
     private final int ID;
@@ -24,9 +23,9 @@ public class Person
     }
 
     /**
-     * Return the firstname of the person.
+     * Return the first name of the person.
      *
-     * @return The firstname of the person.
+     * @return The first name of the person.
      */
     public String getFirstName()
     {
@@ -34,9 +33,9 @@ public class Person
     }
 
     /**
-     * Sets the firstname of this person to the parameter firstName
+     * Sets the first name of this person to the parameter firstName
      *
-     * @param firstName the firstname to change to.
+     * @param firstName The first name to set.
      */
     public void setFirstName(String firstName)
     {
@@ -44,9 +43,9 @@ public class Person
     }
 
     /**
-     * Return the firstname of the person.
+     * Return the first name of the person.
      *
-     * @return The firstname of the person.
+     * @return The first name of the person.
      */
     public String getLastName()
     {
@@ -54,9 +53,9 @@ public class Person
     }
 
     /**
-     * Sets the firstname of this person to the parameter firstName
+     * Sets the first name of this person to the parameter firstName
      *
-     * @param LastName the firstname to change to.
+     * @param lastName The last name to set.
      */
     public void setLastName(String lastName)
     {
