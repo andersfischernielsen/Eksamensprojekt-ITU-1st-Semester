@@ -12,15 +12,15 @@ public interface ReservationInterface
 {
 
     /**
-     *
+     * Get the people in the reservation.
      * @return the persons on this reservation
      */
     ArrayList<Person> getPersons();
 
     /**
-     * Returns all the journeys of this travel.
+     * Returns the flight in the reservation.
      *
-     * @return the journeys of this travel.
+     * @return The flight in the reservation.
      */
     Flight getFlight();
 
@@ -32,16 +32,16 @@ public interface ReservationInterface
     String getID();
 
     /**
-     * Return the creation date of the reservation.
+     * Return the date the reservation was made.
      *
      * @return A Date object for the creation of the reservation.
      */
     Date getReservationDate();
 
     /**
-     * Return the CPR number of the person that's made the reservation.
+     * Return the CPR of the person that's made the reservation.
      *
-     * @return The CPR number of the person that's made the reservation.
+     * @return The CPR of the person that's made the reservation.
      */
     String getCPR();
 
@@ -52,13 +52,13 @@ public interface ReservationInterface
      */
     
     /**
-     * Calculates an ID via the calculator and sets it
+     * Generates an ID via the converter and sets it on the reservation.
      */
     void setID();
     
     /**
-     * set the ID of the reservation to IDToSet
-     * @param IDToSet 
+     * Set the ID of the reservation.
+     * @param IDToSet The ID to set.
      */
     void setID(String IDToSet);
     
@@ -72,18 +72,20 @@ public interface ReservationInterface
     public void removePerson(Person person);
 
     /**
-     * clears the old persons list and creates a new one.
+     * Clear the old list of people and create a new one.
      */
     public void clearPersonList();
+    
     /**
-     * Set the flight for the reservation
+     * Set the flight for the reservation.
      *
-     * @param flight The flight to fly on/with.
+     * @param flight The flight to set.
      */
     public void setFlight(Flight flight);
 
     /**
-     * Set the date the reservation was made to the current date.
+     * Set the date the reservation was made to specified date.
+     * @param date The date to set.
      */
     public void setReservationDate(Date date);
 
@@ -111,29 +113,28 @@ public interface ReservationInterface
     /**
      * Book the seatIDs on this reservation.
      *
-     * @param seatIDs the seats to book on this reservation
+     * @param seatIDs The seats to book on this reservation.
      */
     public void bookSeats(ArrayList<String> seatIDs);
 
     /**
-     * returns the SeatIDs arrayList in reservation.
+     * Get an array of the booked seats in the reservation.
      *
-     * @return an arrayList of seatID strings
+     * @return An ArrayList of SeatIDs as strings.
      */
     public ArrayList<String> getBookedSeats();
 
     /**
-     * Puts an ArrayList of persons into the arrayList of persons that
-     * reservation holds.
+     * Set a list of people as the people currently in the reservation.
      *
-     * @param persons the persons to put into reservation
+     * @param persons A list of the people to put into reservation.
      */
     public void bookPersons(ArrayList<Person> persons);
 
     /**
-     * Takes the ArrayList of persons in the array and returns it.
+     * Get a list of people booked in this reservation.
      *
-     * @return the arrayList of booked Persons on this reservation
+     * @return A list of people booked in this reservation.
      */
     public ArrayList<Person> getBookedPersons();
     
