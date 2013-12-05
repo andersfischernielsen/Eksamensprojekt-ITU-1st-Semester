@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 public class Plane
 {
-
     private final String ID;
     private final int numberOfSeats;
     public final int rows, columns;
@@ -26,7 +25,7 @@ public class Plane
     }
 
     /**
-     * Initiates all the seats in the plane
+     * Create all the seats in the plane.
      */
     private void initiate()
     {
@@ -52,10 +51,19 @@ public class Plane
         }
     }
 
+    /**
+     * Generate IDs for all the seats.
+     * @param col The column of the seat.
+     * @param row The row of the seat.
+     * @return The generated ID.
+     */
     public static String SeatIDGenerator(int col, int row)
     {
+        //Due to the way an array is stored, add one, so the ID won't be 0A.
         int theCol = col + 1;
+        //Generate an empty string.
         String seatIDString = "" + theCol;
+        //Depending on the row, generate a letter.
         switch (row)
         {
             case 0:
@@ -77,11 +85,14 @@ public class Plane
                 seatIDString += "F";
                 break;
         }
+        
+        //Return the finished string.
         return seatIDString;
     }
 
     /**
-     *
+     * Get the ID of the plane.
+     * 
      * @return the ID of the plane
      */
     public String getID()
@@ -90,8 +101,8 @@ public class Plane
     }
 
     /**
-     *
-     * @return the number of seats.
+     * Get the number of seats in the plane.
+     * @return The number of seats in the plane.
      */
     public int getNumberOfSeats()
     {
@@ -99,8 +110,8 @@ public class Plane
     }
 
     /**
-     *
-     * @return the number of Rows
+     * Get the number of rows in the plane.
+     * @return The number of rows on the plane.
      */
     public int getRows()
     {
@@ -108,8 +119,8 @@ public class Plane
     }
 
     /**
-     *
-     * @return the number of columns
+     * Get the number of rows 
+     * @return The number of columns on the plane.
      */
     public int getColumns()
     {
@@ -120,7 +131,6 @@ public class Plane
      * Return a seat with the given seat ID. If no seat was found, return null.
      *
      * @param seatID The seat ID to get.
-     *
      * @return The seat with the given seat ID. If not found, return null.
      */
     public Seat getSeat(String seatID)
@@ -144,7 +154,7 @@ public class Plane
      * through all the seats in the plane and checks if their seatID matches the
      * parameter. If no seat was found, return false.
      *
-     * @param ID The seat ID to get.
+     * @param seatID The seat ID to get.
      *
      * @return The availability of the seat with the given seat ID. If not
      *         found, return false.
@@ -165,10 +175,9 @@ public class Plane
     }
 
     /**
-     * Set the availability of a seat on the plane from a given seat ID.
+     * Change the availability of a given seat.
      *
-     * @param seatID       The seat ID to change
-     * @param availability Whether the seat is available or not.
+     * @param seatID The seat ID to change
      */
     public void setSeatAvailability(String seatID)
     {
@@ -178,21 +187,16 @@ public class Plane
             {
                 if (seats[i][j] != null && seats[i][j].getID().equals(seatID))
                 {
-                    seats[i][j].setAvailability(!getSeatAvailability(SeatIDGenerator(i, j)));
+                    seats[i][j].setAvailability(
+                                   !getSeatAvailability(SeatIDGenerator(i, j)));
                 }
             }
         }
-
-        //VI SKAL LAVE ERROR-HANDLING HER:
-        //Hvis vi ikke kan finde seat ID, 
-        //eller vi af en eller anden grund ikke ku' ændre sædet.
     }
 
     /**
      * Takes a string ArrayList (with seatID strings) as parameter that it goes
-     * through and calls the coresponding seat's setAvailability method... NOTE
-     * KAN GIVE PROBLEMER DA DEN SÆTTER SÆDER TIL DET MODSATTE AF HVAD DE ER I
-     * FOREVEJEN. UNDERSØG DETTE
+     * through and calls the corresponding setAvailability method of the seat.
      *
      * @param seatIDs the ArrayList to run through for seatIDs
      */
@@ -205,8 +209,8 @@ public class Plane
                 seat.setAvailability(true);
             }
         }
-        if (!(seatIDs.isEmpty() && seatIDs != null))
-        {
+        if (seatIDs != null && seatIDs.isEmpty()) {
+        } else {
             for (String seatID : seatIDs)
             {
                 setSeatAvailability(seatID);
@@ -214,6 +218,9 @@ public class Plane
         }
     }
 
+    /**
+     * Make every seat on the plane available.
+     */
     public void resetSeats()
     {
         for (int i = 0; i < columns; i++)
