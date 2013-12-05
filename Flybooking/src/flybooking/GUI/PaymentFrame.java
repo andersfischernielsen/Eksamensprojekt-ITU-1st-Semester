@@ -77,7 +77,9 @@ public class PaymentFrame extends JFrame {
         topPanel.add(CPRField, "wrap");
         topPanel.add(confirmButton);
 
-        //---------------------------------------------------------//
+        
+        //------------------BOTTOM FRAME CODE -------------------//
+        
         scrollpane = new JScrollPane(receiptArea);
 
         contentPane.add(topPanel, BorderLayout.PAGE_START);
@@ -99,8 +101,11 @@ public class PaymentFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (CPRField.getText().equals("") || CPRField.getText().equals("")) {
+                //If the CPRField is empty and the button is pressed:
+                if (CPRField.getText().equals("")) {
+                    //Change the text to:
                     CPRField.setText("CPR missing!");
+                    //And make the background red to make the user notice this.
                     CPRField.setBackground(Color.RED);
                 } else {
                     currentReservation.setCPR(CPRField.getText());
@@ -110,7 +115,7 @@ public class PaymentFrame extends JFrame {
                         setVisible(false);
                         dispose();
                     } else {
-                        receiptArea.setText("ERROR! COULDN'T SAVE RESERVATION!");
+                        receiptArea.setText("ERROR! COULDN'T SAVE RESERVATION");
                         receiptArea.setBackground(Color.red);
                     }
                 }
