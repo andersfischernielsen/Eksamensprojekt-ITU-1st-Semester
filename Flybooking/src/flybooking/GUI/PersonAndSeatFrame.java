@@ -222,7 +222,7 @@ public class PersonAndSeatFrame extends JFrame
     }
 
     /**
-     * Confirm the reservation, saving it in the booking system
+     * Confirm the reservation, saving it in the booking system.
      */
     private void confirmReservation()
     {
@@ -249,9 +249,8 @@ public class PersonAndSeatFrame extends JFrame
             //Save the reservation.
             reservation.setPrice(Converter.getFinalPrice(reservation.getFlight().getPrice(), reservation.getBookedPersons()));
             controller.setWorkingOnReservation(reservation);
-            
             //Create the final window.
-            new PaymentFrame();
+            PaymentFrame paymentFrame = new PaymentFrame();
             setVisible(false);
             dispose();
         }
@@ -434,7 +433,7 @@ public class PersonAndSeatFrame extends JFrame
     }
 
     @Override
-    public void pack()
+    public final void pack()
     {
         
     }
