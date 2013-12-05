@@ -78,7 +78,7 @@ public class FlightList extends JList {
 
             //Fill the top part of the cell with flight information and lay it out.
             topCellTextLeft = new JLabel(
-                    Calculator.convertDateToHourString(flight.getStartDate()));
+                    Converter.convertDateToHourString(flight.getStartDate()));
 
             topCellTextMiddle = new JLabel(
                     flight.getStartAirport().getID() + " > "
@@ -90,10 +90,10 @@ public class FlightList extends JList {
 
             //Then the bottom part.
             bottomCellTextLeft = new JLabel(
-                    Calculator.convertDateToHourString(flight.getEndDate()));
+                    Converter.convertDateToHourString(flight.getEndDate()));
 
             bottomCellTextMiddle = new JLabel( "       " + 
-                    Calculator.convertDateToString(flight.getStartDate()));
+                    Converter.convertDateToString(flight.getStartDate()));
             bottomCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
             bottomCellTextRight = new JLabel(
