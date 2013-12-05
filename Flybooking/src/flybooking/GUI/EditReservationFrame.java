@@ -27,7 +27,8 @@ public class EditReservationFrame extends JFrame {
     private ArrayList<ReservationInterface> searchResults;
     private JScrollPane scrollpane;
 
-    public static EditReservationFrame getInstance(ControllerInterface controller)
+    public static EditReservationFrame getInstance(ControllerInterface 
+                                                                     controller)
     {
         if (instance == null) {
             instance = new EditReservationFrame(controller);
