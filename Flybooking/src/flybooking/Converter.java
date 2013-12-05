@@ -23,12 +23,41 @@ public class Converter
      *
      * @return The sum of the two numbers.
      */
-    public static double getFinalPrice(double flightPrice, ArrayList<Person> persons)
+    public static double getFinalPrice(double flightPrice, ArrayList<Person> persons, ArrayList<Integer> seatsGroupID)
     {
         //Initialize the final calculated price.
-        double finalPrice;
-        //Calculate the final price from the amount of people.
-        finalPrice = flightPrice * persons.size();
+        double finalPrice = 0;
+        //Calculate the final price from the amount of people and the seatIDs 
+        // class
+        for (Integer groupID : seatsGroupID)
+        {
+            switch(groupID){
+                //economy
+                case 0:
+                {
+                    finalPrice+= flightPrice;
+                    break;
+                }
+                //business
+                case 1:
+                {
+                    finalPrice+= flightPrice*1.2;
+                    break;
+                }
+                //first
+                case 2:
+                {
+                    finalPrice+= flightPrice*1.5;
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+                        
+            }
+            
+        }
         //Initialize the savings discount.
         double savings = 0;
         //Check the people in the reservation for their age group.
