@@ -17,25 +17,21 @@ import net.miginfocom.swing.MigLayout;
 public class NewReservationFrame extends JFrame {
 
     //All of the Swing components needed to draw the interface.
-    private JComboBox peopleDropdown, startDestDropdown, endDestDropdown;
+    private JComboBox startDestDropdown, endDestDropdown;
     private JButton searchButton, doneButton;
     private FlightList flightList;
-    private JPanel top, topContent, filler, filler2, filler3;
-    private JLabel dateLabel, peopleLabel, startLabel, endLabel;
+    private JPanel top, topContent, filler, filler2;
+    private JLabel dateLabel, startLabel, endLabel;
     private JTextField dateField;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private JScrollPane scrollpane;
-    private String[] people = {"1", "2", "3", "4", "5"};
 
     //All of the search variables in the interface.
     private ArrayList<FlightInterface> searchResults;
     private Date chosenDate;
-    private int chosenPeople;
     private String chosenStartDestination;
     private String chosenEndDestination;
-    private boolean nextTo;
-    private double chosenPrice;
 
     /**
      * Create a frame for finding and creating reservations.
@@ -86,7 +82,6 @@ public class NewReservationFrame extends JFrame {
         //if nothing is clicked before searching.
         chosenStartDestination = (String) startDestDropdown.getSelectedItem();
         chosenEndDestination = (String) endDestDropdown.getSelectedItem();
-        chosenPeople = 1;
         chosenDate = new Date();
 
         //Set the default button.
@@ -108,19 +103,16 @@ public class NewReservationFrame extends JFrame {
         topContent = new JPanel();
         topContent.setLayout(new MigLayout(
                 "",
-                "0 [] 90 [] 90 [] 0",
+                "0 [] 260 [] 0",
                 "0 [] 0  [] 5 [] 0 [] 20 [] 5"));
         filler = new JPanel();
         filler2 = new JPanel();
-        filler3 = new JPanel();
 
         //Create all of the components.
         dateField = new JTextField("dd/mm-yyyy");
-        peopleDropdown = new JComboBox(people);
         startDestDropdown = new JComboBox(drawDestinations());
         endDestDropdown = new JComboBox(drawDestinations());
         dateLabel = new JLabel(" Departure date:");
-        peopleLabel = new JLabel(" Passengers:");
         startLabel = new JLabel(" Start destination:");
         endLabel = new JLabel(" End destination:");
         searchButton = new JButton("Search");
@@ -131,24 +123,23 @@ public class NewReservationFrame extends JFrame {
         //Set the sizes and indexes of specific components.
         searchButton.setMinimumSize(new Dimension(130, 20));
         searchButton.setDefaultCapable(true);
-        peopleDropdown.setMinimumSize(new Dimension(80, 20));
+        //peopleDropdown.setMinimumSize(new Dimension(80, 20));
         startDestDropdown.setMaximumSize(new Dimension(130, 25));
         endDestDropdown.setMaximumSize(new Dimension(130, 25));
         dateField.setColumns(10);
 
         //Add the components so they show up in the right places.
         topContent.add(dateLabel);
-        topContent.add(peopleLabel);
+        topContent.add(filler);
         topContent.add(startLabel, "wrap");
         topContent.add(dateField);
-        topContent.add(peopleDropdown);
+        topContent.add(filler2);
         topContent.add(startDestDropdown, "wrap");
-        topContent.add(filler, "span 2");
+        topContent.add(filler);
         topContent.add(endLabel, "wrap");
-        topContent.add(filler2, "span 2");
+        topContent.add(filler2);
         topContent.add(endDestDropdown, "wrap");
         topContent.add(doneButton);
-        topContent.add(filler3, "span 1");
         topContent.add(searchButton);
 
         //Add the finished top panel to the main frame.
@@ -190,14 +181,14 @@ public class NewReservationFrame extends JFrame {
     private void addActionListeners()
     {
         //Add an ActionListener that changes the chosenPeople to the value chosen when clicked.
-        peopleDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                JComboBox cb = (JComboBox) e.getSource();
+        //peopleDropdown.addActionListener(new ActionListener() {
+        //    public void actionPerformed(ActionEvent e)
+        //    {
+        //        JComboBox cb = (JComboBox) e.getSource();
                 //Same as above just with an integer.
-                chosenPeople = Integer.parseInt(cb.getSelectedItem().toString());
-            }
-        });
+        //        chosenPeople = Integer.parseInt(cb.getSelectedItem().toString());
+        //    }
+        //});
 
         //Adds an ActionListener that changes chosenStartDestination to the value chosen when clicked.
         startDestDropdown.addActionListener(new ActionListener() {
