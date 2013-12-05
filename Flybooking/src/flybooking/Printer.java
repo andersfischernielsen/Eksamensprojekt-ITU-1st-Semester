@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
  *
  * @author Anders
  */
-public class Printer implements ReceiptPrinter
+public class Printer implements PrinterInterface
 {
 
     private ReservationInterface reservation;
@@ -27,21 +27,29 @@ public class Printer implements ReceiptPrinter
     public String print()
     {
         String string = "-------------------------------------------------";
-                        string += "\n";
-                        string += createReservationIDDetails();
-                        string += "\n";
-                        string += createAirportDetails();
-                        string += "\n";
-                        string += createPeopleDetails();
-                        string += "\n";
-                        string += createPlaneDetails();
-                        string += "\n";
-                        string += "\n";
-                        string += createPriceDetails();
-                        string += "\n";
-              string += "-------------------------------------------------";
+        string += "\n";
+        string += createReservationIDDetails();
+        string += "\n";
+        string += createAirportDetails();
+        string += "\n";
+        string += createPeopleDetails();
+        string += "\n";
+        string += createPlaneDetails();
+        string += "\n";
+        string += "\n";
+        string += createPriceDetails();
+        string += "\n";
+        string += "-------------------------------------------------";
 
         return string;
+    }
+
+    @Override
+    public String createReservationIDDetails()
+    {
+        String finalString;
+        finalString = "Reservation ID:            " + controller.getReservationIDToCome();
+        return finalString;
     }
 
     @Override
@@ -62,9 +70,29 @@ public class Printer implements ReceiptPrinter
     public String createPeopleDetails()
     {
         String finalString = "Passengers: \n";
+        String groupIDText = "";
         for (Person p : reservation.getPersons())
         {
-            finalString += "        " + p.getFirstName() + " " + p.getLastName() + "\n";
+            // depending on what age the person is print the group they belong to.
+            switch (p.getGroupID())
+            {
+                case 0:
+                {
+                    groupIDText = "   (Adult)";
+                    break;
+                }
+                case 1:
+                {
+                    groupIDText = "   (Child)";
+                    break;
+                }
+                case 2:
+                {
+                    groupIDText = "   (Elder)";
+                    break;
+                }
+            }
+            finalString += "        " + p.getFirstName() + " " + p.getLastName() + " " + groupIDText + "\n";
         }
 
         return finalString;
@@ -78,18 +106,11 @@ public class Printer implements ReceiptPrinter
         return finalString;
     }
 
+    @Override
     public String createPriceDetails()
     {
         String finalString;
         finalString = "Price: " + reservation.getPrice() + ",-";
         return finalString;
     }
-
-    public String createReservationIDDetails()
-    {
-        String finalString;
-        finalString = "Reservation ID:            " + controller.getReservationIDToCome();
-        return finalString;
-    }
-
 }
