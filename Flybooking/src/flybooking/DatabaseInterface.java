@@ -12,115 +12,96 @@ public interface DatabaseInterface
 {
 
     /**
-     * returns the plane with ID PlaneID (needs to implement something with
-     * seats)
+     * returns the plane object with ID PlaneID
      *
-     * @param PlaneID
+     * @param PlaneID the planeID to look for in the database
      *
-     * @return
-     *
-     * @throws java.sql.SQLException
+     * @return a plane object according to that of plane table with ID=PlaneID
+     *         in the database
      */
-    Plane getPlane(String PlaneID) throws SQLException;
-    
-    /**
-     * Returns the airport with the airportID from the databse
-     * @param AirportID the id of the airport we creates.
-     * @return an airport
-     * @throws SQLException 
-     */
-    Airport getAirport(String AirportID) throws SQLException;
-    
-    /**
-     * Returns a person object created from the database's information
-     * @param PersonID the personID to look for
-     * @return a Person object
-     * @throws SQLException 
-     */
-    Person getPerson(int PersonID) throws SQLException;
+    Plane getPlane(String PlaneID);
 
     /**
-     * Returns an ArrayList of flights that match the specified search terms.
+     * Returns the airport object with the airportID from the databse
      *
-     * @param departureDate    The date to depart.
-     * @param startDestination The start destination for the flight.
-     * @param endDestination   The end destination for the flight.
+     * @param AirportID the id of the airport we creates.
+     *
+     * @return a plane object according to that of Airport table with
+     *         ID=AirportID in the database
+     */
+    Airport getAirport(String AirportID);
+
+    /**
+     * Returns a person object created from the database's information
+     *
+     * @param PersonID the personID to look for
+     *
+     * @return a Person object according to that of People table with
+     *         ID=PersonID in the database
+     */
+    Person getPerson(int PersonID);
+
+    /**
+     * Returns the flight object with flightID from the databse
+     *
+     * @param flightID the flightID of the wanted flight
+     *
+     * @return a flight object according to that of Flight table with
+     *         ID=flightID in the database
+     */
+    FlightInterface getFlight(int flightID);
+
+    /**
+     * Returns an ArrayList of flight objects from the database which goes from
+     * statDestination to endDestination and eventually within a timeframe og 4
+     * days from the given depatureDate.
+     *
+     * @param departureDate    the depatureDate to search for, if null dont
+     *                         search for date.
+     * @param startDestination the startDestination the flight needs to have
+     * @param endDestination   the endDestination the flight needs to have
      *
      * @return An array of flights that match the specified parameters.
      */
-    
-    /**
-     * returns a flight with flightID
-     * @param flightID the flightID of the wanted flight
-     * @return a flight object
-     * @throws SQLException 
-     */
-    FlightInterface getFlight(int flightID) throws SQLException;
-    
-    
     ArrayList<FlightInterface> getFlightList(Date departureDate,
-                                String startDestination, String endDestination);
+                                             String startDestination, String endDestination);
 
     /**
-     * Returns an arrayList of reservations which respects the parameters.
+     * Returns an arrayList of reservations which, if CPR = null, has
+     * reservationID or if reservationID = null has CPR.
      *
      * @param reservationID The ID to search for.
-     * @param CPR The CPR to search for.
+     * @param CPR           The CPR to search for.
      *
-     * @return
+     * @return an ArrayList of reservation Objects.
      */
     ArrayList<ReservationInterface> getReservationList(String reservationID, String CPR);
 
     /**
-     * Get a list of reservations matching the specified parameters
+     * Save a given reservation to the database by calling the insertSeat
+     * method(If the class which implements this interface is a database),
+     * insertPerson method and inserting the reservation's data in the
+     * corresponding columns.
      *
-     * @param flight
-     * @param persons
-     * @param price   HUSK AT ÆNDRE DEN TIL LILLE SKRIFT!
-     * @param CPR
+     * @param reservationToMake the reservation to put into the database. This
+     *                          object has seats in.
+     *
      * @return true if the reservation was saved successfully.
      */
-    boolean newReservation(Flight flight, Person[] persons, String CPR, double price);
+    boolean newReservation(ReservationInterface reservationToMake);
 
     /**
-     * Save a given reservation to the database.
+     * remove the reservation with ID reservationID by searching for it inthe
+     * database.
      *
-     * @param reservationToMake
-     * @return true if the reservation was saved successfully.
-     */
-    boolean newReservation(ReservationInterface reservationToMake); 
-
-    /**
-     * remove the reservation with ID reservationID
-     *
-     * @param reservationID
+     * @param reservationID the ID to look for inthe database
      */
     void removeReservation(String reservationID);
-
-    /**
-     * Updates a reservations persons, seats and price
-     * @param reservationToMake the reservation to update
-     * @throws SQLException 
-     */
-    void updateReservation(ReservationInterface reservationToMake);
-    
-    /**
-     * Adds a person to a reservation.
-     *
-     * @param reservationID   The reservation in the database to add to.
-     * @param personToAdd     The person to add to the reservation.
-     * @param reservationSpot The spot in the reservation to add the person
-     *                        (first, second etc.)
-     *
-     * @throws java.sql.SQLException
-     */
-    void addPersonToReservation(String reservationID, Person personToAdd, String reservationSpot);
 
     /**
      * Get all the available flights as an ArrayList.
      *
      * @return An ArrayList of all the available flights.
-     *
      */
     ArrayList<String> getAirportCitiesAsStrings();
 
@@ -129,7 +110,7 @@ public interface DatabaseInterface
      *
      * @param ID
      *
-     * @return true if the ID exists.
+     * @return true if the ID exists. 
      */
     boolean checkForID(int ID);
 
@@ -162,22 +143,4 @@ public interface DatabaseInterface
      * @return an ArrayList of seatID strings
      */
     ArrayList<String> getBookedSeatsOnReservation(String reservationID);
-
-    /**
-     * Get all matching Reservations from a CPR number.
-     *
-     * @param CPR The CPR to search with.
-     *
-     * @return An ArrayList of matching Reservations.
-     */
-    ArrayList<ReservationInterface> getReservationsFromCPR(String CPR);
-
-    /**
-     * Get all matching Reservations from an reservation ID.
-     *
-     * @param ID The ID to search with.
-     *
-     * @return An ArrayList of matching Reservations.
-     */
-    ArrayList<ReservationInterface> getReservationsFromID(String ID);
 }
