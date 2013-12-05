@@ -82,6 +82,7 @@ public class PaymentFrame extends JFrame {
         //------------------BOTTOM FRAME CODE -------------------//
         
         receiptArea.setFont(new Font("monospaced", Font.PLAIN, 13));
+        receiptArea.setEditable(false);
         scrollpane = new JScrollPane(receiptArea);
 
         contentPane.add(topPanel, BorderLayout.PAGE_START);
