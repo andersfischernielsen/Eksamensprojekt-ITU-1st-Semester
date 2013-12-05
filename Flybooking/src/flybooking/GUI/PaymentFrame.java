@@ -11,8 +11,9 @@ import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
- * @author Anders
+ * Create a frame for showing the information in the reservation, 
+ * and confirm the booking.
+ * @author Anders Wind Steffensen, Chris Forup & Anders Fischer-Nielsen
  */
 public class PaymentFrame extends JFrame {
 

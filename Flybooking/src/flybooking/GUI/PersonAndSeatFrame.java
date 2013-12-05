@@ -222,7 +222,7 @@ public class PersonAndSeatFrame extends JFrame
     }
 
     /**
-     * Confirm the reservation, saving it in the booking system
+     * Confirm the reservation, saving it in the booking system.
      */
     private void confirmReservation()
     {
@@ -249,9 +249,8 @@ public class PersonAndSeatFrame extends JFrame
             //Save the reservation.
             reservation.setPrice(Converter.getFinalPrice(reservation.getFlight().getPrice(), reservation.getBookedPersons()));
             controller.setWorkingOnReservation(reservation);
-            
             //Create the final window.
-            new PaymentFrame();
+            PaymentFrame paymentFrame = new PaymentFrame();
             setVisible(false);
             dispose();
         }
@@ -312,7 +311,8 @@ public class PersonAndSeatFrame extends JFrame
             public void mouseClicked(MouseEvent e)
             {
                 seatIDsThisRes = graphics.getSeatIDsThisRes();
-                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
+                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), 
+															 e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
             }
@@ -387,6 +387,9 @@ public class PersonAndSeatFrame extends JFrame
                 Person temp = persons.get(personComboBox.getSelectedIndex());
                 addButton.setText("Save");
                 
+				//Set the age group to the selected person's group. 
+                ageGroupComboBox.setSelectedIndex(temp.getGroupID());
+				
                 //Then set the fields with that persons information.
                 //First we get the id of the selected person.
                 int ID = temp.getID();
@@ -434,7 +437,7 @@ public class PersonAndSeatFrame extends JFrame
     }
 
     @Override
-    public void pack()
+    public final void pack()
     {
         
     }

@@ -7,15 +7,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import flybooking.*;
 import java.net.URL;
-import java.sql.SQLException;
 import net.miginfocom.swing.*;
 
 /**
- *
- * @author Anders
+ * Create the first frame in the booking system.
+ * @author Anders Wind Steffensen, Chris Forup & Anders Fischer-Nielsen
  */
 public class StartFrame extends JFrame {
-
     Container content;
     Container empty;
     Container innerCont;
@@ -31,6 +29,12 @@ public class StartFrame extends JFrame {
         StartFrame.getInstance();
     }
 
+    /**
+     * Initialize the controller and database, draw the frame and add 
+     * ActionListeners.
+     * @throws HeadlessException If the frame is initialized on a computer with
+     * no keyboard, monitor or mouse.
+     */
     private StartFrame() throws HeadlessException
     {
         database = Database.getInstance();
@@ -40,6 +44,10 @@ public class StartFrame extends JFrame {
 
     }
 
+    /**
+     * Get the singleton instance of the frame.
+     * @return The instance of the frame.
+     */
     public static StartFrame getInstance()
     {
         if (instance == null) {
@@ -50,6 +58,9 @@ public class StartFrame extends JFrame {
         return instance;
     }
 
+    /**
+     * Draw the frame.
+     */
     private void drawFrame()
     {
         setTitle("Flight Booking");
@@ -76,7 +87,7 @@ public class StartFrame extends JFrame {
         buttonPanel.add(newBookingButton);
         buttonPanel.add(editBookingButton);
         buttonPanelCont.add(buttonPanel);
-	background.add(buttonPanelCont, BorderLayout.SOUTH);
+        background.add(buttonPanelCont, BorderLayout.SOUTH);
 
         getRootPane().setDefaultButton(newBookingButton);
         setResizable(false);
@@ -84,22 +95,16 @@ public class StartFrame extends JFrame {
         setVisible(true);
     }
 
-    private void nextFrame() throws SQLException
-    {
-       controller.createReservation();
-       NewReservationFrame.getInstance();
-    }
-            
     private void addActionListeners()
     {
         newBookingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try {
-                    nextFrame();
-                } catch (SQLException ex) {
-                }
+                //Create a new empty reservation in the controller.
+                controller.createReservation();
+                //Initialize the NewReservationFrame.
+                NewReservationFrame.getInstance();
             }
         });
 
@@ -107,6 +112,7 @@ public class StartFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                //Initialize the EditReservationFrame.
                 EditReservationFrame.getInstance(controller);
             }
         });

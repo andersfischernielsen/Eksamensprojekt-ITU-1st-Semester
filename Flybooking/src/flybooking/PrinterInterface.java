@@ -4,7 +4,7 @@ package flybooking;
 import java.text.SimpleDateFormat;
 
 /**
- *
+ * An interface for creating a printer that prints reservation receipts.
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public interface PrinterInterface {
