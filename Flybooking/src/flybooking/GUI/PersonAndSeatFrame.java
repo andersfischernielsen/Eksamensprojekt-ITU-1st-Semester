@@ -378,6 +378,7 @@ public class PersonAndSeatFrame extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 addPerson();
+                ageGroupComboBox.setSelectedIndex(0);
             }
         });
 
