@@ -62,7 +62,7 @@ public class NewReservationFrame extends JFrame {
         if (instance == null) {
             instance = new NewReservationFrame();
         }
-        
+
         instance.setVisible(true);
         return instance;
     }
@@ -170,7 +170,7 @@ public class NewReservationFrame extends JFrame {
             scrollpane.setViewportView(flightList);
 
             //Add the scrollpane and button to the frame.
-            getContentPane().add(scrollpane, BorderLayout.CENTER);            
+            getContentPane().add(scrollpane, BorderLayout.CENTER);
         }
     }
 
@@ -225,7 +225,7 @@ public class NewReservationFrame extends JFrame {
                 performSearch();
             }
         });
-        
+
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -233,9 +233,9 @@ public class NewReservationFrame extends JFrame {
                 sendOnData();
             }
         });
-        
+
         dateField.addFocusListener(new FocusListener() {
-            
+
             @Override
             public void focusGained(FocusEvent e)
             {
@@ -243,54 +243,54 @@ public class NewReservationFrame extends JFrame {
                 dateField.setSelectionEnd(dateField.getText().length());
                 dateField.setForeground(Color.BLACK);
             }
-            
+
             @Override
             public void focusLost(FocusEvent e)
             {
                 dateField.setForeground(Color.LIGHT_GRAY);
-                
+
                 if (!dateField.getText().equals("dd/mm-yyyy")) {
-                    
-                } 
-                
+
+                }
+
                 if (dateField.getText().equals("")) {
                     dateField.setText("dd/mm-yyyy");
                 }
             }
         });
-        
+
         flightList.addMouseListener(new MouseListener() {
-            
+
             @Override
             public void mouseClicked(MouseEvent e)
             {
                 if (flightList.getSelectedIndex() > -1) {
                     doneButton.setEnabled(true);
-                    
+
                     if (e.getClickCount() > 1) {
                         sendOnData();
                     }
                 }
             }
-            
+
             @Override
             public void mousePressed(MouseEvent e)
             {
                 //Do nothing.
             }
-            
+
             @Override
             public void mouseReleased(MouseEvent e)
             {
                 //Do nothing.
             }
-            
+
             @Override
             public void mouseEntered(MouseEvent e)
             {
                 //Do nothing.
             }
-            
+
             @Override
             public void mouseExited(MouseEvent e)
             {
@@ -304,18 +304,14 @@ public class NewReservationFrame extends JFrame {
      */
     private void performSearch()
     {
-        try {
-            if (dateField.getText().equals("dd/mm-yyyy")) {
-                chosenDate = null;
-            } else {
-                chosenDate = Calculator.convertStringToDate(dateField.getText());
-            }
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+        if (dateField.getText().equals("dd/mm-yyyy")) {
+            chosenDate = null;
+        } else {
+            chosenDate = Converter.convertStringToDate(dateField.getText());
         }
-        
+
         searchResults = controller.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
-        
+
         flightList.setListData(searchResults.toArray());
     }
 
@@ -330,11 +326,11 @@ public class NewReservationFrame extends JFrame {
         ReservationInterface reservation = new Reservation();
         reservation.setReservationDate(new Date());
         reservation.setFlight(flightList.getSelectedFlight());
-        
+
         if (reservation.getFlight().getPlane() != null) {
             controller.setWorkingOnReservation(reservation);
             setVisible(false);
-            
+
             new PersonAndSeatFrame();
         }
     }

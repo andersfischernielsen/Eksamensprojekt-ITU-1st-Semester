@@ -178,7 +178,7 @@ public class PersonAndSeatFrame extends JFrame
     {
         //Count the number of people, and add a new person to the list of passengers.
         countPeople();
-        persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Calculator.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
+        persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Converter.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
         if (!personComboBox.getSelectedItem().equals(addItem)) {
             persons.remove(personComboBox.getSelectedItem());
         }
@@ -247,7 +247,7 @@ public class PersonAndSeatFrame extends JFrame
             }
 
             //Save the reservation.
-            reservation.setPrice(Calculator.getprice(reservation.getFlight().getPrice(), reservation.getBookedPersons()));
+            reservation.setPrice(Converter.getFinalPrice(reservation.getFlight().getPrice(), reservation.getBookedPersons()));
             controller.setWorkingOnReservation(reservation);
             
             //Create the final window.

@@ -1,6 +1,5 @@
 package flybooking;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,6 +24,7 @@ public interface ControllerInterface
     /**
      * Save the reservation when finished.
      *
+     * @return Whether the reservation saved successfully or not.
      */
     boolean saveReservation();
 
@@ -46,51 +46,6 @@ public interface ControllerInterface
     void deleteReservation(String reservationID);
 
     /**
-     * Print the receipt of the reservation.
-     *
-     * @param reservation The reservation to print.
-     * @param printer     The printer to use to print.
-     */
-    void printReceipt(ReservationInterface reservation, ReceiptPrinter printer);
-
-    /**
-     * Get the total price of the reservation.
-     *
-     * @param calculator  The calculator to use
-     * @param reservation The reservation to calculate the price for.
-     *
-     * @return The price for the reservation
-     */
-    int getPrice(Calculator calculator, Reservation reservation);
-
-    /**
-     * Find something.
-     */
-    void search(); //SEARCH BLIVER MERE AVANCERET AT LAVE, SÅ VI SKAL SIKKERT HAVE EN DEL ANDRE SØGEMETODER.
-
-    /**
-     * Checks to see if anyone is next to the specified person.
-     *
-     * @param person The person to check for neighbors.
-     *
-     * @return Whether there are any neighbors next to the specified person.
-     */
-    boolean hasPersonNextTo(Person person);
-
-    /**
-     * Get the person next to the specified person.
-     *
-     * @param person The person to check for neighbors.
-     *
-     * @return The person next to the specified person.
-     */
-    Person personNextTo(Person person);
-
-    //JEG VED IKKE HELT OM VI SKAL OPFATTE CONTROLLER-KLASSEN SOM EN DER STYRER ALTING, 
-    //ELLER VI GODT KAN KALDE F.EKS. addPerson() PÅ RESERVATIONEN ISTEDET. 
-    //DET MEST ELEGANTE VILLE VÆRE AT CONTROLLEREN STYRER ALTING, MEN SÅ FÅR VI BARE EN DEL METODER,
-    //DER BARE KALDER EN TILSVARENDE METODE PÅ ET ANDET OBJEKT (F.EKS. addPerson()).
-    /**
      * Get the number of destinations from the database.
      *
      * @return The number of destinations in the database.
@@ -108,6 +63,7 @@ public interface ControllerInterface
     /**
      * Check whether an ID already exists in the database.
      *
+     * @param ID The ID to check for in the database.
      * @return Whether the ID exists in the database.
      */
     boolean checkForID(int ID);
@@ -161,18 +117,24 @@ public interface ControllerInterface
     public void resetController();
 
     /**
-     * gets the reservationID which will later be appointed to the
-     * workingReservation
+     * Get the reservationID which will later be appointed to the reservation.
      *
      * @return
      */
     public String getReservationIDToCome();
 
     /**
-     * sets the reservationID which will later be appointed to the
-     * workingReservation
+     * Set the reservationID which will later be appointed to the reservation.
+     * @param reservationIDToCome The reservation to set.
      */
     public void setReservationIDToCome(String reservationIDToCome);
 
+    /**
+     * Find a list of flights matching the specified parameters in the database.
+     * @param chosenDate The chosen date to search for.
+     * @param chosenStartDestination The chosen start destination.
+     * @param chosenEndDestination The chosen end destination.
+     * @return A list of flights matching the specified parameters.
+     */
     public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination);
 }

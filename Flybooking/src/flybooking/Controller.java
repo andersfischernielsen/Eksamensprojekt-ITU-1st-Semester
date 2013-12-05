@@ -1,25 +1,29 @@
 
 package flybooking;
 
-import java.sql.SQLException;
 import java.util.*;
 
 /**
- *
+ * A controller for controlling the booking of flights and communicating with
+ * the database.
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class Controller implements ControllerInterface {
 
+    //The database to communicate with.
     private DatabaseInterface database;
+    //Initialize the controller (for the singleton instance).
     private static Controller instance = null;
+    //The current reservation being worked on.
     private ReservationInterface workingOnReservation;
+    //The reservationID to save to the database.
     private String reservationIDToCome;
 
     private Controller()
     {
         database = Database.getInstance();
     }
-
+    
     @Override
     public void createReservation()
     {
@@ -29,11 +33,15 @@ public class Controller implements ControllerInterface {
     @Override
     public boolean saveReservation()
     {
+        //If this reservation is already in the database, remove it.
         database.removeReservation(workingOnReservation.getID());
+        //Generate an ID for the reservation.
         workingOnReservation.setID(reservationIDToCome);
-        // saves and then returns if saving was succesfull
+        //Save to the databse and return whether it saved succesfully.
         boolean savedSuccessfully = database.newReservation(workingOnReservation);
+        //Reset the controller so it's ready for the next reservation.
         resetController();
+        
         return savedSuccessfully;
     }
 
@@ -62,54 +70,9 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public void printReceipt(ReservationInterface reservation, ReceiptPrinter printer)
-    {
-        /**
-         * We need to be sure that the printer has been constructed with the
-         * right reservation.
-         */
-        printer.print();
-    }
-
-    @Override
-    public int getPrice(Calculator calculator, Reservation reservation)
-    {
-        //Do nothing.    
-        return -1;
-    }
-
-    @Override
-    public void search()
-    {
-        //Do nothing.    
-    }
-
-    @Override
-    public boolean hasPersonNextTo(Person person)
-    {
-        //Do nothing.    
-        return false;
-    }
-
-    @Override
-    public Person personNextTo(Person person)
-    {
-        //Do nothing.    
-        return null;
-    }
-
-    @Override
     public int getNumberOfDestinations()
     {
-        // RET HER
-        ArrayList<String> destinations = database.getAirportCitiesAsStrings();
-        int number = 0;
-
-        for (String d : destinations) {
-            number++;
-        }
-
-        return number;
+        return database.getAirportCitiesAsStrings().size();
     }
 
     @Override
@@ -125,6 +88,10 @@ public class Controller implements ControllerInterface {
         return destinations;
     }
 
+    /**
+     * Get the singleton instance of the Controller.
+     * @return The current instance of the controller.
+     */
     public static Controller getInstance()
     {
         if (instance == null) {
@@ -174,8 +141,8 @@ public class Controller implements ControllerInterface {
         if (database.getBookedSeatsOnReservation(workingOnReservation.getID()) != null) {
             return database.getBookedSeatsOnReservation(workingOnReservation.getID());
         }
-
-        return new ArrayList<String>();
+        
+        return new ArrayList<>();
     }
 
     @Override
@@ -192,7 +159,7 @@ public class Controller implements ControllerInterface {
             return database.getBookedPersons(workingOnReservation.getID());
         }
 
-        return new ArrayList<Person>();
+        return new ArrayList<>();
     }
 
     @Override

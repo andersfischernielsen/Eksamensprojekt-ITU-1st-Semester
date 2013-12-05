@@ -40,33 +40,26 @@ public interface FlightInterface
     public boolean getSeatAvailability(String seatID);
     
     /**
-     * Set the availability of the seat "seatID" to "availability" 
-     * @param seatID the seatID which needs to change to.
-     * @param availability the availability to which the seat needs to be set to.
-     */
-    public void setSeatAvailability(String seatID, boolean availability);
-    
-    /**
-     * 
-     * @return 
+     * Get the departure date for the flight.
+     * @return The date the plane in the flight departs.
      */
     public Date getStartDate();
     
     /**
-     * 
-     * @return 
+     * Get the arrival date for the flight.
+     * @return The date the plane in the flight arrives at the destination.
      */
     public Date getEndDate();
     
     /**
-     * 
-     * @return 
+     * Get the departure airport for the flight.
+     * @return The departure airport for the flight.
      */
     public Airport getStartAirport();
     
     /**
-     * 
-     * @return 
+     * Get the arrival (or end) airport for the flight.
+     * @return The arrival (or end) airport for the flight.
      */
     public Airport getEndAirport();
 }

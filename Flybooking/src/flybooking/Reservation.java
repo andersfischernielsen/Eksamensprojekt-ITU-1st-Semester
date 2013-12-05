@@ -148,7 +148,7 @@ public class Reservation implements ReservationInterface {
     @Override
     public void setID()
     {
-        ID = Calculator.createReservationID();
+        ID = Converter.createReservationID();
     }
 
     @Override
