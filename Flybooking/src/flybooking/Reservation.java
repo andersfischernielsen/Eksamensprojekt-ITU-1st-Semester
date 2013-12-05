@@ -16,7 +16,6 @@ public class Reservation implements ReservationInterface {
     private String ID;
     private Date reservationDate;
     private String CPR;
-    private Person payer;
     private double price;
 
     /**
@@ -107,17 +106,6 @@ public class Reservation implements ReservationInterface {
         this.CPR = CPR;
     }
 
-    @Override
-    public Person getPayer()
-    {
-        return payer;
-    }
-
-    @Override
-    public void setPayer(Person payer)
-    {
-        this.payer = payer;
-    }
 
     @Override
     public void setPrice(double price)

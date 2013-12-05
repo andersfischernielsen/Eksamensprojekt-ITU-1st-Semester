@@ -46,20 +46,6 @@ public interface ReservationInterface
     String getCPR();
 
     /**
-     * Get the person that has paid for the reservation.
-     *
-     * @return The person that has paid for the reservation.
-     */
-    Person getPayer();
-
-    /**
-     * Set the person that has paid for the reservation
-     *
-     * @param payer The person that has paid for the reservation.
-     */
-    void setPayer(Person payer);
-
-    /**
      * Set the people in the reservation.
      *
      * @param person The person to add to the reservation.
