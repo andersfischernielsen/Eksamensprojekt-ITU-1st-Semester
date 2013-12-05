@@ -15,21 +15,34 @@ import net.miginfocom.swing.MigLayout;
 public class PersonAndSeatFrame extends JFrame
 {
 
-    private Plane planeToDraw; //The plane to draw.
-    private GraphicsComponent graphics; //The graphics to use.
+    //The plane to draw.
+    private Plane planeToDraw; 
+    //The graphics to use.
+    private GraphicsComponent graphics; 
+    //the controller to use.
     private Controller controller;
-    private ReservationInterface reservation; //The current reservation.
+    //The current reservation.
+    private ReservationInterface reservation; 
     private ArrayList<String> seatIDsThisRes, seatIDsNotInThisRes;
-    private int amtOfPersons; //The amount of passengers in the reservation.
-    private ArrayList<Person> persons; //The passengers in the reservation.
-    private JComboBox personComboBox, ageGroupComboBox; //Comboboxes for the UI.
+    //The amount of passengers in the reservation.
+    private int amtOfPersons; 
+    //The passengers in the reservation.
+    private ArrayList<Person> persons; 
+    //Comboboxes for the UI.
+    private JComboBox personComboBox, ageGroupComboBox; 
     private JComponent planeDrawingComp;
-    private JLabel firstNameLabel, lastNameLabel, addressLabel; //Text labels for the UI.
-    private JTextField firstNameField, lastNameField, addressField; //Input fields for the UI.
-    private JButton bookButton, addButton, deleteButton; //Buttons for the UI.
-    private JPanel top, topContent, filler, filler2, filler3, graphicsPanel; //Panels for setting up the UI.
-    private JScrollPane scrollpane; //A scrollpane for the graphics component.
-    private String addItem; //A string for the person combobox.
+    //Text labels for the UI.
+    private JLabel firstNameLabel, lastNameLabel, addressLabel; 
+    //Input fields for the UI.
+    private JTextField firstNameField, lastNameField, addressField; 
+    //Buttons for the UI.
+    private JButton bookButton, addButton, deleteButton; 
+    //Panels for setting up the UI.
+    private JPanel top, topContent, filler, filler2, filler3, graphicsPanel; 
+    //A scrollpane for the graphics component.
+    private JScrollPane scrollpane; 
+    //A string for the person combobox.
+    private String addItem; 
 
     public PersonAndSeatFrame()
     {
@@ -176,9 +189,13 @@ public class PersonAndSeatFrame extends JFrame
      */
     private void addPerson()
     {
-        //Count the number of people, and add a new person to the list of passengers.
+        //Count the number of people, and add a new person to the list of 
+        //passengers.
         countPeople();
-        persons.add(new Person(firstNameField.getText(), lastNameField.getText(), Converter.createPersonID(), addressField.getText(), getGroupID(ageGroupComboBox)));
+        persons.add(new Person(firstNameField.getText(), lastNameField.getText(), 
+                              Converter.createPersonID(), addressField.getText(), 
+                                                  getGroupID(ageGroupComboBox)));
+        
         if (!personComboBox.getSelectedItem().equals(addItem)) {
             persons.remove(personComboBox.getSelectedItem());
         }
@@ -228,14 +245,18 @@ public class PersonAndSeatFrame extends JFrame
     {
         if (seatIDsThisRes.size() != persons.size())
         {
-            JOptionPane.showMessageDialog(null, "You havent booked the same amount of seats as the amounts of persons this booking!", "You havent booked the same amount of seats as the amounts of persons this booking!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You havent booked the same "
+                  + "amount of seats as the amounts of persons this booking!", 
+                    "You havent booked the same amount of seats as the amounts "
+                  + "of persons this booking!", JOptionPane.ERROR_MESSAGE);
         }
         else if (seatIDsThisRes.isEmpty() || persons.isEmpty())
-        { // last statement not neccesary
-            JOptionPane.showMessageDialog(null, "You havent booked any persons or seats", "You havent booked any persons or seats", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
+        { 
+            JOptionPane.showMessageDialog(null, 
+                           "You havent booked any persons "
+                         + "or seats", "You havent booked any persons or seats", 
+                           JOptionPane.ERROR_MESSAGE);
+        } else {
             reservation.bookSeats(seatIDsThisRes);
             // Remove all existing persons in reservation
             reservation.clearPersonList();
@@ -247,7 +268,8 @@ public class PersonAndSeatFrame extends JFrame
             }
 
             //Save the reservation.
-            reservation.setPrice(Converter.getFinalPrice(reservation.getFlight().getPrice(), reservation.getBookedPersons()));
+            reservation.setPrice(Converter.getFinalPrice(reservation.getFlight()
+                                    .getPrice(), reservation.getBookedPersons()));
             controller.setWorkingOnReservation(reservation);
             //Create the final window.
             PaymentFrame paymentFrame = new PaymentFrame();
@@ -282,11 +304,12 @@ public class PersonAndSeatFrame extends JFrame
 
         if (personsAsArray.length > 0)
         {
-            //For every person, get his/her first name and add it to the string array.
+            //For every person, get his/her first name and add it to the array.
             for (int i = 0; i < personsAsArray.length; i++)
             {
                 Person temp = (Person) personsAsArray[i];
-                peopleInReservation[i] = temp.getFirstName() + " " + temp.getLastName();
+                peopleInReservation[i] = temp.getFirstName() + " " + 
+                                                              temp.getLastName();
             }
         }
 
@@ -311,8 +334,8 @@ public class PersonAndSeatFrame extends JFrame
             public void mouseClicked(MouseEvent e)
             {
                 seatIDsThisRes = graphics.getSeatIDsThisRes();
-                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), 
-															 e.getY(), seatIDsThisRes);
+                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, 
+                                            e.getX(), e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
             }
@@ -374,7 +397,8 @@ public class PersonAndSeatFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //If the clicked item is the addItem, then empty all of the text fields.
+                //If the clicked item is the addItem, then empty all of the 
+                //text fields.
                 if (personComboBox.getSelectedItem().equals(addItem))
                 {
                     emptyTextFields();
@@ -387,7 +411,7 @@ public class PersonAndSeatFrame extends JFrame
                 Person temp = persons.get(personComboBox.getSelectedIndex());
                 addButton.setText("Save");
                 
-				//Set the age group to the selected person's group. 
+		//Set the age group to the selected person's group. 
                 ageGroupComboBox.setSelectedIndex(temp.getGroupID());
 				
                 //Then set the fields with that persons information.
