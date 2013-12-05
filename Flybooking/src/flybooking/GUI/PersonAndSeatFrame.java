@@ -311,7 +311,8 @@ public class PersonAndSeatFrame extends JFrame
             public void mouseClicked(MouseEvent e)
             {
                 seatIDsThisRes = graphics.getSeatIDsThisRes();
-                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), e.getY(), seatIDsThisRes);
+                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, e.getX(), 
+															 e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
             }
@@ -386,6 +387,9 @@ public class PersonAndSeatFrame extends JFrame
                 Person temp = persons.get(personComboBox.getSelectedIndex());
                 addButton.setText("Save");
                 
+				//Set the age group to the selected person's group. 
+                ageGroupComboBox.setSelectedIndex(temp.getGroupID());
+				
                 //Then set the fields with that persons information.
                 //First we get the id of the selected person.
                 int ID = temp.getID();
