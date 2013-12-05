@@ -82,7 +82,7 @@ public class FlightList extends JList {
 
             topCellTextMiddle = new JLabel(
                     flight.getStartAirport().getID() + " > "
-                    + flight.getEndAirport().getID());
+                    + flight.getEndAirport().getID() + "             ");
             topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
             topCellTextRight = new JLabel(
