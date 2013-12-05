@@ -268,8 +268,13 @@ public class PersonAndSeatFrame extends JFrame
             }
 
             //Save the reservation.
+            ArrayList<Integer> groupIDsOfSeats = new ArrayList<Integer>();
+            for (String seatID : seatIDsThisRes)
+            {
+                groupIDsOfSeats.add(planeToDraw.getSeat(seatID).getGroup());
+            }
             reservation.setPrice(Converter.getFinalPrice(reservation.getFlight()
-                                    .getPrice(), reservation.getBookedPersons()));
+                                    .getPrice(), reservation.getBookedPersons(), groupIDsOfSeats));
             controller.setWorkingOnReservation(reservation);
             //Create the final window.
             PaymentFrame paymentFrame = new PaymentFrame();

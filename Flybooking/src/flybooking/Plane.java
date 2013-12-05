@@ -35,11 +35,11 @@ public class Plane
             for (int j = 0; j < rows; j++)
             {
 
-                if (i == columns / 10)
+                if (i < columns / 10)
                 {
                     seats[i][j] = new Seat(SeatIDGenerator(i, j), 2);
                 }
-                else if (i == columns / 4)
+                else if (i < columns / 4)
                 {
                     seats[i][j] = new Seat(SeatIDGenerator(i, j), 1);
                 }

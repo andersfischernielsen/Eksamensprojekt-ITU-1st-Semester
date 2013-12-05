@@ -156,8 +156,22 @@ public class GraphicsComponent
                     // checks the availability of the seat. and change the color
                     if (planeToDraw.getSeatAvailability(Plane.SeatIDGenerator(i, j)))
                     {
-                        // if its available make it green
-                        g.setColor(Color.GREEN);
+                        // if its available.
+                        // if its businessclass
+                        if (planeToDraw.getSeat(Plane.SeatIDGenerator(i, j)).getGroup()== 1)
+                        {
+                            g.setColor(new Color(20,245,20));
+                        }
+                        // if its firstClass
+                        else if (planeToDraw.getSeat(Plane.SeatIDGenerator(i, j)).getGroup()== 2)
+                        {
+                            g.setColor(new Color(125,255,125));
+                        }
+                        // if its economy
+                        else
+                        {
+                            g.setColor(new Color(45,230,45));
+                        }
                     }
                     else
                     {
@@ -188,25 +202,6 @@ public class GraphicsComponent
                 fixdistanceX = 25;
             }
             g.setColor(Color.BLACK);
-            // creates a 2dGraphics which can rotate and draw strings.
-            /*
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setColor(Color.BLACK);
-            // creates the font to draw the classes strings with.
-            Font classFont = new Font("Monospaced", Font.BOLD, 12);
-            g2.setFont(classFont);
-            // rotates the 2DGraphics object.
-            g2.rotate(0.7);
-            // if the flight has less than 10 columns, there is no firstclass.
-            if (cols >= 10)
-            {
-                // draw the firstclass
-                g2.drawString("F. class", cols * unit / 10.9f, -rows * unit / 9.8f);
-            }
-            // draw the other classes strings
-            g2.drawString("B. class", cols * unit / 4, -rows * unit / 10 - cols * unit / 8);
-            g2.drawString("E. class", cols * unit / 1.45f, -rows * unit / 10 - cols * unit / 2f);
-            */
         }
 
         @Override
@@ -346,6 +341,7 @@ public class GraphicsComponent
      */
     private class HeaderGraphicsComponent extends JComponent
     {
+
         private int height, width;
 
         public HeaderGraphicsComponent(int height, int width)
