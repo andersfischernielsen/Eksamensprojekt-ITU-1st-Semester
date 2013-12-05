@@ -27,6 +27,8 @@ public class Controller implements ControllerInterface {
     @Override
     public void createReservation()
     {
+        // resets the controller and make a new reservation.
+        resetController();
         workingOnReservation = new Reservation();
     }
 
