@@ -369,23 +369,35 @@ public class PersonAndSeatFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (firstNameField.getText().equals("")
-                        || firstNameField.getText().equals(" ")) {
+                if (firstNameField.getText().equals("") || 
+                                            firstNameField.getText().equals(" ") 
+                    && lastNameField.getText().equals("") || 
+                                             lastNameField.getText().equals(" ") 
+                    && addressField.getText().equals("") || 
+                                           addressField.getText().equals(" ")) {
+                    //Do nothing.
+                }
+                        
+                        
+                if (firstNameField.getText().equals("") || 
+                                         firstNameField.getText().equals(" ")) {
                     firstNameField.setText("Name missing!");
                     firstNameField.setForeground(Color.LIGHT_GRAY);
                 }
 
-                if (lastNameField.getText().equals("")
-                        || lastNameField.getText().equals(" ")) {
+                if (lastNameField.getText().equals("")  || 
+                                          lastNameField.getText().equals(" ")) {
                     lastNameField.setText("Name missing!");
                     lastNameField.setForeground(Color.LIGHT_GRAY);
                 }
 
-                if (addressField.getText().equals("")
-                        || addressField.getText().equals(" ")) {
+                if (addressField.getText().equals("") || 
+                                           addressField.getText().equals(" ")) {
                     addressField.setText("Address missing!");
                     addressField.setForeground(Color.LIGHT_GRAY);
-                } else {
+                }
+                
+                else {
                     addPerson();
                     ageGroupComboBox.setSelectedIndex(0);
                 }
