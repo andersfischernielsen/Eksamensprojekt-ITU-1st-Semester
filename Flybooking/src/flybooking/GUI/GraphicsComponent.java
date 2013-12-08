@@ -160,17 +160,17 @@ public class GraphicsComponent
                         // if its businessclass
                         if (planeToDraw.getSeat(Plane.SeatIDGenerator(i, j)).getGroup()== 1)
                         {
-                            g.setColor(new Color(20,245,20));
+                            g.setColor(new Color(0,222,120));
                         }
                         // if its firstClass
                         else if (planeToDraw.getSeat(Plane.SeatIDGenerator(i, j)).getGroup()== 2)
                         {
-                            g.setColor(new Color(125,255,125));
+                            g.setColor(new Color(45,255,45));
                         }
                         // if its economy
                         else
                         {
-                            g.setColor(new Color(45,230,45));
+                            g.setColor(new Color(120,222,0));
                         }
                     }
                     else
