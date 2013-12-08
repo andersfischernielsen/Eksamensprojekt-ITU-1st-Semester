@@ -1,3 +1,4 @@
+
 package flybooking.GUI;
 
 import flybooking.*;
@@ -12,37 +13,36 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Anders Wind Steffensen, Anders Fischer-Nielsen
  */
-public class PersonAndSeatFrame extends JFrame
-{
+public class PersonAndSeatFrame extends JFrame {
 
     //The plane to draw.
-    private Plane planeToDraw; 
+    private Plane planeToDraw;
     //The graphics to use.
-    private GraphicsComponent graphics; 
+    private GraphicsComponent graphics;
     //the controller to use.
     private Controller controller;
     //The current reservation.
-    private ReservationInterface reservation; 
+    private ReservationInterface reservation;
     private ArrayList<String> seatIDsThisRes, seatIDsNotInThisRes;
     //The amount of passengers in the reservation.
-    private int amtOfPersons; 
+    private int amtOfPersons;
     //The passengers in the reservation.
-    private ArrayList<Person> persons; 
+    private ArrayList<Person> persons;
     //Comboboxes for the UI.
-    private JComboBox personComboBox, ageGroupComboBox; 
+    private JComboBox personComboBox, ageGroupComboBox;
     private JComponent planeDrawingComp;
     //Text labels for the UI.
-    private JLabel firstNameLabel, lastNameLabel, addressLabel; 
+    private JLabel firstNameLabel, lastNameLabel, addressLabel;
     //Input fields for the UI.
-    private JTextField firstNameField, lastNameField, addressField; 
+    private JTextField firstNameField, lastNameField, addressField;
     //Buttons for the UI.
-    private JButton bookButton, addButton, deleteButton; 
+    private JButton bookButton, addButton, deleteButton;
     //Panels for setting up the UI.
-    private JPanel top, topContent, filler, filler2, filler3, graphicsPanel; 
+    private JPanel top, topContent, filler, filler2, filler3, graphicsPanel;
     //A scrollpane for the graphics component.
-    private JScrollPane scrollpane; 
+    private JScrollPane scrollpane;
     //A string for the person combobox.
-    private String addItem; 
+    private String addItem;
 
     public PersonAndSeatFrame()
     {
@@ -73,23 +73,19 @@ public class PersonAndSeatFrame extends JFrame
         seatIDsNotInThisRes = controller.getBookedSeats();
         seatIDsThisRes = controller.getBookedThisResSeats();
         persons = controller.getBookedPersons();
-        
+
         //Takes all the booked seats on this flight and removes those which is
         // on this reservation.
-        for (Iterator<String> it = seatIDsNotInThisRes.iterator(); it.hasNext();)
-        {
+        for (Iterator<String> it = seatIDsNotInThisRes.iterator(); it.hasNext();) {
             String seatIDNotThisRes = it.next();
-            for (String seatIDthisRes : seatIDsThisRes)
-            {
-                if (seatIDNotThisRes.equals(seatIDthisRes))
-                {
+            for (String seatIDthisRes : seatIDsThisRes) {
+                if (seatIDNotThisRes.equals(seatIDthisRes)) {
                     it.remove();
                 }
             }
         }
         planeToDraw.bookTakenSeats(seatIDsNotInThisRes);
-        
-        
+
     }
 
     /**
@@ -131,10 +127,10 @@ public class PersonAndSeatFrame extends JFrame
         bookButton.setDefaultCapable(true);
 
         //Initialize all dropdowns.
-        String[] ages =
-        {
-            "Adult", "Child", "Elderly"
-        };
+        String[] ages
+                = {
+                    "Adult", "Child", "Elderly"
+                };
         ageGroupComboBox = new JComboBox(ages);
         personComboBox = new JComboBox(getPeopleAsArray());
         personComboBox.setMaximumSize(new Dimension(100, 25));
@@ -192,13 +188,12 @@ public class PersonAndSeatFrame extends JFrame
         //Count the number of people, and add a new person to the list of 
         //passengers.
         countPeople();
-        persons.add(new Person(firstNameField.getText(), lastNameField.getText(), 
-                              Converter.createPersonID(), addressField.getText(), 
-                                                  getGroupID(ageGroupComboBox)));
-        
+        persons.add(new Person(firstNameField.getText(), lastNameField.getText(),
+                Converter.createPersonID(), addressField.getText(),
+                getGroupID(ageGroupComboBox)));
+
         if (!personComboBox.getSelectedItem().equals(addItem)) {
-            if (persons.size() != 1)
-            {
+            if (persons.size() != 1) {
                 deletePerson();
             }
         }
@@ -218,7 +213,7 @@ public class PersonAndSeatFrame extends JFrame
         //Add the "Add another..." item.
         addItem = "Add another...";
         personComboBox.addItem(addItem);
-        
+
         personComboBox.setSelectedIndex(personComboBox.getItemCount() - 1);
         //Reset the addButton to its default state.
         addButton.setText("Add");
@@ -246,38 +241,33 @@ public class PersonAndSeatFrame extends JFrame
      */
     private void confirmReservation()
     {
-        if (seatIDsThisRes.size() != persons.size())
-        {
+        if (seatIDsThisRes.size() != persons.size()) {
             JOptionPane.showMessageDialog(null, "You havent booked the same "
-                  + "amount of seats as the amounts of persons this booking!", 
+                    + "amount of seats as the amounts of persons this booking!",
                     "You havent booked the same amount of seats as the amounts "
-                  + "of persons this booking!", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (seatIDsThisRes.isEmpty() || persons.isEmpty())
-        { 
-            JOptionPane.showMessageDialog(null, 
-                           "You havent booked any persons "
-                         + "or seats", "You havent booked any persons or seats", 
-                           JOptionPane.ERROR_MESSAGE);
+                    + "of persons this booking!", JOptionPane.ERROR_MESSAGE);
+        } else if (seatIDsThisRes.isEmpty() || persons.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "You havent booked any persons "
+                    + "or seats", "You havent booked any persons or seats",
+                    JOptionPane.ERROR_MESSAGE);
         } else {
             reservation.bookSeats(seatIDsThisRes);
             // Remove all existing persons in reservation
             reservation.clearPersonList();
-            
+
             //Add all the people to the reservation.
-            for (Person p : persons)
-            {
+            for (Person p : persons) {
                 reservation.addPerson(p);
             }
 
             //Save the reservation.
             ArrayList<Integer> groupIDsOfSeats = new ArrayList<Integer>();
-            for (String seatID : seatIDsThisRes)
-            {
+            for (String seatID : seatIDsThisRes) {
                 groupIDsOfSeats.add(planeToDraw.getSeat(seatID).getGroup());
             }
             reservation.setPrice(Converter.getFinalPrice(reservation.getFlight()
-                                    .getPrice(), reservation.getBookedPersons(), groupIDsOfSeats));
+                    .getPrice(), reservation.getBookedPersons(), groupIDsOfSeats));
             controller.setWorkingOnReservation(reservation);
             //Create the final window.
             PaymentFrame paymentFrame = new PaymentFrame();
@@ -292,8 +282,7 @@ public class PersonAndSeatFrame extends JFrame
     private void countPeople()
     {
         amtOfPersons = 0;
-        for (Person person : persons)
-        {
+        for (Person person : persons) {
             amtOfPersons++;
         }
     }
@@ -310,14 +299,12 @@ public class PersonAndSeatFrame extends JFrame
         //Init a list of strings for the names of people.
         String[] peopleInReservation = new String[personsAsArray.length];
 
-        if (personsAsArray.length > 0)
-        {
+        if (personsAsArray.length > 0) {
             //For every person, get his/her first name and add it to the array.
-            for (int i = 0; i < personsAsArray.length; i++)
-            {
+            for (int i = 0; i < personsAsArray.length; i++) {
                 Person temp = (Person) personsAsArray[i];
-                peopleInReservation[i] = temp.getFirstName() + " " + 
-                                                              temp.getLastName();
+                peopleInReservation[i] = temp.getFirstName() + " "
+                        + temp.getLastName();
             }
         }
 
@@ -336,14 +323,13 @@ public class PersonAndSeatFrame extends JFrame
      */
     private void addListeners()
     {
-        planeDrawingComp.addMouseListener(new MouseListener()
-        {
+        planeDrawingComp.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e)
             {
                 seatIDsThisRes = graphics.getSeatIDsThisRes();
-                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw, 
-                                            e.getX(), e.getY(), seatIDsThisRes);
+                planeDrawingComp = graphics.paintPlaneSeats(planeToDraw,
+                        e.getX(), e.getY(), seatIDsThisRes);
                 repaint();
                 pack();
             }
@@ -370,29 +356,44 @@ public class PersonAndSeatFrame extends JFrame
         });
 
         //Add an ActionListener to the bookButton to confirm reservations.
-        bookButton.addActionListener(new ActionListener()
-        {
+        bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                    confirmReservation();
+                confirmReservation();
             }
         });
 
         //Add an ActionListener to the addButton to add people.
-        addButton.addActionListener(new ActionListener()
-        {
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                addPerson();
-                ageGroupComboBox.setSelectedIndex(0);
+                if (firstNameField.getText().equals("")
+                        || firstNameField.getText().equals(" ")) {
+                    firstNameField.setText("Name missing!");
+                    firstNameField.setForeground(Color.LIGHT_GRAY);
+                }
+
+                if (lastNameField.getText().equals("")
+                        || lastNameField.getText().equals(" ")) {
+                    lastNameField.setText("Name missing!");
+                    lastNameField.setForeground(Color.LIGHT_GRAY);
+                }
+
+                if (addressField.getText().equals("")
+                        || addressField.getText().equals(" ")) {
+                    addressField.setText("Address missing!");
+                    addressField.setForeground(Color.LIGHT_GRAY);
+                } else {
+                    addPerson();
+                    ageGroupComboBox.setSelectedIndex(0);
+                }
             }
         });
 
         //Add an ActionListener to the removeButton to remove people.
-        deleteButton.addActionListener(new ActionListener()
-        {
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
@@ -401,43 +402,90 @@ public class PersonAndSeatFrame extends JFrame
         });
 
         //Add an ActionListener to the personComboBox to keep track of people.
-        personComboBox.addActionListener(new ActionListener()
-        {
+        personComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 //If the clicked item is the addItem, then empty all of the 
                 //text fields.
-                if (personComboBox.getSelectedItem().equals(addItem))
-                {
+                if (personComboBox.getSelectedItem().equals(addItem)) {
                     emptyTextFields();
 
                     //And then end the method.
                     return;
                 }
-
+                
                 //If the clicked item isn't the addItem it must be a person.
                 Person temp = persons.get(personComboBox.getSelectedIndex());
                 addButton.setText("Save");
-                
-		//Set the age group to the selected person's group. 
+
+                //Set the age group to the selected person's group. 
                 ageGroupComboBox.setSelectedIndex(temp.getGroupID());
-				
+
                 //Then set the fields with that persons information.
                 //First we get the id of the selected person.
                 int ID = temp.getID();
 
                 //Then we go through all the persons, see if the ID's are 
                 //matching, and if it is get that person's info.
-                for (Person p : persons)
-                {
-                    if (p.getID() == ID)
-                    {
+                for (Person p : persons) {
+                    if (p.getID() == ID) {
                         firstNameField.setText(p.getFirstName());
                         lastNameField.setText(p.getLastName());
                         addressField.setText(p.getAdress());
                     }
                 }
+            }
+        });
+
+        firstNameField.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                firstNameField.setForeground(Color.BLACK);
+                firstNameField.setSelectionStart(0);
+                firstNameField.setSelectionEnd(firstNameField.getText().length());
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                
+            }
+        });
+
+        lastNameField.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                lastNameField.setForeground(Color.BLACK);
+                lastNameField.setSelectionStart(0);
+                lastNameField.setSelectionEnd(lastNameField.getText().length());
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                
+            }
+        });
+        
+        addressField.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                addressField.setForeground(Color.BLACK);
+                addressField.setSelectionStart(0);
+                addressField.setSelectionEnd(addressField.getText().length());
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+
             }
         });
     }
@@ -449,19 +497,17 @@ public class PersonAndSeatFrame extends JFrame
      * @param combobox The JComboBox to check.
      *
      * @return 0 if adult is selected, 1 if child is selected and 2 if elderly
-     *         is selected.
+     * is selected.
      */
     private int getGroupID(JComboBox combobox)
     {
         // If the person is a child, set the ID to 1.
-        if (combobox.getSelectedItem().equals("Child"))
-        {
+        if (combobox.getSelectedItem().equals("Child")) {
             return 1;
         }
 
         //If the person is elderly, set the ID to 2.
-        if (combobox.getSelectedItem().equals("Elderly"))
-        {
+        if (combobox.getSelectedItem().equals("Elderly")) {
             return 2;
         }
 
@@ -472,6 +518,6 @@ public class PersonAndSeatFrame extends JFrame
     @Override
     public final void pack()
     {
-        
+
     }
 }

@@ -180,16 +180,6 @@ public class NewReservationFrame extends JFrame {
      */
     private void addActionListeners()
     {
-        //Add an ActionListener that changes the chosenPeople to the value chosen when clicked.
-        //peopleDropdown.addActionListener(new ActionListener() {
-        //    public void actionPerformed(ActionEvent e)
-        //    {
-        //        JComboBox cb = (JComboBox) e.getSource();
-                //Same as above just with an integer.
-        //        chosenPeople = Integer.parseInt(cb.getSelectedItem().toString());
-        //    }
-        //});
-
         //Adds an ActionListener that changes chosenStartDestination to the value chosen when clicked.
         startDestDropdown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
