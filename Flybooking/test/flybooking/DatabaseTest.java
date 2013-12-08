@@ -169,9 +169,9 @@ public class DatabaseTest
     public void testGetFlightList()
     {
         System.out.println("getFlightList");
-        Date departureDate = null;
-        String startDestination = "";
-        String endDestination = "";
+        Date departureDate = new Date();
+        String startDestination = " Copenhagen";
+        String endDestination = "Los Angeles";
         Database instance = null;
         ArrayList<FlightInterface> expResult = null;
         ArrayList<FlightInterface> result = instance.getFlightList(departureDate, startDestination, endDestination);
