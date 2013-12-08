@@ -9,7 +9,7 @@ import java.util.Calendar;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
- * Create a database handler that connects to a database and does stuff.
+ * Create a database handler that inserts and retrieves data from a database.
  *
  * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
