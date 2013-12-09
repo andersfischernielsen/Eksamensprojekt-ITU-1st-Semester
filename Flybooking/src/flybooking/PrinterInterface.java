@@ -28,11 +28,17 @@ public interface PrinterInterface {
     String createAirportDetails();
 
     /**
-     * Create the details about the people in the reservation and the seats they're on. 
+     * Create the details about the people in the reservation. 
      * @return A string with details about the people in the reservation.
      */
     String createPeopleDetails(); 
 
+    /**
+     * Create the details about the seats booked in the reservation.
+     * @return a String with details about the booked seats.
+     */
+    String createSeatDetails();
+    
     /**
      * Create the details about the plane in the reservation.
      * @return A string with details about the plane in the reservation. 
