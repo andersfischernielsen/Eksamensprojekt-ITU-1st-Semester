@@ -29,9 +29,8 @@ public class Database implements DatabaseInterface
         try
         {
             // make a connection to the database.
-            con = DriverManager.getConnection
-                    ("jdbc:mysql://mysql.itu.dk:3306/" + name
-                    + "?autoReconnect=true", login, password);
+            con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/" 
+                    + name +"?autoReconnect=true", login, password);
         } catch (SQLException e)
         {
             showMessageDialog(null, "Couldn't connect to the database!");
@@ -47,13 +46,13 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             rs = statement.executeQuery("SELECT * FROM Plane "
-                                      + "WHERE ID = '" + PlaneID + "'");
+                    + "WHERE ID = '" + PlaneID + "'");
             rs.next();
 
             // use the selected data from the database to create a plane.
-            return new Plane(   rs.getString("ID"), 
-                                rs.getInt("rows"), 
-                                rs.getInt("columns"));
+            return new Plane(rs.getString("ID"),
+                    rs.getInt("rows"),
+                    rs.getInt("columns"));
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -70,13 +69,13 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             rs = statement.executeQuery("SELECT * FROM Airport "
-                                      + "WHERE Airport.code = '" 
-                                      + AirportCityID + "'");
+                    + "WHERE Airport.code = '"
+                    + AirportCityID + "'");
             rs.next();
 
             // use the selected data from the database to create an airport object.
-            return new Airport(AirportCityID, rs.getString("Country"), 
-                                              rs.getString("City"));
+            return new Airport(AirportCityID, rs.getString("Country"),
+                    rs.getString("City"));
 
         } catch (SQLException e)
         {
@@ -102,8 +101,8 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             rs = statement.executeQuery("SELECT code FROM Airport "
-                                      + "WHERE city = '" 
-                                      + AirportCityName + "'");
+                    + "WHERE city = '"
+                    + AirportCityName + "'");
 
             rs.next();
             // returns the code
@@ -125,14 +124,14 @@ public class Database implements DatabaseInterface
             ResultSet rs = null;
             Statement statement = con.createStatement();
             rs = statement.executeQuery("SELECT * FROM People "
-                                      + "WHERE People.ID = " + PersonID);
+                    + "WHERE People.ID = " + PersonID);
             rs.next();
             // Create a person with the information from the database.
-            return new Person(rs.getString("Firstname"), 
-                              rs.getString("Lastname"), 
-                              rs.getInt("ID"), 
-                              rs.getString("Address"), 
-                              rs.getInt("groupID"));
+            return new Person(rs.getString("Firstname"),
+                    rs.getString("Lastname"),
+                    rs.getInt("ID"),
+                    rs.getString("Address"),
+                    rs.getInt("groupID"));
 
         } catch (SQLException ex)
         {
@@ -155,13 +154,13 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             statement.executeUpdate("INSERT INTO People (ID, ReservationID, "
-                                  + "firstName, lastName, address, groupID) "
-                                  + "VALUES (" + person.getID() + ", '" 
-                                  + ReservationID + "', '" 
-                                  + person.getFirstName() + "' , '"
-                                  + person.getLastName() + "' , '" 
-                                  + person.getAdress() + "' ," 
-                                  + person.getGroupID() + ")");
+                    + "firstName, lastName, address, groupID) "
+                    + "VALUES (" + person.getID() + ", '"
+                    + ReservationID + "', '"
+                    + person.getFirstName() + "' , '"
+                    + person.getLastName() + "' , '"
+                    + person.getAdress() + "' ,"
+                    + person.getGroupID() + ")");
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -198,21 +197,21 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             rs = statement.executeQuery("SELECT * FROM Flight "
-                                      + "WHERE ID = " + flightID + "");
+                    + "WHERE ID = " + flightID + "");
             // go through the resultset to create a flight for each row
             // this is unnecesary since we should only find one flight object.
             while (!rs.isClosed() && rs.next())
             {
                 //create the flight. Date is created by adding the time(hh, mm) 
                 // and the date(dd, MM, yyyy) into the new Date().
-                flight = new Flight(rs.getDouble("price"), rs.getInt("ID"), 
-                         getPlane(rs.getString("plane")), 
-                         new Date(rs.getDate("startDate").getTime() 
-                       + rs.getTime("startDate").getTime()), 
-                         new Date(rs.getDate("endDate").getTime() 
-                       + rs.getTime("endDate").getTime()), 
-                         getAirport(rs.getString("startAirport")), 
-                         getAirport(rs.getString("endAirport")));
+                flight = new Flight(rs.getDouble("price"), rs.getInt("ID"),
+                        getPlane(rs.getString("plane")),
+                        new Date(rs.getDate("startDate").getTime()
+                        + rs.getTime("startDate").getTime()),
+                        new Date(rs.getDate("endDate").getTime()
+                        + rs.getTime("endDate").getTime()),
+                        getAirport(rs.getString("startAirport")),
+                        getAirport(rs.getString("endAirport")));
             }
         } catch (SQLException e)
         {
@@ -223,7 +222,7 @@ public class Database implements DatabaseInterface
 
     @Override
     public ArrayList<FlightInterface> getFlightList(Date departureDate,
-                                                    String startDestination, 
+                                                    String startDestination,
                                                     String endDestination)
     {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -236,33 +235,31 @@ public class Database implements DatabaseInterface
             if (departureDate != null)
             {
                 //  if a date is given.
-            //Create a new Date called startDate which is departureDate -4 days. 
-            //Create a new Date called endDate which is departureDate +4 days. 
-                Date startDate = new Date
-                        (departureDate.getTime() - 4 * 24 * 60 * 60 * 1000);
-                Date endDate = new Date
-                        (departureDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+                //Create a new Date called startDate which is departureDate -4 days. 
+                //Create a new Date called endDate which is departureDate +4 days. 
+                Date startDate = new Date(departureDate.getTime() - 4 * 24 * 60 * 60 * 1000);
+                Date endDate = new Date(departureDate.getTime() + 4 * 24 * 60 * 60 * 1000);
                 String startDateString = df.format(startDate);
                 String endDateString = df.format(endDate);
                 //Search betweeen these two dates:
                 rs = statement.executeQuery("SELECT * FROM Flight "
-                                          + "WHERE endAirport = '" 
-                                          + getAirportID(endDestination) 
-                                          + "' AND startAirport = '" 
-                                          + getAirportID(startDestination) 
-                                          + "' AND startDate BETWEEN '"
-                                          + startDateString + "' AND '" 
-                                          + endDateString + "'");
+                        + "WHERE endAirport = '"
+                        + getAirportID(endDestination)
+                        + "' AND startAirport = '"
+                        + getAirportID(startDestination)
+                        + "' AND startDate BETWEEN '"
+                        + startDateString + "' AND '"
+                        + endDateString + "'");
             }
             else
             {
                 // if no date is given
                 rs = statement.executeQuery("SELECT * FROM Flight "
-                                          + "WHERE endAirport = '" 
-                                          + getAirportID(endDestination) 
-                                          + "' AND startAirport = '" 
-                                          + getAirportID(startDestination) 
-                                          + "'");
+                        + "WHERE endAirport = '"
+                        + getAirportID(endDestination)
+                        + "' AND startAirport = '"
+                        + getAirportID(startDestination)
+                        + "'");
             }
 
             while (!rs.isClosed() && rs.next())
@@ -270,15 +267,15 @@ public class Database implements DatabaseInterface
                 // goes through the resultset and create a new flight.
                 //create the flight. Date is created by adding the time(hh, mm) 
                 // and the date(dd, MM, yyyy) into the new Date().
-                flights.add(new Flight(rs.getDouble("price"), 
-                                       rs.getInt("ID"), 
-                                       getPlane(rs.getString("plane")), 
-                                       new Date(rs.getDate("startDate").getTime()
-                                     + rs.getTime("startDate").getTime()), 
-                                       new Date(rs.getDate("endDate").getTime()
-                                     + rs.getTime("endDate").getTime()), 
-                                       getAirport(getAirportID(startDestination)), 
-                                       getAirport(getAirportID(endDestination))));
+                flights.add(new Flight(rs.getDouble("price"),
+                        rs.getInt("ID"),
+                        getPlane(rs.getString("plane")),
+                        new Date(rs.getDate("startDate").getTime()
+                        + rs.getTime("startDate").getTime()),
+                        new Date(rs.getDate("endDate").getTime()
+                        + rs.getTime("endDate").getTime()),
+                        getAirport(getAirportID(startDestination)),
+                        getAirport(getAirportID(endDestination))));
             }
 
         } catch (SQLException e)
@@ -306,8 +303,8 @@ public class Database implements DatabaseInterface
             {
                 Statement statement = con.createStatement();
                 rsReservation = statement.executeQuery("SELECT * FROM Reservation "
-                                                     + "WHERE CPR = '"
-                                                     + CPR + "';");
+                        + "WHERE CPR = '"
+                        + CPR + "';");
             } catch (SQLException ex)
             {
                 ex.printStackTrace();
@@ -320,8 +317,8 @@ public class Database implements DatabaseInterface
             {
                 Statement statement = con.createStatement();
                 rsReservation = statement.executeQuery("SELECT * FROM Reservation "
-                                                     + "WHERE ID = '" 
-                                                     + reservationID + "';");
+                        + "WHERE ID = '"
+                        + reservationID + "';");
             } catch (SQLException ex)
             {
                 ex.printStackTrace();
@@ -352,9 +349,9 @@ public class Database implements DatabaseInterface
                     ResultSet rsSeat = null;
                     Statement statement2 = con.createStatement();
                     rsSeat = statement2.executeQuery("SELECT * FROM Seat "
-                                                   + "WHERE ReservationID = '"
-                                                   + rsReservation.getString("ID")
-                                                   + "';");
+                            + "WHERE ReservationID = '"
+                            + rsReservation.getString("ID")
+                            + "';");
 
                     while (!rsSeat.isClosed() && rsSeat.next())
                     {
@@ -370,9 +367,9 @@ public class Database implements DatabaseInterface
                     ResultSet rsPerson = null;
                     Statement statement3 = con.createStatement();
                     rsPerson = statement3.executeQuery("SELECT * FROM People "
-                                                     + "WHERE ReservationID = '"
-                                                     + rsReservation.getString("ID")
-                                                     + "';");
+                            + "WHERE ReservationID = '"
+                            + rsReservation.getString("ID")
+                            + "';");
                     while (!rsPerson.isClosed() && rsPerson.next())
                     {
                         personsThisRes.add(getPerson(rsPerson.getInt("ID")));
@@ -406,12 +403,12 @@ public class Database implements DatabaseInterface
             {
                 Statement statement = con.createStatement();
                 statement.executeUpdate("INSERT INTO Reservation "
-                                      + "(ID, flight, CPR, price) "
-                                      + "VALUES ('" + reservationToMake.getID()
-                                      + "', " + reservationToMake.getFlight().getID()
-                                      + ", '" + reservationToMake.getCPR()
-                                      + "' , " + reservationToMake.getPrice()
-                                      + ")");
+                        + "(ID, flight, CPR, price) "
+                        + "VALUES ('" + reservationToMake.getID()
+                        + "', " + reservationToMake.getFlight().getID()
+                        + ", '" + reservationToMake.getCPR()
+                        + "' , " + reservationToMake.getPrice()
+                        + ")");
             } catch (SQLException e)
             {
                 e.printStackTrace();
@@ -443,13 +440,13 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             statement.executeUpdate("DELETE FROM Reservation "
-                                  + "WHERE ID = '" + reservationID + "'");
+                    + "WHERE ID = '" + reservationID + "'");
             statement.executeUpdate("DELETE FROM Seat "
-                                  + "WHERE ReservationID = '" 
-                                  + reservationID + "'");
+                    + "WHERE ReservationID = '"
+                    + reservationID + "'");
             statement.executeUpdate("DELETE FROM People "
-                                  + "WHERE ReservationID = '" 
-                                  + reservationID + "'");
+                    + "WHERE ReservationID = '"
+                    + reservationID + "'");
         } catch (SQLException ex)
         {
             ex.printStackTrace();
@@ -476,6 +473,8 @@ public class Database implements DatabaseInterface
         {
             ex.printStackTrace();
         }
+
+
 
         return airports;
     }
@@ -509,8 +508,8 @@ public class Database implements DatabaseInterface
                 // as a string.
                 String idToString = "" + ID;
                 matchingIDs = statement.executeQuery("SELECT * FROM Reservation "
-                                                   + "WHERE ID = '" + idToString
-                                                   + "'");
+                        + "WHERE ID = '" + idToString
+                        + "'");
                 if (matchingIDs.next())
                 {
                     return false;
@@ -528,7 +527,7 @@ public class Database implements DatabaseInterface
                 ResultSet matchingIDs = null;
                 Statement statement = con.createStatement();
                 matchingIDs = statement.executeQuery("SELECT * FROM People "
-                                                   + "WHERE " + ID + " IN(ID)");
+                        + "WHERE " + ID + " IN(ID)");
                 if (matchingIDs.next())
                 {
                     return false;
@@ -552,7 +551,7 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             rs = statement.executeQuery("SELECT * FROM Reservation "
-                                      + "WHERE flight = " + flightID);
+                    + "WHERE flight = " + flightID);
             while (!rs.isClosed() && rs.next())
             {
                 // get all reservations on this flight.
@@ -595,8 +594,8 @@ public class Database implements DatabaseInterface
         {
             Statement statement = con.createStatement();
             rs = statement.executeQuery("SELECT * FROM Seat "
-                                      + "WHERE reservationID ='" 
-                                      + reservationID + "'");
+                    + "WHERE reservationID ='"
+                    + reservationID + "'");
             while (!rs.isClosed() && rs.next())
             {
                 seatIDsToReturn.add(rs.getString("seatID"));
