@@ -169,4 +169,10 @@ public class Controller implements ControllerInterface {
     {
         return database.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
     }
+    
+    @Override
+    public boolean CheckIDInDataBase(int IDToCheck)
+    {
+        return database.checkForID(IDToCheck);
+    }
 }
