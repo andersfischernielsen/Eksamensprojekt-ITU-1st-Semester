@@ -3,8 +3,7 @@ package flybooking.GUI;
 
 import flybooking.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -38,7 +37,7 @@ public class PaymentFrame extends JFrame {
         peopleInReservation = currentReservation.getPersons();
 
         drawFrame();
-        addActionListeners();
+        addListeners();
     }
 
     private void drawFrame()
@@ -97,7 +96,7 @@ public class PaymentFrame extends JFrame {
         setVisible(true);
     }
 
-    private void addActionListeners()
+    private void addListeners()
     {
         confirmButton.addActionListener(new ActionListener() {
 
@@ -126,10 +125,26 @@ public class PaymentFrame extends JFrame {
                         setVisible(false);
                         dispose();
                     } else {
-                        receiptArea.setText("ERROR! COULDN'T SAVE RESERVATION");
+                        receiptArea.setText("COULDN'T SAVE RESERVATION");
                         receiptArea.setBackground(Color.red);
                     }
                 }
+            }
+        });
+        
+        CPRField.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                  CPRField.setSelectionStart(0);
+                  CPRField.setSelectionEnd(CPRField.getText().length());
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                //Do nothing.
             }
         });
     }
