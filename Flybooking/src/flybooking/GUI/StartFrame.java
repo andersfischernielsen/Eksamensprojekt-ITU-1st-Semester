@@ -20,7 +20,6 @@ public class StartFrame extends JFrame {
     JPanel buttonPanel;
     JButton newBookingButton;
     JButton editBookingButton;
-    private DatabaseInterface database;
     private ControllerInterface controller;
     private static StartFrame instance = null;
 
@@ -37,7 +36,6 @@ public class StartFrame extends JFrame {
      */
     private StartFrame() throws HeadlessException
     {
-        database = Database.getInstance();
         controller = Controller.getInstance();
         drawFrame();
         addActionListeners();
