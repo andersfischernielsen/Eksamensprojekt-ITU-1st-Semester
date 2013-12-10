@@ -34,6 +34,8 @@ public class Printer implements PrinterInterface
         string += "\n";
         string += createPeopleDetails();
         string += "\n";
+        string += createSeatDetails();
+        string += "\n";
         string += createPlaneDetails();
         string += "\n\n";
         string += createPriceDetails();
@@ -99,6 +101,18 @@ public class Printer implements PrinterInterface
         return finalString;
     }
 
+    @Override
+    public String createSeatDetails()
+    {
+        String finalString = "Seats: \n             ";
+ 
+        for (String seatID : reservation.getBookedSeats())
+        {
+            finalString += seatID + "\n             ";
+        }
+        return finalString;
+    }
+    
     @Override
     public String createPlaneDetails()
     {
