@@ -141,7 +141,7 @@ public class Converter
         {
             int personID = randomGen.nextInt(99999);
             
-            if (personID > 89999 && controller.CheckIDInDataBase(personID))
+            if (personID > 9999 && controller.CheckIDInDataBase(personID))
             {
                 return personID;
             }
@@ -159,7 +159,7 @@ public class Converter
         while (true)
         {
             int reservationID = randomGen.nextInt(9999);
-            if (reservationID > 8999 && controller.CheckIDInDataBase(reservationID))
+            if (reservationID > 999 && controller.CheckIDInDataBase(reservationID))
             {
                 return reservationID + "";
             }
