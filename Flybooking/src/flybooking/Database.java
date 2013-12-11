@@ -347,7 +347,7 @@ public class Database implements DatabaseInterface
             else
             {
                 // if no date is given
-                rs = statement.executeQuery("SELECT * FROM Flight "
+                rs = statement.executeQuery("SELECT ID FROM Flight "
                         + "WHERE endAirport = '"
                         + getAirportID(endDestination)
                         + "' AND startAirport = '"
@@ -357,18 +357,10 @@ public class Database implements DatabaseInterface
 
             while (!rs.isClosed() && rs.next())
             {
-                // goes through the resultset and create a new flight.
-                //create the flight. Date is created by adding the time(hh, mm) 
-                // and the date(dd, MM, yyyy) into the new Date().
-                flights.add(new Flight(rs.getDouble("price"),
-                                       rs.getInt("ID"),
-                                       getPlane(rs.getString("plane")),
-                                       new Date(rs.getDate("startDate").getTime()
-                        + rs.getTime("startDate").getTime()),
-                                       new Date(rs.getDate("endDate").getTime()
-                        + rs.getTime("endDate").getTime()),
-                                       getAirport(getAirportID(startDestination)),
-                                       getAirport(getAirportID(endDestination))));
+                // goes through the resultset and calls the getFlight method 
+                // with the ID picked from the resultset as parameter
+                flights.add(getFlight(rs.getInt("ID")));
+
             }
 
         }
