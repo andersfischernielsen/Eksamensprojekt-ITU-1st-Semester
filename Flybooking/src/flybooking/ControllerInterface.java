@@ -141,7 +141,7 @@ public interface ControllerInterface
     /**
      * Checks if the database has any ID mathcing the IDToCheck.
      * @param IDToCheck the ID to check for in the database.
-     * @return boolean wether it is taken or not.
+     * @return false if it is taken and true if its free.
      */
     public boolean CheckIDInDataBase(int IDToCheck);
     
