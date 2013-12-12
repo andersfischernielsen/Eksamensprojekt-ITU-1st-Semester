@@ -303,42 +303,39 @@ public class Database implements DatabaseInterface
                                                     String endDestination)
     {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
         ArrayList<FlightInterface> flights = new ArrayList<>();
         ResultSet rs = null;
+        String queryForFlight;
+        Date startDate = null;
+        Date endDate = null;
+        String startDateString = null;
+        String endDateString = null;
+        if (startDate != null )
+        {
+            startDateString = df.format(startDate);
+            endDateString = df.format(endDate);
+        }
         try
         {
             Statement statement = con.createStatement();
-            if (departureDate != null)
+            queryForFlight = "SELECT ID FROM Flight WHERE ";
+            if (startDestination != null && !startDestination.equals(""))
             {
-                //  if a date is given.
-                //Create a new Date called startDate which is departureDate -4 days. 
-                //Create a new Date called endDate which is departureDate +4 days. 
-                Date startDate = new Date(departureDate.getTime() - 4 * 24 * 60 * 60 * 1000);
-                Date endDate = new Date(departureDate.getTime() + 4 * 24 * 60 * 60 * 1000);
-                String startDateString = df.format(startDate);
-                String endDateString = df.format(endDate);
-                //Search betweeen these two dates:
-                rs = statement.executeQuery("SELECT * FROM Flight "
-                        + "WHERE endAirport = '"
-                        + getAirportID(endDestination)
-                        + "' AND startAirport = '"
-                        + getAirportID(startDestination)
-                        + "' AND startDate BETWEEN '"
+                queryForFlight += "startAirport = '" + getAirportID(startDestination) + "' AND ";
+            }
+            if (endDestination != null && !endDestination.equals(""))
+            {
+                queryForFlight += "endAirport = '" + getAirportID(endDestination) + "' AND ";
+            }
+            if (startDateString != null && !startDateString.equals("") && endDateString != null && !endDateString.equals(""))
+            {
+                queryForFlight += "startDate BETWEEN '"
                         + startDateString + "' AND '"
-                        + endDateString + "'");
+                        + endDateString + "' AND ";
             }
-            else
-            {
-                // if no date is given
-                rs = statement.executeQuery("SELECT ID FROM Flight "
-                        + "WHERE endAirport = '"
-                        + getAirportID(endDestination)
-                        + "' AND startAirport = '"
-                        + getAirportID(startDestination)
-                        + "'");
-            }
-
+            queryForFlight += "ID != 0;";
+            Statement statementFlight = con.createStatement();
+            rs = statementFlight.executeQuery(queryForFlight);
             while (!rs.isClosed() && rs.next())
             {
                 // goes through the resultset and calls the getFlight method 
@@ -346,7 +343,6 @@ public class Database implements DatabaseInterface
                 flights.add(getFlight(rs.getInt("ID")));
 
             }
-
         } catch (CommunicationsException connectionError)
         {
             if (connectToDatabase())
@@ -499,119 +495,11 @@ public class Database implements DatabaseInterface
             }
         } catch (SQLException e)
         {
+            e.printStackTrace();
         }
         // create the reservations.
         //Return the reservation
         return reservations;
-
-        /*
-         //If the reservationsID given is null or an empty String, 
-         // don't search for it. Search for CPR instead.
-         if (reservationID == null || reservationID.equals(""))
-         {
-         try
-         {
-         Statement statement = con.createStatement();
-         rsReservation = statement.executeQuery("SELECT * FROM Reservation "
-         + "WHERE CPR = '"
-         + CPR + "';");
-         } catch (CommunicationsException connectionError)
-         {
-         if (connectToDatabase())
-         {
-         getReservationList(reservationID, CPR);
-         }
-         else
-         {
-         connectionError.printStackTrace();
-         }
-         } catch (SQLException ex)
-         {
-         ex.printStackTrace();
-         }
-         } //If the CPR given is null or an empty String, don't search for it.
-         //Search for reservationID instead.
-         else if (CPR == null || CPR.equals(""))
-         {
-         try
-         {
-         Statement statement = con.createStatement();
-         rsReservation = statement.executeQuery("SELECT * FROM Reservation "
-         + "WHERE ID = '"
-         + reservationID + "';");
-         } catch (SQLException ex)
-         {
-         ex.printStackTrace();
-         }
-         }
-
-         try
-         {
-         //If there are no more results, break.
-         while (!rsReservation.isClosed() && rsReservation.next())
-         {
-         //Go through the results, and create reservations.
-         //Add these to the list of found reservations.
-
-         //Set the reservation details from the database info.
-         ReservationInterface r = new Reservation();
-         ArrayList<String> seatIDThisRes = new ArrayList<>();
-         ArrayList<Person> personsThisRes = new ArrayList<>();
-         r.setCPR(rsReservation.getString("CPR"));
-         r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
-         r.setID(rsReservation.getString("ID"));
-         r.setPrice(rsReservation.getDouble("price"));
-         //r.setPrice(rsReservation.getDouble("price"));
-         r.setReservationDate(rsReservation.getDate("reservationDate"));
-
-         try
-         {
-         ResultSet rsSeat = null;
-         Statement statement2 = con.createStatement();
-         rsSeat = statement2.executeQuery("SELECT * FROM Seat "
-         + "WHERE ReservationID = '"
-         + rsReservation.getString("ID")
-         + "';");
-
-         while (!rsSeat.isClosed() && rsSeat.next())
-         {
-         seatIDThisRes.add(rsSeat.getString("seatID"));
-         }
-         } catch (SQLException ex)
-         {
-         ex.printStackTrace();
-         }
-
-         try
-         {
-         ResultSet rsPerson = null;
-         Statement statement3 = con.createStatement();
-         rsPerson = statement3.executeQuery("SELECT * FROM People "
-         + "WHERE ReservationID = '"
-         + rsReservation.getString("ID")
-         + "';");
-         while (!rsPerson.isClosed() && rsPerson.next())
-         {
-         personsThisRes.add(getPerson(rsPerson.getInt("ID")));
-         }
-         } catch (SQLException ex)
-         {
-         ex.printStackTrace();
-         }
-
-         r.bookSeats(seatIDThisRes);
-         r.bookPersons(personsThisRes);
-         //Add the finished reservation to the list for each found res.
-         reservations.add(r);
-         }
-         } catch (SQLException ex)
-         {
-         ex.printStackTrace();
-         }
-
-         //Return the reservation
-         return reservations;
-         */
     }
 
     @Override
