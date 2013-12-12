@@ -99,7 +99,7 @@ public class FlightList extends JList {
             bottomCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
             bottomCellTextRight = new JLabel(
-                    "pp.  " + flight.getPrice() + " DKK");
+                    "pp.  " + flight.getPrice() + "0 DKK");
 
             //Add all of the information to the top and bottom aprt of the cell.
             topCellContent.add(topCellTextLeft, BorderLayout.LINE_START);
