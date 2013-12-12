@@ -20,9 +20,9 @@ public class NewReservationFrame extends JFrame {
     private JComboBox startDestDropdown, endDestDropdown;
     private JButton searchButton, doneButton;
     private FlightList flightList;
-    private JPanel top, topContent, filler, filler2;
-    private JLabel dateLabel, startLabel, endLabel;
-    private JTextField dateField;
+    private JPanel top, topContent;
+    private JLabel startDateLabel, endDateLabel, startLabel, endLabel;
+    private JTextField startDateField, endDateField;
     private ControllerInterface controller;
     private static NewReservationFrame instance = null;
     private JScrollPane scrollpane;
@@ -78,12 +78,6 @@ public class NewReservationFrame extends JFrame {
         drawBottomContent();
         addActionListeners();
 
-        //Get the default values from the GUI, so we won't get an exception 
-        //if nothing is clicked before searching.
-        chosenStartDestination = (String) startDestDropdown.getSelectedItem();
-        chosenEndDestination = (String) endDestDropdown.getSelectedItem();
-        chosenDate = new Date();
-
         //Set the default button.
         getRootPane().setDefaultButton(searchButton);
 
@@ -105,14 +99,16 @@ public class NewReservationFrame extends JFrame {
                 "",
                 "0 [] 260 [] 0",
                 "0 [] 0  [] 5 [] 0 [] 32 [] 5"));
-        filler = new JPanel();
-        filler2 = new JPanel();
 
         //Create all of the components.
-        dateField = new JTextField("dd/mm-yyyy");
-        startDestDropdown = new JComboBox(drawDestinations());
-        endDestDropdown = new JComboBox(drawDestinations());
-        dateLabel = new JLabel(" Departure date:");
+        startDateField = new JTextField("dd/mm-yyyy");
+        endDateField = new JTextField("dd/mm-yyyy");
+        startDestDropdown = new JComboBox();
+        fillComboBox(drawDestinations(), startDestDropdown);
+        endDestDropdown = new JComboBox();
+        fillComboBox(drawDestinations(), endDestDropdown);
+        startDateLabel = new JLabel(" Departure date:");
+        endDateLabel = new JLabel(" Arrival date:");
         startLabel = new JLabel(" Start destination:");
         endLabel = new JLabel(" End destination:");
         searchButton = new JButton("Search");
@@ -123,21 +119,19 @@ public class NewReservationFrame extends JFrame {
         //Set the sizes and indexes of specific components.
         searchButton.setMinimumSize(new Dimension(130, 20));
         searchButton.setDefaultCapable(true);
-        //peopleDropdown.setMinimumSize(new Dimension(80, 20));
         startDestDropdown.setMaximumSize(new Dimension(130, 25));
         endDestDropdown.setMaximumSize(new Dimension(130, 25));
-        dateField.setColumns(10);
+        startDateField.setColumns(10);
+        endDateField.setColumns(10);
 
         //Add the components so they show up in the right places.
-        topContent.add(dateLabel);
-        topContent.add(filler);
+        topContent.add(startDateLabel);
         topContent.add(startLabel, "wrap");
-        topContent.add(dateField);
-        topContent.add(filler2);
+        topContent.add(startDateField);
         topContent.add(startDestDropdown, "wrap");
-        topContent.add(filler);
+        topContent.add(endDateLabel);
         topContent.add(endLabel, "wrap");
-        topContent.add(filler2);
+        topContent.add(endDateField);
         topContent.add(endDestDropdown, "wrap");
         topContent.add(doneButton);
         topContent.add(searchButton);
@@ -147,6 +141,25 @@ public class NewReservationFrame extends JFrame {
         getContentPane().add(top, BorderLayout.PAGE_START);
     }
 
+    /**
+     * Fill the given JComboBox with the given String array.
+     */
+    private void fillComboBox(String[] array, JComboBox comboBox)
+    {
+        //Create the ArrayList of items to put in the JComboBox.
+        ArrayList<String> items = new ArrayList<>();
+
+        items.add("None");
+        //Add all of the strings in the array to the list of items.
+        items.addAll(Arrays.asList(array));
+
+        //Create the model to use for the given JComboBox.
+        DefaultComboBoxModel model = new DefaultComboBoxModel(items.toArray());
+
+        //Set the model for the JComboBox.
+        comboBox.setModel(model);
+    }
+    
     /**
      * Draw the bottom part of the window, containing flights found.
      */
@@ -203,7 +216,7 @@ public class NewReservationFrame extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                performSearch();
+                performSearch(Converter.convertStringToDate(startDateField.getText()), Converter.convertStringToDate(startDateField.getText()), (String) startDestDropdown.getSelectedItem(), (String) startDestDropdown.getSelectedItem());
             }
         });
 
@@ -215,23 +228,44 @@ public class NewReservationFrame extends JFrame {
             }
         });
 
-        dateField.addFocusListener(new FocusListener() {
+        startDateField.addFocusListener(new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e)
             {
-                dateField.setSelectionStart(0);
-                dateField.setSelectionEnd(dateField.getText().length());
-                dateField.setForeground(Color.BLACK);
+                startDateField.setSelectionStart(0);
+                startDateField.setSelectionEnd(startDateField.getText().length());
+                startDateField.setForeground(Color.BLACK);
             }
 
             @Override
             public void focusLost(FocusEvent e)
             {
-                dateField.setForeground(Color.LIGHT_GRAY);
+                startDateField.setForeground(Color.LIGHT_GRAY);
 
-                if (dateField.getText().equals("")) {
-                    dateField.setText("dd/mm-yyyy");
+                if (startDateField.getText().equals("")) {
+                    startDateField.setText("dd/mm-yyyy");
+                }
+            }
+        });
+        
+        endDateField.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                endDateField.setSelectionStart(0);
+                endDateField.setSelectionEnd(endDateField.getText().length());
+                endDateField.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                endDateField.setForeground(Color.LIGHT_GRAY);
+
+                if (endDateField.getText().equals("")) {
+                    endDateField.setText("dd/mm-yyyy");
                 }
             }
         });
@@ -279,15 +313,27 @@ public class NewReservationFrame extends JFrame {
     /**
      * Perform a search for flights with the specified search options.
      */
-    private void performSearch()
+    private void performSearch(Date startDate, Date endDate, 
+                                                        String startDestination,
+                                                        String endDestination)
     {
-        if (dateField.getText().equals("dd/mm-yyyy")) {
-            chosenDate = null;
-        } else {
-            chosenDate = Converter.convertStringToDate(dateField.getText());
+        if (startDestination.equals("None")) {
+            startDestination = null;
         }
+        
+        if (endDestination.equals("None")) {
+            endDestination = null;
+        }
+        
+        if (startDateField.getText().equals("dd/mm-yyyy")) {
+            startDate = null;
+        } 
+        
+        if (endDateField.getText().equals("dd/mm-yyyy")) {
+            endDate = null;
+        } 
 
-        searchResults = controller.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
+        searchResults = controller.getFlightList(startDate, endDate, chosenStartDestination, chosenEndDestination);
 
         flightList.setListData(searchResults.toArray());
     }
