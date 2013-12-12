@@ -81,8 +81,10 @@ public class FlightList extends JList {
                     Converter.convertDateToHourString(flight.getStartDate()));
 
             topCellTextMiddle = new JLabel(
-                    flight.getStartAirport().getID() + " > "
-                    + flight.getEndAirport().getID() + "             ");
+                    flight.getStartAirport().getCity() 
+                    + "("+flight.getStartAirport().getID()+") > "
+                    + flight.getEndAirport().getCity() 
+                    + "("+flight.getEndAirport().getID()+")             ");
             topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
             topCellTextRight = new JLabel(
