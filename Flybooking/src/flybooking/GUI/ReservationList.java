@@ -97,10 +97,10 @@ public class ReservationList extends JList {
             
             topCellTextMiddle = new JLabel(
                     res.getFlight().getStartAirport().getCity() 
-                    + "("+res.getFlight().getStartAirport().getID()+") > "
+                    + " - "+res.getFlight().getStartAirport().getID()+"   >   "
                     + res.getFlight().getEndAirport().getCity() 
-                    + "("+res.getFlight().getEndAirport().getID()
-                    +")                   ");
+                    + " - "+res.getFlight().getEndAirport().getID()
+                    +"               ");
             topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
             
             topCellTextRight = new JLabel(
