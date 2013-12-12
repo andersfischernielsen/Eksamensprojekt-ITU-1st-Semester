@@ -174,8 +174,8 @@ public class DatabaseTest
         String endDestination = "Los Angeles";
         Database instance = null;
         ArrayList<FlightInterface> expResult = null;
-        ArrayList<FlightInterface> result = instance.getFlightList(departureDate, startDestination, endDestination);
-        assertEquals(expResult, result);
+        //ArrayList<FlightInterface> result = instance.getFlightList(departureDate, startDestination, endDestination);
+        //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -191,8 +191,8 @@ public class DatabaseTest
         String CPR = "";
         Database instance = null;
         ArrayList<ReservationInterface> expResult = null;
-        ArrayList<ReservationInterface> result = instance.getReservationList(reservationID, CPR);
-        assertEquals(expResult, result);
+        //ArrayList<ReservationInterface> result = instance.getReservationList(reservationID, CPR);
+       // assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
