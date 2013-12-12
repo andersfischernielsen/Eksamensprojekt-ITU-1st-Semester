@@ -113,7 +113,7 @@ public class PaymentFrame extends JFrame {
                 //If the CPR isn't long enough:
                 if (CPRField.getText().length() < 10 || CPRField.getText().length() > 11) {
                     //Change the text so it's saying this.
-                    CPRField.setText("Invalid CPR");
+                    CPRField.setText("Invalid CPR!");
                 }
                 
                 else {

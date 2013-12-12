@@ -60,6 +60,7 @@ public class Converter
             }
             
         }
+		
         //Initialize the savings discount.
         double savings = 0;
         //Check the people in the reservation for their age group.
