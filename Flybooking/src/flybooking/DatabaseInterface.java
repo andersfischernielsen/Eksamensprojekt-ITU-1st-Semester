@@ -6,6 +6,7 @@ import java.util.Date;
 /**
  * An interface for creating, editing and removing flight reservations from a
  * database.
+ *
  * @author Anders Wind Steffensen, Chistoffer Forup & Anders Fischer-Nielsen
  */
 public interface DatabaseInterface
@@ -106,11 +107,12 @@ public interface DatabaseInterface
     ArrayList<String> getAirportCitiesAsStrings();
 
     /**
-     * Check whether a given ID already exists.
+     * Check whether a given ID already exists in the database. Depending on the
+     * size of the number it check in people table or reservation table
      *
      * @param ID
      *
-     * @return true if the ID exists. 
+     * @return false if the ID exists. True if not.
      */
     boolean checkForID(int ID);
 

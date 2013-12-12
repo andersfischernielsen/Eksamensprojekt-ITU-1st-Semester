@@ -98,7 +98,7 @@ public class ReservationList extends JList {
             bottomCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
             bottomCellTextRight = new JLabel(
-                    res.getPrice() + ",-");
+                    res.getPrice() + "0 DKK");
 
             //Add all of the information to the top and bottom aprt of the cell.
             topCellContent.add(topCellTextLeft, BorderLayout.LINE_START);
