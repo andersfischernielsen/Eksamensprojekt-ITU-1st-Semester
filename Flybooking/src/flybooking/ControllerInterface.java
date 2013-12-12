@@ -11,15 +11,10 @@ import java.util.Date;
  */
 public interface ControllerInterface
 {
-
-    //(FISCHER) JEG HAR LAVET NOGLE GENERELLE METODER. DER MANGLER EN DEL, 
-    //OG DE SKAL SIKKERT ÆNDRES/UDDYBES, MEN SÅ HAR VI ET STED AT STARTE. 
     /**
      * Begin the process of creating a new reservation.
      */
     void createReservation();
-    //HER SKAL VI NOK HAVE FLERE METODER. JEG VED BARE IKKE LIGE HELT PRÆCIST
-    //HVORDAN VI TACKLER HELE DATABASEN OSV. 
 
     /**
      * Save the reservation when finished.
@@ -31,12 +26,21 @@ public interface ControllerInterface
     /**
      * Get a a list of reservations matching the given ID and CPR.
      *
-     * @param reservationID The res. ID to search for.
-     * @param CPR           The CPR to search for.
+     * @param reservationID         The reservation ID to search for.
+     * @param CPR                   The CPR to search for.
+     * @param startDate             The start date to search for.
+     * @param endDate               The end date to search for.
+     * @param startDestination      The start destination the search for.
+     * @param endDestination        The end destination to search for.
      *
      * @return A list of matching reservations.
      */
-    ArrayList<ReservationInterface> getReservations(String reservationID, String CPR);
+    ArrayList<ReservationInterface> getReservations(String reservationID, 
+                                                        String CPR, 
+                                                        Date startDate,
+                                                        Date endDate,
+                                                        String startDestination, 
+                                                        String endDestination);
 
     /**
      * Delete a reservation.
@@ -139,10 +143,10 @@ public interface ControllerInterface
     public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination);
 
     /**
-     * Checks if the database has any ID mathcing the IDToCheck.
+     * Checks if the database has any ID matching the IDToCheck.
      * @param IDToCheck the ID to check for in the database.
      * @return false if it is taken and true if its free.
      */
-    public boolean CheckIDInDataBase(int IDToCheck);
+    public boolean checkIDInDataBase(int IDToCheck);
     
 }

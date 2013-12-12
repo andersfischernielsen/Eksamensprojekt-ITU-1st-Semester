@@ -60,7 +60,12 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public ArrayList<ReservationInterface> getReservations(String reservationID, String CPR)
+    public ArrayList<ReservationInterface> getReservations(String reservationID, 
+                                                        String CPR, 
+                                                        Date startDate,
+                                                        Date endDate, 
+                                                        String startDestination, 
+                                                        String endDestination)
     {
         return database.getReservationList(reservationID, CPR);
     }
@@ -171,7 +176,7 @@ public class Controller implements ControllerInterface {
     }
     
     @Override
-    public boolean CheckIDInDataBase(int IDToCheck)
+    public boolean checkIDInDataBase(int IDToCheck)
     {
         return database.checkForID(IDToCheck);
     }
