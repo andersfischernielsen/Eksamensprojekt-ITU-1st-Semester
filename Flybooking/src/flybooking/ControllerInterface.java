@@ -11,15 +11,10 @@ import java.util.Date;
  */
 public interface ControllerInterface
 {
-
-    //(FISCHER) JEG HAR LAVET NOGLE GENERELLE METODER. DER MANGLER EN DEL, 
-    //OG DE SKAL SIKKERT ÆNDRES/UDDYBES, MEN SÅ HAR VI ET STED AT STARTE. 
     /**
      * Begin the process of creating a new reservation.
      */
     void createReservation();
-    //HER SKAL VI NOK HAVE FLERE METODER. JEG VED BARE IKKE LIGE HELT PRÆCIST
-    //HVORDAN VI TACKLER HELE DATABASEN OSV. 
 
     /**
      * Save the reservation when finished.
@@ -139,7 +134,7 @@ public interface ControllerInterface
     public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination);
 
     /**
-     * Checks if the database has any ID mathcing the IDToCheck.
+     * Checks if the database has any ID matching the IDToCheck.
      * @param IDToCheck the ID to check for in the database.
      * @return false if it is taken and true if its free.
      */
