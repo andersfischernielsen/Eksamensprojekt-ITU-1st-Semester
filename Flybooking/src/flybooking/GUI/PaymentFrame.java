@@ -74,7 +74,6 @@ public class PaymentFrame extends JFrame {
         topPanel.add(CPRLabel);
         topPanel.add(CPRField, "wrap");
         topPanel.add(confirmButton);
-
         
         //------------------BOTTOM FRAME CODE -------------------//
         
