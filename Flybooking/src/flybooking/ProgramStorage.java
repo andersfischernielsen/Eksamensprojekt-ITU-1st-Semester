@@ -83,13 +83,13 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<FlightInterface> getFlightList(Date departureDate, String startDestination, String endDestination)
+    public ArrayList<FlightInterface> getFlightList(Date startDate, Date endDate, String startDestination, String endDestination)
     {
         ArrayList<FlightInterface> flightsToReturn = new ArrayList<>();
         /**
          * DOES NOT TAKE DATE INTO ACCOUNT YET
          */
-        if (departureDate != null && startDestination != null && endDestination != null) {
+        if (startDate != null && endDate != null && startDestination != null && endDestination != null) {
             for (FlightInterface flight : flightList) {
                 if (flight.getEndAirport().getCity().equals(endDestination) && flight.getStartAirport().getCity().equals(startDestination)) {
                     flightsToReturn.add(flight);
