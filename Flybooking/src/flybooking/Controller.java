@@ -61,7 +61,9 @@ public class Controller implements ControllerInterface {
 
     @Override
     public ArrayList<ReservationInterface> getReservations(String reservationID, 
-                                                        String CPR, Date date, 
+                                                        String CPR, 
+                                                        Date startDate,
+                                                        Date endDate, 
                                                         String startDestination, 
                                                         String endDestination)
     {

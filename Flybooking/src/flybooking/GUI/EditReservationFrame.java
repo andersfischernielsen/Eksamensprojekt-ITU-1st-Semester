@@ -15,12 +15,12 @@ import net.miginfocom.swing.MigLayout;
  */
 public class EditReservationFrame extends JFrame {
 
-    private Container content, top, topContent, filler, filler2, filler3,
-            filler4, filler5, filler6;
+    private Container content, top, topContent, filler, filler2, filler3, filler4;
     private JButton searchButton, editButton, deleteButton;
     private JComboBox startDestDropdown, endDestDropdown;
-    private JLabel resLabel, CPRLabel, dateLabel;
-    private JTextField resField, CPRField, dateField;
+    private JLabel resLabel, CPRLabel, startDateLabel, endDateLabel, 
+                        startDestLabel, endDestLabel;
+    private JTextField resField, CPRField, startDateField, endDateField;
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
     private ReservationList reservationList;
@@ -76,7 +76,7 @@ public class EditReservationFrame extends JFrame {
         topContent = new JPanel();
         topContent.setLayout(new MigLayout("",
                 "0 [] 60 [] 60 [] 0",
-                "0 [] 0 [] 0 [] 0 [] 0 [] 0 [] 0"));
+                "0 [] 0 [] 0 [] 0 [] 10 [] 0 [] 0"));
 
         //Create and set labels for above the textfields.
         resLabel = new JLabel(" Reservation ID: ");
@@ -85,8 +85,14 @@ public class EditReservationFrame extends JFrame {
         CPRLabel = new JLabel(" CPR #: ");
         CPRField = new JTextField(10);
 
-        dateLabel = new JLabel(" Reservation Date:");
-        dateField = new JTextField(10);
+        startDateLabel = new JLabel(" Start Date:");
+        startDateField = new JTextField(10);
+        
+        endDateLabel = new JLabel(" End Date:");
+        endDateField = new JTextField(10);
+        
+        startDestLabel = new JLabel(" Start Destination: ");
+        endDestLabel = new JLabel(" End Destination: ");
 
         //Create the two Comboboxes for selecting dates.
         startDestDropdown = new JComboBox<>();
@@ -117,19 +123,22 @@ public class EditReservationFrame extends JFrame {
 
         //Add the components in the correct order to the top contents.
         topContent.add(resLabel);
-        topContent.add(CPRLabel);
-        topContent.add(dateLabel, "wrap");
+        topContent.add(startDateLabel);
+        topContent.add(startDestLabel, "wrap");
         topContent.add(resField);
-        topContent.add(CPRField);
-        topContent.add(dateField, "wrap");
-        topContent.add(filler, "span 2");
+        topContent.add(startDateField);
         topContent.add(startDestDropdown, "wrap");
-        topContent.add(filler2, "span 2");
+        topContent.add(CPRLabel);
+        topContent.add(endDateLabel);
+        topContent.add(endDestLabel, "wrap");
+        topContent.add(CPRField);
+        topContent.add(endDateField);
         topContent.add(endDestDropdown, "wrap");
+        
         topContent.add(editButton);
-        topContent.add(filler3, "span 2, wrap");
+        topContent.add(filler, "span 2, wrap");
         topContent.add(deleteButton);
-        topContent.add(filler4);
+        topContent.add(filler2);
         topContent.add(searchButton);
 
         //Add the finished panel to the top part of the frame.
@@ -166,7 +175,8 @@ public class EditReservationFrame extends JFrame {
                 //Perform a search with the given search parameters.
                 performSearch(resField.getText(), 
                               CPRField.getText(), 
-                              Converter.convertStringToDate(dateField.getText()),
+                              Converter.convertStringToDate(startDateField.getText()),
+                              Converter.convertStringToDate(endDateField.getText()),
                               (String) startDestDropdown.getSelectedItem(), 
                               (String) endDestDropdown.getSelectedItem());
                 
@@ -301,12 +311,14 @@ public class EditReservationFrame extends JFrame {
      * @param endDestination    The end destination to search for.
      *
      */
-    private void performSearch(String reservationID, String CPR, Date date,
-            String startDestination,
-            String endDestination) {
+    private void performSearch(String reservationID, String CPR, Date startDate,
+                                            Date endDate,String startDestination,
+                                            String endDestination) {
         
-            searchResults = controller.getReservations(reservationID, CPR, date,
-                                              startDestination, endDestination);
+            searchResults = controller.getReservations(reservationID, CPR, 
+                                                       startDate, endDate,
+                                                       startDestination, 
+                                                       endDestination);
     }
 
     /**

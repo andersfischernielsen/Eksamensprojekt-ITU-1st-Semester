@@ -28,14 +28,17 @@ public interface ControllerInterface
      *
      * @param reservationID         The reservation ID to search for.
      * @param CPR                   The CPR to search for.
-     * @param date                  The date to search for.
+     * @param startDate             The start date to search for.
+     * @param endDate               The end date to search for.
      * @param startDestination      The start destination the search for.
      * @param endDestination        The end destination to search for.
      *
      * @return A list of matching reservations.
      */
     ArrayList<ReservationInterface> getReservations(String reservationID, 
-                                                        String CPR, Date date, 
+                                                        String CPR, 
+                                                        Date startDate,
+                                                        Date endDate,
                                                         String startDestination, 
                                                         String endDestination);
 
