@@ -313,7 +313,7 @@ public class Database implements DatabaseInterface
     }
 
     @Override
-    public ArrayList<FlightInterface> getFlightList(Date departureDate,
+    public ArrayList<FlightInterface> getFlightList(Date startDate,Date endDate,
                                                     String startDestination,
                                                     String endDestination)
     {
@@ -321,8 +321,6 @@ public class Database implements DatabaseInterface
         ArrayList<FlightInterface> flights = new ArrayList<>();
         ResultSet rs = null;
         String queryForFlight;
-        Date startDate = null;
-        Date endDate = null;
         String startDateString = null;
         String endDateString = null;
         if (startDate != null)
@@ -367,7 +365,7 @@ public class Database implements DatabaseInterface
         {
             if (connectToDatabase())
             {
-                getFlightList(departureDate, startDestination, endDestination);
+                getFlightList(startDate, endDate, startDestination, endDestination);
             }
             else
             {

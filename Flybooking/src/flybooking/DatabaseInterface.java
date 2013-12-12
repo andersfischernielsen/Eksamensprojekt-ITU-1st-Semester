@@ -64,8 +64,9 @@ public interface DatabaseInterface
      *
      * @return An array of flights that match the specified parameters.
      */
-    ArrayList<FlightInterface> getFlightList(Date departureDate,
-                                             String startDestination, String endDestination);
+    ArrayList<FlightInterface> getFlightList(Date startDate,Date endDate,
+                                                    String startDestination,
+                                                    String endDestination);
 
     /**
      * Returns an arrayList of reservations which, if CPR = null, has
