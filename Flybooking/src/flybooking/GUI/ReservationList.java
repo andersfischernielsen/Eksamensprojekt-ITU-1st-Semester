@@ -83,7 +83,7 @@ public class ReservationList extends JList {
             //Fill the top part of the cell with reservation information and lay it out.
             topCellTextLeft = new JLabel(res.getCPR());
 
-            topCellTextMiddle = new JLabel( "" );
+            topCellTextMiddle = new JLabel( "Departure date: " + Converter.convertDateToString(res.getFlight().getStartDate()) + "        ");
             topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
             topCellTextRight = new JLabel(
