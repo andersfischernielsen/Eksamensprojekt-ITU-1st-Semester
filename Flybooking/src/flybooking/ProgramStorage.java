@@ -100,7 +100,7 @@ public class ProgramStorage implements DatabaseInterface {
     }
 
     @Override
-    public ArrayList<ReservationInterface> getReservationList(String ReservationID, String CPR)
+    public ArrayList<ReservationInterface> getReservationList(String ReservationID, String CPR, Date startDage, Date endDate, String startDestination, String endDestination)
     {
         ArrayList<ReservationInterface> reservationsToReturnList = new ArrayList<>();
         /**
