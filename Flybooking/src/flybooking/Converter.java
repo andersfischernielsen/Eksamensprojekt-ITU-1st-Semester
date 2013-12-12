@@ -125,9 +125,9 @@ public class Converter
     {
         try {
             return new SimpleDateFormat("dd/MM-yyyy").parse(string);
-        } catch (ParseException ex) { ex.printStackTrace(); }
-        
-        return null;
+        } catch (ParseException ex) { 
+            return null; 
+        }
     }
 
     /**
@@ -142,7 +142,7 @@ public class Converter
         {
             int personID = randomGen.nextInt(99999);
             
-            if (personID > 9999 && controller.CheckIDInDataBase(personID))
+            if (personID > 9999 && controller.checkIDInDataBase(personID))
             {
                 return personID;
             }
@@ -160,7 +160,7 @@ public class Converter
         while (true)
         {
             int reservationID = randomGen.nextInt(9999);
-            if (reservationID > 999 && controller.CheckIDInDataBase(reservationID))
+            if (reservationID > 999 && controller.checkIDInDataBase(reservationID))
             {
                 return reservationID + "";
             }
