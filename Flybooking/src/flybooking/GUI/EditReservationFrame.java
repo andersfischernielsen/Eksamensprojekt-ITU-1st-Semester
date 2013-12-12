@@ -16,10 +16,10 @@ import net.miginfocom.swing.MigLayout;
 public class EditReservationFrame extends JFrame {
 
     private Container content, top, topContent, filler, filler2, filler3,
-            filler4;
+            filler4, filler5, filler6;
     private JButton searchButton, editButton, deleteButton;
-    private JLabel resLabel, CPRLabel;
-    private JTextField resField, CPRField;
+    private JLabel resLabel, CPRLabel, dateLabel;
+    private JTextField resField, CPRField, dateField;
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
     private ReservationList reservationList;
@@ -74,7 +74,7 @@ public class EditReservationFrame extends JFrame {
         topContent = new JPanel();
         topContent.setLayout(new MigLayout("",
                 "[] 120 []",
-                "0 [] 0 [] 38 [] 0 [] 5"));
+                "0 [] 0 [] 0 [] 0 [] 10 [] 0 [] 0"));
 
         //Create and set labels for above the textfields.
         resLabel = new JLabel(" Reservation ID: ");
@@ -82,6 +82,9 @@ public class EditReservationFrame extends JFrame {
 
         CPRLabel = new JLabel(" CPR #: ");
         CPRField = new JTextField(10);
+        
+        dateLabel = new JLabel(" Reservation Date:");
+        dateField = new JTextField(10);
 
         //Create the default search button.
         searchButton = new JButton("Search");
@@ -101,6 +104,8 @@ public class EditReservationFrame extends JFrame {
         filler2 = new JPanel();
         filler3 = new JPanel();
         filler4 = new JPanel();
+        filler5 = new JPanel();
+        filler6 = new JPanel();
 
         //Add the components in the correct order to the top contents.
         topContent.add(resLabel);
@@ -109,10 +114,14 @@ public class EditReservationFrame extends JFrame {
         topContent.add(resField);
         topContent.add(filler2);
         topContent.add(CPRField, "wrap");
-        topContent.add(editButton);
+        topContent.add(dateLabel); 
         topContent.add(filler3, "span 2, wrap");
+        topContent.add(dateField);
+        topContent.add(filler4, "span 2, wrap");
+        topContent.add(editButton);
+        topContent.add(filler5, "span 2, wrap");
         topContent.add(deleteButton);
-        topContent.add(filler4);
+        topContent.add(filler6);
         topContent.add(searchButton);
 
         //Add the finished panel to the top part of the frame.

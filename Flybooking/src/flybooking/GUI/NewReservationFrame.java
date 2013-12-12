@@ -104,7 +104,7 @@ public class NewReservationFrame extends JFrame {
         topContent.setLayout(new MigLayout(
                 "",
                 "0 [] 260 [] 0",
-                "0 [] 0  [] 5 [] 0 [] 20 [] 5"));
+                "0 [] 0  [] 5 [] 0 [] 32 [] 5"));
         filler = new JPanel();
         filler2 = new JPanel();
 

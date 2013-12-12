@@ -99,7 +99,7 @@ public class PersonAndSeatFrame extends JFrame {
         topContent = new JPanel();
         topContent.setLayout(new MigLayout("",
                 "0 [] 50 [] 50 [] 0",
-                "5 [] 0 [] 5 [] 0 [] 5 []"));
+                "0 [] 0 [] 0 [] 0 [] 40 [] 0"));
 
         //Initialize all labels.
         firstNameLabel = new JLabel(" First name:");
