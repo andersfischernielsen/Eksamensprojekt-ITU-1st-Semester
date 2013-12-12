@@ -315,7 +315,15 @@ public class EditReservationFrame extends JFrame {
                                             Date endDate,String startDestination,
                                             String endDestination) {
         
-            searchResults = controller.getReservations(reservationID, CPR, 
+        if (startDestination.equals("None")) {
+            startDestination = null;
+        }
+        
+        if (endDestination.equals("None")) {
+            endDestination = null;
+        }
+        
+        searchResults = controller.getReservations(reservationID, CPR, 
                                                        startDate, endDate,
                                                        startDestination, 
                                                        endDestination);
