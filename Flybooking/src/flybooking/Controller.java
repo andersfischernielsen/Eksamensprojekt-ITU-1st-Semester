@@ -170,9 +170,9 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination)
+    public ArrayList<FlightInterface> getFlightList(Date startDate, Date endDate, String startDestination, String endDestination)
     {
-        return database.getFlightList(chosenDate, chosenStartDestination, chosenEndDestination);
+        return database.getFlightList(startDate, endDate, startDestination, endDestination);
     }
     
     @Override

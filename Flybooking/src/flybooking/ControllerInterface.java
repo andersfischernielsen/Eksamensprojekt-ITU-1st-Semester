@@ -135,12 +135,13 @@ public interface ControllerInterface
 
     /**
      * Find a list of flights matching the specified parameters in the database.
-     * @param chosenDate The chosen date to search for.
+     * @param startDate The date to depart.
+     * @param endDate   The date to arrive.
      * @param chosenStartDestination The chosen start destination.
      * @param chosenEndDestination The chosen end destination.
      * @return A list of flights matching the specified parameters.
      */
-    public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination);
+    public ArrayList<FlightInterface> getFlightList(Date startDate, Date endDate, String chosenStartDestination, String chosenEndDestination);
 
     /**
      * Checks if the database has any ID matching the IDToCheck.
