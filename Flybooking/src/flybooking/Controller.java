@@ -67,7 +67,7 @@ public class Controller implements ControllerInterface {
                                                         String startDestination, 
                                                         String endDestination)
     {
-        return database.getReservationList(reservationID, CPR);
+        return database.getReservationList(reservationID, CPR, startDate, endDate, startDestination, endDestination);
     }
 
     @Override
