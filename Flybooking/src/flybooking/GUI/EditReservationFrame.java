@@ -279,7 +279,6 @@ public class EditReservationFrame extends JFrame {
             }
 
             @Override
-
             public void mouseReleased(MouseEvent e)
             {
                 //Do nothing.
