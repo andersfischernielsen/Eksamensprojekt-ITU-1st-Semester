@@ -373,6 +373,7 @@ public class Database implements DatabaseInterface
         //Create a new empty ArrayList of reservations to avoid nullpointers.
         ArrayList<ReservationInterface> reservations = new ArrayList<>();
         ResultSet rsReservation = null;
+        ResultSet rsFlight = null;
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String startDateString = null;
@@ -387,7 +388,6 @@ public class Database implements DatabaseInterface
         {
             String queryForReservation;
             String queryForFlight;
-            ResultSet rsFlight = null;
 
             queryForFlight = "SELECT ID FROM Flight WHERE ";
             if (startDestination != null && !startDestination.equals(""))
@@ -421,31 +421,25 @@ public class Database implements DatabaseInterface
             {
                 queryForReservation += "CPR = '" + CPR + "' AND ";
             }
+            queryForReservation += "(";
             while (rsFlight != null && !rsFlight.isClosed() && rsFlight.next())
             {
-                queryForReservation += "Flight = " + rsFlight.getInt("ID") + " OR ";
+                queryForReservation += "Flight = " + rsFlight.getInt("ID");
+                if (rsFlight.isLast())
+                {
+                    queryForReservation += " AND ";
+                }
+                else
+                {
+                    queryForReservation += " OR ";
+                }
+
             }
-            queryForReservation += "ID != '0';";
+            queryForReservation += "ID != '0');";
             Statement statementReservation = con.createStatement();
             rsReservation = statementReservation.executeQuery(queryForReservation);
 
-        } catch (CommunicationsException connectionError)
-        {
-            if (connectToDatabase())
-            {
-                getReservationList(reservationID, CPR, startDate, endDate, startDestination, endDestination);
-            }
-            else
-            {
-                connectionError.printStackTrace();
-            }
-        } catch (SQLException e)
-        {
-        }
-        // create the reservations.
-        try
-        {
-            //If there are no more results, break.
+            // creat the reservation
             while (!rsReservation.isClosed() && rsReservation.next())
             {
                 //Go through the results, and create reservations.
@@ -456,7 +450,7 @@ public class Database implements DatabaseInterface
                 ArrayList<String> seatIDThisRes = new ArrayList<>();
                 ArrayList<Person> personsThisRes = new ArrayList<>();
                 r.setCPR(rsReservation.getString("CPR"));
-                r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
+                r.setFlight((Flight) getFlight(rsReservation.getInt("Flight")));
                 r.setID(rsReservation.getString("ID"));
                 r.setPrice(rsReservation.getDouble("price"));
                 //r.setPrice(rsReservation.getDouble("price"));
@@ -493,10 +487,20 @@ public class Database implements DatabaseInterface
                 //Add the finished reservation to the list for each found res.
                 reservations.add(r);
             }
-        } catch (SQLException ex)
+        } catch (CommunicationsException connectionError)
         {
-            ex.printStackTrace();
+            if (connectToDatabase())
+            {
+                getReservationList(reservationID, CPR, startDate, endDate, startDestination, endDestination);
+            }
+            else
+            {
+                connectionError.printStackTrace();
+            }
+        } catch (SQLException e)
+        {
         }
+        // create the reservations.
         //Return the reservation
         return reservations;
 
