@@ -230,10 +230,6 @@ public class NewReservationFrame extends JFrame {
             {
                 dateField.setForeground(Color.LIGHT_GRAY);
 
-                if (!dateField.getText().equals("dd/mm-yyyy")) {
-
-                }
-
                 if (dateField.getText().equals("")) {
                     dateField.setText("dd/mm-yyyy");
                 }

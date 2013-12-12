@@ -76,7 +76,7 @@ public class EditReservationFrame extends JFrame {
         topContent = new JPanel();
         topContent.setLayout(new MigLayout("",
                 "0 [] 60 [] 60 [] 0",
-                "0 [] 0 [] 0 [] 0 [] 10 [] 0 [] 0"));
+                "0 [] 0 [] 0 [] 0 [] 15 [] -5 [] 0"));
 
         //Create and set labels for above the textfields.
         resLabel = new JLabel(" Reservation ID: ");
@@ -86,10 +86,14 @@ public class EditReservationFrame extends JFrame {
         CPRField = new JTextField(10);
 
         startDateLabel = new JLabel(" Start Date:");
-        startDateField = new JTextField(10);
+        startDateField = new JTextField("dd/mm-yyyy");
+        startDateField.setColumns(10);
+        startDateField.setForeground(Color.LIGHT_GRAY);
         
         endDateLabel = new JLabel(" End Date:");
-        endDateField = new JTextField(10);
+        endDateField = new JTextField("dd/mm-yyyy");
+        endDateField.setColumns(10);
+        endDateField.setForeground(Color.LIGHT_GRAY);
         
         startDestLabel = new JLabel(" Start Destination: ");
         endDestLabel = new JLabel(" End Destination: ");
@@ -209,6 +213,46 @@ public class EditReservationFrame extends JFrame {
             }
         });
 
+        startDateField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                startDateField.setSelectionStart(0);
+                startDateField.setSelectionEnd(startDateField.getText().length());
+                startDateField.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                startDateField.setForeground(Color.LIGHT_GRAY);
+
+                if (startDateField.getText().equals("")) {
+                    startDateField.setText("dd/mm-yyyy");
+                }
+            }
+        });
+        
+        endDateField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                endDateField.setSelectionStart(0);
+                endDateField.setSelectionEnd(endDateField.getText().length());
+                endDateField.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                endDateField.setForeground(Color.LIGHT_GRAY);
+
+                if (endDateField.getText().equals("")) {
+                    endDateField.setText("dd/mm-yyyy");
+                }
+            }
+        });
+        
         reservationList.addMouseListener(new MouseListener() {
 
             @Override
@@ -322,6 +366,14 @@ public class EditReservationFrame extends JFrame {
         if (endDestination.equals("None")) {
             endDestination = null;
         }
+        
+        if (startDateField.getText().equals("dd/mm-yyyy")) {
+            startDate = null;
+        } 
+        
+        if (endDateField.getText().equals("dd/mm-yyyy")) {
+            endDate = null;
+        } 
         
         searchResults = controller.getReservations(reservationID, CPR, 
                                                        startDate, endDate,
