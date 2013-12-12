@@ -37,8 +37,7 @@ public class Database implements DatabaseInterface
             con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/"
                     + name + "?autoReconnect=true", login, password);
             return true;
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             showMessageDialog(null, "Couldn't connect to the database!");
             return false;
@@ -59,10 +58,9 @@ public class Database implements DatabaseInterface
 
             // use the selected data from the database to create a plane.
             return new Plane(rs.getString("ID"),
-                             rs.getInt("rows"),
-                             rs.getInt("columns"));
-        }
-        catch (CommunicationsException e1)
+                    rs.getInt("rows"),
+                    rs.getInt("columns"));
+        } catch (CommunicationsException e1)
         {
             if (connectToDatabase())
             {
@@ -72,8 +70,7 @@ public class Database implements DatabaseInterface
             {
                 e1.printStackTrace();
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -95,10 +92,9 @@ public class Database implements DatabaseInterface
 
             // use the selected data from the database to create an airport object.
             return new Airport(AirportCityID, rs.getString("Country"),
-                               rs.getString("City"));
+                    rs.getString("City"));
 
-        }
-        catch (CommunicationsException e1)
+        } catch (CommunicationsException e1)
         {
             if (connectToDatabase())
             {
@@ -108,8 +104,7 @@ public class Database implements DatabaseInterface
             {
                 e1.printStackTrace();
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -140,8 +135,7 @@ public class Database implements DatabaseInterface
             // returns the code
             return rs.getString("code");
 
-        }
-        catch (CommunicationsException e1)
+        } catch (CommunicationsException e1)
         {
             if (connectToDatabase())
             {
@@ -151,8 +145,7 @@ public class Database implements DatabaseInterface
             {
                 e1.printStackTrace();
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -172,13 +165,12 @@ public class Database implements DatabaseInterface
             rs.next();
             // Create a person with the information from the database.
             return new Person(rs.getString("Firstname"),
-                              rs.getString("Lastname"),
-                              rs.getInt("ID"),
-                              rs.getString("Address"),
-                              rs.getInt("groupID"));
+                    rs.getString("Lastname"),
+                    rs.getInt("ID"),
+                    rs.getString("Address"),
+                    rs.getInt("groupID"));
 
-        }
-        catch (CommunicationsException e1)
+        } catch (CommunicationsException e1)
         {
             if (connectToDatabase())
             {
@@ -188,8 +180,7 @@ public class Database implements DatabaseInterface
             {
                 e1.printStackTrace();
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
@@ -217,8 +208,7 @@ public class Database implements DatabaseInterface
                     + person.getLastName() + "' , '"
                     + person.getAdress() + "' ,"
                     + person.getGroupID() + ")");
-        }
-        catch (CommunicationsException e1)
+        } catch (CommunicationsException e1)
         {
             if (connectToDatabase())
             {
@@ -228,8 +218,7 @@ public class Database implements DatabaseInterface
             {
                 e1.printStackTrace();
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -249,8 +238,7 @@ public class Database implements DatabaseInterface
             Statement statement = con.createStatement();
             statement.executeUpdate("INSERT INTO Seat (SeatID, ReservationID) "
                     + "VALUES ( '" + seatID + "' , '" + ReservationID + "')");
-        }
-        catch (CommunicationsException e1)
+        } catch (CommunicationsException e1)
         {
             if (connectToDatabase())
             {
@@ -260,8 +248,7 @@ public class Database implements DatabaseInterface
             {
                 e1.printStackTrace();
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -285,27 +272,25 @@ public class Database implements DatabaseInterface
                 //create the flight. Date is created by adding the time(hh, mm) 
                 // and the date(dd, MM, yyyy) into the new Date().
                 flight = new Flight(rs.getDouble("price"), rs.getInt("ID"),
-                                    getPlane(rs.getString("plane")),
-                                    new Date(rs.getDate("startDate").getTime()
+                        getPlane(rs.getString("plane")),
+                        new Date(rs.getDate("startDate").getTime()
                         + rs.getTime("startDate").getTime()),
-                                    new Date(rs.getDate("endDate").getTime()
+                        new Date(rs.getDate("endDate").getTime()
                         + rs.getTime("endDate").getTime()),
-                                    getAirport(rs.getString("startAirport")),
-                                    getAirport(rs.getString("endAirport")));
+                        getAirport(rs.getString("startAirport")),
+                        getAirport(rs.getString("endAirport")));
             }
-        }
-        catch (CommunicationsException connectionError)
+        } catch (CommunicationsException connectionError)
+        {
+            if (connectToDatabase())
             {
-                if (connectToDatabase())
-                {
-                    getFlight(flightID);
-                }
-                else
-                {
-                    connectionError.printStackTrace();
-                }
+                getFlight(flightID);
             }
-        catch (SQLException e)
+            else
+            {
+                connectionError.printStackTrace();
+            }
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -362,8 +347,7 @@ public class Database implements DatabaseInterface
 
             }
 
-        }
-        catch (CommunicationsException connectionError)
+        } catch (CommunicationsException connectionError)
         {
             if (connectToDatabase())
             {
@@ -373,8 +357,7 @@ public class Database implements DatabaseInterface
             {
                 connectionError.printStackTrace();
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -391,49 +374,74 @@ public class Database implements DatabaseInterface
         ArrayList<ReservationInterface> reservations = new ArrayList<>();
         ResultSet rsReservation = null;
 
-        //If the reservationsID given is null or an empty String, 
-        // don't search for it. Search for CPR instead.
-        if (reservationID == null || reservationID.equals(""))
-        {
-            try
-            {
-                Statement statement = con.createStatement();
-                rsReservation = statement.executeQuery("SELECT * FROM Reservation "
-                        + "WHERE CPR = '"
-                        + CPR + "';");
-            }
-            catch (CommunicationsException connectionError)
-            {
-                if (connectToDatabase())
-                {
-                    getReservationList(reservationID,CPR);
-                }
-                else
-                {
-                    connectionError.printStackTrace();
-                }
-            }
-            catch (SQLException ex)
-            {
-                ex.printStackTrace();
-            }
-        } //If the CPR given is null or an empty String, don't search for it.
-        //Search for reservationID instead.
-        else if (CPR == null || CPR.equals(""))
-        {
-            try
-            {
-                Statement statement = con.createStatement();
-                rsReservation = statement.executeQuery("SELECT * FROM Reservation "
-                        + "WHERE ID = '"
-                        + reservationID + "';");
-            }
-            catch (SQLException ex)
-            {
-                ex.printStackTrace();
-            }
-        }
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String startDestination = null; // få denne fra parameter
+        String endDestination = null; // få denne fra parameter
+        Date startDate = null; // få denne fra parameter
+        Date endDate = null; // få denne fra parameter
+        String startDateString = df.format(startDate);
+        String endDateString = df.format(endDate);
 
+        try
+        {
+            String queryForReservation = null;
+            String queryForFlight = null;
+            ResultSet rsFlight = null;
+
+            queryForFlight = "SELECT ID FROM Flight WHERE ";
+            if (startDestination != null && !startDestination.equals(""))
+            {
+                queryForFlight += "startAirport = '" + getAirportID(startDestination) + "' AND ";
+            }
+            if (endDestination != null && !endDestination.equals(""))
+            {
+                queryForFlight += "endAirport = '" + getAirportID(endDestination) + "' AND ";
+            }
+            if (startDateString != null && !startDateString.equals("") && endDateString != null && !endDateString.equals(""))
+            {
+                queryForFlight += "startDate BETWEEN '"
+                        + startDateString + "' AND '"
+                        + endDateString + "' AND ";
+            }
+            queryForFlight += "ID != 0;";
+
+            if (!queryForFlight.equals("SELECT ID FROM Flight WHERE ID != 0;"))
+            {
+                Statement statementFlight = con.createStatement();
+                rsFlight = statementFlight.executeQuery(queryForFlight);
+            }
+
+            queryForReservation = "SELECT * FROM Reservation WHERE ";
+            if (reservationID != null && !reservationID.equals(""))
+            {
+                queryForReservation += "ID = '" + reservationID + "' AND ";
+            }
+            if (CPR != null && !CPR.equals(""))
+            {
+                queryForReservation += "CPR = '" + CPR + "' AND ";
+            }
+            while (rsFlight != null && !rsFlight.isClosed() && rsFlight.next())
+            {
+                queryForReservation += "Flight = " + rsFlight.getInt("ID") + " OR ";
+            }
+            queryForReservation += "ID != '0';";
+            Statement statementReservation = con.createStatement();
+            rsReservation = statementReservation.executeQuery(queryForReservation);
+
+        } catch (CommunicationsException connectionError)
+        {
+            if (connectToDatabase())
+            {
+                getReservationList(reservationID, CPR);
+            }
+            else
+            {
+                connectionError.printStackTrace();
+            }
+        } catch (SQLException e)
+        {
+        }
+        // create the reservations.
         try
         {
             //If there are no more results, break.
@@ -453,41 +461,30 @@ public class Database implements DatabaseInterface
                 //r.setPrice(rsReservation.getDouble("price"));
                 r.setReservationDate(rsReservation.getDate("reservationDate"));
 
-                try
-                {
-                    ResultSet rsSeat = null;
-                    Statement statement2 = con.createStatement();
-                    rsSeat = statement2.executeQuery("SELECT * FROM Seat "
-                            + "WHERE ReservationID = '"
-                            + rsReservation.getString("ID")
-                            + "';");
+                // Get the seats
+                ResultSet rsSeat = null;
+                Statement statement2 = con.createStatement();
+                rsSeat = statement2.executeQuery("SELECT * FROM Seat "
+                        + "WHERE ReservationID = '"
+                        + rsReservation.getString("ID")
+                        + "';");
 
-                    while (!rsSeat.isClosed() && rsSeat.next())
-                    {
-                        seatIDThisRes.add(rsSeat.getString("seatID"));
-                    }
-                }
-                catch (SQLException ex)
+                while (!rsSeat.isClosed() && rsSeat.next())
                 {
-                    ex.printStackTrace();
+                    seatIDThisRes.add(rsSeat.getString("seatID"));
                 }
 
-                try
+
+                // get persons
+                ResultSet rsPerson = null;
+                Statement statement3 = con.createStatement();
+                rsPerson = statement3.executeQuery("SELECT * FROM People "
+                        + "WHERE ReservationID = '"
+                        + rsReservation.getString("ID")
+                        + "';");
+                while (!rsPerson.isClosed() && rsPerson.next())
                 {
-                    ResultSet rsPerson = null;
-                    Statement statement3 = con.createStatement();
-                    rsPerson = statement3.executeQuery("SELECT * FROM People "
-                            + "WHERE ReservationID = '"
-                            + rsReservation.getString("ID")
-                            + "';");
-                    while (!rsPerson.isClosed() && rsPerson.next())
-                    {
-                        personsThisRes.add(getPerson(rsPerson.getInt("ID")));
-                    }
-                }
-                catch (SQLException ex)
-                {
-                    ex.printStackTrace();
+                    personsThisRes.add(getPerson(rsPerson.getInt("ID")));
                 }
 
                 r.bookSeats(seatIDThisRes);
@@ -495,14 +492,121 @@ public class Database implements DatabaseInterface
                 //Add the finished reservation to the list for each found res.
                 reservations.add(r);
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
-
         //Return the reservation
         return reservations;
+        
+        /*
+         //If the reservationsID given is null or an empty String, 
+         // don't search for it. Search for CPR instead.
+         if (reservationID == null || reservationID.equals(""))
+         {
+         try
+         {
+         Statement statement = con.createStatement();
+         rsReservation = statement.executeQuery("SELECT * FROM Reservation "
+         + "WHERE CPR = '"
+         + CPR + "';");
+         } catch (CommunicationsException connectionError)
+         {
+         if (connectToDatabase())
+         {
+         getReservationList(reservationID, CPR);
+         }
+         else
+         {
+         connectionError.printStackTrace();
+         }
+         } catch (SQLException ex)
+         {
+         ex.printStackTrace();
+         }
+         } //If the CPR given is null or an empty String, don't search for it.
+         //Search for reservationID instead.
+         else if (CPR == null || CPR.equals(""))
+         {
+         try
+         {
+         Statement statement = con.createStatement();
+         rsReservation = statement.executeQuery("SELECT * FROM Reservation "
+         + "WHERE ID = '"
+         + reservationID + "';");
+         } catch (SQLException ex)
+         {
+         ex.printStackTrace();
+         }
+         }
+
+         try
+         {
+         //If there are no more results, break.
+         while (!rsReservation.isClosed() && rsReservation.next())
+         {
+         //Go through the results, and create reservations.
+         //Add these to the list of found reservations.
+
+         //Set the reservation details from the database info.
+         ReservationInterface r = new Reservation();
+         ArrayList<String> seatIDThisRes = new ArrayList<>();
+         ArrayList<Person> personsThisRes = new ArrayList<>();
+         r.setCPR(rsReservation.getString("CPR"));
+         r.setFlight((Flight) getFlight(rsReservation.getInt("flight")));
+         r.setID(rsReservation.getString("ID"));
+         r.setPrice(rsReservation.getDouble("price"));
+         //r.setPrice(rsReservation.getDouble("price"));
+         r.setReservationDate(rsReservation.getDate("reservationDate"));
+
+         try
+         {
+         ResultSet rsSeat = null;
+         Statement statement2 = con.createStatement();
+         rsSeat = statement2.executeQuery("SELECT * FROM Seat "
+         + "WHERE ReservationID = '"
+         + rsReservation.getString("ID")
+         + "';");
+
+         while (!rsSeat.isClosed() && rsSeat.next())
+         {
+         seatIDThisRes.add(rsSeat.getString("seatID"));
+         }
+         } catch (SQLException ex)
+         {
+         ex.printStackTrace();
+         }
+
+         try
+         {
+         ResultSet rsPerson = null;
+         Statement statement3 = con.createStatement();
+         rsPerson = statement3.executeQuery("SELECT * FROM People "
+         + "WHERE ReservationID = '"
+         + rsReservation.getString("ID")
+         + "';");
+         while (!rsPerson.isClosed() && rsPerson.next())
+         {
+         personsThisRes.add(getPerson(rsPerson.getInt("ID")));
+         }
+         } catch (SQLException ex)
+         {
+         ex.printStackTrace();
+         }
+
+         r.bookSeats(seatIDThisRes);
+         r.bookPersons(personsThisRes);
+         //Add the finished reservation to the list for each found res.
+         reservations.add(r);
+         }
+         } catch (SQLException ex)
+         {
+         ex.printStackTrace();
+         }
+
+         //Return the reservation
+         return reservations;
+         */
     }
 
     @Override
@@ -521,8 +625,7 @@ public class Database implements DatabaseInterface
                         + ", '" + reservationToMake.getCPR()
                         + "' , " + reservationToMake.getPrice()
                         + ")");
-            }
-            catch (CommunicationsException connectionError)
+            } catch (CommunicationsException connectionError)
             {
                 if (connectToDatabase())
                 {
@@ -532,8 +635,7 @@ public class Database implements DatabaseInterface
                 {
                     connectionError.printStackTrace();
                 }
-            }
-            catch (SQLException e)
+            } catch (SQLException e)
             {
                 e.printStackTrace();
             }
@@ -571,8 +673,7 @@ public class Database implements DatabaseInterface
             statement.executeUpdate("DELETE FROM People "
                     + "WHERE ReservationID = '"
                     + reservationID + "'");
-        }
-        catch (CommunicationsException connectionError)
+        } catch (CommunicationsException connectionError)
         {
             if (connectToDatabase())
             {
@@ -582,8 +683,7 @@ public class Database implements DatabaseInterface
             {
                 connectionError.printStackTrace();
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
@@ -605,8 +705,7 @@ public class Database implements DatabaseInterface
                 airports.add(rs.getString("city"));
             }
 
-        }
-        catch (CommunicationsException connectionError)
+        } catch (CommunicationsException connectionError)
         {
             if (connectToDatabase())
             {
@@ -616,8 +715,7 @@ public class Database implements DatabaseInterface
             {
                 connectionError.printStackTrace();
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
@@ -660,8 +758,7 @@ public class Database implements DatabaseInterface
                 {
                     return false;
                 }
-            }
-            catch (CommunicationsException connectionError)
+            } catch (CommunicationsException connectionError)
             {
                 if (connectToDatabase())
                 {
@@ -671,8 +768,7 @@ public class Database implements DatabaseInterface
                 {
                     connectionError.printStackTrace();
                 }
-            }
-            catch (SQLException ex)
+            } catch (SQLException ex)
             {
                 ex.printStackTrace();
             }
@@ -690,8 +786,7 @@ public class Database implements DatabaseInterface
                 {
                     return false;
                 }
-            }
-            catch (CommunicationsException connectionError)
+            } catch (CommunicationsException connectionError)
             {
                 if (connectToDatabase())
                 {
@@ -701,8 +796,7 @@ public class Database implements DatabaseInterface
                 {
                     connectionError.printStackTrace();
                 }
-            }
-            catch (SQLException ex)
+            } catch (SQLException ex)
             {
                 ex.printStackTrace();
             }
@@ -728,8 +822,7 @@ public class Database implements DatabaseInterface
                 reservationsOnThisFlight.add(rs.getString("ID"));
             }
 
-        }
-        catch (CommunicationsException connectionError)
+        } catch (CommunicationsException connectionError)
         {
             if (connectToDatabase())
             {
@@ -739,8 +832,7 @@ public class Database implements DatabaseInterface
             {
                 connectionError.printStackTrace();
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
@@ -759,8 +851,7 @@ public class Database implements DatabaseInterface
                     seatIDsToReturn.add(rs2.getString("seatID"));
                 }
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
@@ -784,8 +875,7 @@ public class Database implements DatabaseInterface
                 seatIDsToReturn.add(rs.getString("seatID"));
             }
 
-        }
-        catch (CommunicationsException connectionError)
+        } catch (CommunicationsException connectionError)
         {
             if (connectToDatabase())
             {
@@ -795,8 +885,7 @@ public class Database implements DatabaseInterface
             {
                 connectionError.printStackTrace();
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
@@ -820,8 +909,7 @@ public class Database implements DatabaseInterface
 
             return personsToReturn;
 
-        }
-        catch (CommunicationsException connectionError)
+        } catch (CommunicationsException connectionError)
         {
             if (connectToDatabase())
             {
@@ -831,8 +919,7 @@ public class Database implements DatabaseInterface
             {
                 connectionError.printStackTrace();
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
