@@ -76,9 +76,9 @@ public class StartFrame extends JFrame {
         buttonPanel.setLayout(new MigLayout("", "[] 50 []", ""));
 
         //Initialize the buttons.
-        newBookingButton = new JButton("New Booking");
+        newBookingButton = new JButton("New Reservation");
         newBookingButton.setDefaultCapable(true);
-        editBookingButton = new JButton("Edit Booking");
+        editBookingButton = new JButton("Edit Reservation");
         newBookingButton.setMinimumSize(new Dimension(200, 20));
         editBookingButton.setMinimumSize(new Dimension(200, 20));
 
