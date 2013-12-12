@@ -422,6 +422,7 @@ public class PersonAndSeatFrame extends JFrame {
                 //text fields.
                 if (personComboBox.getSelectedItem().equals(addItem)) {
                     emptyTextFields();
+                    addButton.setText("Add");
 
                     //And then end the method.
                     return;
