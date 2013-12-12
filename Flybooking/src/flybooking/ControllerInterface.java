@@ -26,12 +26,18 @@ public interface ControllerInterface
     /**
      * Get a a list of reservations matching the given ID and CPR.
      *
-     * @param reservationID The res. ID to search for.
-     * @param CPR           The CPR to search for.
+     * @param reservationID         The reservation ID to search for.
+     * @param CPR                   The CPR to search for.
+     * @param date                  The date to search for.
+     * @param startDestination      The start destination the search for.
+     * @param endDestination        The end destination to search for.
      *
      * @return A list of matching reservations.
      */
-    ArrayList<ReservationInterface> getReservations(String reservationID, String CPR);
+    ArrayList<ReservationInterface> getReservations(String reservationID, 
+                                                        String CPR, Date date, 
+                                                        String startDestination, 
+                                                        String endDestination);
 
     /**
      * Delete a reservation.
@@ -138,6 +144,6 @@ public interface ControllerInterface
      * @param IDToCheck the ID to check for in the database.
      * @return false if it is taken and true if its free.
      */
-    public boolean CheckIDInDataBase(int IDToCheck);
+    public boolean checkIDInDataBase(int IDToCheck);
     
 }
