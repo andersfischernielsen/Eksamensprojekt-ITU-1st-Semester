@@ -80,25 +80,32 @@ public class ReservationList extends JList {
             bottomCellContent.setLayout(new BorderLayout());
             panel.setLayout(new BorderLayout());
 
-            //Fill the top part of the cell with reservation information and lay it out.
-            topCellTextLeft = new JLabel(res.getCPR());
-
-            topCellTextMiddle = new JLabel( "Departure date: " + Converter.convertDateToString(res.getFlight().getStartDate()) + "        ");
-            topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
-
-            topCellTextRight = new JLabel(
-                    res.getFlight().getPlane().getID());
-
-            //Then the bottom part.
+            //Fill the Bottom part of the cell with reservation information and lay it out.
             bottomCellTextLeft = new JLabel(res.getBookedPersons().size() + " people");
-
-            bottomCellTextMiddle = new JLabel( 
-                    res.getFlight().getStartAirport().getID() + " > "
-                    + res.getFlight().getEndAirport().getID());
+            
+            bottomCellTextMiddle = new JLabel( "Departure date: " 
+                    + Converter.convertDateToString(res.getFlight().getStartDate()) 
+                    + " at " + Converter.convertDateToHourString(res.getFlight().getStartDate()) 
+                    + "");
             bottomCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
 
             bottomCellTextRight = new JLabel(
                     res.getPrice() + "0 DKK");
+            
+            //Then the top part.
+            topCellTextLeft = new JLabel(res.getCPR());
+            
+            topCellTextMiddle = new JLabel(
+                    res.getFlight().getStartAirport().getCity() 
+                    + "("+res.getFlight().getStartAirport().getID()+") > "
+                    + res.getFlight().getEndAirport().getCity() 
+                    + "("+res.getFlight().getEndAirport().getID()
+                    +")                   ");
+            topCellTextMiddle.setHorizontalAlignment(JLabel.CENTER);
+            
+            topCellTextRight = new JLabel(
+                    res.getFlight().getPlane().getID());
+
 
             //Add all of the information to the top and bottom aprt of the cell.
             topCellContent.add(topCellTextLeft, BorderLayout.LINE_START);
@@ -121,14 +128,14 @@ public class ReservationList extends JList {
                 topCellContent.setBackground(Color.WHITE);
                 bottomCellContent.setBackground(Color.WHITE);
             } else {
-                topCellContent.setBackground(new Color(160, 160, 160));
-                bottomCellContent.setBackground(new Color(160, 160, 160));
+                topCellContent.setBackground(new Color(247, 247, 247));
+                bottomCellContent.setBackground(new Color(247, 247, 247));
             }
 
             //Color the selected cell, and set is as the currently selected.
             if (isSelected) {
-                topCellContent.setBackground(new Color(100, 100, 100));
-                bottomCellContent.setBackground(new Color(100, 100, 100));
+                topCellContent.setBackground(new Color(160, 160, 160));
+                bottomCellContent.setBackground(new Color(160, 160, 160));
                 selectedReservation = res;
             }
 
