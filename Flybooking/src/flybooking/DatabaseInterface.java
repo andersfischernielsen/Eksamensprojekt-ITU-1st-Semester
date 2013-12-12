@@ -76,7 +76,8 @@ public interface DatabaseInterface
      *
      * @return an ArrayList of reservation Objects.
      */
-    ArrayList<ReservationInterface> getReservationList(String reservationID, String CPR);
+    ArrayList<ReservationInterface> getReservationList(String reservationID,
+                                                              String CPR, Date startDate, Date endDate, String startDestination, String endDestination);
 
     /**
      * Save a given reservation to the database by calling the insertSeat

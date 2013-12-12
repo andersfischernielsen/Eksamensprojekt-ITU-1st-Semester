@@ -368,24 +368,25 @@ public class Database implements DatabaseInterface
 
     @Override
     public ArrayList<ReservationInterface> getReservationList(String reservationID,
-                                                              String CPR)
+                                                              String CPR, Date startDate, Date endDate, String startDestination, String endDestination)
     {
         //Create a new empty ArrayList of reservations to avoid nullpointers.
         ArrayList<ReservationInterface> reservations = new ArrayList<>();
         ResultSet rsReservation = null;
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String startDestination = null; // få denne fra parameter
-        String endDestination = null; // få denne fra parameter
-        Date startDate = null; // få denne fra parameter
-        Date endDate = null; // få denne fra parameter
-        String startDateString = df.format(startDate);
-        String endDateString = df.format(endDate);
+        String startDateString = null;
+        String endDateString = null;
+        if (startDate != null && endDate != null)
+        {
+            startDateString = df.format(startDate);
+            endDateString = df.format(endDate);
+        }
 
         try
         {
-            String queryForReservation = null;
-            String queryForFlight = null;
+            String queryForReservation;
+            String queryForFlight;
             ResultSet rsFlight = null;
 
             queryForFlight = "SELECT ID FROM Flight WHERE ";
@@ -432,7 +433,7 @@ public class Database implements DatabaseInterface
         {
             if (connectToDatabase())
             {
-                getReservationList(reservationID, CPR);
+                getReservationList(reservationID, CPR, startDate, endDate, startDestination, endDestination);
             }
             else
             {
@@ -498,7 +499,7 @@ public class Database implements DatabaseInterface
         }
         //Return the reservation
         return reservations;
-        
+
         /*
          //If the reservationsID given is null or an empty String, 
          // don't search for it. Search for CPR instead.
