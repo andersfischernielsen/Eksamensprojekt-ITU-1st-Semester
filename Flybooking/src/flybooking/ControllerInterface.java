@@ -137,4 +137,12 @@ public interface ControllerInterface
      * @return A list of flights matching the specified parameters.
      */
     public ArrayList<FlightInterface> getFlightList(Date chosenDate, String chosenStartDestination, String chosenEndDestination);
+
+    /**
+     * Checks if the database has any ID mathcing the IDToCheck.
+     * @param IDToCheck the ID to check for in the database.
+     * @return boolean wether it is taken or not.
+     */
+    public boolean CheckIDInDataBase(int IDToCheck);
+    
 }

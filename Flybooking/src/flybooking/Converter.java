@@ -14,6 +14,8 @@ public class Converter
 {
 
     private static Random randomGen = new Random();
+    private static ControllerInterface controller = Controller.getInstance();
+    
 
     /**
      * Convert the final price for a reservation.
@@ -140,7 +142,7 @@ public class Converter
         {
             int personID = randomGen.nextInt(99999);
             
-            if (Database.getInstance().checkForID(personID))
+            if (personID > 9999 && controller.CheckIDInDataBase(personID))
             {
                 return personID;
             }
@@ -158,7 +160,7 @@ public class Converter
         while (true)
         {
             int reservationID = randomGen.nextInt(9999);
-            if (Database.getInstance().checkForID(reservationID))
+            if (reservationID > 999 && controller.CheckIDInDataBase(reservationID))
             {
                 return reservationID + "";
             }

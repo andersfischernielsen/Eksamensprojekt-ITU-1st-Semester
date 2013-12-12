@@ -326,6 +326,7 @@ public class GraphicsComponent
                             seatIDsThisRes.add(Plane.SeatIDGenerator(mouseCol, mouseRow));
                         }
                     }
+                    // seat is taken
                 }
             }
 

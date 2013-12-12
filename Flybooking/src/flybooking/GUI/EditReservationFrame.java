@@ -22,7 +22,6 @@ public class EditReservationFrame extends JFrame {
     private JTextField resField, CPRField;
     private static EditReservationFrame instance = null;
     private ControllerInterface controller;
-    private DatabaseInterface database;
     private ReservationList reservationList;
     private ArrayList<ReservationInterface> searchResults;
     private JScrollPane scrollpane;
@@ -49,7 +48,6 @@ public class EditReservationFrame extends JFrame {
     private EditReservationFrame(ControllerInterface controller)
             throws HeadlessException
     {
-        database = Database.getInstance();
         this.controller = controller;
         setTitle("Edit Booking");
 

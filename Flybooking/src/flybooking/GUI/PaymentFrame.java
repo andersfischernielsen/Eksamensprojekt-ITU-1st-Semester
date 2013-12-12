@@ -17,7 +17,6 @@ import net.miginfocom.swing.MigLayout;
 public class PaymentFrame extends JFrame {
 
     private ControllerInterface controller;
-    private DatabaseInterface database;
     private ReservationInterface currentReservation;
     private ArrayList<Person> peopleInReservation;
     private JLabel peopleLabel, CPRLabel;
@@ -31,7 +30,6 @@ public class PaymentFrame extends JFrame {
 
     public PaymentFrame()
     {
-        database = Database.getInstance();
         controller = Controller.getInstance();
         currentReservation = controller.getWorkingOnReservation();
         peopleInReservation = currentReservation.getPersons();
