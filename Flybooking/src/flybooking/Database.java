@@ -44,7 +44,8 @@ public class Database implements DatabaseInterface
         }
         catch (SQLException e)
         {
-            showMessageDialog(null, "Couldn't connect to the database!");
+            showMessageDialog(null, "Couldn't connect to the database! " 
+                    + "Check your connection and restart the program.");
             return false;
         }
     }
@@ -68,6 +69,7 @@ public class Database implements DatabaseInterface
         }
         catch (CommunicationsException e1)
         {
+            // if the system looses connection to the database try to reconnect.
             if (connectToDatabase())
             {
                 getPlane(PlaneID);
@@ -104,6 +106,7 @@ public class Database implements DatabaseInterface
         }
         catch (CommunicationsException e1)
         {
+            // if the system looses connection to the database try to reconnect.
             if (connectToDatabase())
             {
                 getAirport(AirportCityID);
@@ -147,6 +150,7 @@ public class Database implements DatabaseInterface
         }
         catch (CommunicationsException e1)
         {
+            // if the system looses connection to the database try to reconnect.
             if (connectToDatabase())
             {
                 getAirportID(AirportCityName);
@@ -184,6 +188,7 @@ public class Database implements DatabaseInterface
         }
         catch (CommunicationsException e1)
         {
+            // if the system looses connection to the database try to reconnect.
             if (connectToDatabase())
             {
                 getPerson(PersonID);
@@ -224,6 +229,7 @@ public class Database implements DatabaseInterface
         }
         catch (CommunicationsException e1)
         {
+            // if the system looses connection to the database try to reconnect.
             if (connectToDatabase())
             {
                 insertPerson(person, ReservationID);
@@ -254,6 +260,7 @@ public class Database implements DatabaseInterface
             statement.executeUpdate("INSERT INTO Seat (SeatID, ReservationID) "
                     + "VALUES ( '" + seatID + "' , '" + ReservationID + "')");
         }
+        // if the system looses connection to the database try to reconnect.
         catch (CommunicationsException e1)
         {
             if (connectToDatabase())
@@ -300,6 +307,7 @@ public class Database implements DatabaseInterface
         }
         catch (CommunicationsException connectionError)
         {
+            // if the system looses connection to the database try to reconnect.
             if (connectToDatabase())
             {
                 getFlight(flightID);
@@ -324,31 +332,41 @@ public class Database implements DatabaseInterface
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<FlightInterface> flights = new ArrayList<>();
         ResultSet rs = null;
-        String queryForFlight;
+        String queryForFlight; // the string that needs to be executed
         String startDateString = null;
         String endDateString = null;
-        if (startDate != null)
+        if (startDate != null && endDate != null)
         {
+            // If the dates are nut nulls, make the DateStrings like them
             startDateString = df.format(startDate);
             endDateString = df.format(endDate);
         }
         try
         {
             Statement statement = con.createStatement();
+            // make the start of the string to execute
             queryForFlight = "SELECT ID FROM Flight WHERE ";
             if (startDestination != null && !startDestination.equals(""))
             {
-                queryForFlight += "startAirport = '" + getAirportID(startDestination) + "' AND ";
+                // if the user has selected a start airport, make the database
+                // search for it.
+                queryForFlight += "startAirport = '" 
+                        + getAirportID(startDestination) + "' AND ";
             }
             if (endDestination != null && !endDestination.equals(""))
             {
-                queryForFlight += "endAirport = '" + getAirportID(endDestination) + "' AND ";
+                // if the user has selected an end airport, make the database
+                // search for it.
+                queryForFlight += "endAirport = '" 
+                        + getAirportID(endDestination) + "' AND ";
             }
             if (startDateString != null && !startDateString.equals("")
                     && endDateString != null && !endDateString.equals(""))
             {
+               // if the user has written a start and endDate
                 if (startDate.getTime() < endDate.getTime())
                 {
+                    // If the user has 
                     queryForFlight += "startDate BETWEEN '"
                             + startDateString + "' AND '"
                             + endDateString + "' AND ";
@@ -367,6 +385,7 @@ public class Database implements DatabaseInterface
         }
         catch (CommunicationsException connectionError)
         {
+            // if the system looses connection to the database try to reconnect.
             if (connectToDatabase())
             {
                 getFlightList(startDate, endDate, startDestination, endDestination);
@@ -391,7 +410,7 @@ public class Database implements DatabaseInterface
     {
         //Create a new empty ArrayList of reservations to avoid nullpointers.
         ArrayList<ReservationInterface> reservations = new ArrayList<>();
-        ResultSet rsReservation = null;
+        ResultSet rsReservation;
         ResultSet rsFlight = null;
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -683,6 +702,7 @@ public class Database implements DatabaseInterface
                         + "'");
                 if (matchingIDs.next())
                 {
+                    // If a reservation with that ID exists return false.
                     return false;
                 }
             }
@@ -707,12 +727,14 @@ public class Database implements DatabaseInterface
         {
             try
             {
+                // select data from People table with a specific ID
                 ResultSet matchingIDs = null;
                 Statement statement = con.createStatement();
                 matchingIDs = statement.executeQuery("SELECT * FROM People "
                         + "WHERE " + ID + " IN(ID)");
                 if (matchingIDs.next())
                 {
+                    // if some data exists with that ID return false
                     return false;
                 }
             }
