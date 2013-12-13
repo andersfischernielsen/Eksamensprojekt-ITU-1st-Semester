@@ -98,32 +98,37 @@ public class NewReservationFrame extends JFrame {
                 "0 [] 260 [] 0",
                 "0 [] 0  [] 5 [] 0 [] 32 [] 5"));
 
-        //Create all of the components.
+        //Create all of the textfields.
         startDateField = new JTextField("dd/mm-yyyy");
         endDateField = new JTextField("dd/mm-yyyy");
         
+        //Create and fill the ComboBoxes.
         startDestDropdown = new JComboBox();
         fillComboBox(drawDestinations(), startDestDropdown);
         endDestDropdown = new JComboBox();
         fillComboBox(drawDestinations(), endDestDropdown);
-        startDateLabel = new JLabel(" Departure date:");
-        endDateLabel = new JLabel(" Arrival date:");
+        
+        //Create all of the labels.
+        startDateLabel = new JLabel(" Start date:");
+        endDateLabel = new JLabel(" End date:");
         startLabel = new JLabel(" Start destination:");
         endLabel = new JLabel(" End destination:");
+        
+        //Create all of the buttons.
         searchButton = new JButton("Search");
         doneButton = new JButton("Book Flight");
         doneButton.setMinimumSize(new Dimension(133, 20));
         doneButton.setEnabled(false);
-        endDateField.setForeground(Color.LIGHT_GRAY);
-        startDateField.setForeground(Color.LIGHT_GRAY);
-
-        //Set the sizes and indexes of specific components.
+        
+        //Set the sizes, colors and indexes of specific components.
         searchButton.setMinimumSize(new Dimension(130, 20));
         searchButton.setDefaultCapable(true);
         startDestDropdown.setMaximumSize(new Dimension(130, 25));
         endDestDropdown.setMaximumSize(new Dimension(130, 25));
         startDateField.setColumns(10);
         endDateField.setColumns(10);
+        endDateField.setForeground(Color.LIGHT_GRAY);
+        startDateField.setForeground(Color.LIGHT_GRAY);
 
         //Add the components so they show up in the right places.
         topContent.add(startDateLabel);
@@ -194,7 +199,7 @@ public class NewReservationFrame extends JFrame {
      */
     private void addActionListeners()
     {
-        //Add an ActionListener that runs a search when the button is clicked.
+        //Add an ActionListener to search when the search button is clicked.
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -208,6 +213,7 @@ public class NewReservationFrame extends JFrame {
         });
 
         doneButton.addActionListener(new ActionListener() {
+            //Send the data to the next window if the done-button is pressed.
             @Override
             public void actionPerformed(ActionEvent e)
             {
@@ -216,7 +222,8 @@ public class NewReservationFrame extends JFrame {
         });
 
         startDateField.addFocusListener(new FocusListener() {
-
+            //Set the selection and color of the text field to give the user
+            //hints about input.
             @Override
             public void focusGained(FocusEvent e)
             {
@@ -237,7 +244,8 @@ public class NewReservationFrame extends JFrame {
         });
         
         endDateField.addFocusListener(new FocusListener() {
-
+            //Set the selection and color of the text field to give the user
+            //hints about input.
             @Override
             public void focusGained(FocusEvent e)
             {
@@ -258,7 +266,8 @@ public class NewReservationFrame extends JFrame {
         });
 
         flightList.addMouseListener(new MouseListener() {
-
+            //Check for doubleclick on the flightlist to be able to double-
+            //click a flight.
             @Override
             public void mouseClicked(MouseEvent e)
             {
@@ -304,6 +313,7 @@ public class NewReservationFrame extends JFrame {
                                                         String startDestination,
                                                         String endDestination)
     {
+        //If the user hasn't selected a start or end date, search for null.
         if (startDestination.equals("None")) {
             startDestination = null;
         }
@@ -312,6 +322,7 @@ public class NewReservationFrame extends JFrame {
             endDestination = null;
         }
         
+        //Same as above with the start and end date text fields.
         if (startDateField.getText().equals("dd/mm-yyyy")) {
             startDate = null;
         } 
@@ -333,10 +344,12 @@ public class NewReservationFrame extends JFrame {
      */
     private void sendOnData()
     {
+        //Create a new reservation, and fill the info we know about so far.
         ReservationInterface reservation = new Reservation();
         reservation.setReservationDate(new Date());
         reservation.setFlight(flightList.getSelectedFlight());
 
+        //Then send the data to the controller, and create the next window.
         if (reservation.getFlight().getPlane() != null) {
             controller.setWorkingOnReservation(reservation);
             setVisible(false);
