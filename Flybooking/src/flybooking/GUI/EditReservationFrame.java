@@ -35,6 +35,8 @@ public class EditReservationFrame extends JFrame {
         }
 
         instance.setVisible(true);
+        // if the window has been opened before, empty the old reservationList.
+        instance.reservationList.setListData(new Object[0]);
         return instance;
     }
 
