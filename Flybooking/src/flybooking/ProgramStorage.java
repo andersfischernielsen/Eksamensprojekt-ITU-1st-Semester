@@ -20,7 +20,7 @@ public class ProgramStorage implements DatabaseInterface {
     ArrayList<String> takenSeatsList = new ArrayList<>();
     private static ProgramStorage instance = null;
 
-    public static ProgramStorage getInstance()throws SQLException
+    public static ProgramStorage getInstance() throws SQLException
     {
         if (instance == null) {
             instance = new ProgramStorage();
