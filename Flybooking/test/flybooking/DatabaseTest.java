@@ -95,36 +95,17 @@ public class DatabaseTest
     }
 
     /**
-     * Test of getPerson method, of class Database.
-     */
-    @Test
-    public void testGetPerson()
-    {
-        System.out.println("getPerson");
-        int PersonID = 63766;
-        Database instance = Database.getInstance();
-        Person expResult = new Person("Anders", "Wind", PersonID, "", 0);
-        Person result = instance.getPerson(PersonID);
-        
-        assertEquals(expResult.getFirstName(), result.getFirstName());
-        assertEquals(expResult.getLastName(), result.getLastName());
-        assertEquals(expResult.getID(), result.getID());
-        assertEquals(expResult.getAdress(), result.getAdress());
-        assertEquals(expResult.getGroupID(), result.getGroupID());
-    }
-
-    /**
      * Test of insertPerson method, of class Database.
      */
     @Test
     public void testInsertPerson()
     {
         System.out.println("insertPerson");
-        Person expResult = new Person("Tester Fornavn", "Tester Efternavn", 1234567890, "Testervej", 0);
-        String ReservationID = "0987654321";
+        Person expResult = new Person("Tester Fornavn", "Tester Efternavn", 123456, "Testervej", 0);
+        String ReservationID = "testResID";
         Database instance = Database.getInstance();
         instance.insertPerson(expResult, ReservationID);
-        Person result = instance.getPerson(1234567890);
+        Person result = instance.getPerson(123456);
         
         assertEquals(expResult.getFirstName(), result.getFirstName());
         assertEquals(expResult.getLastName(), result.getLastName());
@@ -133,18 +114,6 @@ public class DatabaseTest
         assertEquals(expResult.getGroupID(), result.getGroupID());
     }
 
-    /**
-     * Test of insertSeat method, of class Database.
-     */
-    @Test
-    public void testInsertSeat()
-    {
-        System.out.println("insertSeat");
-        String seatID = "A21";
-        String ReservationID = "0987654321";
-        Database instance = Database.getInstance();
-        instance.insertSeat(seatID, ReservationID);
-    }
 
     /**
      * Test of getFlight method, of class Database.
@@ -153,13 +122,20 @@ public class DatabaseTest
     public void testGetFlight()
     {
         System.out.println("getFlight");
-        int flightID = 0;
-        Database instance = null;
-        FlightInterface expResult = null;
+        int flightID = 512;
+        String planeID = "Y45658";
+        Database instance = Database.getInstance();
         FlightInterface result = instance.getFlight(flightID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(10000.0, result.getPrice(), 0.1);
+        assertEquals(flightID, result.getID());
+        assertEquals("CPH", result.getStartAirport().getID());
+        assertEquals("Copenhagen", result.getStartAirport().getCity());
+        assertEquals("Denmark", result.getStartAirport().getCountry());
+        assertEquals("MOW", result.getEndAirport().getID());
+        assertEquals("Moscow", result.getEndAirport().getCity());
+        assertEquals("Russia", result.getEndAirport().getCountry());
+        assertEquals("Y45658", result.getPlane().getID());
+        // could also test endDate and startDate.
     }
 
     /**
@@ -169,15 +145,53 @@ public class DatabaseTest
     public void testGetFlightList()
     {
         System.out.println("getFlightList");
-        Date departureDate = new Date();
-        String startDestination = " Copenhagen";
-        String endDestination = "Los Angeles";
-        Database instance = null;
-        ArrayList<FlightInterface> expResult = null;
-        //ArrayList<FlightInterface> result = instance.getFlightList(departureDate, startDestination, endDestination);
-        //assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Database instance = Database.getInstance();
+        Date startDate = null;
+        Date endDate = null;
+        String startDestination = "Washington, D.C.";
+        String endDestination = "Copenhagen";
+        
+        // tests for the correct flights if the user hasen't entered anything
+        // it is known that only 1 flight exists with this demand
+        ArrayList<FlightInterface> result = instance.getFlightList(startDate, endDate, startDestination, endDestination);
+        assertEquals(9937, result.get(0).getID());
+        assertEquals(3000, result.get(0).getPrice(), 0.1);
+        assertEquals("W29472", result.get(0).getPlane().getID());
+        assertEquals("IAD", result.get(0).getStartAirport().getID());
+        assertEquals("Washington, D.C.", result.get(0).getStartAirport().getCity());
+        assertEquals("USA", result.get(0).getStartAirport().getCountry());
+        assertEquals("CPH", result.get(0).getEndAirport().getID());
+        assertEquals("Copenhagen", result.get(0).getEndAirport().getCity());
+        assertEquals("Denmark", result.get(0).getEndAirport().getCountry());
+        
+        startDestination = "Tokyo";
+        endDestination = null;
+        // tests for flights from Tokyo
+        // it is known that only 1 flight exists with this demand
+        result = instance.getFlightList(startDate, endDate, startDestination, endDestination);
+        assertEquals(20, result.get(0).getID());
+        assertEquals(3800, result.get(0).getPrice(), 0.1);
+        assertEquals("S12947", result.get(0).getPlane().getID());
+        assertEquals("HND", result.get(0).getStartAirport().getID());
+        assertEquals("Tokyo", result.get(0).getStartAirport().getCity());
+        assertEquals("Japan", result.get(0).getStartAirport().getCountry());
+        assertEquals("IST", result.get(0).getEndAirport().getID());
+        assertEquals("Istanbul", result.get(0).getEndAirport().getCity());
+        assertEquals("Turkey", result.get(0).getEndAirport().getCountry());
+        
+        startDestination = "Tokyo";
+        endDestination = "Tokyo";
+        // tests for flights from Tokyo to Tokyo
+        // it is known that no flights exists with this demand
+        result = instance.getFlightList(startDate, endDate, startDestination, endDestination);
+        assertEquals(0, result.size());
+        
+        startDestination = "Tokyo";
+        endDestination = "Tokyo";
+        // tests for flights from Tokyo to Tokyo
+        // it is known that no flights exists with this demand
+        result = instance.getFlightList(startDate, endDate, startDestination, endDestination);
+        assertEquals(0, result.size());
     }
 
     /**
@@ -187,44 +201,86 @@ public class DatabaseTest
     public void testGetReservationList()
     {
         System.out.println("getReservationList");
-        String reservationID = "";
-        String CPR = "";
-        Database instance = null;
-        ArrayList<ReservationInterface> expResult = null;
-        //ArrayList<ReservationInterface> result = instance.getReservationList(reservationID, CPR);
-       // assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Database instance = Database.getInstance();
+        ArrayList<ReservationInterface> result;
+        String reservationID = null;
+        String CPR = null;
+        Date startDate = null;
+        Date endDate = null;
+        String startDestination = "Tokyo";
+        String endDestination = "Tokyo";
+        // tests if the given data results in 0 reservations
+        result = instance.getReservationList(reservationID, CPR, 
+                startDate, endDate, startDestination, endDestination);
+        assertEquals(1, result.size());
 
-    /**
-     * Test of newReservation method, of class Database.
-     */
-    @Test
-    public void testNewReservation()
-    {
-        System.out.println("newReservation");
-        ReservationInterface reservationToMake = null;
-        Database instance = null;
-        boolean expResult = false;
-        boolean result = instance.newReservation(reservationToMake);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        reservationID = "8092";
+        CPR = null;
+        startDate = new Date();
+        endDate = new Date();
+        startDestination = null;
+        endDestination = null;
+        // tests if the given data returns the correct reservation
+        result = instance.getReservationList(reservationID, CPR, 
+                startDate, endDate, startDestination, endDestination);
+        assertEquals(1, result.size());
+        assertEquals(4000, result.get(0).getPrice(),0.1);
+        assertEquals("1234567890", result.get(0).getCPR());
+        assertEquals(45787, result.get(0).getFlight().getID());
+        assertEquals("RØN", result.get(0).getFlight().getStartAirport().getID());
+        assertEquals("TOM", result.get(0).getFlight().getEndAirport().getID());
+        
+        reservationID = null;
+        CPR = "1234567890";
+        startDate = new Date();
+        endDate = new Date();
+        startDestination = null;
+        endDestination = null;
+                result = instance.getReservationList(reservationID, CPR, 
+                startDate, endDate, startDestination, endDestination);
+        assertEquals(1, result.size());
+        assertEquals(4000, result.get(0).getPrice(),0.1);
+        assertEquals("1234567890", result.get(0).getCPR());
+        assertEquals(45787, result.get(0).getFlight().getID());
+        assertEquals("RØN", result.get(0).getFlight().getStartAirport().getID());
+        assertEquals("TOM", result.get(0).getFlight().getEndAirport().getID());
+        
+        // There are 21 different combinations of search cases so not all are 
+        // tested here, but all are possible
     }
 
     /**
      * Test of removeReservation method, of class Database.
      */
     @Test
-    public void testRemoveReservation()
+    public void testInsertGetAndRemoveReservation()
     {
         System.out.println("removeReservation");
-        String reservationID = "";
-        Database instance = null;
+        Database instance = Database.getInstance();
+        String reservationID = "testResID";
+        // create a reservation that has an ID reservationID
+        ReservationInterface resTest = new Reservation();
+        resTest.setID(reservationID);
+        resTest.setCPR("1234567890");
+        resTest.setFlight((Flight)instance.getFlight(512));
+        resTest.bookSeats(new ArrayList<String>());
+        resTest.bookPersons(new ArrayList<Person>());
+        // insert it into the database
+        instance.newReservation(resTest);
+        
+        // check that the database has one entry with that reservation ID
+        ArrayList<ReservationInterface> resTestList 
+                = instance.getReservationList(reservationID,
+                null, null, null, null, null);
+        assertEquals(1, resTestList.size());
+        // remove that reservation using that reservationID
         instance.removeReservation(reservationID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // check that the database now has 0 entries with that reservationID
+        resTestList = instance.getReservationList(reservationID,
+                null, null, null, null, null);
+        assertEquals(0, resTestList.size());
+        // the reservationIs now created and removed from the database.
+        
     }
 
     /**
@@ -234,27 +290,12 @@ public class DatabaseTest
     public void testGetAirportCitiesAsStrings()
     {
         System.out.println("getAirportCitiesAsStrings");
-        Database instance = null;
-        ArrayList<String> expResult = null;
+        Database instance = Database.getInstance();
         ArrayList<String> result = instance.getAirportCitiesAsStrings();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // tests that the ArrayList includes the right amount of cities.
+        assertEquals(16, result.size());
     }
 
-    /**
-     * Test of getInstance method, of class Database.
-     */
-    @Test
-    public void testGetInstance()
-    {
-        System.out.println("getInstance");
-        Database expResult = null;
-        Database result = Database.getInstance();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of checkForID method, of class Database.
@@ -263,61 +304,12 @@ public class DatabaseTest
     public void testCheckForID()
     {
         System.out.println("checkForID");
-        int ID = 0;
-        Database instance = null;
+        int ID = 92779;
+        Database instance = Database.getInstance();
         boolean expResult = false;
         boolean result = instance.checkForID(ID);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of getAllBookedSeats method, of class Database.
-     */
-    @Test
-    public void testGetAllBookedSeats()
-    {
-        System.out.println("getAllBookedSeats");
-        int flightID = 0;
-        Database instance = null;
-        ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getAllBookedSeats(flightID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getBookedSeatsOnReservation method, of class Database.
-     */
-    @Test
-    public void testGetBookedSeatsOnReservation()
-    {
-        System.out.println("getBookedSeatsOnReservation");
-        String reservationID = "";
-        Database instance = null;
-        ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getBookedSeatsOnReservation(reservationID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getBookedPersons method, of class Database.
-     */
-    @Test
-    public void testGetBookedPersons()
-    {
-        System.out.println("getBookedPersons");
-        String reservationID = "";
-        Database instance = null;
-        ArrayList<Person> expResult = null;
-        ArrayList<Person> result = instance.getBookedPersons(reservationID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
