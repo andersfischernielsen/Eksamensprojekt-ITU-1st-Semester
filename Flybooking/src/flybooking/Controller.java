@@ -85,8 +85,8 @@ public class Controller implements ControllerInterface {
     @Override
     public String[] getDestinationsAsStrings()
     {
-        String[] destinations = new String[getNumberOfDestinations()];
         ArrayList<String> strings = database.getAirportCitiesAsStrings();
+        String[] destinations = new String[getNumberOfDestinations()];
 
         for (int i = 0; i < destinations.length; i++) {
             destinations[i] = strings.get(i);
