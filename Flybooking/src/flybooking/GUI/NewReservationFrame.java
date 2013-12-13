@@ -29,9 +29,7 @@ public class NewReservationFrame extends JFrame {
 
     //All of the search variables in the interface.
     private ArrayList<FlightInterface> searchResults;
-    private Date chosenDate;
-    private String chosenStartDestination;
-    private String chosenEndDestination;
+
 
     /**
      * Create a frame for finding and creating reservations.
@@ -103,6 +101,7 @@ public class NewReservationFrame extends JFrame {
         //Create all of the components.
         startDateField = new JTextField("dd/mm-yyyy");
         endDateField = new JTextField("dd/mm-yyyy");
+        
         startDestDropdown = new JComboBox();
         fillComboBox(drawDestinations(), startDestDropdown);
         endDestDropdown = new JComboBox();
@@ -115,6 +114,8 @@ public class NewReservationFrame extends JFrame {
         doneButton = new JButton("Book Flight");
         doneButton.setMinimumSize(new Dimension(133, 20));
         doneButton.setEnabled(false);
+        endDateField.setForeground(Color.LIGHT_GRAY);
+        startDateField.setForeground(Color.LIGHT_GRAY);
 
         //Set the sizes and indexes of specific components.
         searchButton.setMinimumSize(new Dimension(130, 20));
@@ -193,30 +194,16 @@ public class NewReservationFrame extends JFrame {
      */
     private void addActionListeners()
     {
-        //Adds an ActionListener that changes chosenStartDestination to the value chosen when clicked.
-        startDestDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                JComboBox cb = (JComboBox) e.getSource();
-                //Creates a temporary Airport and get it's ID. Assigns this to chosenStartDest.
-                chosenStartDestination = (String) cb.getSelectedItem();
-            }
-        });
-
-        //Same as above.
-        endDestDropdown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                JComboBox cb = (JComboBox) e.getSource();
-                chosenEndDestination = (String) cb.getSelectedItem();
-            }
-        });
-
         //Add an ActionListener that runs a search when the button is clicked.
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                performSearch(Converter.convertStringToDate(startDateField.getText()), Converter.convertStringToDate(startDateField.getText()), (String) startDestDropdown.getSelectedItem(), (String) startDestDropdown.getSelectedItem());
+                performSearch(Converter.convertStringToDate(
+                                                      startDateField.getText()), 
+                              Converter.convertStringToDate(
+                                                      endDateField.getText()), 
+                              (String) startDestDropdown.getSelectedItem(), 
+                              (String) endDestDropdown.getSelectedItem());
             }
         });
 
@@ -333,7 +320,7 @@ public class NewReservationFrame extends JFrame {
             endDate = null;
         } 
 
-        searchResults = controller.getFlightList(startDate, endDate, chosenStartDestination, chosenEndDestination);
+        searchResults = controller.getFlightList(startDate, endDate, startDestination, endDestination);
 
         flightList.setListData(searchResults.toArray());
     }
