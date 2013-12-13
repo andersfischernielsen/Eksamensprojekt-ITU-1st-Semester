@@ -29,6 +29,10 @@ public class Database implements DatabaseInterface
 
     }
 
+    /**
+     * Connect to the given database. 
+     * @return true if the connection was successful, false if not. 
+     */
     private boolean connectToDatabase()
     {
         try
@@ -45,7 +49,7 @@ public class Database implements DatabaseInterface
         }
     }
 
-    // ------------------Simple objects --------
+    // ------------------Simple objects -------------------- //
     @Override
     public Plane getPlane(String PlaneID)
     {
@@ -119,7 +123,7 @@ public class Database implements DatabaseInterface
 
     /**
      * Returns the Airports ID/code if the user only knows the name of the city.
-     * It does so by going through all the aiports where their airportCity is
+     * It does so by going through all the airports where their airportCity is
      * equal to AirportCityName in the database.
      *
      * @param AirportCityName the Airport's city name to find the code for
@@ -267,7 +271,7 @@ public class Database implements DatabaseInterface
         }
     }
 
-    // ----------- advanced objects --------------
+    // ----------- advanced objects -------------- //
     @Override
     public FlightInterface getFlight(int flightID)
     {
