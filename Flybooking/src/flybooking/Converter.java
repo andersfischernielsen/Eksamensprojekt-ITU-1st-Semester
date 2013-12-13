@@ -18,10 +18,16 @@ public class Converter
     
 
     /**
-     * Convert the final price for a reservation.
+     * Convert the final price for a reservation. A first class seat is 1.5 times
+     * more expensive than a normal seat, a business class seat is 1.2 times more
+     * expensive. 
+     * 
+     * Seniors get a 10% discount, kids get a 20% discount.
      *
      * @param flightPrice The price of the flight
      * @param persons The persons in the reservation. 
+     * @param seatsGroupID  A list of integers, that signifies which type of 
+     *                      person is sitting in that seat.
      *
      * @return The sum of the two numbers.
      */
