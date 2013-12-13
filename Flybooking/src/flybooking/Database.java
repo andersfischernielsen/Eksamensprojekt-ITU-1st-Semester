@@ -681,7 +681,7 @@ public class Database implements DatabaseInterface
     }
 
     /**
-     * A signleton method used to make sure not two Database objects is created
+     * A singleton method used to make sure not two Database objects is created
      *
      * @return a new Database object if none exist or returns the already
      *         existing database.

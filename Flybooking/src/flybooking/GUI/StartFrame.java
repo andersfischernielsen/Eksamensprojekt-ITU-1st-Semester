@@ -11,9 +11,11 @@ import net.miginfocom.swing.*;
 
 /**
  * Create the first frame in the booking system.
+ *
  * @author Anders Wind Steffensen, Chris Forup & Anders Fischer-Nielsen
  */
 public class StartFrame extends JFrame {
+
     Container content;
     Container empty;
     Container innerCont;
@@ -29,8 +31,9 @@ public class StartFrame extends JFrame {
     }
 
     /**
-     * Initialize the controller and database, draw the frame and add 
+     * Initialize the controller and database, draw the frame and add
      * ActionListeners.
+     *
      * @throws HeadlessException If the frame is initialized on a computer with
      * no keyboard, monitor or mouse.
      */
@@ -39,11 +42,11 @@ public class StartFrame extends JFrame {
         controller = Controller.getInstance();
         drawFrame();
         addActionListeners();
-
-    }
+    }   
 
     /**
      * Get the singleton instance of the frame.
+     *
      * @return The instance of the frame.
      */
     public static StartFrame getInstance()
@@ -101,6 +104,7 @@ public class StartFrame extends JFrame {
             {
                 //Create a new empty reservation in the controller.
                 controller.createReservation();
+                
                 //Initialize the NewReservationFrame.
                 NewReservationFrame.getInstance();
             }
