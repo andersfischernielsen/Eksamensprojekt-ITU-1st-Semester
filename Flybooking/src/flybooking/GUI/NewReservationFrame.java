@@ -334,13 +334,14 @@ public class NewReservationFrame extends JFrame {
         searchResults = controller.getFlightList(startDate, endDate, startDestination, endDestination);
 
         flightList.setListData(searchResults.toArray());
+        
+        //Make the doneButton inactive to avoid user confusion. 
+        doneButton.setEnabled(false);
     }
 
     /**
      * Send the data to the controller, and open the next window in the booking
      * work flow.
-     *
-     * @throws ParseException
      */
     private void sendOnData()
     {
