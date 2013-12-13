@@ -25,7 +25,11 @@ public class Database implements DatabaseInterface
         this.name = name;
         this.login = login;
         this.password = password;
-        connectToDatabase();
+        if (!connectToDatabase())
+        {
+            System.exit(1);
+        }
+        
 
     }
 
@@ -40,12 +44,12 @@ public class Database implements DatabaseInterface
         {
             // make a connection to the database.
             con = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk:3306/"
-                    + name + "?autoReconnect=true", login, password);
+                    + name, login, password);
             return true;
         } catch (SQLException e)
         {
             showMessageDialog(null, "Couldn't connect to the database! "
-                    + "Check your connection and restart the program.");
+                    + "\nCheck your connection and restart the program.");
             return false;
         }
     }
