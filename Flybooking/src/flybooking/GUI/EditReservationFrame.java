@@ -50,7 +50,7 @@ public class EditReservationFrame extends JFrame {
             throws HeadlessException
     {
         this.controller = controller;
-        setTitle("Edit Booking");
+        setTitle("Edit Reservation");
 
         searchResults = new ArrayList<>();
         content = getContentPane();
