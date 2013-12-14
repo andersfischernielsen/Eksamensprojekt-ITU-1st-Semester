@@ -29,7 +29,7 @@ public class Database implements DatabaseInterface
         {
             System.exit(1);
         }
-        
+
 
     }
 
@@ -481,22 +481,24 @@ public class Database implements DatabaseInterface
              * 
              */
             queryForReservation += "(";
-            while (rsFlight != null && !rsFlight.isClosed() && rsFlight.next())
+            if (rsFlight != null)
             {
-                // goes through the flight ID resultset if it exists and is not
-                // closed. Add a "search-for-flight" part to the execute string.
-                queryForReservation += "Flight = " + rsFlight.getInt("ID");
-                if (rsFlight.isLast())
+                while (!rsFlight.isClosed() && rsFlight.next())
                 {
-                    // if the position in thhe resultset is the last add a And
-                    queryForReservation += " AND ";
+                    // goes through the flight ID resultset if it exists and is not
+                    // closed. Add a "search-for-flight" part to the execute string.
+                    queryForReservation += "Flight = " + rsFlight.getInt("ID");
+                    if (rsFlight.isLast())
+                    {
+                        // if the position in thhe resultset is the last add a And
+                        queryForReservation += " AND ";
+                    }
+                    else
+                    {
+                        // otherwise add an OR
+                        queryForReservation += " OR ";
+                    }
                 }
-                else
-                {
-                    // otherwise add an OR
-                    queryForReservation += " OR ";
-                }
-
             }
             // end the execute string with a statement every reservation can keep
             queryForReservation += "ID != '0');";
