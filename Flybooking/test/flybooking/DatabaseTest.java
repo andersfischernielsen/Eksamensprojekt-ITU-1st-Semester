@@ -214,7 +214,7 @@ public class DatabaseTest
                 startDate, endDate, startDestination, endDestination);
         assertEquals(1, result.size());
 
-        reservationID = "8092";
+        reservationID = "6500";
         CPR = null;
         startDate = new Date();
         endDate = new Date();
@@ -224,7 +224,7 @@ public class DatabaseTest
         result = instance.getReservationList(reservationID, CPR, 
                 startDate, endDate, startDestination, endDestination);
         assertEquals(1, result.size());
-        assertEquals(4000, result.get(0).getPrice(),0.1);
+        assertEquals(4800, result.get(0).getPrice(),0.1);
         assertEquals("1234567890", result.get(0).getCPR());
         assertEquals(45787, result.get(0).getFlight().getID());
         assertEquals("RØN", result.get(0).getFlight().getStartAirport().getID());
@@ -239,7 +239,7 @@ public class DatabaseTest
                 result = instance.getReservationList(reservationID, CPR, 
                 startDate, endDate, startDestination, endDestination);
         assertEquals(1, result.size());
-        assertEquals(4000, result.get(0).getPrice(),0.1);
+        assertEquals(4800, result.get(0).getPrice(),0.1);
         assertEquals("1234567890", result.get(0).getCPR());
         assertEquals(45787, result.get(0).getFlight().getID());
         assertEquals("RØN", result.get(0).getFlight().getStartAirport().getID());

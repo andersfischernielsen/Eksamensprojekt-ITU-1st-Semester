@@ -50,8 +50,10 @@ public class PlaneTest {
     @Test
     public void testSeatIDGenerator()
     {
-        System.out.println("SeatIDGenerator");
+        System.out.println("SeatIDGenerator  - tests if the method generates "
+                + "correct seatIDs");
         
+        // tests the lowest value for col and row
         int col = 0;
         int row = 0;
         
@@ -59,6 +61,12 @@ public class PlaneTest {
         String result = Plane.SeatIDGenerator(col, row);
         
         assertEquals(expResult, result);
+        col = 21;
+        row = 6;
+        
+        // tests the highest value for row, and a larger col value.
+        expResult = "20F";
+        result = Plane.SeatIDGenerator(col, row);
     }
 
     /**
@@ -86,7 +94,7 @@ public class PlaneTest {
         System.out.println("getNumberOfSeats");
         Plane instance = new Plane("AAC", 4, 20);
         
-        int expResult = 80;
+        int expResult = 80; // rows times columns
         int result = instance.getNumberOfSeats();
         
         assertEquals(expResult, result);
@@ -128,7 +136,8 @@ public class PlaneTest {
     @Test
     public void testGetSeat()
     {
-        System.out.println("getSeat");
+        System.out.println("getSeat - tests if the returned seat's ID matches "
+                + "the wanted");
         String seatID = "1A";
         Plane instance = new Plane("AAC", 4, 20);
         
@@ -167,6 +176,7 @@ public class PlaneTest {
         
         instance.setSeatAvailability(seatID);
         
+        // also tests that getSeatAvailability can return false if it is.
         assertFalse(instance.getSeatAvailability(seatID));
     }
 
@@ -181,7 +191,7 @@ public class PlaneTest {
         
         seatIDs.add("1A");
         
-        Plane instance = new Plane("AAC", 4, 20);;
+        Plane instance = new Plane("AAC", 4, 20);
         instance.bookTakenSeats(seatIDs);
         
         assertFalse(instance.getSeatAvailability("1A"));

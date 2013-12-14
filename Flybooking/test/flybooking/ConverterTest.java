@@ -51,7 +51,8 @@ public class ConverterTest {
     @Test
     public void testGetFinalPrice()
     {
-        System.out.println("getFinalPrice");
+        System.out.println("getFinalPrice - tests all age groups and seat "
+                + "classes");
         double flightPrice = 10.0;
         ArrayList<Person> persons = new ArrayList<>();
         
