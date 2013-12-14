@@ -12,7 +12,7 @@ import net.miginfocom.swing.MigLayout;
 /**
  * Create a frame for showing the information in the reservation, 
  * and confirm the booking.
- * @author Anders Wind Steffensen, Chris Forup & Anders Fischer-Nielsen
+ * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class PaymentFrame extends JFrame {
 

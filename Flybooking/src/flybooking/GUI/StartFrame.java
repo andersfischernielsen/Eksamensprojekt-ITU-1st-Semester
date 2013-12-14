@@ -12,7 +12,7 @@ import net.miginfocom.swing.*;
 /**
  * Create the first frame in the booking system.
  *
- * @author Anders Wind Steffensen, Chris Forup & Anders Fischer-Nielsen
+ * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class StartFrame extends JFrame {
 
