@@ -6,7 +6,6 @@ import java.util.*;
 import javax.swing.*;
 import flybooking.*;
 import java.awt.event.*;
-import java.text.ParseException;
 import net.miginfocom.swing.MigLayout;
 
 /**
