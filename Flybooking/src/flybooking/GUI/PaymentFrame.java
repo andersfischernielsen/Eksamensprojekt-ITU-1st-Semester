@@ -104,7 +104,7 @@ public class PaymentFrame extends JFrame {
                 //If the CPRField is empty and the button is pressed:
                 if (CPRField.getText().equals("")) {
                     //Change the text to:
-                    CPRField.setText("CPR missing");
+                    CPRField.setText("CPR missing!");
                     //And make the background red to make the user notice this.
                     CPRField.setBackground(Color.RED);
                 } 

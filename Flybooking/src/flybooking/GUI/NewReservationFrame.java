@@ -11,7 +11,7 @@ import net.miginfocom.swing.MigLayout;
 /**
  * Create a frame for finding and creating reservations
  *
- * @author Anders Fischer-Nielsen
+ * @author Anders Wind Steffensen, Christoffer Forup & Anders Fischer-Nielsen
  */
 public class NewReservationFrame extends JFrame {
 
