@@ -1,13 +1,13 @@
-Eksamensprojekt - GPP på ITU
-===============
-
-Flybookingssystem
----------------
+Eksamensprojekt - Flybooking
+=================
 
 ![First screen](README/1.png)
 
+Flybookingssystem - GPP
+-----------------
+
 ##Mål:
-Dette er det færdige resultat af vores tre uger lange eksamensprojekt i første semester på IT Universitetet i København. 
+Dette er det færdige resultat af vores tre uger lange eksamensprojekt efter første semester på IT Universitetet i København. 
 
 Målet med projektet var at udarbejde et program, hvor formålet var at styre flyreservationer for et mindre flyselskab. 
 
