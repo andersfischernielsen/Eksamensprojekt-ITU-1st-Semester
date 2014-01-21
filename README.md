@@ -4,7 +4,7 @@ Eksamensprojekt - GPP på ITU
 Flybookingssystem
 ---------------
 
-![First screen](/README - images/1.png “First screen“)
+![First screen](Eksamensprojekt/README - images/1.png “First screen“)
 
 ##Mål:
 Dette er det færdige resultat af vores tre uger lange eksamensprojekt i første semester på IT Universitetet i København. 
