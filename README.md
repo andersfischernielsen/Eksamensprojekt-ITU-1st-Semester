@@ -4,13 +4,28 @@ Eksamensprojekt - GPP på ITU
 Flybookingssystem
 ---------------
 
+![First screen](/README - images/1.png “First screen“)
 
 ##Mål:
-Projektets mål er at udvikle et softwaresystem, som skal holde styr på fly reservationer for et mindre flyselskab.
+Dette er det færdige resultat af vores tre uger lange eksamensprojekt i første semester på IT Universitetet i København. 
+
+Målet med projektet var at udarbejde et program, hvor formålet var at styre flyreservationer for et mindre flyselskab. 
+
 Flyselskabet har forskellige flytyper og flyafgange (destinationer og tidspunkter).
-Det er meningen at det udviklede system skal anvendes af en ansat hos flyselskabet og skal kun betjenes af en ansat ad gangen. Kunder kan ringe til flyselskabet og foretage reservationer, men det er ikke muligt at reservere over internettet.
-Systemet skal tillade brugeren at oprette reservationer, at rette i disse samt at give overblik over reservationer i en bestemt periode, pa ̊ bestemte afgange eller pa ̊ bestemte ruter /destinationer.
+Det var meningen, at det udviklede system skulle anvendes af en ansat hos flyselskabet og kun betjenes af én ansat ad gangen. Kunder kunne ringe til flyselskabet og foretage reservationer, men ikke reservere over internettet.
+Systemet skulle gøre det muligt for brugeren at oprette reservationer, at rette i disse samt at give overblik over reservationer i en bestemt periode, på bestemte afgange eller på bestemte ruter /destinationer.
+
+Programmet henter tilgængelige afgange fra en MySQL-database og viser disse i en brugergrænseflade, der gør brugeren i stand til at finde afgange, reservere sæder og booke samt redigere rejser. Den færdige løsning er udviklet i NetBeans, med en database-backend på ITUs server.
+
 
 ##Udførelse:
-Projektet skrives i Java, og udarbejdes af en gruppe på tre mand. 	
-Projektet skal afleveres senest d. 16. december kl. 14. 
+Et krav for programmet var, at det skulle gemme/hente reservationer fra en database. Dette er gjort med en MySQL-database på ITU’s server. 
+Projektet blev skrevet i Java og (meget lidt) SQL. 
+Gruppen bag projektet bestod af tre studerende. 
+
+
+###Screenshots:
+
+![New Reservation](/README - images/2.png “New Reservation“)
+
+![Edit Passengers](/README - images/3.png “Edit Passengers“)
