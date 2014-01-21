@@ -1,12 +1,9 @@
-Eksamensprojekt - Flybooking
+Eksamensprojekt - GPP @ ITU
 =================
-
-Første semester - GPP
------------------
 
 ![First screen](README/1.png)
 
-##Mål:
+##Flybooking
 Dette er det færdige resultat af vores tre uger lange eksamensprojekt efter første semester på IT Universitetet i København. 
 
 Målet med projektet var at udarbejde et program, hvor formålet var at styre flyreservationer for et mindre flyselskab. 
@@ -17,14 +14,13 @@ Systemet skulle gøre det muligt for brugeren at oprette reservationer, at rette
 
 Programmet henter tilgængelige afgange fra en MySQL-database og viser disse i en brugergrænseflade, der gør brugeren i stand til at finde afgange, reservere sæder og booke samt redigere rejser. Den færdige løsning er udviklet i NetBeans, med en database-backend på ITUs server.
 
-
-##Udførelse:
+##Udarbejdelse
 Et krav for programmet var, at det skulle gemme/hente reservationer fra en database. Dette er gjort med en MySQL-database på ITU’s server. 
 Projektet blev skrevet i Java og (meget lidt) SQL. 
 Gruppen bag projektet bestod af tre studerende. 
 
 
-###Screenshots:
+##Screenshots
 
 ![New Reservation](README/2.png)
 
