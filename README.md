@@ -4,7 +4,7 @@ Eksamensprojekt - GPP på ITU
 Flybookingssystem
 ---------------
 
-![First screen](https://raw.github.com/andersfischern/Eksamensprojekt/master/README/1.png)
+![First screen](https://raw2.github.com/andersfischern/Eksamensprojekt/master/README/1.png)
 
 ##Mål:
 Dette er det færdige resultat af vores tre uger lange eksamensprojekt i første semester på IT Universitetet i København. 
@@ -26,6 +26,6 @@ Gruppen bag projektet bestod af tre studerende.
 
 ###Screenshots:
 
-![New Reservation](https://raw.github.com/andersfischern/Eksamensprojekt/master/README/2.png)
+![New Reservation](https://raw2.github.com/andersfischern/Eksamensprojekt/master/README/2.png)
 
-![Edit Passengers](https://raw.github.com/andersfischern/Eksamensprojekt/master/README/3.png)
+![Edit Passengers](https://raw2.github.com/andersfischern/Eksamensprojekt/master/README/3.png)
