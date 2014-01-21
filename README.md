@@ -1,10 +1,10 @@
 Eksamensprojekt - Flybooking
 =================
 
-![First screen](README/1.png)
-
-Flybookingssystem - GPP
+Første semester - GPP
 -----------------
+
+![First screen](README/1.png)
 
 ##Mål:
 Dette er det færdige resultat af vores tre uger lange eksamensprojekt efter første semester på IT Universitetet i København. 
